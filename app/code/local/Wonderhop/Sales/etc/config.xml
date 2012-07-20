@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+ 
+<config>
+    <modules>
+        <Wonderhop_Sales>
+            <version>0.1.0</version>
+        </Wonderhop_Sales>
+    </modules>
+    <global>
+       <helpers>
+             <wonderhop_sales>
+                <class>Wonderhop_Sales_Helper</class>
+             </wonderhop_sales>
+        </helpers>
+		<resources>
+			<wonderhop_sales_setup>
+				<setup>
+					<module>Wonderhop_Sales</module>
+					<class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</wonderhop_sales_setup>
+			<wonderhop_sales_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</wonderhop_sales_write>
+			<wonderhop_sales_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</wonderhop_sales_read>
+		</resources>
+		 <blocks>
+            <adminhtml>
+                <rewrite>
+                    <catalog_category_tab_attributes>Wonderhop_Sales_Block_Adminhtml_Catalog_Category_Tab_Attributes</catalog_category_tab_attributes>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <wonderhop_sales before="Mage_Adminhtml">Wonderhop_Sales_Adminhtml</wonderhop_sales>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+	<crontab>
+		<jobs>
+			<wonderhop_sales> 
+				<schedule><cron_expr>* * * * *</cron_expr></schedule>
+				<run><model>wonderhop_sales/cron::executeCron</model></run>
+			</wonderhop_sales> 
+		</jobs>
+	</crontab>
+</config>
+ 
