@@ -6,6 +6,24 @@
             <version>0.1.0</version>
         </Wonderhop_Sales>
     </modules>
+     <frontend>
+        <routers>
+            <wonderhop_sales>
+                <use>standard</use>
+                <args>
+                    <module>Wonderhop_Sales</module>
+                    <frontName>sales</frontName>
+                </args>
+            </wonderhop_sales>
+        </routers> 
+         <layout>
+            <updates>
+                <wonderhop_sales>
+                    <file>wonderhop_sales.xml</file>
+                </wonderhop_sales>
+            </updates>
+        </layout>
+    </frontend>
     <global>
        <helpers>
              <wonderhop_sales>
@@ -39,6 +57,9 @@
                     <catalog_category_tab_attributes>Wonderhop_Sales_Block_Adminhtml_Catalog_Category_Tab_Attributes</catalog_category_tab_attributes>
                 </rewrite>
             </adminhtml>
+            <wonderhop_sales>
+                    <class>Wonderhop_Sales_Block</class>
+            </wonderhop_sales>
         </blocks>
     </global>
     <admin>

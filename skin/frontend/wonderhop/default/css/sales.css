@@ -1,0 +1,66 @@
+ul#cat_sales {
+    float:left;
+    width: 100%;
+}
+
+h2 {
+color: #363636;
+font-size: 40px;
+letter-spacing: -0.05em;
+padding: 13px 15px 0;
+ 
+}
+
+ul#cat_sales li {
+    float: left;
+    list-style: none;
+    height: 400px;
+    width: 400px;
+    margin: 0 0 20px;
+    position: relative;
+}
+
+
+ul#cat_sales li .top_sale_description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 372px;
+    padding: 15px 13px 13px 15px;
+    background: black;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+ul#cat_sales li.odd {
+    float:right;
+}
+
+ul#cat_sales li .top_sale_description h3 {
+    font-size: 18px;
+    color: white;
+    padding-bottom: 3px;
+}
+ul#cat_sales li .sale_small_description {
+    font-size: 14px;
+    font-weight: lighter;
+    color: white;
+}
+
+ul#cat_sales li .sale_ends_in {
+    background: #DD0017;
+    height: 26px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 14px 15px;
+    width: 370px;
+    display:none;
+}
+ul#cat_sales li:hover  .sale_ends_in{
+    display:block;
+}
+ul#cat_sales li .sale_ends_in h3 {
+    font-size: 18px;
+    color: white;
+    padding-bottom: 3px;
+}

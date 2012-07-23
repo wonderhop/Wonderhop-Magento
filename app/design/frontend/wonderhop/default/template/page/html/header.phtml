@@ -36,8 +36,11 @@
         <?php endif?>
         <div class="quick-access">
             <?php echo $this->getChildHtml('topSearch') ?>
-            <p class="welcome-msg"><?php echo $this->getWelcome() ?> <?php echo $this->getAdditionalHtml() ?></p>
+           
             <?php echo $this->getChildHtml('topLinks') ?>
+             <?php if(Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+                  <p class="welcome-msg"><?php echo $this->getWelcome() ?> <?php echo $this->getAdditionalHtml() ?></p>
+            <?php endif; ?>
             <?php echo $this->getChildHtml('store_language') ?>
         </div>
         <?php echo $this->getChildHtml('topContainer'); ?>

@@ -45,6 +45,16 @@ $installer->addAttribute('catalog_category', 'end_date', array(
 	'user_defined' => false,
 ));
 
+$installer->addAttribute('catalog_category', 'sale_description', array(
+	'type'         => 'text',
+	'group'        => 'Sale',
+	'label'        => 'Small sale description',
+	'input'        => 'text',
+	'visible'      => true,
+	'required'     => false,
+	'user_defined' => false,
+));
+
  
 $installer->addAttributeToGroup(
 	$entity_type_id,
