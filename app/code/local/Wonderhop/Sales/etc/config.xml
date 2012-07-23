@@ -60,6 +60,9 @@
             <wonderhop_sales>
                     <class>Wonderhop_Sales_Block</class>
             </wonderhop_sales>
+            <wonderhop_login>
+                    <class>Wonderhop_Sales_Block_Login_Login</class>
+            </wonderhop_login>
         </blocks>
     </global>
     <admin>
