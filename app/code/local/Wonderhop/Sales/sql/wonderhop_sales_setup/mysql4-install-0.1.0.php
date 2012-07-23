@@ -53,6 +53,33 @@ $installer->addAttribute('catalog_category', 'sale_description', array(
 	'visible'      => true,
 	'required'     => false,
 	'user_defined' => false,
+	'global'       => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE,
+));
+
+$installer->addAttribute('catalog_category', 'extra_image_first', array(
+	'type'         => 'varchar',
+	'group'        => 'Sale',
+	'label'        => 'Additional Sale Image 1',
+	'frontend_input' => 'image',
+	'input'        => 'image',
+	'visible'      => true,
+	'required'     => false,
+	'user_defined' => false,
+	'backend'      =>'catalog/category_attribute_backend_image',
+	'global'       => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE
+));
+
+$installer->addAttribute('catalog_category', 'extra_image_second', array(
+	'type'         => 'varchar',
+	'group'        => 'Sale',
+	'label'        => 'Additional Sale Image 2',
+	'frontend_input' => 'image',
+	'input'        => 'image',
+	'visible'      => true,
+	'required'     => false,
+	'user_defined' => false,
+	'backend'      =>'catalog/category_attribute_backend_image',
+	'global'       => Mage_Catalog_Model_Resource_Eav_Attribute::SCOPE_STORE
 ));
 
  

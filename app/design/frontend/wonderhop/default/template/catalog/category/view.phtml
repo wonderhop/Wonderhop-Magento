@@ -35,9 +35,20 @@
     $_helper    = $this->helper('catalog/output');
     $_category  = $this->getCurrentCategory();
     $_imgHtml   = '';
+    $_additionalImg = '';
+    $_additionalImg2 = '';
     if ($_imgUrl = $_category->getImageUrl()) {
-        $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></p>';
+        $_imgHtml = '<div class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></div>';
         $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+    
+    if ($_imgUrl = $_category->getExtraImageFirst()) {
+        $_additionalImg = '<div class="category-image_additional_first"><img src="' . Mage::getBaseUrl ( 'media' ) . DS . "catalog" . DS . "category" . DS .$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></div>';
+        $_additionalImg = $_helper->categoryAttribute($_category, $_additionalImg, 'image');
+    }
+    if ($_imgUrl = $_category->getExtraImageSecond()) {
+        $_additionalImg2 = '<div class="category-image_additional_first"><img src="' . Mage::getBaseUrl ( 'media' ) . DS . "catalog" . DS . "category" . DS .$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></div>';
+        $_additionalImg2 = $_helper->categoryAttribute($_category, $_additionalImg2, 'image');
     }
 ?>
 <div class="page-title category-title">
@@ -45,14 +56,22 @@
         <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
     <?php endif; ?>
     <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+    <h2>Sale ends in <?php echo  Wonderhop_Sales_Helper_Data::getCountDown($_category); ?></h2>
 </div>
 
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="product_images">
+    <?php if($_imgUrl): ?>
+        <?php echo $_imgHtml ?>
+    <?php endif; ?>
 
-<?php if($_imgUrl): ?>
-    <?php echo $_imgHtml ?>
-<?php endif; ?>
-
+    <?php if($_additionalImg): ?>
+        <?php echo $_additionalImg ?>
+    <?php endif; ?>
+    <?php if($_additionalImg2): ?>
+        <?php echo $_additionalImg2 ?>
+    <?php endif; ?>
+</div>
 <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
     <div class="category-description std">
         <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
