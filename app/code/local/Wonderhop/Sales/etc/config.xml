@@ -8,15 +8,15 @@
     </modules>
      <frontend>
         <routers>
-            <wonderhop_sales>
-                <use>standard</use>
-                <args>
-                    <module>Wonderhop_Sales</module>
-                    <frontName>sales</frontName>
-                </args>
-            </wonderhop_sales>
+           <sales>
+				<args>
+                    <modules>
+					   <wonderhop_sales before="Mage_Sales">Wonderhop_Sales</wonderhop_sales>
+				    </modules>
+				</args>
+		    </sales>
         </routers> 
-         <layout>
+        <layout>
             <updates>
                 <wonderhop_sales>
                     <file>wonderhop_sales.xml</file>

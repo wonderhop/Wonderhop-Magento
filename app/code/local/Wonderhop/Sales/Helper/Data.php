@@ -19,11 +19,12 @@
       
       // OUTPUT
       $countdown = '';
+       
       if ($days_left) {
-        $countdown .= "$days_left days ";
+        $countdown .=  $days_left > 1 ? "$days_left days " : "$days_left day ";
       }
       
-      $countdown .= $hours_left." hours ".$minutes_left." minutes";
+      $countdown .= $hours_left." hours ";
       return $countdown;
     }
 }
