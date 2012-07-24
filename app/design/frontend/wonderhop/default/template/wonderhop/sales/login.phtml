@@ -1,13 +1,151 @@
-<div class="popup_login" style="display:none">
-    <div class="">
+<div class="popup_register" style="display:none;">
+    
         <p>Treat takes you on a daily shopping <br /> 
         journey through fun and creative products <br /> to inspire your home, family and more!</p>
         <p align="center">Join Now</p>
-        Your Email Address
-        <input type="text" name="email" />
-        <button type="submit">Become a member</button>
-        <div class="already_member">
-            Already a member? <a href="#" id="login_class">Log In</a>
-        </div>
-    </div>
+        <form onSubmit="return false;" action="" method="post" id="register-form1">
+            <div class="content">
+                <ul class="form-list">
+                        <li>
+                            <label for="email"><?php echo $this->__('Your Email Address') ?> <span class="required">*</span></label> 
+                            <input name="register[email]" value="" title="<?php echo $this->__('Your Email Address') ?>" id="email" type="email" class="input-text required-entry validate-duplicate validate-email" style="width:122px;" />
+                        </li>
+                        
+                    </ul>
+                   
+              </div>
+            <div class="actions">
+                <button class="button" onclick="register1Form.submit()" type="submit" name="register" id="become_member"><span><?php echo $this->__('Become a member') ?></span></button>
+            </div>
+            <div class="already_member">
+                Already a member? <a href="#" id="login_link">Log In</a>
+            </div>
+    </form> 
+    <script type="text/javascript">
+        var register1Form = new VarienForm('register-form1', true);
+        Validation.add('validate-duplicate','Email has already registered',function(the_field_value){
+            var validated = 0;
+            jQuery.ajax({
+				    url: '/sales/index/mailchecker',
+				    data: {'email' : jQuery('#email').val()},
+				    dataType: 'json',
+				    type: 'POST',
+				    async: false,
+				    success: function(data, text, request) {
+					    if (data == 'OK') {
+						   validated = 1;
+					    }
+				    }
+		    });
+            return validated;
+        });
+
+        register1Form.submit = function () {
+             if(register1Form.validator.validate()) {
+                jQuery('#registration_email').val(jQuery('#email').val());
+                buildBlock('.popup_register_2'); 
+             }
+             return false; 
+        } 
+    </script>
+ 
 </div>
+
+<div class="popup_register_2"  style="display:none;">
+ 
+    <form action="/customer/account/createpost" method="post" id="register-form">
+     <input name="email" type="hidden"  id="registration_email" />
+     <input name="lastname" type="hidden" value="-"/>
+     <input name="confirmation" type="hidden" id="passconf" value=""/>
+        <h2>You're almost there!</h2>
+        <div class="content">
+            <ul class="form-list">
+                    
+                    <li>
+                        <label for="name"><?php echo $this->__('Your first name') ?> <span class="required">*</span></label> 
+                        <input name="firstname" value="" title="<?php echo $this->__('First Name') ?>" id="first_name" type="text" class="input-text required-entry" style="width:122px;" />
+                    </li>
+                    <li>
+                        <label for="pass"><?php echo $this->__('Create a Password') ?> <span class="required">*</span></label> 
+                        <input name="password" type="password" class="input-text required-entry validate-password" id="pass" style="width:122px;" />
+                    </li>
+                     <li>
+                    <input type="checkbox" name="terms_agreement" class=" required-entry" />  <label for="terms">  I agree to the Sites's Terms os Use Policy<span class="required">*</span> </label>
+                    </li>
+                </ul>          
+          </div>
+        <div class="actions">
+            <button class="button" onclick="registerForm.submit()" type="submit" name="register" id="register2"><span><?php echo $this->__('Enter the site') ?></span></button>
+        </div>
+    </form>
+    <script type="text/javascript">
+        var registerForm = new VarienForm('register-form', true);
+        registerForm.submit = function () {
+            jQuery('#passconf').val(jQuery('#pass').val());
+        }
+    </script>
+     
+</div>
+<script type="text/javascript">var url = ''; </script>
+<div class="popup_login"  style="display:none;">
+<div class="box base-mini mini-login-form">
+    <div class="head">
+        <h4><?php echo $this->__('Welcome back!') ?></h4>
+    </div>
+    <form onSubmit="return false;" action="" method="post" id="login-form">
+       
+        <div class="content">
+            <ul class="form-list">
+                    <li>
+                        <label for="email"><?php echo $this->__('Email Address') ?> <span class="required">*</span></label> 
+                        <input name="login[username]" type="email" value="" title="<?php echo $this->__('Email Address') ?>" id="login_email" type="text" class="input-text required-entry" style="width:122px;" />
+                    </li>
+                    <li>
+                        <label for="pass"><?php echo $this->__('Password') ?> <span class="required">*</span></label> 
+                        <input name="login[password]" type="password" class="input-text required-entry validate-password" id="login_pass" style="width:122px;" />
+                    </li>
+                    <li>
+                          <input name="conf" type="hidden" class="validate-email-password"/>
+                    </li>
+                </ul>
+          
+          </div>
+         
+    <div class="actions">
+        <button class="button" onClick="loginForm.submit();" type="submit" name="send" id="send2"><span><?php echo $this->__('Login') ?></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+    var loginForm = new VarienForm('login-form', true);
+     Validation.add('validate-email-password','Email or password incorrect',function(the_field_value){
+        var validated = 0;
+
+        jQuery.ajax({
+			    url: '/sales/index/loginpost',
+			    data: jQuery('#login-form').serialize(),
+			    dataType: 'json',
+			    type: 'POST',
+			    async: false,
+			    success: function(data, text, request) {
+				    if (data != 'ERR') {
+				       window.location = data;
+				       validated = 1;
+					   url = data;
+					   
+				    }
+			    }
+	    });
+	 
+        return validated;
+    });
+    
+    
+    loginForm.submit = function () {
+
+        
+        return false; 
+    }
+</script>
+</div>
+</div>
+      
