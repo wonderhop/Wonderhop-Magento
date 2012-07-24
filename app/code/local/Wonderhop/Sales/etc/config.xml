@@ -15,6 +15,13 @@
 				    </modules>
 				</args>
 		    </sales>
+		    <customer>
+				<args>
+					<modules>
+						<wonderhop_customer_sales before="Mage_Customer">Wonderhop_Sales</wonderhop_customer_sales>
+					</modules>
+				</args>
+			</customer>
         </routers> 
         <layout>
             <updates>
