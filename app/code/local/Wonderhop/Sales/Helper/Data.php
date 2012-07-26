@@ -9,8 +9,10 @@
       
       // make a unix timestamp for the given date
       $the_countdown_date = mktime($hour, $minute, 0, $month, $day, $year, -1);
+      
       // get current unix timestamp
-      $today = time();
+      $today = Mage::getModel('core/date')->timestamp(time());
+     
       $difference = $the_countdown_date - $today;
       if ($difference < 0) $difference = 0;
       $days_left = floor($difference/60/60/24);
@@ -23,8 +25,11 @@
       if ($days_left) {
         $countdown .=  $days_left > 1 ? "$days_left days " : "$days_left day ";
       }
-      
-      $countdown .= $hours_left." hours ";
+      if ($hours_left == 0) {
+        $countdown .= $minutes_left." minutes ";
+      } else {
+        $countdown .= $hours_left." hours ";
+      }
       return $countdown;
     }
 }

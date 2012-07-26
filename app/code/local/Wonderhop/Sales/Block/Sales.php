@@ -64,7 +64,11 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
 					 
 	    
 	    if ($to) {
-	        $categories->addAttributeToFilter('end_date', array($interval['to_op'] => $to));
+	        $categories->addAttributeToFilter('end_date', array(array($interval['to_op'] => $to)));
+	        if (isset($interval['end'])) {
+	            $categories->addAttributeToFilter('end_date', array('lteq' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time()))));
+	        }
+ 
 	    }
 	    
 	    return $categories;
@@ -75,12 +79,10 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
      */
     
     public function getSaleSections() {
-        
-        
-        
-        return array('New Sales'          => array('from' => date("y-m-d"), 'from_op' => 'gteq', 'to' => date("y-m-d 23:59:59"), 'to_op' => 'gt' ), 
-                     'Other Sales'        => array('from' => date("y-m-d"), 'from_op' => 'lt', 'to' => date("y-m-d 23:59:59"), 'to_op' => 'gt'), 
-                     'Sales About To End' => array('to' => date("y-m-d 23:59:59"), 'to_op' => 'lteq'));
+ 
+        return array('New Sales'          => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'gteq', 'to' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gt' ), 
+                     'Other Sales'        => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'lt', 'to' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gt'), 
+                     'Sales About To End' => array('to' => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gteq', 'end' => 1));
     }
 
     /**
