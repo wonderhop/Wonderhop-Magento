@@ -1,0 +1,51 @@
+<?php 
+    $days = $this->getCalendarSales(); 
+?>
+ 
+<div class="calendar">
+	<div class="adds-container">
+	
+
+        <?php foreach($days as $heading => $sales) : ?>
+         <div class="calendar_sale"><h2><?php echo $heading; ?></h2>
+            <ul>
+            <?php foreach($sales as $sale): ?>
+                <li>
+                    <?php if($sale->getThumbnail()): ?>
+                       <div class="calendar_image">
+                            <a href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
+                             <img alt="<?php echo $sale->getName(); ?>" src="<?php echo $this->getResizedImage($sale, 100, 100);  ?>" />
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                      <div class="calendar_content">
+                           <h2> <a href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>"><?php print $sale->getName(); ?> </a></h2>
+                            <div class="sale_small_description"> <?php print $sale->getSaleDescription(); ?></div>
+                         </span>
+                      </div>
+                 </li>  
+              
+            <?php endforeach; ?>
+            </ul>
+          </div>
+        <?php endforeach; ?>
+ 
+  
+	</div>
+	<a href="#" class="prev"><img src="/skin/frontend/wonderhop/default/images/arrow-prev.png" width="24" height="43" alt="Arrow Prev"></a>
+	 <a href="#" class="next"><img src="/skin/frontend/wonderhop/default/images/arrow-next.png" width="24" height="43" alt="Arrow Next"></a>
+</div>
+<script>
+	jQuery(function(){
+		jQuery(".calendar").slides({
+	        pagination: false,
+	         generatePagination: false,
+			container: 'adds-container',
+			preloadImage: 'img/loading.gif',
+			play: 5000,
+			pause: 2500,
+			hoverPause: true,
+			 
+		});
+	});
+</script>

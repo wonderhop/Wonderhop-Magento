@@ -2,8 +2,15 @@
     
     public function indexAction() {
 		$this->loadLayout(array('default'));
+		 
+	    if( $this->getRequest()->isPost() && $this->getRequest()->getParam('email')) {
+	        $email = $this->getRequest()->getParam('email');
+		    $block = $this->getLayout()->getBlock('wonderhop.login');
+            $block->setData('email', $email);
+        }
 		$this->renderLayout();
     }
+
     
     
     public function mailcheckerAction()

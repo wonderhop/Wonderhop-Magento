@@ -1811,3 +1811,42 @@ margin-right: 4px;}
 .product_images .category-image_additional_first img {
     width:150px;
 }
+
+.slides_control {
+    height: 600px !important;
+}
+
+
+.calendar {width: 300px; margin: auto;text-align: center; position:relative;}
+.calendar .prev{
+    position:absolute;
+    top: -9px;
+    left: -55px;
+}
+
+.calendar_sale,
+.adds-container {
+   width: 320px;
+}
+.calendar .next {
+    position:absolute;
+    top: -9px;
+    right: -64px;
+}
+
+.calendar_sale ul li {
+    width: 100%;
+    margin-bottom:  15px;
+    float: left;
+}
+.calendar_sale ul {
+    margin-top: 40px;
+}
+.calendar_image {
+    float:left;
+    width: 30%;
+}
+.calendar_content {
+    float:right;
+    width: 70%;
+}

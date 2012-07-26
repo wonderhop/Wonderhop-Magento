@@ -25,9 +25,12 @@ function buildBlock(element) {
         });
 }
 jQuery(document).ready(function() { 
-     buildBlock('.popup_register'); 
-     
-      
+     if (jQuery('.popup_register').length) {
+        buildBlock('.popup_register'); 
+     } else {
+        buildBlock('.popup_register_2');
+     }
+    
      jQuery('#login_link').click(function(){
          buildBlock('.popup_login'); 
      }); 

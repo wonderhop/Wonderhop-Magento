@@ -1,14 +1,23 @@
+ <?php  
+    $is_sales = 0;
+    
+    if( Mage::app()->getFrontController()->getRequest()->getRouteName() == 'sales') {
+        $is_sales = 1;
+     }
+           
+ ?>
+<?php if(!$this->email): ?>
 <div class="popup_register" style="display:none;">
     
         <p>Treat takes you on a daily shopping <br /> 
         journey through fun and creative products <br /> to inspire your home, family and more!</p>
         <p align="center">Join Now</p>
-        <form onSubmit="return false;" action="" method="post" id="register-form1">
+        <form <?php if($is_sales): ?>onSubmit="return false;"<?php endif; ?> action="/sales" method="post" id="register-form1">
             <div class="content">
                 <ul class="form-list">
                         <li>
                             <label for="email"><?php echo $this->__('Your Email Address') ?> <span class="required">*</span></label> 
-                            <input name="register[email]" value="" title="<?php echo $this->__('Your Email Address') ?>" id="email" type="email" class="input-text required-entry validate-duplicate validate-email" style="width:122px;" />
+                            <input name="email" title="<?php echo $this->__('Your Email Address') ?>" id="email" type="email" class="input-text required-entry validate-duplicate validate-email" style="width:122px;" />
                         </li>
                         
                     </ul>
@@ -43,18 +52,22 @@
         register1Form.submit = function () {
              if(register1Form.validator.validate()) {
                 jQuery('#registration_email').val(jQuery('#email').val());
-                buildBlock('.popup_register_2'); 
+                <?php if($is_sales): ?>
+                    buildBlock('.popup_register_2');
+                <?php else: ?>
+                    return true; 
+                <?php endif; ?>
              }
              return false; 
         } 
     </script>
  
 </div>
-
+<?php endif; ?>
 <div class="popup_register_2"  style="display:none;">
  
     <form action="/customer/account/createpost" method="post" id="register-form">
-     <input name="email" type="hidden"  id="registration_email" />
+     <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?>  id="registration_email" />
      <input name="lastname" type="hidden" value="-"/>
      <input name="confirmation" type="hidden" id="passconf" value=""/>
         <h2>You're almost there!</h2>

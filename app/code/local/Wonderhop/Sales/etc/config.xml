@@ -8,6 +8,13 @@
     </modules>
      <frontend>
         <routers>
+           <calendar>
+                <use>standard</use>
+                <args>
+                    <module>Wonderhop_Sales</module>
+                    <frontName>calendar</frontName>
+                </args>
+           </calendar>
            <sales>
 				<args>
                     <modules>

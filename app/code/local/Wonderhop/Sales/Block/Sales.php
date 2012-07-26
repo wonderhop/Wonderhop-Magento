@@ -13,6 +13,28 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
     }
     
     
+    public function getCalendarSales() {
+         $categories = Mage::getModel('catalog/category')
+					->getCollection()
+					->addAttributeToSelect('*')
+					->addIsActiveFilter()
+					->addFieldToFilter('level', 3)
+					->addOrderField('start_date');
+	     $result = array();
+	    
+	     $locale = Mage::app()->getLocale()->getLocale();
+         $long_format =  Mage::app()->getLocale()->getDateFormat();    
+	     
+	     foreach($categories as $sale) {
+            $iso_date = new Zend_Date($sale->getStartDate(), $long_format, $locale);
+	        $date = sprintf("%s - %s %s", $iso_date->get(Zend_Date::WEEKDAY), $iso_date->get(Zend_Date::MONTH_NAME), $iso_date->get(Zend_Date::DAY));
+ 
+	        $result[$date][] = $sale;
+	     }
+	     
+	     return $result;
+    }
+    
     /**
      * Retrieve the sales/today sales
      *
@@ -51,7 +73,7 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
     /**
      *  Retrives the sale sections headings and category intervals
      */
-     
+    
     public function getSaleSections() {
         
         
