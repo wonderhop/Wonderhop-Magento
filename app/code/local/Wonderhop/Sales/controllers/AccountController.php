@@ -543,7 +543,18 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
         $this->_initLayoutMessages('customer/session');
         $this->renderLayout();
     }
-
+    
+    
+    /**
+     * Retrieve customer session model object
+     *
+     * @return Mage_Customer_Model_Session
+     */
+    protected function _getAjaxSession()
+    {
+        return Mage::getSingleton('ajaxify/session');
+    }
+    
     /**
      * Forgot customer password action
      */
@@ -553,7 +564,7 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
         if ($email) {
             if (!Zend_Validate::is($email, 'EmailAddress')) {
                 $this->_getSession()->setForgottenEmail($email);
-                $this->_getSession()->addError($this->__('Invalid email address.'));
+                $this->_getAjaxSession()->addError($this->__('Invalid email address.'));
                 $this->_redirect('*/*/forgotpassword');
                 return;
             }
@@ -569,17 +580,17 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                     $customer->changeResetPasswordLinkToken($newResetPasswordLinkToken);
                     $customer->sendPasswordResetConfirmationEmail();
                 } catch (Exception $exception) {
-                    $this->_getSession()->addError($exception->getMessage());
+                    $this->_getAjaxSession()->addError($exception->getMessage());
                     $this->_redirect('*/*/forgotpassword');
                     return;
                 }
             }
-            $this->_getSession()
+            $this->_getAjaxSession()
                 ->addSuccess(Mage::helper('customer')->__('If there is an account associated with %s you will receive an email with a link to reset your password.', Mage::helper('customer')->htmlEscape($email)));
             $this->_redirect('*/*/');
             return;
         } else {
-            $this->_getSession()->addError($this->__('Please enter your email.'));
+            $this->_getAjaxSession()->addError($this->__('Please enter your email.'));
             $this->_redirect('*/*/forgotpassword');
             return;
         }

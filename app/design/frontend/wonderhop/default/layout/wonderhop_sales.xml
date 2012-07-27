@@ -24,6 +24,9 @@
 			<block type="wonderhop_sales/sales" name="wonderhop_sales" template="wonderhop/calendar.phtml" />
 		</reference> 
 	</calendar_index_index>
+	<customer_account_forgotpasswordpost translate="label">
+	     <update handle="ajaxify_all"/>
+	</customer_account_forgotpasswordpost>
 	<customer_logged_out>
 	    <reference name="head">
 	        <action method="addItem"><type>skin_js</type><name>js/jQuery.js</name></action>
@@ -34,6 +37,7 @@
 	    </reference>
 	    <reference name="footer">
 			<block type="wonderhop_sales/login_login" name="wonderhop.login" as="wonderhop_login" template="wonderhop/sales/login.phtml" />
+			<block type="customer/account_forgotpassword" name="forgotPassword" template="wonderhop/forgotpassword.phtml" />
 		</reference> 
 	</customer_logged_out>
 	<customer_account_create translate="label">

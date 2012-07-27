@@ -34,4 +34,14 @@ jQuery(document).ready(function() {
      jQuery('#login_link').click(function(){
          buildBlock('.popup_login'); 
      }); 
+     
+     jQuery('#forgot_link').click(function(){
+         buildBlock('.forgot_form'); 
+          return false;
+     }); 
+     
+     jQuery('#back_to_login').click(function(){
+         buildBlock('.popup_login'); 
+         return false;
+     }); 
 }); 
