@@ -44,4 +44,9 @@ jQuery(document).ready(function() {
          buildBlock('.popup_login'); 
          return false;
      }); 
+     jQuery('#back_to_register').click(function(){
+          buildBlock('.popup_register'); 
+         return false;
+     }); 
+     
 }); 
