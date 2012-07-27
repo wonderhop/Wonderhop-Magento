@@ -116,7 +116,7 @@ class Wonderhop_Sales_Block_Adminhtml_Catalog_Category_Tab_Attributes  extends M
         /**
           * CUSTOM: remove start date end date for level 1 and 2 
           */
-        if (in_array($this->getCategory()->getLevel(), array(0, 1,2))) {
+        if (in_array($this->getCategory()->getLevel(), array( 1,2))) {
             $fieldset->removeField('start_date');
             $fieldset->removeField('end_date');
          }   
