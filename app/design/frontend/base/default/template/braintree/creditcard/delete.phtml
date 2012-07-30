@@ -1,0 +1,34 @@
+<?php
+$braintree = Mage::getModel('braintree/paymentmethod');
+$token = Mage::app()->getRequest()->getParam('token');
+$creditCard = $this->creditCard();
+
+?>
+
+<h1><?php echo $this->__('Delete Credit Card') ?></h1>
+<b><?php echo $this->__('Please confirm that you want to delete this credit card') ?></b>
+<dl>
+    <dt>
+        Credit Card Number:
+    </dt>
+    <dd>
+        <?php echo $creditCard->maskedNumber ?>
+    </dd>
+    <dt>
+        Expiration Date:
+    </dt>
+    <dd>
+        <?php echo $creditCard->expirationDate ?>
+    </dd>
+    <dt>
+        Cardholder Name:
+    </dt>
+    <dd>
+        <?php echo $creditCard->cardholderName ?>
+    </dd>
+</dl>
+
+<form action="<?php echo Mage::getBaseUrl() ?>braintree/creditcard/deleteconfirm" method="post">
+    <input type="submit" name="delete" value="Delete">
+    <input type="hidden" name="token" value="<?php echo $token ?>">
+</form>

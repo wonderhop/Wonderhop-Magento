@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+  <onestepcheckout_index_index>
+    <reference name="head">
+      <action method="addJs"><file>braintree/braintree-1.1.0.min.js</file></action>
+    </reference>
+  </onestepcheckout_index_index>
+  <checkout_onepage_index>
+    <reference name="head">
+      <action method="addJs"><file>braintree/braintree-1.1.0.min.js</file></action>
+    </reference>
+  </checkout_onepage_index>
+  <checkout_onepage_review>
+    <reference name="checkout.onepage.review.info.items.after">
+      <block type="braintree/form" name="payment.form.braintree" template="braintree/review_js.phtml">
+        <action method="setMethodInfo"></action>
+      </block>
+    </reference>
+  </checkout_onepage_review>
+  <customer_account translate="left">
+    <reference name="customer_account_navigation">
+      <action method="addLink" translate="label" module="customer">
+        <name>credit_card</name>
+        <path>braintree/creditcard/</path>
+        <label>Credit Cards</label>
+      </action>
+    </reference>
+  </customer_account>
+  <braintree_creditcard_index>
+    <reference name="root">
+      <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+      <remove name="tags_popular" />
+    </reference>
+    <reference name="left">
+      <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml" />
+    </reference>
+    <reference name="content">
+      <block type="braintree/creditcard_management" name="braintree_creditcard_management" template="braintree/creditcard/index.phtml" />
+    </reference>
+  </braintree_creditcard_index>
+  <braintree_creditcard_edit>
+    <reference name="root">
+      <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+      <remove name="tags_popular" />
+    </reference>
+    <reference name="left">
+      <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml" />
+    </reference>
+    <reference name="content">
+      <block type="braintree/creditcard_management" name="braintree_creditcard_management" template="braintree/creditcard/edit.phtml" />
+    </reference>
+  </braintree_creditcard_edit>
+  <braintree_creditcard_update>
+    <reference name="root">
+      <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+      <remove name="tags_popular" />
+    </reference>
+    <reference name="left">
+      <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml" />
+    </reference>
+    <reference name="content">
+      <block type="braintree/creditcard_management" name="braintree_creditcard_management" template="braintree/creditcard/edit.phtml" />
+    </reference>
+  </braintree_creditcard_update>
+  <braintree_creditcard_new>
+    <reference name="root">
+      <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+      <remove name="tags_popular" />
+    </reference>
+    <reference name="left">
+      <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml" />
+    </reference>
+    <reference name="content">
+      <block type="braintree/creditcard_management" name="braintree_creditcard_management" template="braintree/creditcard/new.phtml" />
+    </reference>
+  </braintree_creditcard_new>
+  <braintree_creditcard_create>
+    <reference name="root">
+      <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+      <remove name="tags_popular" />
+    </reference>
+    <reference name="left">
+      <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml" />
+    </reference>
+    <reference name="content">
+      <block type="braintree/creditcard_management" name="braintree_creditcard_management" template="braintree/creditcard/new.phtml" />
+    </reference>
+  </braintree_creditcard_create>
+  <braintree_creditcard_delete>
+    <reference name="root">
+      <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+      <remove name="tags_popular" />
+    </reference>
+    <reference name="left">
+      <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml" />
+    </reference>
+    <reference name="content">
+      <block type="braintree/creditcard_management" name="braintree_creditcard_management" template="braintree/creditcard/delete.phtml" />
+    </reference>
+  </braintree_creditcard_delete>
+</layout>
+

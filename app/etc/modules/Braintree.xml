@@ -1,0 +1,11 @@
+<config>
+  <modules>
+    <Braintree>
+      <active>true</active>
+      <codePool>local</codePool>
+      <depends>
+        <Mage_Payment />
+      </depends>
+    </Braintree>
+  </modules>
+</config>

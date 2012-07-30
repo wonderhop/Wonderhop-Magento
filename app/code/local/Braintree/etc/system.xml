@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<config>
+  <sections>
+    <payment>
+      <groups>
+        <braintree translate="label" module="paygate">
+          <label>Braintree</label>
+          <sort_order>670</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>0</show_in_store>
+          <fields>
+            <active translate="label">
+              <label>Enabled</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>1</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>0</show_in_store>
+            </active>
+            <order_status translate="label">
+              <label>New order status</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_order_status_processing</source_model>
+              <sort_order>4</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>0</show_in_store>
+            </order_status>
+            <payment_action translate="label">
+              <label>Payment action</label>
+              <frontend_type>select</frontend_type>
+              <source_model>braintree/source_paymentAction</source_model>
+              <sort_order>4</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>0</show_in_store>
+            </payment_action>
+            <environment translate="label">
+              <label>Environment</label>
+              <frontend_type>select</frontend_type>
+              <source_model>braintree/source_environment</source_model>
+              <sort_order>4</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </environment>
+            <title translate="label">
+              <label>Title</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>2</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>0</show_in_store>
+            </title>
+            <merchant_id translate="label">
+              <label>Merchant ID</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>100</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </merchant_id>
+            <merchant_account_id translate="label">
+              <label>Merchant Account ID</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>100</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </merchant_account_id>
+            <public_key translate="label">
+              <label>Public Key</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>101</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </public_key>
+            <private_key translate="label">
+              <label>Private Key</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>102</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </private_key>
+            <client_side_encryption_key translate="label">
+              <label>Client Side Encryption Key</label>
+              <frontend_type>textarea</frontend_type>
+              <sort_order>103</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </client_side_encryption_key>
+            <cctypes translate="label">
+              <label>Credit Card Types</label>
+              <frontend_type>multiselect</frontend_type>
+              <source_model>braintree/source_cctype</source_model>
+              <sort_order>140</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>0</show_in_store>
+            </cctypes>
+            <use_vault translate="label">
+              <label>Use Vault</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>104</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>0</show_in_website>
+              <show_in_store>0</show_in_store>
+            </use_vault>
+          </fields>
+        </braintree>
+      </groups>
+    </payment>
+  </sections>
+</config>
