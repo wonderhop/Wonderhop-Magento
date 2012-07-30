@@ -1,4 +1,4 @@
-app/etc/local.xml
-var
-downloader
-media
+/app/etc/local.xml
+/var
+/downloader
+/media
