@@ -88,7 +88,7 @@ class Wonderhop_Sales_Block_Adminhtml_Catalog_Category_Tab_Attributes  extends M
              */
             if (in_array($attribute->getAttributeCode(), array('start_date','end_date'))) {
                 $dateFormatIso = "yyyy-MM-dd HH:mm:ss"; //Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-                 error_log($dateFormatIso);
+                  
                 $element = $form->getElement($attribute->getAttributeCode());
                 $element->setTime(true);
                

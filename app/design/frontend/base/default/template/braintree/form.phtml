@@ -42,8 +42,8 @@ $_useVault = $_loggedIn && $_model->useVault() && count($_storedCards);
     <li>
         <label for="<?php echo $_code ?>_cc_number" class="required"><em>*</em><?php echo $this->__('Credit Card Number') ?></label>
         <div class="input-box">
-            <input type="text" id="<?php echo $_code ?>_cc_number" name="payment[cc_number]" data-encrypt="true" title="<?php echo $this->__('Credit Card Number') ?>" class="input-text required-entry validate-cc-number validate-digits" value="" />
-            <input type="hidden" name="payment[cc_number]" class="encrypted-field" />
+            <input type="text" id="<?php echo $_code ?>_cc_number" name="payment[cc_number]" data-encrypt="true" title="<?php echo $this->__('Card Number') ?>" class="input-text required-entry validate-cc-number validate-digits" value="" />
+            <input type="hidden" id="hidden-payment-cc_number" name="payment[cc_number]" class="encrypted-field" />
         </div>
     </li>
     <li>
@@ -74,7 +74,7 @@ $_useVault = $_loggedIn && $_model->useVault() && count($_storedCards);
         <div class="input-box">
             <div class="v-fix">
                 <input type="text" title="<?php echo $this->__('Card Verification Number') ?>" data-encrypt='true' class="input-text cvv required-entry validate-cc-cvn" id="<?php echo $_code ?>_cc_cid" name="payment[cc_cid]" value="" />
-                <input type="hidden" name="payment[cc_cid]" class="encrypted-field" />
+                <input type="hidden" id="hidden-payment-cc_cid" name="payment[cc_cid]" class="encrypted-field" />
             </div>
             <a href="#" class="cvv-what-is-this"><?php echo $this->__('What is this?') ?></a>
         </div>
@@ -185,10 +185,11 @@ else if ($('co-payment-form'))
 }
 
 var braintree = Braintree.create('<?php echo $_model->getConfigData('client_side_encryption_key') ?>');
-document.observe('dom:loaded', function(){
+
     $$('#onestepcheckout-form input[data-encrypt=true]').each(function(element) {
-        element.observe('blur', function() {
-            var partner_element = $$('#onestepcheckout-form input[type=hidden][name='+element.getAttribute('name')+']').first();
+        element.observe('blur', function() { 
+	    var id = element.getAttribute('name'); id = id.replace('[','-'); id = id.replace(']',''); id = 'hidden-' + id; 
+            var partner_element = $(id);
             partner_element.setValue(braintree.encrypt(element.getValue()));
         });
     });
