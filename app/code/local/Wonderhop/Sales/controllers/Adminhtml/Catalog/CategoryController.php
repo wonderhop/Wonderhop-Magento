@@ -99,13 +99,12 @@ class Wonderhop_Sales_Adminhtml_Catalog_CategoryController extends Mage_Adminhtm
                 
                 
                 /* Save the right format into database for start and end sale date */
-                $dateFormatIso = Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-                
-                $new_start_date = new Zend_Date($category->getStartDate(), $dateFormatIso);
-                $new_end_date   = new Zend_Date($category->getEndDate(), $dateFormatIso);
-                
-                $category->setStartDate($new_start_date->toString("YYYY-MM-dd HH:mm:ss"));
-                $category->setEndDate($new_end_date->toString("YYYY-MM-dd HH:mm:ss"));
+ 
+                if ($category->getEndDate() <= $category->getStartDate()) {
+                     Mage::throwException(Mage::helper('catalog')->__('End date must be greater than start date'));
+                }
+                $category->setStartDate($category->getStartDate());
+                $category->setEndDate($category->getEndDate());
                 /* END OF Custom Rewrite */
                 
                 $category->save();

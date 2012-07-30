@@ -87,8 +87,8 @@ class Wonderhop_Sales_Block_Adminhtml_Catalog_Category_Tab_Attributes  extends M
              * CUSTOM: Set time format for start date and end date attributes
              */
             if (in_array($attribute->getAttributeCode(), array('start_date','end_date'))) {
-                $dateFormatIso = Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-                 
+                $dateFormatIso = "yyyy-MM-dd HH:mm:ss"; //Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
+                 error_log($dateFormatIso);
                 $element = $form->getElement($attribute->getAttributeCode());
                 $element->setTime(true);
                
