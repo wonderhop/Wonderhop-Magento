@@ -34,7 +34,7 @@
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
 <?php 
-$categoryIds = $object->getCategoryIds();
+$categoryIds = $_product->getCategoryIds();
 foreach($categoryIds as $categoryId) {
     $category = Mage::getModel('catalog/category')->load($categoryId);
     if ($category->getEndDate() < date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))) {
