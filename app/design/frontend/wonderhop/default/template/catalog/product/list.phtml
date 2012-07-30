@@ -60,7 +60,7 @@
                 <?php if (!$is_future_sale): ?>
                     <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
                 <?php endif; ?>    
-                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="135" height="135" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(235); ?>" width="235" height="235" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
                 <?php if (!$is_future_sale): ?>    
                     </a>
                 <?php endif; ?> 
