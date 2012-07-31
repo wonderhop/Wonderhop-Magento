@@ -1,7 +1,15 @@
 <?php class Wonderhop_Sales_Helper_Data extends Mage_Core_Helper_Abstract {
 	public static function getCountDown($sale){
-      
-      preg_match('/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/', $sale->getEndDate(), $match);
+    
+      $now = date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()));
+      $compare_date = $sale->getEndDate();
+      $is_start = 0;
+      if ($now < $sale->getStartDate()) {
+        $is_start = 1;
+        $compare_date = $sale->getStartDate();
+      }
+
+      preg_match('/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/', $compare_date, $match);
       
       $match = array_slice($match, 1);
       
@@ -12,7 +20,8 @@
       
       // get current unix timestamp
       $today = Mage::getModel('core/date')->timestamp(time());
-     
+        
+       
       $difference = $the_countdown_date - $today;
       if ($difference < 0) $difference = 0;
       $days_left = floor($difference/60/60/24);
@@ -20,8 +29,12 @@
       $minutes_left = floor(($difference - $days_left*60*60*24 - $hours_left*60*60)/60);
       
       // OUTPUT
+      
       $countdown = 'Sales Ends in ';
-       
+      
+      if ($is_start) {
+        $countdown = 'Sale Starts in ';  
+      } 
       if ($days_left) {
         $countdown .=  $days_left > 1 ? "$days_left days " : "$days_left day ";
       }
@@ -30,7 +43,7 @@
       } else {
         $countdown .= $hours_left." hours ";
       }
-      if ($hours_left == 0 && $minutes_left == 0) {
+      if (!$is_start && $hours_left == 0 && $minutes_left == 0) {
         $countdown = 'Sale Ended';
       }
       return $countdown;

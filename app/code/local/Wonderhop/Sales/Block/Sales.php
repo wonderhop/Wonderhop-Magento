@@ -60,16 +60,17 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
 					->addOrderField('start_date');
    	    if ($from) {
 	        $categories->addAttributeToFilter('start_date', array($interval['from_op'] => $from));
-    	    if (isset($interval['start'])) {
+    	    if (isset($interval['today'])) {
                 $categories->addAttributeToFilter('start_date', array('lteq' => "$from 23:59:59"));
-            }       
+                $categories->addAttributeToFilter('end_date', array('gt' => "$from 23:59:59"));
+             }       
         }
 					 
 	    
 	    if ($to) {
 	        $categories->addAttributeToFilter('end_date', array(array($interval['to_op'] => $to)));
 	        if (isset($interval['end'])) {
-	            $categories->addAttributeToFilter('end_date', array('lteq' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time()))));
+	            $categories->addAttributeToFilter('end_date', array('gteq' => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))));
 	        }
  
 	    }
@@ -82,10 +83,11 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
      */
     
     public function getSaleSections() {
- 
-        return array('Shops Opening Today'          => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'gteq', 'to' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gt', 'start' => '1' ), 
-                     'Currently opened shops'        => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'lt', 'to' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gt'), 
-                     'Shops Bidding Adieu' => array('to' => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gteq', 'end' => 1));
+        $date = new DateTime(date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())));
+        date_add($date, date_interval_create_from_date_string('24 hours'));
+        return array('Shops Opening Today'          => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'gteq', 'to' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gt', 'today' => '1' ), 
+                     'Currently opened shops'        => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'lt', 'to' => $date->format("Y-m-d H:i:s"), 'to_op' => 'gt'), 
+                     'Shops Bidding Adieu' => array('to' => $date->format("Y-m-d H:i:s"), 'to_op' => 'lteq', 'end' => 1));
     }
 
     /**
