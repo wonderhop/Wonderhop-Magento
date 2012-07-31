@@ -8,3 +8,28 @@
     border-radius: 13px;
  
 }
+
+.popup_login label,
+.popup_register_2 label {
+    width: 130px;
+    text-align: left;
+}
+
+.popup_login .input-text,
+.popup_register_2 .input-text {
+    float:left;
+}
+
+label[for=terms] {
+    width: auto;
+}
+
+.validation-advice {
+    text-align:left;
+}
+
+.terms_agreement {
+    float: left;
+    margin-right: 5px;
+    margin-toP: 3px;
+}
