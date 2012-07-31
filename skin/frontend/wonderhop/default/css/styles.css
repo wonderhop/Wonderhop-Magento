@@ -1850,3 +1850,9 @@ margin-right: 4px;}
     float:right;
     width: 70%;
 }
+.logo_image {
+     background:#fff url(../images/logo.png) center center no-repeat;
+      width: 100px;
+    height: 44px;
+}
+

@@ -35,9 +35,11 @@
 <?php $_product = $this->getProduct(); ?>
 <?php 
 $categoryIds = $_product->getCategoryIds();
+$category = null;
 foreach($categoryIds as $categoryId) {
     $category = Mage::getModel('catalog/category')->load($categoryId);
-    if ($category->getEndDate() < date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))) {
+    $now = date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()));
+    if ($category->getStartDate() > $now || $category->getEndDate() < $now) {
         header("Location: /sales");
     }
 }
@@ -58,12 +60,12 @@ foreach($categoryIds as $categoryId) {
             <div class="product-name">
                 <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
             </div>
-
-            <?php if ($this->canEmailToFriend()): ?>
+                <h5>by <a href="<?php echo $category->getUrl(); ?>"><?php echo $category->getName(); ?></a></h5>
+            <?php if (0 && $this->canEmailToFriend()): ?>
                 <p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
             <?php endif; ?>
 
-            <?php echo $this->getReviewsSummaryHtml($_product, false, true)?>
+            <?php //$this->getReviewsSummaryHtml($_product, false, true)?>
             <?php echo $this->getChildHtml('alert_urls') ?>
             <?php echo $this->getChildHtml('product_type_data') ?>
             <?php echo $this->getTierPriceHtml() ?>
@@ -73,13 +75,13 @@ foreach($categoryIds as $categoryId) {
                 <div class="add-to-box">
                     <?php if($_product->isSaleable()): ?>
                         <?php echo $this->getChildHtml('addtocart') ?>
-                        <?php if( $this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
+                        <?php if(0)://$this->helper('wishlist')->isAllow() || $_compareUrl=$this->helper('catalog/product_compare')->getAddUrl($_product)): ?>
                             <span class="or"><?php echo $this->__('OR') ?></span>
                         <?php endif; ?>
                     <?php endif; ?>
-                    <?php echo $this->getChildHtml('addto') ?>
+                    <?php //echo $this->getChildHtml('addto') ?>
                 </div>
-                <?php echo $this->getChildHtml('extra_buttons') ?>
+                <?php //echo $this->getChildHtml('extra_buttons') ?>
             <?php elseif (!$_product->isSaleable()): ?>
                 <div class="add-to-box">
                     <?php echo $this->getChildHtml('addto') ?>

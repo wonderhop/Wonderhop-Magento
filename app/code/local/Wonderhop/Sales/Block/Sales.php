@@ -23,7 +23,7 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
 	     $result = array();
 	    
 	     $locale = Mage::app()->getLocale()->getLocale();
-         $long_format =  Mage::app()->getLocale()->getDateFormat();    
+         $long_format =  'yyyy-MM-dd HH:mm:ss';    
 	     
 	     foreach($categories as $sale) {
             $iso_date = new Zend_Date($sale->getStartDate(), $long_format, $locale);
@@ -60,7 +60,10 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
 					->addOrderField('start_date');
    	    if ($from) {
 	        $categories->addAttributeToFilter('start_date', array($interval['from_op'] => $from));
-	    }
+    	    if (isset($interval['start'])) {
+                $categories->addAttributeToFilter('start_date', array('lteq' => "$from 23:59:59"));
+            }       
+        }
 					 
 	    
 	    if ($to) {
@@ -80,9 +83,9 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
     
     public function getSaleSections() {
  
-        return array('New Sales'          => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'gteq', 'to' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gt' ), 
-                     'Other Sales'        => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'lt', 'to' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gt'), 
-                     'Sales About To End' => array('to' => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gteq', 'end' => 1));
+        return array('Shops Opening Today'          => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'gteq', 'to' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gt', 'start' => '1' ), 
+                     'Currently opened shops'        => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'lt', 'to' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gt'), 
+                     'Shops Bidding Adieu' => array('to' => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gteq', 'end' => 1));
     }
 
     /**

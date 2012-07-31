@@ -56,7 +56,7 @@
         <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
     <?php endif; ?>
     <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
-    <h2>Sale ends in <?php echo  Wonderhop_Sales_Helper_Data::getCountDown($_category); ?></h2>
+    <h2><?php echo  Wonderhop_Sales_Helper_Data::getCountDown($_category); ?></h2>
 </div>
 
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
@@ -73,6 +73,9 @@
     <?php endif; ?>
 </div>
 <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+    <div class="small_description">
+        <b><?php echo $this->getCurrentCategory()->getSaleDescription(); ?></b>
+    </div>
     <div class="category-description std">
         <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
     </div>

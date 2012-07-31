@@ -1,5 +1,7 @@
 <?php 
     $days = $this->getCalendarSales(); 
+    $start = 0;
+    $current_date = date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()));
 ?>
  
 <div class="calendar">
@@ -9,7 +11,14 @@
         <?php foreach($days as $heading => $sales) : ?>
          <div class="calendar_sale"><h2><?php echo $heading; ?></h2>
             <ul>
+            <?php $sale_counted_today = 0; ?>
             <?php foreach($sales as $sale): ?>
+                <?php 
+                    if($sale->getStartDate() < $current_date && !$sale_counted_today) {
+                        $start++;
+                        $sale_counted_today = 1;
+                    }                    
+                ?>
                 <li>
                     <?php if($sale->getThumbnail()): ?>
                        <div class="calendar_image">
@@ -44,6 +53,7 @@
 			preloadImage: 'img/loading.gif',
 			play: 5000,
 			pause: 2500,
+            start: <?php echo $start; ?>,
 			hoverPause: true,
 			 
 		});

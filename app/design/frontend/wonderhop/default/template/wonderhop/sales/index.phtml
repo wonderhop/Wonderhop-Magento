@@ -14,7 +14,7 @@
             <?php $counter++; ?>
             <span class="sale_ends_in">
                       <h3 class="sale_ends_description">
-                        Sale Ends in <?php echo  Wonderhop_Sales_Helper_Data::getCountDown($sale); ?>
+                        <?php echo  Wonderhop_Sales_Helper_Data::getCountDown($sale); ?>
                       </h3>
             </span>
             <?php if($sale->getThumbnail()): ?>

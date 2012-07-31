@@ -34,10 +34,10 @@
 <?php
     $current_category = Mage::registry('current_category');
     $is_future_sale = 0;
-    if ($current_category->getStartDate > date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()))) {
+    if ($current_category->getStartDate() > date('Y-m-d H:i:s', Mage::getModel('core/date')->timestamp(time()))) {
          $is_future_sale = 1;
     }
-    $_productCollection=$this->getLoadedProductCollection();
+    $_productCollection = $this->getLoadedProductCollection();
     $_helper = $this->helper('catalog/output');
     
 ?>
@@ -45,7 +45,6 @@
 <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
 
 <?php elseif($current_category->getEndDate() < date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))): ?>
-    <p class="note-msg"><?php echo $this->__('This sale ended') ?></p>
 <?php else: ?>
 <div class="category-products">
     

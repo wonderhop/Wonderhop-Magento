@@ -20,7 +20,7 @@
       $minutes_left = floor(($difference - $days_left*60*60*24 - $hours_left*60*60)/60);
       
       // OUTPUT
-      $countdown = '';
+      $countdown = 'Sales Ends in ';
        
       if ($days_left) {
         $countdown .=  $days_left > 1 ? "$days_left days " : "$days_left day ";
@@ -29,6 +29,9 @@
         $countdown .= $minutes_left." minutes ";
       } else {
         $countdown .= $hours_left." hours ";
+      }
+      if ($hours_left == 0 && $minutes_left == 0) {
+        $countdown = 'Sale Ended';
       }
       return $countdown;
     }
