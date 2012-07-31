@@ -39,7 +39,7 @@
            
             <?php echo $this->getChildHtml('topLinks') ?>
              <?php if(Mage::getSingleton('customer/session')->isLoggedIn()): ?>
-                  <p class="welcome-msg"><?php echo $this->getWelcome() ?> &nbsp; <?php echo $this->getAdditionalHtml() ?></p>
+                  <p class="welcome-msg"><?php echo str_replace('-', '', $this->getWelcome()) ?> &nbsp; <?php echo $this->getAdditionalHtml() ?></p>
             <?php endif; ?>
             <?php echo $this->getChildHtml('store_language') ?>
         </div>
