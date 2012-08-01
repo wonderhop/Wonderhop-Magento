@@ -22,6 +22,7 @@ function buildBlock(element) {
                 opacity:         0.6 ,
                 cursor:         'auto' 
             }, 
+            showOverlay: false
         });
 }
 jQuery(document).ready(function() { 
@@ -32,6 +33,7 @@ jQuery(document).ready(function() {
      }
     
      jQuery('#login_link').click(function(){
+          
          buildBlock('.popup_login'); 
      }); 
      
