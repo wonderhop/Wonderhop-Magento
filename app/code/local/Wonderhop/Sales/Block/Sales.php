@@ -59,10 +59,12 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
 					->addFieldToFilter('level', 3)
 					->addOrderField('start_date');
    	    if ($from) {
-	        $categories->addAttributeToFilter('start_date', array($interval['from_op'] => $from));
-    	    if (isset($interval['today'])) {
-                $categories->addAttributeToFilter('start_date', array('lteq' => "$from 23:59:59"));
-                $categories->addAttributeToFilter('end_date', array('gt' => "$from 23:59:59"));
+            if (!isset($interval['today'])) {
+	            $categories->addAttributeToFilter('start_date', array($interval['from_op'] => $from));
+    	    }
+            if (isset($interval['today'])) { 
+                $categories->addAttributeToFilter('start_date', array('gt' => $interval['start_gt']));
+                $categories->addAttributeToFilter('end_date', array('lteq' => "$from 23:59:59"));
              }       
         }
 					 
@@ -70,7 +72,8 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
 	    if ($to) {
 	        $categories->addAttributeToFilter('end_date', array(array($interval['to_op'] => $to)));
 	        if (isset($interval['end'])) {
-	            $categories->addAttributeToFilter('end_date', array('gteq' => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))));
+	            $categories->addAttributeToFilter('end_date',   array('gteq' => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))));
+                $categories->addAttributeToFilter('start_date', array('lt' => $interval['start_lt']));
 	        }
  
 	    }
@@ -84,10 +87,27 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
     
     public function getSaleSections() {
         $date = new DateTime(date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())));
+        $past_date = clone $date;
         date_add($date, date_interval_create_from_date_string('24 hours'));
-        return array('Shops Opening Today'          => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'gteq', 'to' => date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time())), 'to_op' => 'gt', 'today' => '1' ), 
-                     'Currently opened shops'        => array('from' => date("Y-m-d", Mage::getModel('core/date')->timestamp(time())), 'from_op' => 'lt', 'to' => $date->format("Y-m-d H:i:s"), 'to_op' => 'gt'), 
-                     'Shops Bidding Adieu' => array('to' => $date->format("Y-m-d H:i:s"), 'to_op' => 'lteq', 'end' => 1));
+        date_sub($past_date, date_interval_create_from_date_string('24 hours'));        
+
+        $core_date = date("Y-m-d", Mage::getModel('core/date')->timestamp(time()));
+
+        return array('Shops Opening Today'    => array('from'     => $core_date, 
+                                                     'from_op'    => 'gteq', 
+                                                     'to'         => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 
+                                                     'to_op'      => 'gt', 
+                                                     'today'      => '1', 
+                                                     'start_gt'   => $past_date->format("Y-m-d H:i:s")
+                                                     ), 
+                     'Currently opened shops' => array('from'     => $core_date, 
+                                                       'from_op'  => 'lt', 
+                                                       'to'       => $date->format("Y-m-d H:i:s"), 
+                                                       'to_op'    => 'gt'), 
+                     'Shops Bidding Adieu'    => array(   'to'    => $date->format("Y-m-d H:i:s"), 
+                                                       'to_op'    => 'lteq', 
+                                                       'start_lt' => $past_date->format("Y-m-d H:i:s"),
+                                                       'end'      => 1));
     }
 
     /**
