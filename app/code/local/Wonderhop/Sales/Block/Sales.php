@@ -64,7 +64,7 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
     	    }
             if (isset($interval['today'])) { 
                 $categories->addAttributeToFilter('start_date', array('gt' => $interval['start_gt']));
-                $categories->addAttributeToFilter('end_date', array('lteq' => "$from 23:59:59"));
+                $categories->addAttributeToFilter('end_date', array('gt' => "$from"));
              }       
         }
 					 
@@ -93,10 +93,10 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
 
         $core_date = date("Y-m-d", Mage::getModel('core/date')->timestamp(time()));
 
-        return array('Shops Opening Today'    => array('from'     => $core_date, 
+        return array('Shops Opening Today'    => array('from'     => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 
                                                      'from_op'    => 'gteq', 
-                                                     'to'         => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 
-                                                     'to_op'      => 'gt', 
+                                                     //'to'         => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 
+                                                     //'to_op'      => 'gt', 
                                                      'today'      => '1', 
                                                      'start_gt'   => $past_date->format("Y-m-d H:i:s")
                                                      ), 

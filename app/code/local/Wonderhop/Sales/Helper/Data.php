@@ -39,9 +39,11 @@
         $countdown .=  $days_left > 1 ? "$days_left days " : "$days_left day ";
       }
       if ($hours_left == 0) {
-        $countdown .= $minutes_left." minutes ";
+        $countdown .= $minutes_left." minute";
+        if ($minutes_left > 1) $countdown .= 's';
       } else {
-        $countdown .= $hours_left." hours ";
+        $countdown .= $hours_left." hour";
+        if ($hours_left > 1) $countdown .= 's';
       }
       if (!$is_start && $hours_left == 0 && $minutes_left == 0) {
         $countdown = 'Sale Ended';
