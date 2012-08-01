@@ -27,6 +27,9 @@ $zoomHeight     = intval($helper->getConfigData('zoom_height'));
 $bigImageWidth  = intval($helper->getConfigData('big_image_width'));
 $bigImageHeight = intval($helper->getConfigData('big_image_height'));
 
+$width  = 415;
+$height = 415;
+
 $config = array(
     "position:'{$position}'",
     "showTitle:{$showTitle}",
@@ -61,13 +64,13 @@ if ($zoomHeight) {
 <?php if ($product->getImage() != 'no_selection' && $product->getImage()): ?>
 <p class="product-image">
     <a href='<?php echo $this->helper('catalog/image')->init($product, 'image')->resize($bigImageWidth, $bigImageHeight);?>' class = 'cloud-zoom' id='zoom1' rel="<?php echo implode($config, ',');?>">
-        <img src="<?php echo $this->helper('catalog/image')->init($product, 'image')->resize(265, 265);?>" alt='' title="<?php echo $this->htmlEscape($this->getImageLabel());?>" />
+        <img src="<?php echo $this->helper('catalog/image')->init($product, 'image')->resize($width, $height);?>" alt='' title="<?php echo $this->htmlEscape($this->getImageLabel());?>" />
     </a>
 </p>
 <?php else: ?>
 <p class="product-image">
     <?php
-        $_img = '<img src="'.$this->helper('catalog/image')->init($product, 'image')->resize(265).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+        $_img = '<img src="'.$this->helper('catalog/image')->init($product, 'image')->resize($width).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
         echo $outputHelper->productAttribute($product, $_img, 'image');
     ?>
 </p>
@@ -79,7 +82,7 @@ if ($zoomHeight) {
     <?php foreach ($this->getGalleryImages() as $_image): ?>
         <li>
             <a href='<?php echo $this->helper('catalog/image')->init($product, 'image', $_image->getFile())->resize($bigImageWidth, $bigImageHeight);?>' class='cloud-zoom-gallery' title='<?php echo $this->htmlEscape($_image->getLabel()) ?>'
-            rel="useZoom: 'zoom1', smallImage: '<?php echo $this->helper('catalog/image')->init($product, 'image', $_image->getFile())->resize(265, 265);?>' ">
+            rel="useZoom: 'zoom1', smallImage: '<?php echo $this->helper('catalog/image')->init($product, 'image', $_image->getFile())->resize($width, $height);?>' ">
             <img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail', $_image->getFile())->resize(56, 56);?>" alt="<?php echo $this->htmlEscape($_image->getLabel()) ?>"/>
             </a>
         </li>

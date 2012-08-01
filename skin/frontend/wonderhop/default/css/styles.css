@@ -1018,7 +1018,7 @@ margin-right: 4px;}
 
 /* Product Shop */
 .product-view .product-shop { float:right; width:330px; }
-.col1-layout .product-view .product-shop { float:right; width:545px; }
+.col1-layout .product-view .product-shop { float:right; width:418px; }
 .col3-layout .product-view .product-shop { float:none; width:auto; }
 .product-view .product-shop .product-name { margin:0 0 5px; }
 .product-view .product-shop .product-name h1 { margin:0; font:bold 15px/1.35 Arial, Helvetica, sans-serif; }
