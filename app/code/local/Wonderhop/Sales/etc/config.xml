@@ -3,7 +3,7 @@
 <config>
     <modules>
         <Wonderhop_Sales>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Wonderhop_Sales>
     </modules>
      <frontend>

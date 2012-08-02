@@ -330,7 +330,9 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                 }
 
                 $validationResult = count($errors) == 0;
-
+                $this->_setReferralCode($customer);
+                $this->_setMarketingSources($customer);
+                
                 if (true === $validationResult) {
                     $customer->save();
 
@@ -349,8 +351,8 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                         return;
                     } else {
                         $session->setCustomerAsLoggedIn($customer);
-                        #$url = $this->_welcomeCustomer($customer);
-                        $this->_redirectSuccess('/sales');
+                        $url = $this->_welcomeCustomer($customer);
+                        $this->_redirectSuccess(Mage::getUrl('/sales', array('_secure'=>true)));
                         return;
                     }
                 } else {
@@ -833,6 +835,46 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
         }
 
         $this->_redirect('*/*/edit');
+    }
+    
+    
+    protected function _setMarketingSources($customer) {
+        
+            if (isset($_COOKIE['wonderhop_r'])) {
+                  $customer->setData('referrer_id', $_COOKIE['wonderhop_r']);
+            }
+          
+      
+    }
+    
+    protected function _setReferralCode($customer) {
+        
+        $code = $this->_generateReferralCode();
+        
+        while (count(Mage::getModel('customer/customer')->getCollection()->addAttributeToFilter('referral_code', $code)->load()) > 0) {
+            $code = $this->_generateReferralCode();  
+        }
+        
+        $customer->setReferralCode($code);
+ 
+    }
+    
+    protected function _generateReferralCode($len = 6) {
+    
+        $hex = md5("referral" . uniqid("", true));
+
+        $pack = pack('H*', $hex);
+        $tmp =  base64_encode($pack);
+
+        $uid = preg_replace("#(*UTF8)[^A-Za-z0-9]#", "", $tmp);
+
+        $len = max(4, min(128, $len));
+
+        while (strlen($uid) < $len)
+            $uid .= gen_uuid(22);
+
+        return substr($uid, 0, $len);
+ 
     }
 
     /**

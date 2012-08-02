@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout>
-    
+    <default>
+        <reference name="head">
+			<action method="addItem"><type>skin_js</type><name>js/sales/sales.js</name></action>
+		</reference>
+    </default>
 	<sales_index_index>
 		<reference name="head">
 			<action method="addCss"><stylesheet>css/sales/sales.css</stylesheet></action>
