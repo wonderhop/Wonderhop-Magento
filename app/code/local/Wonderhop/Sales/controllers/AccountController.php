@@ -842,6 +842,13 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
         
             if (isset($_COOKIE['wonderhop_r'])) {
                   $customer->setData('referrer_id', $_COOKIE['wonderhop_r']);
+                  $ref_customer = Mage::getModel('customer/customer')->getCollection()
+                                                                 ->addAttributeToFilter('referral_code', $_COOKIE['wonderhop_r'])
+                                                                 ->getFirstItem()
+                                                                 ->load();
+                  /*add Credits*/                                              
+                  $ref_customer->setSuccesfullInvites((int)$customer->getSuccesfullInvites() ? (int)$customer->getSuccesfullInvites() + 1: 1 );
+                  $ref_customer->save();
             }
           
       
