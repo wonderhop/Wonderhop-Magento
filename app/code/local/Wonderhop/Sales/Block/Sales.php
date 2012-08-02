@@ -18,6 +18,7 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
 					->getCollection()
 					->addAttributeToSelect('*')
 					->addIsActiveFilter()
+                    ->addAttributeToFilter('start_date', array('gt' => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))))
 					->addFieldToFilter('level', 3)
 					->addOrderField('start_date');
 	     $result = array();
