@@ -49,7 +49,7 @@ foreach($categoryIds as $categoryId) {
 $session = Mage::getSingleton('customer/session');
 $customer = $session->getCustomer();
 $ref_id = '';
-if($session->isLoggedIn()) {
+if($session->isLoggedIn() && $customer->getReferralCode()) {
 	$ref_id = '?r=' .$customer->getReferralCode();
 }
 ?>
