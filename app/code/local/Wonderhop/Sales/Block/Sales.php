@@ -64,6 +64,7 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
     	    }
             if (isset($interval['today'])) { 
                 $categories->addAttributeToFilter('start_date', array('gt' => $interval['start_gt']));
+                $categories->addAttributeToFilter('start_date', array('lt' => $from));
                 $categories->addAttributeToFilter('end_date', array('gt' => "$from"));
              }       
         }
