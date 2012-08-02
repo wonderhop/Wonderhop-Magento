@@ -44,6 +44,16 @@ foreach($categoryIds as $categoryId) {
     }
 }
 ?>
+
+<?php 
+$session = Mage::getSingleton('customer/session');
+$customer = $session->getCustomer();
+$ref_id = '';
+if($session->isLoggedIn()) {
+	$ref_id = '?r=' .$customer->getReferralCode();
+}
+?>
+ 
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
@@ -58,7 +68,10 @@ foreach($categoryIds as $categoryId) {
 
         <div class="product-shop">
             <div class="product-name">
-                <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                <div class="product_title">
+                    <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+                </div>
+                <div class="pinterest"><a href="http://pinterest.com/pin/create/button/?url=<?php if ($_product->getUrlPath() != '') echo urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id); else echo urlencode($_product->getProductUrl() . $ref_id); ?>&media=<?php echo $this->helper('catalog/image')->init($_product, 'image')->constrainOnly(TRUE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(375,478) ?>" class="pin-it-button" count-layout="none">Pin It</a></div>
             </div>
                 <h5>by <a href="<?php echo $category->getUrl(); ?>"><?php echo $category->getName(); ?></a></h5>
             <?php if (0 && $this->canEmailToFriend()): ?>
