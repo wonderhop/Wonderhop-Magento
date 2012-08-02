@@ -32,6 +32,13 @@
  */
 ?>
 <?php
+    $session = Mage::getSingleton('customer/session');
+    $customer = $session->getCustomer();
+    $ref_id = '';
+    $fb_comment_url = '';
+    if($session->isLoggedIn() && $customer->getReferralCode()) {
+	    $ref_id = '?r=' .$customer->getReferralCode();
+    }
     $_helper    = $this->helper('catalog/output');
     $_category  = $this->getCurrentCategory();
     $_imgHtml   = '';
@@ -78,7 +85,26 @@
     </div>
     <div class="category-description std">
         <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
+        <?php $fb_comment_url = $_category->getUrl() . $ref_id; ?>
+         <ul class="social_share">
+                <li>
+                    <div onclick="post_on_wall();" class="fb-share"><a name="fb_share" type="icon_link" share_url="<?php echo $fb_comment_url; ?>"></a>
+                        </div>
+                 </li>
+               <li>
+                   <div class="twitter-share">
+                      <a href="http://twitter.com/share/?url=<?php echo $fb_comment_url; ?>text=<?php echo  $this->getCurrentCategory()->getSaleDescription() ?>" title="Share this on Twitter" id="service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
+                   </div>
+               </li>
+                <li>Share to earn cash</li>
+        </ul>
     </div>
+     <script type="text/javascript">
+	            function post_on_wall() {
+		            url = 'http://www.facebook.com/sharer.php?u=<?php echo $fb_comment_url ?>&t=<?php echo $fb_comment_url ?>';
+		            window.open(url, "Post on Wall", "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0");
+	            }
+    </script>
     <?php endif; ?>
 
 <?php if($this->isContentMode()): ?>

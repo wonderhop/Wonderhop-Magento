@@ -1874,3 +1874,31 @@ margin-right: 4px;}
 .category-products li:hover  .pinterest {
     display:block;
 }
+.fb-share a {
+    height: 29px;
+    background: url('../images/facebook-share.png') no-repeat;
+    color: #333;
+    display: block;
+    padding-left: 35px;
+    font-size: 12px;
+    cursor: hand;
+    cursor: pointer;
+}
+
+.twitter-share a {
+    height: 29px;
+    background: url('../images/twitter.png') no-repeat;
+    color: #333;
+    display: block;
+    padding-left: 35px;
+    font-size: 12px;
+    cursor: hand;
+    cursor: pointer;
+}
+
+ul.social_share  li {
+    float:left;
+    margin-left: 10px;
+    min-width: 30px;
+    list-style:none;
+}

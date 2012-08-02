@@ -49,11 +49,19 @@ foreach($categoryIds as $categoryId) {
 $session = Mage::getSingleton('customer/session');
 $customer = $session->getCustomer();
 $ref_id = '';
+$fb_comment_url = '';
 if($session->isLoggedIn() && $customer->getReferralCode()) {
 	$ref_id = '?r=' .$customer->getReferralCode();
 }
-?>
+
+if ($_product->getUrlPath() != '') {
+    $fb_comment_url = urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id); 
+} else {
+    $fb_comment_url = urlencode($_product->getProductUrl() . $ref_id);
+}    
  
+?>
+
 <script type="text/javascript">
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
@@ -107,7 +115,24 @@ if($session->isLoggedIn() && $customer->getReferralCode()) {
                     <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
                 </div>
             <?php endif;?>
-
+              <ul class="social_share">
+                <li>
+                    <div onclick="post_on_wall();" class="fb-share"><a name="fb_share" type="icon_link" share_url="<?php echo $fb_comment_url; ?>"></a>
+                        </div>
+                 </li>
+               <li>
+                   <div class="twitter-share">
+                      <a href="http://twitter.com/share/?url=<?php echo $fb_comment_url; ?>text=<?php echo $_product->getShortDescription() ?>" title="Share this on Twitter" id="service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
+                   </div>
+               </li>
+                <li>Share to earn cash</li>
+              </ul>
+            <script type="text/javascript">
+	            function post_on_wall() {
+		            url = 'http://www.facebook.com/sharer.php?u=<?php echo $fb_comment_url ?>&t=<?php echo $fb_comment_url ?>';
+		            window.open(url, "Post on Wall", "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0");
+	            }
+            </script>
             <?php echo $this->getChildHtml('other');?>
 
             <?php if ($_product->isSaleable() && $this->hasOptions()):?>
