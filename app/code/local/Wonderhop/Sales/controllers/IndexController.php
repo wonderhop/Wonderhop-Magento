@@ -97,19 +97,34 @@
      */
     public function loginPostAction()
     {
+        
+        $redirect_url = '/sales';
+        if($this->getRequest()->getPost('url')) {
+            $url = $this->getRequest()->getPost('url');
+             
+            $oRewrite = Mage::getModel('core/url_rewrite')
+                    ->setStoreId(Mage::app()->getStore()->getId())
+                    ->loadByRequestPath($url);
+            if ($oRewrite->getProductId() || $oRewrite->getCategoryId()) {
+                $redirect_url = '/' . $url;
+            }
+        }
         if ($this->_getSession()->isLoggedIn()) {
-            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array('/sales')));
+           
+                 
+            $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array($redirect_url)));
             return;
         }
         $session = $this->_getSession();
-
+        
         if ($this->getRequest()->isPost()) {
            
             $login = $this->getRequest()->getPost('login');
             if (!empty($login['username']) && !empty($login['password'])) {
                 try {
                     $session->login($login['username'], $login['password']);
-                    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array('/sales')));
+                     
+                    $this->getResponse()->setBody(Mage::helper('core')->jsonEncode(array($redirect_url)));
                     
                     return;
                 } catch (Mage_Core_Exception $e) {

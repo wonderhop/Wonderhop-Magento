@@ -173,7 +173,7 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                 $session->addError($this->__('Login and password are required.'));
             }
         }
-
+        error_log("XXXXX");
         $this->_loginPostRedirect();
     }
 
