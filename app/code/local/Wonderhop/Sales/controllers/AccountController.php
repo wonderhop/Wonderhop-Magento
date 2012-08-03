@@ -352,8 +352,8 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                     } else {
                         $session->setCustomerAsLoggedIn($customer);
                         $url = $this->_welcomeCustomer($customer);
-                        $this->_redirectSuccess(Mage::getUrl('/sales', array('_secure'=>true)));
-                        return;
+                        header('Location: /sales');
+                        exit();
                     }
                 } else {
                     $session->setCustomerFormData($this->getRequest()->getPost());
