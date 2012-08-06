@@ -15,6 +15,13 @@
                     <frontName>calendar</frontName>
                 </args>
            </calendar>
+           <shops>
+                <use>standard</use>
+                <args>
+                    <module>Wonderhop_Sales</module>
+                    <frontName>shops</frontName>
+                </args>
+           </shops>
            <sales>
 				<args>
                     <modules>

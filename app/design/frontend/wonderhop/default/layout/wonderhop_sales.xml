@@ -5,7 +5,7 @@
 			<action method="addItem"><type>skin_js</type><name>js/sales/sales.js</name></action>
 		</reference>
     </default>
-	<sales_index_index>
+	<shops_index_index>
 		<reference name="head">
 			<action method="addCss"><stylesheet>css/sales/sales.css</stylesheet></action>
 			<action method="setTitle"><title>Sales - Wonderhop</title></action>
@@ -17,7 +17,7 @@
 		<reference name="content">
 			<block type="wonderhop_sales/sales" name="wonderhop_sales" template="wonderhop/sales/index.phtml" />
 		</reference> 
-	</sales_index_index>
+	</shops_index_index>
 	<calendar_index_index>
 	    <reference name="head">
 	        <action method="addItem"><type>skin_js</type><name>js/jQuery.js</name></action>
