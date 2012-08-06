@@ -1,0 +1,36 @@
+<?php 
+    $sections = $this->getSaleSections(); 
+?>
+<table width="600px">
+<?php foreach($sections as $heading => $interval) : ?>
+<tr>
+    <td colspan="2"><h2><?php echo $heading; ?></h2></td>
+</tr>
+    <?php $i=0; ?>
+    <?php $sales_categories = $this->getSales( $interval ); ?>
+ 
+    <?php $counter = 0; ?>
+    <?php foreach($sales_categories as $sale): ?>
+        <?php if ($counter % 2 == 0): ?>
+            <?php if($counter != 0): ?>
+                </tr>
+            <?php endif; ?>
+            <tr>
+        <?php endif; ?>
+        <?php $counter++; ?>
+                <td align="left">
+                    <?php echo  Wonderhop_Sales_Helper_Data::getCountDown($sale); ?>
+                    <?php if($sale->getThumbnail()): ?>
+                        <a href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
+                         <img alt="<?php echo $sale->getName(); ?>" src="<?php echo $this->getResizedImage($sale, 280, 280);  ?>" />
+                        </a>
+                    <?php endif; ?>
+                    <a href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
+                        <h3><?php print $sale->getName(); ?></h3>   
+                    </a> 
+                    <?php print $sale->getSaleDescription(); ?>
+                   </td>
+    <?php endforeach; ?>
+     
+<?php endforeach; ?>
+</table>

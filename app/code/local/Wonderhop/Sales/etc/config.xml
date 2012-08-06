@@ -45,6 +45,31 @@
             </updates>
         </layout>
     </frontend>
+    <adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <Wonderhop_Sales>
+                                            <title>Wonderhop Sales</title>
+                                            <sort_order>10</sort_order>
+                                        </Wonderhop_Sales>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+    </adminhtml> 
     <global>
        <helpers>
              <wonderhop_sales>
@@ -97,13 +122,5 @@
             </adminhtml>
         </routers>
     </admin>
-	<crontab>
-		<jobs>
-			<wonderhop_sales> 
-				<schedule><cron_expr>* * * * *</cron_expr></schedule>
-				<run><model>wonderhop_sales/cron::executeCron</model></run>
-			</wonderhop_sales> 
-		</jobs>
-	</crontab>
 </config>
  

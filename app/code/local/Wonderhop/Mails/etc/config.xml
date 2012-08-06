@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+ 
+<config>
+    <modules>
+        <Wonderhop_Mails>
+            <version>0.1.0</version>
+        </Wonderhop_Mails>
+    </modules>
+    <global>
+        <models>
+            <mails>
+                <class>Wonderhop_Mails_Model</class>  
+            </mails>
+        </models>
+        <helpers>
+            <mails>
+                <class>Wonderhop_Mails_Helper</class>
+            </mails>
+        </helpers> 
+    </global>
+	<crontab>
+		<jobs>
+			<mails>  
+                <schedule>
+                    <cron_expr>0 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>mails/cron::executeCron</model>
+                </run>
+			</mails> 
+		</jobs>
+	</crontab>
+</config>
+ 

@@ -15,7 +15,7 @@
 			<action method="setTemplate"><template>page/1column.phtml</template></action>
 		</reference>
 		<reference name="content">
-			<block type="wonderhop_sales/sales" name="wonderhop_sales" template="wonderhop/sales/index.phtml" />
+			<block type="wonderhop_sales/sales" name="wonderhop_sales" template="wonderhop/email/sales.phtml" />
 		</reference> 
 	</shops_index_index>
 	<calendar_index_index>
