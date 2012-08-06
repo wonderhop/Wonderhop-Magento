@@ -14,6 +14,7 @@
         <p>Treat takes you on a daily shopping <br /> 
         journey through fun and creative products <br /> to inspire your home, family and more!</p>
         <form <?php if($is_sales): ?>onSubmit="return false;"<?php endif; ?> action="/sales" method="post" id="register-form1">
+            <input type="hidden" value="" name="url" class="document_url"/>
             <div class="content">
                 <ul class="form-list">
                         <li>
@@ -69,6 +70,7 @@
     <div class="logo_image"></div> 
     <form action="/customer/account/createpost" method="post" id="register-form">
      <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?>  id="registration_email" />
+     <input type="hidden" value="<?php if($this->url): ?><?=$this->url ?>" <?php endif; ?>  name="url"/>
      <input name="lastname" type="hidden" value="-"/>
      <input name="confirmation" type="hidden" id="passconf" value=""/>
         <h2>You're almost there!</h2>
@@ -108,9 +110,9 @@
         <h4><?php echo $this->__('Welcome back!') ?></h4>
     </div>
     <form onSubmit="return false;" action="" method="post" id="login-form">
-       <input type="hidden" value="" name="url" id="document_url"/>
+       <input type="hidden" value="" name="url" class="document_url"/>
        <script type="text/javascript">
-            jQuery('#document_url').val(document.URL.replace(/^(?:\/\/|[^\/]+)*\//, ""));
+            jQuery('.document_url').val(document.URL.replace(/^(?:\/\/|[^\/]+)*\//, ""));
        </script>
         <div class="content">
             <ul class="form-list">

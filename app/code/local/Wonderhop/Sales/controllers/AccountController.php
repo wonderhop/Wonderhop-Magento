@@ -350,9 +350,21 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                         $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure'=>true)));
                         return;
                     } else {
+                        $redirect_url = '/sales';
+                        if($this->getRequest()->getPost('url')) {
+                            $url = $this->getRequest()->getPost('url');
+                            
+                            $oRewrite = Mage::getModel('core/url_rewrite')
+                                    ->setStoreId(Mage::app()->getStore()->getId())
+                                    ->loadByRequestPath($url);
+                            if ($oRewrite->getProductId() || $oRewrite->getCategoryId()) {
+                                $redirect_url = '/' . $url;
+                            }
+                        }
                         $session->setCustomerAsLoggedIn($customer);
                         $url = $this->_welcomeCustomer($customer);
-                        header('Location: /sales');
+                       
+                        header("Location: $redirect_url");
                         exit();
                     }
                 } else {

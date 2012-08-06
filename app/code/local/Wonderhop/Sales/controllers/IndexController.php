@@ -7,6 +7,9 @@
 	        $email = $this->getRequest()->getParam('email');
 		    $block = $this->getLayout()->getBlock('wonderhop.login');
             $block->setData('email', $email);
+            if ($this->getRequest()->getParam('url')) {
+                $block->setData('url', $this->getRequest()->getParam('url'));
+            }
         }
 		$this->renderLayout();
     }
