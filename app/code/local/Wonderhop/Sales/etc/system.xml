@@ -37,6 +37,15 @@
 							<frontend_type>select</frontend_type>
 							<source_model>adminhtml/system_config_source_email_template</source_model>
 						</daily_newsletter_template>
+						<daily_newsletter_run_time translate="label">
+                            <label>Run Time</label>
+                            <comment>Runs daily at: HH:MM. Seconds are ignored</comment>
+                            <frontend_type>time</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </daily_newsletter_run_time>
                     </fields>
                 </general>
               </groups>

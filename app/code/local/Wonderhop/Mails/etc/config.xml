@@ -22,7 +22,7 @@
 		<jobs>
 			<mails>  
                 <schedule>
-                    <cron_expr>0 * * * *</cron_expr>
+                    <cron_expr>* * * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>mails/cron::executeCron</model>
