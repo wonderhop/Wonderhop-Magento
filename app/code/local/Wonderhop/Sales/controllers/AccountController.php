@@ -350,7 +350,7 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                         $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure'=>true)));
                         return;
                     } else {
-                        $redirect_url = '/sales';
+                        $redirect_url = '/shops';
                         if($this->getRequest()->getPost('url')) {
                             $url = $this->getRequest()->getPost('url');
                             

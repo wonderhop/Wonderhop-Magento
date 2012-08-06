@@ -101,7 +101,7 @@
     public function loginPostAction()
     {
         
-        $redirect_url = '/sales';
+        $redirect_url = '/shops';
         if($this->getRequest()->getPost('url')) {
             $url = $this->getRequest()->getPost('url');
              
