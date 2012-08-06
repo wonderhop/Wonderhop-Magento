@@ -123,6 +123,23 @@ if ($_product->getUrlPath() != '') {
                <li>
                    <div class="twitter-share">
                       <a href="http://twitter.com/share/?url=<?php echo $fb_comment_url; ?>text=<?php echo $_product->getShortDescription() ?>" title="Share this on Twitter" id="service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
+                          <script type="text/javascript">
+                             jQuery('.twitter-share a').click(function(event) {
+                                var width  = 575,
+                                    height = 400,
+                                    left   = (jQuery(window).width()  - width)  / 2,
+                                    top    = (jQuery(window).height() - height) / 2,
+                                    url    = this.href,
+                                    opts   = 'status=1' +
+                                             ',width='  + width  +
+                                             ',height=' + height +
+                                             ',top='    + top    +
+                                             ',left='   + left;
+
+                                window.open(url, 'twitte', opts);
+
+                                return false;
+                              });</script>
                    </div>
                </li>
                 <li>Share to earn cash</li>

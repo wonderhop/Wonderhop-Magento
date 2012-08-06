@@ -92,10 +92,26 @@
                         </div>
                  </li>
                <li>
-               <?php error_log($fb_comment_url); ?>
-                   <div class="twitter-share">
-                     <a href="https://twitter.com/share" data-url="<?php echo $fb_comment_url; ?>" class="twitter-share-button" data-lang="en">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+              <div class="twitter-share">
+                <a href="http://twitter.com/share/?url=<?php echo $fb_comment_url; ?>" title="Share this on Twitter" id="service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
+               
+                    <script type="text/javascript">
+                 jQuery('.twitter-share a').click(function(event) {
+                    var width  = 575,
+                        height = 400,
+                        left   = (jQuery(window).width()  - width)  / 2,
+                        top    = (jQuery(window).height() - height) / 2,
+                        url    = this.href,
+                        opts   = 'status=1' +
+                                 ',width='  + width  +
+                                 ',height=' + height +
+                                 ',top='    + top    +
+                                 ',left='   + left;
+
+                    window.open(url, 'twitte', opts);
+
+                    return false;
+                  });</script>
                    </div>
                </li>
                 <li>Share to earn cash</li>
