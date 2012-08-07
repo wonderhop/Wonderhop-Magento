@@ -64,3 +64,6 @@ ul#cat_sales li .sale_ends_in h3 {
     color: white;
     padding-bottom: 3px;
 }
+ul#cat_sales li a {
+    text-decoration:none;
+}
