@@ -25,6 +25,7 @@ function setParamCookie(cookie_name) {
     if (document.location.href.match(re)) {
         var re_value = new RegExp( '[\?\&]?' +  cookie_name + '=([^\&]+)');
         value = document.location.href.match(re_value)[1]; 
+        value = value.replace('/', '');
         
     }
     

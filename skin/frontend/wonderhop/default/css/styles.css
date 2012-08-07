@@ -1902,3 +1902,8 @@ ul.social_share  li {
     min-width: 30px;
     list-style:none;
 }
+
+.clear {
+    clear:both;
+    margin: 7px 0px;
+}

@@ -24,6 +24,27 @@
             </updates>
         </layout>
     </frontend>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <invitations>
+                                            <title>Invitations</title>
+                                        </invitations>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml> 
     <global>
         <models>
             <invitations>
@@ -34,21 +55,20 @@
                 <class>Wonderhop_Invitations_Model_Mysql4</class>
                 <entities>
                     <invitations>
-                        <table>invitations</table>
+                        <table>invitation</table>
                     </invitations>
                 </entities>
             </invitations_mysql4>          
         </models> 
        <helpers>
-             <wonderhop_invitations>
+             <invitations>
                 <class>Wonderhop_Invitations_Helper</class>
-             </wonderhop_invitations>
+             </invitations>
         </helpers>
 		<resources>
 			<wonderhop_invitations_setup>
 				<setup>
 					<module>Wonderhop_Invitations</module>
-					<class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
 				</setup>
 				<connection>
 					<use>core_setup</use>

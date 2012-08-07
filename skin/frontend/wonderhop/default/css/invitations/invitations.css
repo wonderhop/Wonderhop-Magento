@@ -1,0 +1,27 @@
+.invite-page input {
+    height: 20px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 5px; 
+    -moz-border-radius: 5px; 
+    border-radius: 6px;
+    float:left;
+
+}
+
+.invite-hr {
+    margin: 10px 0px;
+}
+
+.buttons-set-invite {
+    float:left;
+    margin:4px;
+}
+
+.input-box {
+    float:left;
+}
+
+tr.not_joined{
+    background: #ccc;
+}

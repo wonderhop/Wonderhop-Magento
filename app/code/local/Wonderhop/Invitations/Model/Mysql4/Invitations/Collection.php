@@ -5,6 +5,6 @@ class Wonderhop_Invitations_Model_Mysql4_Invitations_Collection extends Mage_Cor
     public function _construct()
     {
         parent::_construct();
-        $this->_init('invitation/invitation');
+        $this->_init('invitations/invitations');
     }
 }
