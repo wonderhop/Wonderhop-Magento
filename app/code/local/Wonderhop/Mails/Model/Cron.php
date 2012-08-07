@@ -8,6 +8,7 @@ class Wonderhop_Mails_Model_Cron {
     public function __construct() {
   
         $this->logger = Mage::getModel('core/log_adapter', 'sales.log');
+        $this->test   = Mage::getStoreConfig('Wonderhop_Sales/general/test_active',Mage::app()->getStore());
    
     } 
  
@@ -52,10 +53,18 @@ class Wonderhop_Mails_Model_Cron {
         $senderEmail =  Mage::getStoreConfig('trans_email/ident_general/email');
         $sender = array('name'  => $senderName,
                         'email' => $senderEmail);
-     
+        
+         
      
         $recepientEmail = $customer->getEmail();
- 
+        
+        if ($this->test) {
+            $allowed_emails = Mage::getStoreConfig('Wonderhop_Sales/general/test_emails',Mage::app()->getStore());
+            $allowed_emails = explode(',', $allowed_emails);
+            if (!in_array($recepientEmail, $allowed_emails)) {
+                return;
+            }
+        }
        
         $recepientName = str_replace('-', '', $customer->getFirstname() . " " . $customer->getLastname());
         
