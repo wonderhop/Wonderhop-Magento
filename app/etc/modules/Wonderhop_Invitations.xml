@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Wonderhop_Invitations>
+      <codePool>local</codePool>
+      <active>true</active>
+    </Wonderhop_Invitations>
+  </modules>
+</config>
