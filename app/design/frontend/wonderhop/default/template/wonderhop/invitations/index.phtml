@@ -75,9 +75,27 @@
                 </tr>
             </thead>
             <?php foreach ($invitations as $email => $status) : ?>
-                <tr class="<?php echo $status == 0 ? 'not_joined' : 'joined' ?>">
+                <?php if(!$email): ?>
+                    <?php continue; ?>
+                <?php endif; ?>
+                <tr class="<?php echo $status == 0 || $status == 2 || $status == 3 ? 'not_joined' : 'joined' ?>">
                     <td align="center" style="text-align:center"><?php echo $email ?></td>
-                    <td align="center" style="text-align:center"><?php echo $status == 0 ? 'Not Joined' : 'Joined' ?></td>
+                    <td align="center" style="text-align:center">
+                    <?php switch($status):
+                            case 0:
+                                echo 'Not Joined';
+                                break;
+                            case 2:
+                                echo 'Already Registered' ;
+                                break;
+                            case 1:
+                                echo 'Accepted your invitation';
+                                break;
+                            case 3:
+                                echo "Joined from someone else's invite";
+                                break;
+                          endswitch;
+                     ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
