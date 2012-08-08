@@ -23,12 +23,23 @@
             
             try {
                 foreach($mails as $mail) {
-                    Mage::helper('mails')->sendTransactionalEmail($template_id, $mail, null, null, $extra_vars);
+                    $mail = trim($mail);
+                    if (!$mail) {
+                        continue;
+                    }
+                    $customers = Mage::getModel('customer/customer')->getCollection();
+                    $customers->addAttributeToFilter( 'email', $mail );
+                    $customers->load();
+                    
+                    #if customer already here do not send email
+                    if (!$customers->count()) {
+                        Mage::helper('mails')->sendTransactionalEmail($template_id, $mail, null, null, $extra_vars);
+                    }
                     
                     $data = array('customer_fk'            => $customer->getId(), 
                                   'template_id'            => $template_id, 
-                                  'invitation_send_date'   => date("Y-m-d H:i:s"),
-                                  'sent_to'                => trim($mail)
+                                  'invitation_send_date'   => gmdate("Y-m-d H:i:s"),
+                                  'sent_to'                => $mail
                     );
                     
               	    $model = Mage::getModel('invitations/invitations')->setData($data);
