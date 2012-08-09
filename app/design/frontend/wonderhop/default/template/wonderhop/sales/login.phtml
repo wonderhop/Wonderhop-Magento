@@ -2,7 +2,7 @@
  <?php  
     $is_sales = 0;
     
-    if( Mage::app()->getFrontController()->getRequest()->getRouteName() == 'sales') {
+    if( Mage::app()->getFrontController()->getRequest()->getRouteName() == 'shops') {
         $is_sales = 1;
      }
            
@@ -13,7 +13,7 @@
        <h1>Join Now</h1>
         <p>Treat takes you on a daily shopping <br /> 
         journey through fun and creative products <br /> to inspire your home, family and more!</p>
-        <form <?php if($is_sales): ?>onSubmit="return false;"<?php endif; ?> action="/sales" method="post" id="register-form1">
+        <form <?php if($is_sales): ?>onSubmit="return false;"<?php endif; ?> action="/shops" method="post" id="register-form1">
             <input type="hidden" value="" name="url" class="document_url"/>
             <div class="content">
                 <ul class="form-list">
