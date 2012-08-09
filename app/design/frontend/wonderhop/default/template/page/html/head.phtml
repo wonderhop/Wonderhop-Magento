@@ -28,7 +28,7 @@ if (!Mage::helper('customer')->isLoggedIn()):
      
     if ($page == 'cms'):
         if(Mage::getSingleton('cms/page')->getIdentifier() == 'home'):
-            header('Location: /shops');
+            header('Location: /shops' . $_SERVER['REQUEST_URI']);
             exit();
         endif;
     endif;
