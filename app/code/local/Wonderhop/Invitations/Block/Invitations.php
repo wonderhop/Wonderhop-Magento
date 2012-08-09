@@ -4,7 +4,7 @@ class Wonderhop_Invitations_Block_Invitations extends Mage_Core_Block_Template {
  
     public function getPersonalLink() {
         $customer = $this->_getSession()->getCustomer();
-        return Mage::getUrl('?r=' . $customer->getReferralCode());
+        return Mage::getUrl() . '?r=' . $customer->getReferralCode();
     }
     
     private function _getSession() {
