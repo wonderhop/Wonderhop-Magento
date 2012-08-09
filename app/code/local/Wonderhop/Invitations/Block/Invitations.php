@@ -26,22 +26,22 @@ class Wonderhop_Invitations_Block_Invitations extends Mage_Core_Block_Template {
         
         #search all the invitations sent and add to the result
         foreach($invitations as $invitation) {
-            if (isset($result[trim($invitation->getSentTo())])) {
+            if (isset($result[trim(strtolower($invitation->getSentTo()))])) {
                 continue;
             }
-            $invitation_send_date[trim($invitation->getSentTo())] = $invitation->getInvitationSendDate();
+            $invitation_send_date[trim(strtolower($invitation->getSentTo()))] = $invitation->getInvitationSendDate();
             #set them as not joined
-            $result[trim($invitation->getSentTo())] = 0;
+            $result[trim(strtolower($invitation->getSentTo()))] = 0;
         }
         
         #search all the customers with the referral code
         foreach($customers as $customer) {
             
             #set the customer as joined
-            $result[$customer->getEmail()] = 1;
+            $result[strtolower($customer->getEmail())] = 1;
             
             #remove from invitation send date array the joined ones. 
-            unset($invitation_send_date[$customer->getEmail()]);
+            unset($invitation_send_date[strtolower($customer->getEmail())]);
         }
         
         
@@ -52,12 +52,12 @@ class Wonderhop_Invitations_Block_Invitations extends Mage_Core_Block_Template {
         foreach($customers as $customer) {               
             
            if (isset($result[$customer->getEmail()])) {
-                if ($invitation_send_date[$customer->getEmail()] > $customer->getCreatedAt()) {
-                    $result[$customer->getEmail()] = 2;
+                if ($invitation_send_date[strtolower($customer->getEmail())] > $customer->getCreatedAt()) {
+                    $result[strtolower($customer->getEmail())] = 2;
                     continue;
                 } else {
                     #Joined from someone else's invite
-                    $result[$customer->getEmail()] = 3;
+                    $result[strtolower($customer->getEmail())] = 3;
                     continue;
                }
            } 
