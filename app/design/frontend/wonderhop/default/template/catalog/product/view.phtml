@@ -38,9 +38,13 @@ $categoryIds = $_product->getCategoryIds();
 $category = null;
 foreach($categoryIds as $categoryId) {
     $category = Mage::getModel('catalog/category')->load($categoryId);
+    if ($category->getName() == 'Sales') {
+        continue;
+    }
     $now = date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()));
     if ($category->getStartDate() > $now || $category->getEndDate() < $now) {
-        header("Location: /sales");
+        header("Location: ". $category->getUrl());
+        exit();
     }
 }
 ?>
