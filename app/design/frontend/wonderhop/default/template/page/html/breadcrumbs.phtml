@@ -31,7 +31,7 @@
             <?php if($_crumbName != 'home'):?>
                 <li class="<?php echo $_crumbName ?>">
                 <?php if($_crumbInfo['link']): ?>
-                    <a href="<?php echo preg_replace('/\/sale\/?$/', '/shops', $_crumbInfo['link']) ?>" title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>"><?php echo $this->htmlEscape($_crumbInfo['label']) ?></a>
+                    <a href="<?php echo preg_replace('/\/shop\/?$/', '/shops', $_crumbInfo['link']) ?>" title="<?php echo $this->htmlEscape($_crumbInfo['title']) ?>"><?php echo $this->htmlEscape($_crumbInfo['label']) ?></a>
                 <?php elseif($_crumbInfo['last']): ?>
                     <strong><?php echo $this->htmlEscape($_crumbInfo['label']) ?></strong>
                 <?php else: ?>

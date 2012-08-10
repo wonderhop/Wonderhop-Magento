@@ -16,6 +16,7 @@ class Wonderhop_Sales_Adminhtml_Catalog_CategoryController extends Mage_Adminhtm
 
         $storeId = $this->getRequest()->getParam('store');
         $refreshTree = 'false';
+        $is_sale_cat = 0;
         if ($data = $this->getRequest()->getPost()) {
             $category->addData($data['general']);
             if (!$category->getId()) {
@@ -23,6 +24,7 @@ class Wonderhop_Sales_Adminhtml_Catalog_CategoryController extends Mage_Adminhtm
                 if (!$parentId) {
                     if ($storeId) {
                         $parentId = Mage::app()->getStore($storeId)->getRootCategoryId();
+                        $is_sale_cat = 1;
                     }
                     else {
                         $parentId = Mage_Catalog_Model_Category::TREE_ROOT_ID;
@@ -100,7 +102,7 @@ class Wonderhop_Sales_Adminhtml_Catalog_CategoryController extends Mage_Adminhtm
                 
                 /* Save the right format into database for start and end sale date */
  
-                if ($category->getEndDate() <= $category->getStartDate()) {
+                if ($category->getEndDate() && $category->getEndDate() &&  $category->getEndDate() <= $category->getStartDate()) {
                      Mage::throwException(Mage::helper('catalog')->__('End date must be greater than start date'));
                 }
                 $category->setStartDate($category->getStartDate());
