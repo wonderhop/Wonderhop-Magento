@@ -363,7 +363,7 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                         }
                         $session->setCustomerAsLoggedIn($customer);
                         $url = $this->_welcomeCustomer($customer);
-                       
+                        Mage::getSingleton('core/session')->setCustomerRegistered(1);
                         header("Location: $redirect_url");
                         exit();
                     }

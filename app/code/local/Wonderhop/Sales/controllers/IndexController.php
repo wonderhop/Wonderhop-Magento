@@ -100,7 +100,7 @@
      */
     public function loginPostAction()
     {
-        
+        Mage::getSingleton('core/session')->setCustomerLoggedIn(1);
         $redirect_url = '/shops';
         if($this->getRequest()->getPost('url')) {
             $url = $this->getRequest()->getPost('url');

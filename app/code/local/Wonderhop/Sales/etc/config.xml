@@ -109,6 +109,9 @@
             <wonderhop_login>
                     <class>Wonderhop_Sales_Block_Login_Login</class>
             </wonderhop_login>
+            <wonderhop_registered>
+                    <class>Wonderhop_Sales_Block_Registered</class>
+            </wonderhop_registered>
         </blocks>
     </global>
     <admin>

@@ -4,6 +4,9 @@
         <reference name="head">
 			<action method="addItem"><type>skin_js</type><name>js/sales/sales.js</name></action>
 		</reference>
+		<reference name="footer">
+		    <block type="wonderhop_sales/registered" name="wonderhop_registered" template="wonderhop/registered.phtml" />
+		</reference>
     </default>
 	<shops_index_index>
 		<reference name="head">
@@ -57,7 +60,7 @@
         </reference>
     </customer_account_logoutsuccess>
     <customer_account_login>
-	        <reference name="footer">
+	     <reference name="footer">
               <remove name="wonderhop.login" />
         </reference>
     </customer_account_login>

@@ -46,7 +46,10 @@
               	    $model->save();
                 }    
                         
-                $session->addSuccess(Mage::helper('invitations')->__('The emails were sent. '));
+                $session->addSuccess(Mage::helper('invitations')->__('The emails were sent. 
+                <script type="text/javascript">
+                    mixpanel.track("Invitations sent page");
+                 </script>'));
                 $this->_redirectReferer();
 
                 return;

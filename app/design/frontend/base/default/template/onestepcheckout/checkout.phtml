@@ -17,7 +17,9 @@ $helper = Mage::helper('onestepcheckout/checkout');
     <p><a href="<?php echo $this->getUrl(''); ?>"><?php echo $this->__('Back to homepage'); ?></a></p>
     <?php endif; ?>
 <?php else: ?>
-
+<script type="text/javascript">
+    mixpanel.track("Onestepcheckout page");
+</script>
 <form id="onestepcheckout-form" method="post" action="<?php echo $this->getUrl('onestepcheckout', array('_secure'=>true)); ?>">
 <fieldset class="group-select" style="margin: 0;">
 

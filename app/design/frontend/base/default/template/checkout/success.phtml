@@ -24,6 +24,33 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+
+<?php 
+    $_order = Mage::getModel('sales/order')->loadByIncrementId($this->getOrderId());
+    $amount = $_order->getData('grand_total');
+    $coupon = $_order->getCouponCode();
+
+    $orders = Mage::getResourceModel('sales/order_collection')
+            ->addFieldToSelect('*')
+            ->addAttributeToFilter('status', array('in' => array('processing', 'complete')))
+            ->addFieldToFilter('grand_total', array('gt' => 0))
+            ->addFieldToFilter('customer_id', $_order->getCustomerId());
+
+    $returning = "NEW";
+
+    if (count($orders) > 1) {
+        $returning = "RETURNING";
+    }
+    
+    $data = array('grand_total' => $amount, 'order_id'=> $this->getOrderId(), 'coupon' => $coupon, 'returning' => $returning);
+?>
+ 
+<script type="text/javascript">
+    mixpanel.track("Sale success page", <?php echo Mage::helper('core')->jsonEncode($data); ?>);
+    mixpanel.people.increment({
+        "total revenue": <?php echo $amount; ?>
+    }); 
+</script>
 <div class="page-title">
     <h1><?php echo $this->__('Your order has been received.') ?></h1>
 </div>

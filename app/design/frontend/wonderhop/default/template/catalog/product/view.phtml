@@ -121,12 +121,12 @@ if ($_product->getUrlPath() != '') {
             <?php endif;?>
               <ul class="social_share">
                 <li>
-                    <div onclick="post_on_wall();" class="fb-share"><a name="fb_share" type="icon_link" share_url="<?php echo $fb_comment_url; ?>"></a>
+                    <div onclick="post_on_wall();" class="fb-share"><a id="product-facebook-link-share" name="fb_share" type="icon_link" share_url="<?php echo $fb_comment_url; ?>"></a>
                         </div>
                  </li>
                <li>
                    <div class="twitter-share">
-                      <a href="http://twitter.com/share/?url=<?php echo $fb_comment_url; ?>text=<?php echo $_product->getShortDescription() ?>" title="Share this on Twitter" id="service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
+                      <a href="http://twitter.com/share/?url=<?php echo $fb_comment_url; ?>text=<?php echo $_product->getShortDescription() ?>" title="Share this on Twitter" id="product-service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
                           <script type="text/javascript">
                              jQuery('.twitter-share a').click(function(event) {
                                 var width  = 575,
