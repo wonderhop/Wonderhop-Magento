@@ -1,0 +1,130 @@
+.send-friend .form-list{
+	overflow: hidden;
+	width: 615px;
+}
+ul#import_options.form-list li {
+    display: inline;
+    list-style-type: none;
+    margin-right: 20px;
+    float:left;
+}
+
+#product_sendtofriend_form #sender_options #userpassword_inputs #userpassword_submit {
+    margin-top: 5px;
+}
+
+.address_records_block {
+    background: white;
+    border: 1px solid #D4D4D4;
+    padding: 12px;
+}
+
+.address_records_head, .address_records {
+    border-bottom: none;
+}
+
+.address_records_confirm, .address_records {
+    border-top: none;
+}
+
+#address_records_head .block-title {
+    background: url("../images/cloudsponge/bkg_block-title.gif") repeat-x scroll 0 0 transparent;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 2px 9px;
+}
+#address_records_head .block-title strong{
+    background: url("../images/cloudsponge/i_address.gif") no-repeat;
+    color: #E26703;
+    font: bold 12px/16px Arial,Helvetica,sans-serif;
+    text-transform: uppercase;
+}
+#address_records_head .block-title strong span{
+    margin-left: 24px;
+}
+
+#cloudsponge_message div, #cloudsponge_message ul li {
+    color: #DF280A;
+}
+#cloudsponge_emailcounter {
+    color: #2A74B9;
+    padding: 12px;
+    background: none repeat scroll 0 0 white;
+    border-left: 1px solid #D4D4D4;
+    border-right: 1px solid #D4D4D4;
+    width:615px;
+}
+
+#address_records_head {
+    padding: 0px;
+	width: 639px;
+}
+#address_records_head .field {
+    width: 600px;
+}
+#address_records_head .field div {
+    float: left;
+}
+#address_records_head .field div.select-links {
+    margin: 10px 0 0 10px;
+}
+#address_records_head li.address-header-row {
+    background-color: #FAFAFA;
+	margin: 0px;
+	padding-top: 6px;
+	padding-left: 12px;
+	height:22px;
+}
+#address_records_head #search_input {
+    float: right;
+    background: url("../images/cloudsponge/searchfield.png") no-repeat 0 0 transparent;
+    width: 280px;
+    height: 32px;
+}
+#address_records_head #search_input input {
+    width: 80%;
+    border: none;
+    margin: 9px 0 0 35px;
+}
+#address_records_head div.address_record_checkbox {
+    width: 25px;
+}
+#address_records_head .address_record_name {
+    width: 140px;
+}
+
+ul#address_records {
+	width:639px;
+    max-height: 260px;
+    overflow-y: scroll;
+	padding:0;
+}
+ul#address_records li.fields {
+    display: inline;
+	width:100%;
+    height: 27px;
+    margin: 0px;
+    padding-left: 10px;
+    list-style-type: none;
+    float: left;
+    clear: both;
+}
+#address_records li div {
+    float: left;
+}
+#address_records div.address_record_checkbox {
+    width: 25px;
+	margin-top:4px;
+}
+#address_records div.field_address_name {
+    width: 140px;
+}
+#address_records div.field_address_email {
+    width: 440px;
+}
+#address_records div.field_address_name, #address_records div.field_address_email {
+    height: 1.5em;
+    display: inline;
+    overflow: hidden;
+    white-space:nowrap;
+    padding-top: 6px;
+}

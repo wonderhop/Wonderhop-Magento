@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * EYEMAGINE - The leading Magento Solution Partner
+ *
+ * @author     EYEMAGINE <magento@eyemaginetech.com>
+ * @category   Eyemagine
+ * @package    Eyemagine_Cloudsponge
+ * @copyright  Copyright (c) 2003-2012 EyeMagine Technology, LLC (http://www.eyemaginetech.com)
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html (GPL)
+ */
+-->
+<config>
+    <modules>
+        <Eyemagine_Cloudsponge>
+            <version>2.0.5</version>
+        </Eyemagine_Cloudsponge>
+    </modules>
+    <frontend>
+        <routers>
+            <cloudsponge>
+                <use>standard</use>
+                <args>
+                    <module>Eyemagine_Cloudsponge</module>
+                    <frontName>cloudsponge</frontName>
+                </args>
+            </cloudsponge>
+        </routers>
+        <layout>
+            <updates>
+                <cloudsponge>
+                    <file>cloudsponge.xml</file>
+                </cloudsponge>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <layout>
+            <updates>
+                <cloudsponge>
+                    <file>cloudsponge.xml</file>
+                </cloudsponge>
+            </updates>
+        </layout>
+    </adminhtml> 
+    <global>
+        <models>
+            <cloudsponge>
+                <class>Eyemagine_Cloudsponge_Model</class>
+                <resourceModel>cloudsponge_mysql4</resourceModel>
+            </cloudsponge>
+            <cloudsponge_mysql4>
+                <class>Eyemagine_Cloudsponge_Model_Mysql4</class>
+                <entities>
+                    <cloudsponge>
+                        <table>cloudsponge</table>
+                    </cloudsponge>
+                </entities>
+            </cloudsponge_mysql4>
+        </models>
+        <resources>
+            <cloudsponge_setup>
+                <setup>
+                    <module>Eyemagine_Cloudsponge</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </cloudsponge_setup>
+            <cloudsponge_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </cloudsponge_write>
+            <cloudsponge_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </cloudsponge_read>
+        </resources>
+        <blocks>
+            <cloudsponge>
+                <class>Eyemagine_Cloudsponge_Block</class>
+            </cloudsponge>
+        </blocks>
+        <helpers>
+            <cloudsponge>
+                <class>Eyemagine_Cloudsponge_Helper</class>
+            </cloudsponge>
+        </helpers>
+    </global>
+</config>

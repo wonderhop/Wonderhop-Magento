@@ -1,0 +1,22 @@
+<?php
+/**
+ * EYEMAGINE - The leading Magento Solution Partner
+ *
+ * @author     EyeMagine <magento@eyemaginetech.com>
+ * @category   design
+ * @package    default_default
+ * @copyright  Copyright (c) 2003-2012 EyeMagine Technology, LLC (http://www.eyemaginetech.com)
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html (GPL)
+ */
+?>
+<?php
+/**
+ * @see Mage_Cloudsponge_Block_System_Config_Fieldset_Hint
+ */
+?>
+<div class="cloudsponge-notice">
+    <h4><?php echo Mage::helper('cloudsponge')->__('Cloudsponge enables your customers to easily import their address books to spread the word about your product')?></h4>
+    <p><?php echo Mage::helper('cloudsponge')->__('Get your own domain key and password by signing up for a 30-day FREE trial')?></p>
+    <p><a href="<?php echo $this->escapeHtml('https://www.cloudsponge.com/product?utm_source=eyemagine&utm_medium=partner&utm_campaign=integrator') ?>"><?php echo Mage::helper('cloudsponge')->__('View CloudSponge solutions')?></a></p>
+    <p><a href="<?php echo $this->escapeHtml($this->getUrl('adminhtml/system_config/edit', array('section' => 'sendfriend'))) ?>"><?php echo Mage::helper('cloudsponge')->__('Increase maximum Email To Friend recipients')?></a></p>
+</div>

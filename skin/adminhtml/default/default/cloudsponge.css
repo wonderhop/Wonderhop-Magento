@@ -1,0 +1,6 @@
+ul.tabs a.cloudsponge-section,
+ul.tabs a.cloudsponge-section:hover { background:url(images/tabs_span_bg.gif) repeat-x 0 100%; border-bottom:none; padding:0.5em 0.5em 0.28em 1.5em; }
+ul.tabs a.cloudsponge-section:hover { background-color:#d8e6e6; }
+ul.tabs a.cloudsponge-section span, 
+ul.tabs a.cloudsponge-section:hover span { background:url(images/cloudsponge.png) no-repeat 0 0; height:0; overflow:hidden; padding:14px 0 0; width:80px; }
+.cloudsponge-notice { background: url(http://csponge-production.s3.amazonaws.com/images/logo.png) no-repeat 5px center #EAF0EE; border: 1px solid #CCC; margin-bottom: 10px; padding: 10px 5px 5px 190px;}

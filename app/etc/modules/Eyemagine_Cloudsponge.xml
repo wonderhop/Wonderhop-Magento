@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * EYEMAGINE - The leading Magento Solution Partner
+ *
+ * @author     EYEMAGINE <magento@eyemaginetech.com>
+ * @category   Eyemagine
+ * @package    Eyemagine_Cloudsponge
+ * @copyright  Copyright (c) 2003-2012 EyeMagine Technology, LLC (http://www.eyemaginetech.com)
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html (GPL)
+ */
+-->
+<config>
+    <modules>
+        <Eyemagine_Cloudsponge>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Sendfriend />
+            </depends>
+        </Eyemagine_Cloudsponge>
+    </modules>
+</config>

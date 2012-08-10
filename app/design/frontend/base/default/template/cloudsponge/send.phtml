@@ -1,0 +1,241 @@
+<?php
+/**
+ * EYEMAGINE - The leading Magento Solution Partner
+ *
+ * @author		EyeMagine <magento@eyemaginetech.com>
+ * @category   design
+ * @package    base_default
+ * @copyright  Copyright (c) 2003-2012 EyeMagine Technology, LLC (http://www.eyemaginetech.com)
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html (GPL)
+ */
+/* @var $this Mage_Sendfriend_Block_Send */
+/**
+ * Send to friend form
+ *
+ * @see Mage_Sendfriend_Block_Send
+ */
+
+?>
+<script type="text/javascript">
+//<![CDATA[
+    i=0;
+    var recipCount  = 1;
+    var maxRecip    = <?php echo $this->getMaxRecipients() ?>;
+	var baseUrl    	= "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>";
+    
+    //initial email recipients limitation here and restore in showAddressRecords() every time:
+    var counter = maxRecip;
+
+    function remove_recipient(i){
+        $('recipients_name'+i).up(2).remove();
+        recipCount--;
+        if(recipCount<maxRecip && maxRecip != 0) {
+            $('add_recipient_button').show();
+            $('max_recipient_message').hide();
+        }
+        enableConfirm();
+        return false;
+    }
+
+    function add_recipient(){
+        ul = $('recipients_options');
+        var li_mail = Element.extend(document.createElement("LI"));
+        li_mail.addClassName('fields additional-row');
+        li_mail.innerHTML = '<p><a href="delete_email" title="<?php echo $this->__('Remove Email') ?>" onclick="remove_recipient('+i+'); return false" class="btn-remove"><?php echo $this->__('Remove Email') ?>"<\/a><\/p>'
+        li_mail.innerHTML += '<div class="field"><label for="recipients_name'+i+'" class="required"><em>*<\/em><?php echo $this->__('Name:') ?><\/label><div class="input-box"><input name="recipients[name][]" type="text" class="input-text required-entry" id="recipients_name'+i+'" /><\/div>';
+        li_mail.innerHTML += '<div class="field"><label for="recipients_email'+i+'" class="required"><em>*<\/em><?php echo $this->__('Email Address:') ?><\/label><div class="input-box"><input name="recipients[email][]" value="" title="<?php echo $this->__('Email Address') ?>" id="recipients_email'+i+'" type="text" class="input-text required-entry validate-email" /><\/div><\/div>';
+        i++;
+        recipCount++;
+        if(recipCount>=maxRecip && maxRecip != 0) {
+            $('add_recipient_button').hide();
+            $('max_recipient_message').show();
+            disableConfirm();
+        }
+
+        ul.appendChild(li_mail);
+    }
+//]]>
+</script>
+
+<div class="send-friend">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <div class="page-title">
+        <h1><?php echo $this->__('Email to a Friend') ?></h1>
+    </div>
+    <form action="<?php echo $this->getSendUrl() ?>" method="post" id="product_sendtofriend_form">
+        <div class="fieldset">
+            <?php echo $this->getBlockHtml('formkey')?>
+            <h2 class="legend"><?php echo $this->__('Sender:') ?></h2>
+            <ul class="form-list" id="sender_options">
+                <li class="fields">
+                    <div class="field">
+                        <label for="sender_name" class="required"><em>*</em><?php echo $this->__('Name:') ?></label>
+                        <div class="input-box">
+                            <input name="sender[name]" value="<?php echo $this->htmlEscape($this->getUserName()) ?>" title="<?php echo $this->__('Name') ?>" id="sender_name" type="text" class="input-text required-entry" />
+                        </div>
+                    </div>
+                    <div class="field">
+                       <label for="sender_email" class="required"><em>*</em><?php echo $this->__('Email:') ?></label>
+                       <div class="input-box">
+                           <input name="sender[email]" value="<?php echo $this->htmlEscape($this->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" id="sender_email" type="text" class="input-text required-entry validate-email" />
+                       </div>
+                    </div>
+                </li>
+                <li class="wide">
+                    <label for="sender_message" class="required"><em>*</em><?php echo $this->__('Message:') ?></label>
+                    <div class="input-box">
+                        <textarea name="sender[message]" class="input-text required-entry" id="sender_message" cols="3" rows="3"><?php echo $this->htmlEscape($this->getMessage())?></textarea>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <?php if ($this->isEnabled()): ?>
+        <div class="fieldset">
+            <h2 class="legend"><?php echo $this->__('Import:') ?> <div id="import_loader" style="display: none"><img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>"></div></h2>
+            <ul class="form-list" id="import_options">
+                <li class="fields">
+                    <div class="wide">
+                        <ul class="import_sources">
+                            <li>
+                                <a href="#" class="cloudsponge_yahoo" id="cloudsponge_yahoo" title="<?php echo $this->__('Yahoo!'); ?>"><img src="<?php echo $this->getSkinUrl('images/cloudsponge/yahoo.png')?>" alt="<?php echo $this->__('Yahoo!'); ?>" /></a>
+                            </li>
+                            <li>
+                                <a href="#" class="cloudsponge_msn" id="cloudsponge_msn" title="<?php echo $this->__('MSN'); ?>"><img src="<?php echo $this->getSkinUrl('images/cloudsponge/msn.png')?>" alt="<?php echo $this->__('MSN'); ?>" /></a>
+                            </li>
+                            <li>
+                                <a href="#" class="cloudsponge_gmail" id="cloudsponge_gmail" title="<?php echo $this->__('Gmail'); ?>"><img src="<?php echo $this->getSkinUrl('images/cloudsponge/google.png')?>" alt="<?php echo $this->__('Gmail'); ?>" /></a>
+                            </li>
+                            <li>
+                                <a href="#" class="cloudsponge_aol" id="cloudsponge_aol" title="<?php echo $this->__('AOL'); ?>"><img src="<?php echo $this->getSkinUrl('images/cloudsponge/aol.png')?>" alt="<?php echo $this->__('AOL'); ?>" /></a>
+                            </li>
+                            <li>
+                                <a href="#" class="cloudsponge_plaxo" id="cloudsponge_plaxo" title="<?php echo $this->__('Plaxo'); ?>"><img src="<?php echo $this->getSkinUrl('images/cloudsponge/plaxo.jpeg')?>" alt="<?php echo $this->__('Plaxo'); ?>" /></a>
+                            </li>
+                            <li>
+                                <a href="#" class="cloudsponge_apple" id="cloudsponge_apple" title="<?php echo $this->__('Mac OS X Address Book'); ?>"><img src="<?php echo $this->getSkinUrl('images/cloudsponge/apple.png')?>" alt="<?php echo $this->__('Mac OS X Address Book'); ?>" /></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <div id="cloudsponge_message"></div>
+            <ul class="form-list" id="sender_options">
+                <li class="fields userpassword_inputs" id="userpassword_inputs" style="display:none;">
+                    <div class="field">
+                        <label for="sender_name" id="username_label" class="required"><em>*</em><?php echo $this->__('Username:') ?></label>
+                        <div class="input-box">
+                            <input name="username" value="" title="<?php echo $this->__('Username') ?>" id="username" type="text" class="input-text" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="sender_email" id="password_label" class="required"><em>*</em><?php echo $this->__('Password:') ?></label>
+                        <div class="input-box">
+                            <input name="password" value="" title="<?php echo $this->__('Password') ?>" id="password" type="password" class="input-text" />
+                        </div>
+                    </div>
+                    <div class="field button">
+                        <div class="input-box">
+                            <button type="submit" class="button userpassword_submit" id="userpassword_submit"><span><span><?php echo $this->__('Submit'); ?></span></span></button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="form-list address_records_block address_records_head" id="address_records_head" style="display:none;">
+                <li class="fields">
+                    <div class="block-title">
+                        <strong>
+                            <span><?php echo $this->__('Select Addresses:') ?></span>
+                        </strong>
+                    </div>
+                </li>
+                <li class="fields">
+                    <div class="field">
+                        <div class="select-links">
+                            <a href="#" id="address_records_all" class="address_records_all"><?php echo $this->__('Select All') ?></a> | <a href="#" id="address_records_none" class="address_records_none"><?php echo $this->__('Select None') ?></a>
+                        </div>
+                        <div id="search_input">
+                            <input type="text" name="address_search" id="address_search" />
+                        </div>
+                    </div>
+                </li>
+                <li class="fields address-header-row">
+                    <div class="field">
+                        <div class="address_record_checkbox">&nbsp;</div>
+                        <div class="address_record_name"><strong><span><?php echo $this->__('Name') ?></span></strong></div>
+                        <div class="address_record_name"><strong><span><?php echo $this->__('Email') ?></span></strong></div>
+                    </div>
+                </li>
+            </ul>
+            
+            <ul class="form-list address_records_block address_records" id="address_records" style="display:none;">
+            <!-- 
+                <li class="fields">
+                    <div class="address_record_checkbox"><input type="checkbox" name="address_record[]" class="address_record_checkbox_input" id="address_record_checkbox1"></div><div class="field_address_name"><span class="address_record_name" id="address_record_name1">John Doe</span></div><div class="field_address_email">&lt;<span class="address_record_email" id="address_record_email1">john@doe.com</span>&gt;</div>
+                </li>
+                <li class="fields">
+                    <div class="address_record_checkbox"><input type="checkbox" name="address_record[]" class="address_record_checkbox_input" id="address_record_checkbox2"></div><div class="field_address_name"><span class="address_record_name" id="address_record_name2">Jane Doe</span></div><div class="field_address_email">&lt;<span class="address_record_email" id="address_record_email2">jane@doe.com</span>&gt;</div>
+                </li>
+            -->
+            </ul>
+            
+            <ul id="cloudsponge_emailcounter" style="display:none;"><li id="counter_content"></li></ul>
+            
+            <ul class="form-list address_records_block address_records_confirm" id="address_records_confirm" style="display:none;">
+                <li class="fields">
+                    <div class="field">
+                        <button type="button" onclick="confirmRecipients();" class="button" id="address_records_confirm_button">
+                            <span><span>Confirm Recipients</span></span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+		<div style="clear:both"></div>
+        <?php endif; ?>
+        
+        <div class="fieldset" id="recipients">
+            <h2 class="legend"><?php echo $this->__('Recipient:') ?></h2>
+            <ul class="form-list" id="recipients_options">
+                <li class="fields">
+                    <div class="field">
+                        <label for="recipients_name" class="required"><em>*</em><?php echo $this->__('Name:') ?></label>
+                        <div class="input-box">
+                            <input name="recipients[name][]" type="text" class="input-text required-entry" id="recipients_name" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="recipients_email" class="required"><em>*</em><?php echo $this->__('Email Address:') ?></label>
+                        <div class="input-box">
+                            <input name="recipients[email][]" value="" title="<?php echo $this->__('Email Address') ?>" id="recipients_email" type="text" class="input-text required-entry validate-email" />
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="buttons-set">
+            <p class="back-link"><a href="#" onclick="history.back(); return false;"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+            <button type="submit" class="button<?php if (!$this->canSend()):?> disabled<?php endif ?>"<?php if (!$this->canSend()):?> disabled="disabled"<?php endif ?>><span><span><?php echo $this->__('Send Email') ?></span></span></button>
+            <div id="max_recipient_message" style="display:none;">
+                <?php if ($this->getMaxRecipients()): ?>
+                  <p class="limit"><?php echo $this->__('Maximum %d email addresses allowed.', $this->getMaxRecipients()) ?></p>
+                <?php endif; ?>
+            </div>
+            <?php if (1 < $this->getMaxRecipients()): ?>
+                <p id="add_recipient_button">
+                    <button type="button" onclick="add_recipient();" class="button"><span><span><?php echo $this->__('Add Recipient') ?></span></span></button>
+                </p>
+            <?php endif; ?>
+        </div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var productSendtofriendForm = new VarienForm('product_sendtofriend_form');
+        productSendtofriendForm.submit = function() {
+            if(this.validator.validate()) {
+                this.form.submit();
+            }
+        }.bind(productSendtofriendForm);
+    //]]>
+    </script>
+</div>

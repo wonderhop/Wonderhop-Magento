@@ -1,0 +1,38 @@
+<?php
+/**
+ * EYEMAGINE - The leading Magento Solution Partner
+ *
+ * @author     EyeMagine <magento@eyemaginetech.com>
+ * @category   design
+ * @package    base_default
+ * @copyright  Copyright (c) 2003-2012 EyeMagine Technology, LLC (http://www.eyemaginetech.com)
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html (GPL)
+ */
+
+// initiate the import by setting the import ID based on the service 
+Mage::helper('cloudsponge')->initiateImport($this->getRequest()->getParam('service'), 
+	$this->getRequest()->getParam('username'), 
+	$this->getRequest()->getParam('password'));
+$consentUrl = Mage::helper('cloudsponge')->getConsentUrl();
+$appletTag = Mage::helper('cloudsponge')->getAppletTag();
+
+// if the applet tag is defined, print it and exit
+if (!empty($appletTag)) {
+	echo $appletTag;
+	exit;
+}
+?>
+
+<script type="text/javascript">
+//<![CDATA[
+	// redirect the popup to the appropriate url
+	<?php if (isset($consentUrl)): ?>
+	    this.location = '<?php echo $consentUrl ?>';
+	<?php endif; ?>
+//]]>
+</script>
+
+<div id="cloudsponge_message">
+    <p><?php echo $this->__('Contacts are being imported. Please do not close this popup window.') ?></p>
+</div>
+    
