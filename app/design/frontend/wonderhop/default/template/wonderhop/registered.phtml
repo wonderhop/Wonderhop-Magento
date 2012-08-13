@@ -29,7 +29,7 @@
 <?php if(!$this->isLoggedIn()): ?>
     <?php $attr = array('visitor_id' => $this->getVisitorId()); ?>
     <script type="text/javascript">
-        mixpanel.track_forms("form#register-form1", "Email signup submit");
+        //mixpanel.track_links("form#register-form1", "Email signup submit");
         mixpanel.track_links("a#login_link", "Click login link");
     </script>
 <?php else: ?>

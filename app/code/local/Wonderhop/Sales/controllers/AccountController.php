@@ -350,6 +350,12 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                         $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure'=>true)));
                         return;
                     } else {
+                        if ($customer->getReferrerId() && !isset($_COOKIE['wonderhop_confirmation'])) {
+                            $customer->setEmailConfirmation($customer->getRandomConfirmationKey());
+                            $customer->save();
+                        } elseif($customer->getReferrerId()) {
+                            //give the credits
+                        }
                         $redirect_url = '/shops';
                         if($this->getRequest()->getPost('url')) {
                             $url = $this->getRequest()->getPost('url');
@@ -441,10 +447,7 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
      */
     public function confirmAction()
     {
-        if ($this->_getSession()->isLoggedIn()) {
-            $this->_redirect('*/*/');
-            return;
-        }
+ 
         try {
             $id      = $this->getRequest()->getParam('id', false);
             $key     = $this->getRequest()->getParam('key', false);
@@ -463,16 +466,17 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
             catch (Exception $e) {
                 throw new Exception($this->__('Wrong customer account specified.'));
             }
-
+    
             // check if it is inactive
-            if ($customer->getConfirmation()) {
-                if ($customer->getConfirmation() !== $key) {
+            if ($customer->getEmailConfirmation()) {
+                if ($customer->getEmailConfirmation() !== $key) {
                     throw new Exception($this->__('Wrong confirmation key.'));
                 }
 
                 // activate customer
                 try {
-                    $customer->setConfirmation(null);
+                    //give credits
+                    $customer->setEmailConfirmation(null);
                     $customer->save();
                 }
                 catch (Exception $e) {

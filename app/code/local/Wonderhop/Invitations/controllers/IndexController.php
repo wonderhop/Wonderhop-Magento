@@ -19,7 +19,7 @@
 		    $customer      = Mage::getSingleton('customer/session' )->getCustomer();
 		    $customer_name = $customer->getFirstname() . " " . str_replace("-", '', $customer->getLastname());
 		  
-            $extra_vars  = array('customer_name' => $customer_name, 'url' => Mage::getUrl('?r=' . $customer->getReferralCode()));
+            $extra_vars  = array('customer_name' => $customer_name, 'url' => Mage::getUrl('?confirmation=1&r=' . $customer->getReferralCode()));
             
             try {
                 foreach($mails as $mail) {

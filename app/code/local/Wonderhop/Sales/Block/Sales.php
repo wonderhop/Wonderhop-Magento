@@ -12,6 +12,9 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
         return Mage::getSingleton('customer/session');
     }
     
+    public function getCustomer() {
+        return $this->_getCustomerSession()->getCustomer();
+    }
     
     public function getCalendarSales() {
          $categories = Mage::getModel('catalog/category')

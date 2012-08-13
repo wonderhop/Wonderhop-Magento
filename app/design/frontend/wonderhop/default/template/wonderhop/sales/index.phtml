@@ -1,3 +1,6 @@
+<?php if ($this->getCustomer()->getEmailConfirmation()): ?>
+    <div class="message error">To get your reward credits please confirm your email.</div>
+<?php endif; ?>
 
 <?php 
     $sections = $this->getSaleSections(); 
