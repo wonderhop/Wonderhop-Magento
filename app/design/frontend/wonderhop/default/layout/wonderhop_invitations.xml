@@ -2,7 +2,10 @@
 <layout>
 	<invitations_index_index>
 	    <reference name="head">
+	        <action method="setTitle"><title>Invite Friends - Wonderhop</title></action>
+			<action method="setDescription"><title>Invite Friends - Wonderhop</title></action>
 			<action method="addItem"><type>skin_js</type><name>js/invitations/invitations.js</name></action>
+			<action method="addItem"><type>skin_js</type><name>js/cloudsponge.js</name></action>
 			<action method="addCss"><stylesheet>css/invitations/invitations.css</stylesheet></action>
 		</reference>
 		<reference name="root">

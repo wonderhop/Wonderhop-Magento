@@ -1,4 +1,44 @@
 <script type="text/javascript">
+//<![CDATA[
+    i=0;
+    var recipCount  = 1;
+    var maxRecip    = 15;
+	var baseUrl    	= "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>";
+    
+    //initial email recipients limitation here and restore in showAddressRecords() every time:
+    var counter = maxRecip;
+
+    function remove_recipient(i){
+        $('recipients_name'+i).up(2).remove();
+        recipCount--;
+        if(recipCount<maxRecip && maxRecip != 0) {
+            $('add_recipient_button').show();
+            $('max_recipient_message').hide();
+        }
+        enableConfirm();
+        return false;
+    }
+
+    function add_recipient(){
+        ul = $('recipients_options');
+        var li_mail = Element.extend(document.createElement("LI"));
+        li_mail.addClassName('fields additional-row');
+        li_mail.innerHTML = '<p><a href="delete_email" title="<?php echo $this->__('Remove Email') ?>" onclick="remove_recipient('+i+'); return false" class="btn-remove"><?php echo $this->__('Remove Email') ?>"<\/a><\/p>'
+        li_mail.innerHTML += '<div class="field"><label for="recipients_name'+i+'" class="required"><em>*<\/em><?php echo $this->__('Name:') ?><\/label><div class="input-box"><input name="recipients[name][]" type="text" class="input-text required-entry" id="recipients_name'+i+'" /><\/div>';
+        li_mail.innerHTML += '<div class="field"><label for="recipients_email'+i+'" class="required"><em>*<\/em><?php echo $this->__('Email Address:') ?><\/label><div class="input-box"><input name="recipients[email][]" value="" title="<?php echo $this->__('Email Address') ?>" id="recipients_email'+i+'" type="text" class="input-text required-entry validate-email" /><\/div><\/div>';
+        i++;
+        recipCount++;
+        if(recipCount>=maxRecip && maxRecip != 0) {
+            $('add_recipient_button').hide();
+            $('max_recipient_message').show();
+            disableConfirm();
+        }
+
+        ul.appendChild(li_mail);
+    }
+//]]>
+</script>
+<script type="text/javascript">
     mixpanel.track("Invite friend page");
 </script>
 <div class="invite-page">
@@ -49,16 +89,31 @@
     <form action="<?php echo $this->getUrl('*/*/send'); ?>" method="post" id="invitations-form">
       
         <div class="input-box">    
-            <input class="invite-emails input-text required-entry" size="150" rel="1" type="text" name="emails" value="" />
+            <input id="cloud_invite_input" class="invite-emails input-text required-entry" size="150" rel="1" type="text" name="emails" value="" />
         </div>
         <div class="buttons-set-invite">
             <button type="submit" title="Proceed to Checkout" class="button"><span><span>Send</span></span></button>
         </div>
        
     </form>
+    
     <div class="clear"></div>
         <p>or</p>
-        <p>Pick the lucky ones from your contacts</p>
+        <p>Pick the lucky ones from your contacts
+            <a id="cloudsponge_gmail" href="#" class="cloudsponge_gmail invite-import-gmail">Gmail</a>  
+            <a onclick="return cloudsponge.launch('aol');" href="#" class="invite-import-aol">Aol</a> 
+            <a id="cloudsponge_yahoo" href="#" class="cloudsponge_yahoo invite-import-yahoo">Yahoo</a>
+            <a id="cloudsponge_msn" href="#" class="cloudsponge_msn invite-import-hotmail">Hotmail</a>          
+           
+					 
+	 
+        </p>
+         <div id="import_loader" style="display: none"><img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>" /></div>
+         
+         <ul id="cloudsponge_emailcounter" style="display:none;"><li id="counter_content"></li></ul>
+					 
+			</div>
+        
      <div class="clear"></div>
      <script type="text/javascript">
     //<![CDATA[
@@ -105,9 +160,29 @@
      <?php endif; ?>
 </div>
 
+<?php if (Mage::app()->getStore()->isCurrentlySecure()): ?>
+<script type="text/javascript" src="https://api.cloudsponge.com/address_books.js"></script>
+<?php else: ?>
+<script type="text/javascript" src="http://api.cloudsponge.com/address_books.js"></script>
+<?php endif; ?>
 
-
-
+<script type="text/javascript">
+var csPageOptions = {
+	domain_key:'<?php echo Mage::getStoreConfig("cloudsponge/account/domain_key") ?>',
+	textarea_id:'cloud_invite_input',
+	afterSubmitContacts: getContactsList
+};
+function getContactsList(emails)
+{
+	var list = new Array();
+	for(var i = 0; i.emails.length; i++)
+	{
+		 $('cloud_invite_input').value = $('cloud_invite_input').value + ',' + emails[i].primaryEmail();
+	}
+	 
+}
+</script>
+ 
 
 
 

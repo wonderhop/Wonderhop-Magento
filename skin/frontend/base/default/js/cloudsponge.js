@@ -3,6 +3,54 @@ var inputService;
 var popupWinRef; //get popup window reference
 var stopImportTimeCount;
 
+document.observe("dom:loaded", function() { 
+
+    $$('.cloudsponge_yahoo').each(function(element){  
+        Event.observe(element, 'click', importYahoo);
+    });
+    
+    $$('.cloudsponge_msn').each(function(element){
+        Event.observe(element, 'click', importMSN);
+    });
+    
+    $$('.cloudsponge_gmail').each(function(element){
+        Event.observe(element, 'click', importGmail);
+    });
+    
+    $$('.cloudsponge_aol').each(function(element){
+        Event.observe(element, 'click', showAOLUserPasswordForm);
+    });
+    
+    $$('.cloudsponge_plaxo').each(function(element){
+        Event.observe(element, 'click', showPlaxoUserPasswordForm);
+    });
+    
+    $$('.cloudsponge_apple').each(function(element){
+        Event.observe(element, 'click', importApple);
+    });
+    
+ 
+    
+    $$('.userpassword_submit').each(function(element){
+        Event.observe(element, 'click', importUserPassword);
+    });
+    
+    $$('.address_records_all').each(function(element){
+        Event.observe(element, 'click', selectAllAddressRecords);
+    });
+    
+    $$('.address_records_none').each(function(element){
+        Event.observe(element, 'click', selectNoneAddressRecords);
+    });
+    
+  
+    
+    // hide the address confirmation form fields
+    hideAddressRecords();
+});
+
+
+
 function setEmailAddressCheck() {
         if (counter >= 1) {
             $$('input.address_record_checkbox_input').each(function(s, index) {
@@ -252,6 +300,7 @@ function importApple (evt) {
 };
 
 function importGmail (evt) {
+     
     var popUpUrl = baseUrl + '/cloudsponge/index/popup/service/gmail';
     this.popUp = window.open(popUpUrl, 'import', 'width=987,height=600,resizable=yes,scrollbars=yes');
     this.popUp.focus();
@@ -356,39 +405,40 @@ function showPlaxoUserPasswordForm (evt) {
 };
 
 function hideAddressRecords() {
-    
-    $('address_records_head', 'address_records', 'address_records_confirm').invoke('hide');
+   
     $('cloudsponge_emailcounter').hide();
 }
 
 function showAddressRecords() {
-    
-    $('address_records_head', 'address_records', 'address_records_confirm').invoke('show');
+      
+    $('address_records').show();  
     $('cloudsponge_emailcounter').show();
-    
+      
     // set event loading the email list:
     $$('.address_record_checkbox_input').each(function(element){
+        
         Event.observe(element, 'click', setCounter);
     });
     //counter = maxRecip; // do not reset counter 
-    
+   
     updateEmailCount();
 }
 
 function startImport() {
-    $('userpassword_inputs').hide();
-    importContactsFlag = true;
+   
+     
+    importContactsFlag = true; 
     if (undefined != stopImportTimeCount) {
         clearTimeout(stopImportTimeCount);
     }
     
     if ($('cloudsponge_message')) {
         $('cloudsponge_message').setStyle('display:none');
-    }
+    } 
     getJSONData();
     getErrorMessage();
     // set timeout handler
-    //setTimeout("importTimeout()", 180000);
+    setTimeout("importTimeout()", 180000);
 }
 
 function stopImport() {
@@ -440,7 +490,7 @@ function getJSONData() {
     if (!importContactsFlag) {
         return;
     }
-
+   
     new Ajax.Request(baseUrl + '/cloudsponge/index/getcontactsjson/', {
         method: 'get',
         onSuccess: function(transport) {
@@ -459,7 +509,7 @@ function getJSONData() {
                 getJSONData();
             }
             var i;
-            
+          
             // if the import contact flag is set to false, return
             if (!importContactsFlag) {
                 return;
@@ -477,6 +527,7 @@ function getJSONData() {
             i = 1;
             var contactsInForm = new Array();
             //get existing email list
+                
                 $$('input.address_record_checkbox_input').each(function(s, index) {
                    s.ancestors()[1].descendants().each(function(s, index) {
                     if (s.hasClassName('address_record_email')) {
@@ -493,19 +544,25 @@ function getJSONData() {
                 if (!contacts[idx]['email'].include('@')) {
                     continue;
                 }
-                
-                showAddressRecords();
-
+               
+                //showAddressRecords();
+                 
                 // check the email list for a match to skip duplicate emails
                 if (existsInArray(contactsInForm, contacts[idx]['email'])) {
                     continue;
                 }
                 else {
-                    contactsInForm.push(contacts[idx]['email']);             
+                    var new_str = '';
+                    if ($('cloud_invite_input').value) {
+                        new_str = $('cloud_invite_input').value + ',';
+                    }
+                    $('cloud_invite_input').value = new_str + contacts[idx]['email'];
+                    //contactsInForm.push(contacts[idx]['email']);             
                 }
-
+                continue;
                 // add to the existing name/email fields
                 var li_mail = Element.extend(document.createElement("LI"));
+                li_mail.setStyle('padding: 8px');
                 var contactName = (contacts[idx]['name'] == '') ? '&nbsp;' : contacts[idx]['name'];
                 var contactEmail = (contacts[idx]['email'] == '') ? '&nbsp;' : contacts[idx]['email'];
 
@@ -517,11 +574,11 @@ function getJSONData() {
                     li_mail.setStyle('background-color:#FAFAFA');
 				}
                 li_mail.addClassName('fields');
-                li_mail.innerHTML = '<div class="address_record_checkbox"><input type="checkbox" name="address_record[]" class="address_record_checkbox_input" id="address_record_checkbox' + i + '" /></div>';
+                li_mail.innerHTML = '<div class="address_record_checkbox"><input type="checkbox" name="address_record[]" class="address_record_checkbox_input" value="' + contactEmail + '" id="address_record_checkbox' + i + '" /></div>';
                 li_mail.innerHTML += '<div class="field_address_name"><span class="address_record_name" id="address_record_name' + i + '">' + contactName + '</span></div>';
                 li_mail.innerHTML += '<div class="field_address_email">&lt;<span class="address_record_email" id="address_record_email' + i + '">' + contactEmail + '</span>&gt;</div>';
                 li_mail.innerHTML += '</div>';
-                
+               
                 i++;
                 //recipCount++;
                 
@@ -574,55 +631,3 @@ function getErrorMessage() {
     });
 }
 
-// on click event
-Event.observe(window, 'load', function() {
-    
-    $$('.cloudsponge_yahoo').each(function(element){
-        Event.observe(element, 'click', importYahoo);
-    });
-    
-    $$('.cloudsponge_msn').each(function(element){
-        Event.observe(element, 'click', importMSN);
-    });
-    
-    $$('.cloudsponge_gmail').each(function(element){
-        Event.observe(element, 'click', importGmail);
-    });
-    
-    $$('.cloudsponge_aol').each(function(element){
-        Event.observe(element, 'click', showAOLUserPasswordForm);
-    });
-    
-    $$('.cloudsponge_plaxo').each(function(element){
-        Event.observe(element, 'click', showPlaxoUserPasswordForm);
-    });
-    
-    $$('.cloudsponge_apple').each(function(element){
-        Event.observe(element, 'click', importApple);
-    });
-    
-    // hide the Apple importer link if the client OS is not OS/X
-    if (navigator.userAgent.indexOf(' Mac ') == -1) {
-        $('cloudsponge_apple').setStyle('display:none');
-    }
-    
-    $$('.userpassword_submit').each(function(element){
-        Event.observe(element, 'click', importUserPassword);
-    });
-    
-    $$('.address_records_all').each(function(element){
-        Event.observe(element, 'click', selectAllAddressRecords);
-    });
-    
-    $$('.address_records_none').each(function(element){
-        Event.observe(element, 'click', selectNoneAddressRecords);
-    });
-    
-    Event.observe($("address_search"), 'keyup', filterAddressRecords);
-    
-    Event.observe($("address_search"), 'keypress', ignoreEnterKey);
-    Event.observe($("recipients"), 'keypress', ignoreEnterKey);
-    
-    // hide the address confirmation form fields
-    hideAddressRecords();
-});
