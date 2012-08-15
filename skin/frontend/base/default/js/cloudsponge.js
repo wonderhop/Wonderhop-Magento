@@ -2,9 +2,13 @@ var importContactsFlag = false;
 var inputService;
 var popupWinRef; //get popup window reference
 var stopImportTimeCount;
-
+var imported; 
 document.observe("dom:loaded", function() { 
 
+    $$('.cloudsponge_select_emails').each(function(element){  
+        Event.observe(element, 'click', selectCheckBoxes);
+    });
+    
     $$('.cloudsponge_yahoo').each(function(element){  
         Event.observe(element, 'click', importYahoo);
     });
@@ -49,7 +53,30 @@ document.observe("dom:loaded", function() {
     hideAddressRecords();
 });
 
-
+function selectCheckBoxes() {
+    var checkedList = [];
+    var str = $('cloud_invite_input').value;
+    if (str) {
+        checkedList = str.split(/\s?,\s?/);
+    }
+    $$('.address_record_checkbox_input').each(function(ele){
+       if( $(ele).checked && checkedList.indexOf($(ele).value) < 0)
+       {    
+           str = $('cloud_invite_input').value;
+           if (str) {
+                str += ',' + $(ele).value;
+           } else {
+                str = $(ele).value;
+           }
+            $('cloud_invite_input').value = str;
+            
+       }
+    });
+    $('popup-overlay').hide();
+    $('popup-content').hide();
+    $('popup-content').addClassName(imported);
+    
+}
 
 function setEmailAddressCheck() {
         if (counter >= 1) {
@@ -88,7 +115,7 @@ function decreaseEmailCounter() {
 
 function updateEmailCount() {
     countDiv = $('counter_content');
-    countDiv.innerHTML = counter + " email addresses left";
+    //countDiv.innerHTML = counter + " email addresses left";
 }
 
 function disableConfirm(){
@@ -300,7 +327,12 @@ function importApple (evt) {
 };
 
 function importGmail (evt) {
-     
+    if($('popup-content').hasClassName('gmail_imported')) {
+        $('popup-overlay').show();
+        $('popup-content').show();
+        return;
+    }
+    imported = 'gmail_imported';
     var popUpUrl = baseUrl + '/cloudsponge/index/popup/service/gmail';
     this.popUp = window.open(popUpUrl, 'import', 'width=987,height=600,resizable=yes,scrollbars=yes');
     this.popUp.focus();
@@ -311,6 +343,12 @@ function importGmail (evt) {
 };
 
 function importMSN (evt) {
+    if($('popup-content').hasClassName('msn_imported')) {
+        $('popup-overlay').show();
+        $('popup-content').show();
+        return;
+    }
+     imported = 'msn_imported';
     var popUpUrl = baseUrl + '/cloudsponge/index/popup/service/windowslive';
     this.popUp = window.open(popUpUrl, 'import', 'width=987,height=600,resizable=yes,scrollbars=yes');
     this.popUp.focus();
@@ -342,6 +380,12 @@ function importUserPassword (evt) {
 };
 
 function importYahoo (evt) {
+    if($('popup-content').hasClassName('yahoo_imported')) {
+        $('popup-overlay').show();
+        $('popup-content').show();
+        return;
+    }
+     imported = 'yahoo_imported';
     var popUpUrl = baseUrl + '/cloudsponge/index/popup/service/yahoo';
     this.popUp = window.open(popUpUrl, 'import', 'width=500,height=500,resizable=yes,scrollbars=yes');
     this.popUp.focus();
@@ -413,7 +457,10 @@ function showAddressRecords() {
       
     $('address_records').show();  
     $('cloudsponge_emailcounter').show();
-      
+    $('popup-overlay').show();
+    $('popup-content').show();
+    
+     
     // set event loading the email list:
     $$('.address_record_checkbox_input').each(function(element){
         
@@ -552,14 +599,10 @@ function getJSONData() {
                     continue;
                 }
                 else {
-                    var new_str = '';
-                    if ($('cloud_invite_input').value) {
-                        new_str = $('cloud_invite_input').value + ',';
-                    }
-                    $('cloud_invite_input').value = new_str + contacts[idx]['email'];
-                    //contactsInForm.push(contacts[idx]['email']);             
+                    
+                    contactsInForm.push(contacts[idx]['email']);             
                 }
-                continue;
+                
                 // add to the existing name/email fields
                 var li_mail = Element.extend(document.createElement("LI"));
                 li_mail.setStyle('padding: 8px');
