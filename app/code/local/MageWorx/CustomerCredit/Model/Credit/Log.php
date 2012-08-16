@@ -80,7 +80,7 @@ class MageWorx_CustomerCredit_Model_Credit_Log extends Mage_Core_Model_Abstract
                 {
                     $comment =  Mage::helper('customercredit')->__('By Recharge Code %s', $this->getCreditModel()->getRechargeCode());
                 }
-                elseif ($user = Mage::getSingleton('admin/session')->getUser()) 
+                elseif (1) 
                 {                    
                     if (!$this->getCreditModel()->getComment())
                     {

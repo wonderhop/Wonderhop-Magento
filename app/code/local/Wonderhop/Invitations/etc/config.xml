@@ -33,9 +33,9 @@
                             <children>
                                 <config>
                                     <children>
-                                        <invitations>
+                                        <Wonderhop_Invitations>
                                             <title>Invitations</title>
-                                        </invitations>
+                                        </Wonderhop_Invitations>
                                     </children>
                                 </config>
                             </children>
@@ -61,9 +61,9 @@
             </invitations_mysql4>          
         </models> 
        <helpers>
-             <invitations>
+             <wonderhop_invitations>
                 <class>Wonderhop_Invitations_Helper</class>
-             </invitations>
+             </wonderhop_invitations>
         </helpers>
 		<resources>
 			<wonderhop_invitations_setup>

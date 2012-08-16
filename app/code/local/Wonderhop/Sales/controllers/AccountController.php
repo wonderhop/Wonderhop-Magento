@@ -173,7 +173,7 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                 $session->addError($this->__('Login and password are required.'));
             }
         }
-        error_log("XXXXX");
+        
         $this->_loginPostRedirect();
     }
 
@@ -355,6 +355,7 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                             $customer->save();
                         } elseif($customer->getReferrerId()) {
                             //give the credits
+                            Mage::helper('wonderhop_invitations')->rewardCustomers($customer->getId());
                         }
                         $redirect_url = '/shops';
                         if($this->getRequest()->getPost('url')) {
@@ -475,7 +476,9 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
 
                 // activate customer
                 try {
+                
                     //give credits
+                    Mage::helper('wonderhop_invitations')->rewardCustomers($customer->getId());
                     $customer->setEmailConfirmation(null);
                     $customer->save();
                 }
