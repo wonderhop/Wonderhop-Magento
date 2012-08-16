@@ -13,6 +13,16 @@
     <ul class="sales" id="cat_sales">
         <?php $counter = 0; ?>
         <?php foreach($sales_categories as $sale): ?>
+            <?php 
+                if(isset($interval['today'])) {
+                    $to_time = strtotime($sale->getEndDate());
+                    $from_time = strtotime($sale->getStartDate());
+                    
+                    if(round(abs($to_time - $from_time) / 3600,2) > 24) {
+                        continue;
+                    }
+                }
+            ?>
             <li class="<?php echo $counter%2 == 0 ? 'even': 'odd'; ?>">
             <?php $counter++; ?>
             <span class="sale_ends_in">

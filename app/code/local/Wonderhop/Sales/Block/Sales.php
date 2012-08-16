@@ -100,8 +100,6 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
 
         return array('Shops Opening Today'    => array('from'     => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 
                                                      'from_op'    => 'gteq', 
-                                                     //'to'         => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 
-                                                     //'to_op'      => 'gt', 
                                                      'today'      => '1', 
                                                      'start_gt'   => $past_date->format("Y-m-d H:i:s")
                                                      ), 
