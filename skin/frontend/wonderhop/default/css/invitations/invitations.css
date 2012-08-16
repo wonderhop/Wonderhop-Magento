@@ -35,15 +35,22 @@ z-index: 1011;
 position: absolute;
 padding: 20px;
 margin: 0px;
-width: 44%;
-top: 30%;
-left: 27%;
+width: 46%;
+top: 19%;
+left: 25%;
 text-align: center;
 color: black;
 border: 3px solid #AAA;
 border-image: initial;
 background-color: white;
 cursor: auto;
+
+}
+
+.email_addresses {
+overflow-y: scroll;
+height: 360px;
+float:left;
 }
 #popup-content li {
     float:left;
@@ -53,4 +60,11 @@ width: 181px;
 
 #popup-content li .address_record_email {
     font-size:9px;
+}
+#close_popup {
+    cursor:pointer;
+    float:right;
+    width: 100%;
+text-align: right;
+margin-bottom: 21px;
 }

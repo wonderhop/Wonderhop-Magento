@@ -9,6 +9,9 @@ document.observe("dom:loaded", function() {
         Event.observe(element, 'click', selectCheckBoxes);
     });
     
+    Event.observe('close_popup', 'click', closePopup);
+ 
+    
     $$('.cloudsponge_yahoo').each(function(element){  
         Event.observe(element, 'click', importYahoo);
     });
@@ -53,6 +56,11 @@ document.observe("dom:loaded", function() {
     hideAddressRecords();
 });
 
+function closePopup() {
+    $('popup-overlay').hide();
+    $('popup-content').hide();
+}
+
 function selectCheckBoxes() {
     var checkedList = [];
     var str = $('cloud_invite_input').value;
@@ -72,8 +80,7 @@ function selectCheckBoxes() {
             
        }
     });
-    $('popup-overlay').hide();
-    $('popup-content').hide();
+    closePopup()
     $('popup-content').addClassName(imported);
     
 }
@@ -453,12 +460,16 @@ function hideAddressRecords() {
     $('cloudsponge_emailcounter').hide();
 }
 
-function showAddressRecords() {
-      
-    $('address_records').show();  
+function showAddressRecords(address) {
+    
+    $('popup-content').show();
     $('cloudsponge_emailcounter').show();
     $('popup-overlay').show();
-    $('popup-content').show();
+    $('address_records').show(); 
+    if(address) {
+        $('ul_email_add').show();  
+        return;
+    }
     
      
     // set event loading the email list:
@@ -541,7 +552,7 @@ function getJSONData() {
     new Ajax.Request(baseUrl + '/cloudsponge/index/getcontactsjson/', {
         method: 'get',
         onSuccess: function(transport) {
-
+            showAddressRecords(0);
             var contacts = '';
             if (transport.responseText) {
                 contacts = transport.responseText.evalJSON();
@@ -566,7 +577,7 @@ function getJSONData() {
             if (contacts.length) {
                 stopImport();
             }
-            
+             
             ul = $('address_records');
             // (reset email list when import from a new resource, )
             ///ul.innerHTML = '';
@@ -632,7 +643,7 @@ function getJSONData() {
                 }
 
                 ul.appendChild(li_mail);
-                showAddressRecords();
+                showAddressRecords(1);
             }
         }
     });
