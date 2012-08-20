@@ -100,15 +100,18 @@
       <div id="popup-overlay" style="display:none"></div>
        <div id="popup-content" style="display:none">
             <div id="close_popup">X</div>
-            <div id="import_loader" style="display: none"><img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>" /></div>
-         
+            
+            <div id="import_loader" style="display: none">
+            <p>Your Contacts Are Loading</p>
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>" /></div>
+            
             <div class="email_addresses" id="ul_email_add" style="display:none;">
                 <ul class="form-list address_records_block address_records" id="address_records" style="display:none;">
                 
                 </ul>
             </div>
             <div class="buttons-set-invite">
-                <button type="button" title="Proceed to Checkout" id="select_emails" class="button cloudsponge_select_emails"><span><span>Select</span></span></button>
+                <button type="button"  style="display:none;" title="Proceed to Checkout" id="select_emails" class="button cloudsponge_select_emails"><span><span>Select</span></span></button>
             </div>
       </div>
     <div class="clear"></div>

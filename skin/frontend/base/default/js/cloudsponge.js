@@ -467,7 +467,8 @@ function showAddressRecords(address) {
     $('popup-overlay').show();
     $('address_records').show(); 
     if(address) {
-        $('ul_email_add').show();  
+        $('ul_email_add').show();
+        $('select_emails').show();  
         return;
     }
     
