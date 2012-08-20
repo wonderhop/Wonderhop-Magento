@@ -353,9 +353,13 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                         if ($customer->getReferrerId() && !isset($_COOKIE['wonderhop_confirmation'])) {
                             $customer->setEmailConfirmation($customer->getRandomConfirmationKey());
                             $customer->save();
-                        } elseif($customer->getReferrerId()) {
-                            //give the credits
-                            Mage::helper('wonderhop_invitations')->rewardCustomers($customer->getId());
+                        } elseif($customer->getReferrerId() && isset($_COOKIE['wonderhop_confirmation'])) {
+                            $inviter = Mage::getModel('customer/customer')->getCollection()
+                                ->addAttributeToFilter('referral_code', $customer->getReferrerId())->getFirstItem();
+                            if ($_COOKIE['wonderhop_confirmation'] == md5($inviter->getId())) {
+                                //give the credits
+                                Mage::helper('wonderhop_invitations')->rewardCustomers($customer->getId());
+                            }
                         }
                         $redirect_url = '/shops';
                         if($this->getRequest()->getPost('url')) {
