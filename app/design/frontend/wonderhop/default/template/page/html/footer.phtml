@@ -24,10 +24,17 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<div class="decorations-before-footer">
+    <div class="before-footer-plant"></div>
+</div>
 <div class="footer-container">
     <div class="footer">
-        <?php echo $this->getChildHtml() ?>
+        <?php echo $this->getChildHtml(); ?>
        
-        <address><?php echo $this->getCopyright() ?></address>
+        <!--<address><?php //echo $this->getCopyright() ?></address>-->
+        <div class="after-footer-plant"></div>
     </div>
 </div>
+<div class="decorations-after-footer">
+</div>
+<div class="clear no-margin"></div>

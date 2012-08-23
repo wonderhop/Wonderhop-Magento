@@ -34,16 +34,22 @@
         <?php else:?>
         <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
         <?php endif?>
-        <div class="quick-access">
-            <?php echo $this->getChildHtml('topSearch') ?>
-           
-            <?php echo $this->getChildHtml('topLinks') ?>
-             <?php if(Mage::getSingleton('customer/session')->isLoggedIn()): ?>
-                  <p class="welcome-msg"><?php echo str_replace('-', '', $this->getWelcome()) ?> &nbsp; <?php echo $this->getAdditionalHtml() ?></p>
-            <?php endif; ?>
-            <?php echo $this->getChildHtml('store_language') ?>
+        <?php echo $this->getChildHtml('topMenu') ?>
+        <div class="quick-access-container">
+            <div class="quick-access">
+                <?php //echo $this->getChildHtml('topSearch') ?>
+               
+                <?php //echo $this->getChildHtml('topLinks') ?>
+                 <?php if(Mage::getSingleton('customer/session')->isLoggedIn()): ?>
+                      <!--<p class="welcome-msg"><?php echo str_replace('-', '', $this->getWelcome()); ?> &nbsp; <?php echo $this->getAdditionalHtml() ?></p>-->
+                      <div class="account-top account-top-cart"><div class="item-count"><?php echo Mage::helper('checkout/cart')->getCart()->getItemsCount(); ?></div></div>
+                      <div class="account-top account-top-welcome"><span class="welcome-box"><?php echo strtoupper( Mage::getSingleton('customer/session')->getCustomer()->getFirstname() ); ?></span><span class="welcome-box-arrow"></span></div>
+                      <div class="account-top account-top-action-link"><a href="/invite-friends" title="Invite your friends !">Invite Friends &amp; Earn Cash!</a></div>
+                <?php endif; ?>
+                <?php //echo $this->getChildHtml('store_language') ?>
+            </div>
         </div>
+        
         <?php echo $this->getChildHtml('topContainer'); ?>
     </div>
 </div>
-<?php echo $this->getChildHtml('topMenu') ?>
