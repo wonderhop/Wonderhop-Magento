@@ -102,6 +102,8 @@ ul,ol         { list-style:none; }
 /*.main-container { background:#fbfaf6 url(../images/bkg_main1.gif) 50% 0 no-repeat; }*/
 .main { width:912px; margin:0 auto; min-height:400px; padding:15px 12px; background:white; text-align:left; }
 .main-no-background .main { background: none; }
+.main-no-margin .main { margin:0 auto; }
+.main-no-padding .main { padding:0; width:936px; }
 
 /* Base Columns */
 .col-left { float:left; width:195px; padding:0 0 1px; z-index:50; position:relative; }

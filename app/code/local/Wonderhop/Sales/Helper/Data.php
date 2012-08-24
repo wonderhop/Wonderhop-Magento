@@ -1,5 +1,5 @@
 <?php class Wonderhop_Sales_Helper_Data extends Mage_Core_Helper_Abstract {
-	public static function getCountDown($sale){
+    public static function getCountDown($sale){
     
       $now = date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()));
       $compare_date = $sale->getEndDate();
@@ -30,10 +30,10 @@
       
       // OUTPUT
       
-      $countdown = 'Sales Ends in ';
+      $countdown = '<i>Sales Ends</i> in ';
       
       if ($is_start) {
-        $countdown = 'Sale Starts in ';  
+        $countdown = '<i>Sale Starts</i> in ';  
       } 
       if ($days_left) {
         $countdown .=  $days_left > 1 ? "$days_left days " : "$days_left day ";
@@ -46,7 +46,7 @@
         if ($hours_left > 1) $countdown .= 's';
       }
       if (!$is_start && $hours_left == 0 && $minutes_left == 0) {
-        $countdown = 'Sale Ended';
+        $countdown = '<i>Sale Ended</i>';
       }
       return $countdown;
     }

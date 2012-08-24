@@ -1,7 +1,7 @@
 <?php 
  
 class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
-	 
+     
     /**
      * Retrieve Customer Session instance
      *
@@ -18,25 +18,25 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
     
     public function getCalendarSales() {
          $categories = Mage::getModel('catalog/category')
-					->getCollection()
-					->addAttributeToSelect('*')
-					->addIsActiveFilter()
+                    ->getCollection()
+                    ->addAttributeToSelect('*')
+                    ->addIsActiveFilter()
                     ->addAttributeToFilter('start_date', array('gt' => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))))
-					->addFieldToFilter('level', 3)
-					->addOrderField('start_date');
-	     $result = array();
-	    
-	     $locale = Mage::app()->getLocale()->getLocale();
+                    ->addFieldToFilter('level', 3)
+                    ->addOrderField('start_date');
+         $result = array();
+        
+         $locale = Mage::app()->getLocale()->getLocale();
          $long_format =  'yyyy-MM-dd HH:mm:ss';    
-	     
-	     foreach($categories as $sale) {
+         
+         foreach($categories as $sale) {
             $iso_date = new Zend_Date($sale->getStartDate(), $long_format, $locale);
-	        $date = sprintf("%s - %s %s", $iso_date->get(Zend_Date::WEEKDAY), $iso_date->get(Zend_Date::MONTH_NAME), $iso_date->get(Zend_Date::DAY));
+            $date = sprintf("%s - %s %s", $iso_date->get(Zend_Date::WEEKDAY), $iso_date->get(Zend_Date::MONTH_NAME), $iso_date->get(Zend_Date::DAY));
  
-	        $result[$date][] = $sale;
-	     }
-	     
-	     return $result;
+            $result[$date][] = $sale;
+         }
+         
+         return $result;
     }
     
     /**
@@ -57,33 +57,33 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
         }       
         
         $categories = Mage::getModel('catalog/category')
-					->getCollection()
-					->addAttributeToSelect('*')
-					->addIsActiveFilter()
-					->addFieldToFilter('level', 3)
-					->addOrderField('start_date');
-   	    if ($from) {
+                    ->getCollection()
+                    ->addAttributeToSelect('*')
+                    ->addIsActiveFilter()
+                    ->addFieldToFilter('level', 3)
+                    ->addOrderField('start_date');
+        if ($from) {
             if (!isset($interval['today'])) {
-	            $categories->addAttributeToFilter('start_date', array($interval['from_op'] => $from));
-    	    }
+                $categories->addAttributeToFilter('start_date', array($interval['from_op'] => $from));
+            }
             if (isset($interval['today'])) { 
                
                 $categories->addAttributeToFilter('start_date', array('lt' => $from));
                 $categories->addAttributeToFilter('end_date', array('gt' => "$from"));
              }       
         }
-					 
-	    
-	    if ($to) {
-	        $categories->addAttributeToFilter('end_date', array(array($interval['to_op'] => $to)));
-	        if (isset($interval['end'])) {
-	            $categories->addAttributeToFilter('end_date',   array('gteq' => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))));
+                     
+        
+        if ($to) {
+            $categories->addAttributeToFilter('end_date', array(array($interval['to_op'] => $to)));
+            if (isset($interval['end'])) {
+                $categories->addAttributeToFilter('end_date',   array('gteq' => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))));
                 $categories->addAttributeToFilter('start_date', array('lt' => $interval['start_lt']));
-	        }
+            }
  
-	    }
-	    
-	    return $categories;
+        }
+        
+        return $categories;
     }
     
     /**
@@ -98,15 +98,42 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
 
         $core_date = date("Y-m-d", Mage::getModel('core/date')->timestamp(time()));
 
-        return array('Shops Opening Today'    => array('from'     => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 
+        /*return array('Shops Opening Today'    => array('from'     => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())), 
                                                      'from_op'    => 'gteq', 
                                                      'today'      => '1', 
+                                                     'container_class' => 'opening',
                                                      ), 
                     
                      'Shops Bidding Adieu'    => array(   'to'    => $date->format("Y-m-d H:i:s"), 
                                                        'to_op'    => 'lteq', 
                                                        'start_lt' => $past_date->format("Y-m-d H:i:s"),
-                                                       'end'      => 1));
+                                                       'end'      => 1,
+                                                       'container_class' => 'closing',
+                                                    ),
+        );*/
+        return array( // slug (container_class) => data
+            'opening'   => array(
+                'heading'   => 'Shops Opening Today' ,
+                'class'     => 'opening',
+                'interval'  => array(
+                    'from'       => date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())) , 
+                    'from_op'    => 'gteq' , 
+                    'today'      => '1' , 
+                ),
+            ),
+            
+            'closing'   => array(
+                'heading'   => 'Shops Bidding Adieu' , 
+                'class'     => 'closing',
+                'interval'  => array(
+                    'to'        => $date->format("Y-m-d H:i:s") , 
+                    'to_op'     => 'lteq' , 
+                    'start_lt'  => $past_date->format("Y-m-d H:i:s") ,
+                    'end'       => 1 ,
+                ),
+            ),
+            
+        );
     }
 
     /**
@@ -151,5 +178,5 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
     
     
  
-	 
+     
 }

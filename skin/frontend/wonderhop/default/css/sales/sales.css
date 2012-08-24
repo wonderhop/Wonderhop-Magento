@@ -1,4 +1,4 @@
-ul#cat_sales {
+/*ul#cat_sales {
     float:left;
     width: 100%;
 }
@@ -67,3 +67,70 @@ ul#cat_sales li .sale_ends_in h3 {
 ul#cat_sales li a {
     text-decoration:none;
 }
+*/
+
+/*layout alterations */
+.sales-page .main { background:none; margin:0 auto; padding:0; width:936px; }
+.sales-page .col-main { z-index:auto; }
+.sales-page .footer { width: 948px; }
+
+/* specific layout */
+.sales_section { display:inline-block; margin:0 0 15px 0; padding:0; clear:both; width:100%; height:auto; position:relative; background:white; }
+.sales_section-closing { margin-top: 15px; margin-bottom:0; width:948px; position:relative; left: -5px; }
+.cat_sales { z-index:60; position:relative; overflow:hidden; }
+
+.col-2col { width:50%; }
+.col-3col { width:32%; }
+.left-mid { clear:none; }
+
+.page_end_normal { display:block; position:absolute; height:12px; width:936px; background: url("../../images/page_end_normal.png") no-repeat left top transparent; bottom:-12px; }
+.page_begin_wide { display:block; position:absolute; height:15px; width:948px; background: url("../../images/page_begin_wide.png") no-repeat left top transparent; top:-15px; }
+.page_end_wide { display:block; position:absolute; height:7px; width:948px; background: url("../../images/page_end_wide.png") no-repeat left top transparent; bottom:-7px; }
+
+
+.sales_heading-wrap, .sale-wrap { clear: both; width:444px; margin-top: 20px; }
+.sales_heading { display:block; float:right; width: 360px; text-indent: -9888px; overflow:hidden; }
+
+.sale-wrap { margin-top: 20px; }
+.sale { display:inline-block; overflow:visible;position:relative; height:auto; min-height:200px;}
+.sale a, .sale a:hover { text-decoration:none; }
+.sale_text { text-transform:uppercase; display:block; padding: 12px 0; line-height: 28px; width:420px; position:relative; }
+.sale_text-back { background:url("../../images/saletext_backs") no-repeat left top transparent; }
+.sale_text-back-1, .sale_text-back-1.back-left { background-position: right 0px; }
+.sale_text-back-2, .sale_text-back-2.back-left { background-position: right -120px; }
+.sale_text-back-3, .sale_text-back-3.back-left { background-position: right -240px; }
+.sale_text-back-1.back-right { background-position: left 0px; }
+.sale_text-back-2.back-right { background-position: left -120px; }
+.sale_text-back-3.back-right { background-position: left -240px; }
+
+.sale_title { font-size: 18px; color:#585254;  margin:0; }
+.sale_description { font-size: 16px; color: #a9a4a6;  margin:0; }
+
+/* page elements start */
+
+
+.sales_heading-opening { background: url("../../images/shops_opening_head.png") no-repeat scroll right top transparent;  height: 160px; margin-right:35px; }
+.cat_sales_left-opening .sale-wrap { float: right; margin-right: 24px; }
+.cat_sales_left-opening .sale, .cat_sales_left-opening .sale .sale_image { float:right; }
+.cat_sales_left-opening .sale_text { text-align:right; right:-24px; padding-right:24px; }
+
+
+.cat_sales_right-opening .sale-wrap { float: left; margin-left: 24px; }
+.cat_sales_right-opening .sale-wrap:first-child { margin-top:40px; }
+.cat_sales_right-opening .sale, .cat_sales_right-opening .sale .sale_image { float:left; }
+.cat_sales_right-opening .sale_text { text-align:left; left:-24px; padding-left:24px; }
+
+
+
+.sale_end { display:block; height:0; position:relative; overflow:visible; width:100&; clear:both; }
+.sale_end.size-1 { width: 330px; }
+.sale_end.size-2 { width: 410px; }
+.sale_end_description { display:block; position:absolute; height: 64px; width: 420px; top: -94px; background: url("../../images/saleend_backs.png") no-repeat scroll left top transparent; text-align:center; color: white; font-size:16px; font-weight:bold; line-height:64px; }
+.sale_end_description.size-1 { background-position: left bottom; left: -14px; width: 290px; padding: 0 33px 0 30px; }
+.sale_end_description.size-2 { background-position: left top; left: -5px; width: 300px; padding: 0  57px 0 63px; }
+
+
+
+/*.cat_sales_left-opening .sale_end_description { text-align:right; }
+.cat_sales_right-opening .sale_end_description { text-align:left; }*/
+

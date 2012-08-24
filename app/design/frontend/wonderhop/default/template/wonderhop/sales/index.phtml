@@ -2,49 +2,172 @@
     <div class="message error">To get your reward credits please confirm your email.</div>
 <?php endif; ?>
 
+
 <?php 
-    $sections = $this->getSaleSections(); 
-?>
 
-<?php foreach($sections as $heading => $interval) : ?>
+// All sections
 
-    <h2><?php echo $heading; ?></h2>
-    <?php $sales_categories = $this->getSales( $interval ); ?>
-    <ul class="sales" id="cat_sales">
-        <?php $counter = 0; ?>
-        <?php foreach($sales_categories as $sale): ?>
-            <?php 
-                if(isset($interval['today'])) {
-                    $to_time = strtotime($sale->getEndDate());
-                    $from_time = strtotime($sale->getStartDate());
-                    
-                    if(round(abs($to_time - $from_time) / 3600,2) > 24 && $sale->getEndDate() < date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time()))) {
-                        continue;
-                    }
-                }
-            ?>
-            <li class="<?php echo $counter%2 == 0 ? 'even': 'odd'; ?>">
-            <?php $counter++; ?>
-            <span class="sale_ends_in">
-                      <h3 class="sale_ends_description">
+$sections = $this->getSaleSections(); 
+extract($sections);
+
+
+//
+// Opening Shops
+//
+
+extract($opening);
+$sales_categories = $this->getSales( $interval );
+
+if ( ! empty($sales_categories) and count($sales_categories)) {
+    
+    $left = '';
+    $right = '';
+    $current = 'left';
+    $counter = 0;
+    
+    foreach($sales_categories as $sale) {
+        if(isset($interval['today'])) {
+            $to_time = strtotime($sale->getEndDate());
+            $from_time = strtotime($sale->getStartDate());
+            
+            if(round(abs($to_time - $from_time) / 3600,2) > 24 && $sale->getEndDate() < date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time()))) {
+                continue;
+            }
+        }
+        ob_start();
+        ?>
+
+        <li class="sale-wrap">
+            <div class="sale">
+                <?php
+                list($img_width,$size) = (($counter%4 == 0) or ($counter%4 == 3)) ? array(330,1) : array(410,2);
+                list($current,$not_current) = ($counter%2 == 0) ? array('left','right') : array('right','left');
+                ?>
+                <?php if($sale->getThumbnail()) { ?>
+                    <a class="sale_image" href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
+                        <img alt="<?php echo $sale->getName(); ?>" src="<?php echo $this->getResizedImage($sale, $img_width);  ?>" />
+                    </a>
+                <?php } ?>
+                <span class="sale_end size-<?php echo "$size $not_current"; ?> clear no-margin">
+                    <h3 class="sale_end_description size-<?php echo $size; ?>">
                         <?php echo  Wonderhop_Sales_Helper_Data::getCountDown($sale); ?>
-                      </h3>
-            </span>
-            <?php if($sale->getThumbnail()): ?>
-                <a href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
-                 <img alt="<?php echo $sale->getName(); ?>" src="<?php echo $this->getResizedImage($sale, 400, 400);  ?>" />
-                </a>
-            <?php endif; ?>
-            <a href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
-                <span class="top_sale_description">
-                   <span class="floatLeft">
-                      <h3><?php print $sale->getName(); ?></h3>  
-                    <span class="sale_small_description"> <?php print $sale->getSaleDescription(); ?></span>
+                    </h3>
                 </span>
-            </a>
-           </li>
-        <?php endforeach; ?>
-    </ul>
+                <a class="<?php echo $not_current; ?> clear no-margin" href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
+                    <span class="sale_text sale_text-back sale_text-back-<?php echo ($counter%3)+1; ?> back-<?php echo $current; ?>"><span>
+                            <h3 class="sale_title"><?php print $sale->getName(); ?></h3>  
+                            <span class="sale_description"><?php print $sale->getSaleDescription(); ?></span>
+                    </span></span>
+                </a>
+            </div>
+        </li>
+        <?php
+        
+        $$current .= ob_get_clean();
+        $counter++;
+    }
+    ?>
+        
+    <div class="sales_section sales_section-<?php echo $class; ?>">
+        <div class="page_begin_normal"></div>
+        <ul class="sales cat_sales left col-2col cat_sales_left-<?php echo $class; ?>">
+            <li class="sales_heading-wrap">
+                <h2 class="sales_heading sales_heading-<?php echo $class; ?>">
+                    <?php echo $heading; ?>
+                </h2>
+            </li>
+            <?php echo $left; ?>
+        </ul>
+        <ul class="sales cat_sales right col-2col cat_sales_right-<?php echo $class; ?>">
+            <?php echo $right; ?>
+        </ul>
+        <div class="page_end_normal"></div>
+    </div><!-- .sale_section -->
+    <?php
+}
 
-<?php endforeach; ?>
- 
+// cleanup
+unset($opening,$left,$right,$mid,$current,$heading,$class,$counter,$sale,$from_time,$to_time,$sales_categories,$interval);
+
+
+
+
+
+//
+// Closing Shops
+//
+
+extract($closing);
+$sales_categories = $this->getSales( $interval );
+
+if ( ! empty($sales_categories) and count($sales_categories)) {
+    
+    $left = '';
+    $mid = '';
+    $right = '';
+    $current = 'left';
+    $counter = 0;
+    $wbig = 410;
+    $wsmall = 330;
+    $cwidth = 'wsmall';
+    
+    foreach($sales_categories as $sale) {
+        if(isset($interval['today'])) {
+            $to_time = strtotime($sale->getEndDate());
+            $from_time = strtotime($sale->getStartDate());
+            
+            if(round(abs($to_time - $from_time) / 3600,2) > 24 && $sale->getEndDate() < date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time()))) { 
+                continue;
+            }
+        }
+        ob_start(); 
+        ?>
+        
+        <li class="sale-wrap">
+            <div class="sale">
+                <?php if($sale->getThumbnail()) { ?>
+                    <a href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
+                        <img alt="<?php echo $sale->getName(); ?>" src="<?php echo $this->getResizedImage($sale, 290 );  ?>" />
+                    </a>
+                <?php } ?>
+                <a href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
+                    <span class="sale_text">
+                        <h3 class="sale_title"><?php print $sale->getName(); ?></h3>
+                    </span>
+                </a>
+            </div>
+        </li>
+        <?php
+        
+        $current = ($counter%3 == 0) ? 'left' : (($counter%3 == 1) ? 'mid' : 'right');
+        $$current .= ob_get_clean();
+        $counter++;
+    }
+    ?>
+        
+    <div class="sales_section sales_section-<?php echo $class; ?>">
+        <div class="page_begin_wide"></div>
+        <ul class="sales cat_sales left col-3col cat_sales_left-<?php echo $class; ?>">
+            <li class="sales_heading-wrap">
+                <h2 class="sales_heading sales_heading-<?php echo $class; ?>">
+                    <?php echo $heading; ?>
+                </h2>
+            </li>
+            <?php echo $left; ?>
+        </ul>
+        <ul class="sales cat_sales left left-mid col-3col cat_sales_mid-<?php echo $class; ?>">
+            <?php echo $mid; ?>
+        </ul>
+        <ul class="sales cat_sales right col-3col cat_sales_right-<?php echo $class; ?>">
+            <?php echo $right; ?>
+        </ul>
+        <div class="page_end_wide"></div>
+    </div><!-- .sale_section -->
+    <?php
+}
+
+
+
+
+
+
