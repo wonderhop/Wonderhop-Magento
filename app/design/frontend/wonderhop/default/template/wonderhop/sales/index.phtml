@@ -147,20 +147,21 @@ if ( ! empty($sales_categories) and count($sales_categories)) {
         
     <div class="sales_section sales_section-<?php echo $class; ?>">
         <div class="page_begin_wide"></div>
+        <ul class="sales cat_sales right col-3col cat_sales_right-<?php echo $class; ?>">
+            <?php echo $right; ?>
+        </ul>
+        <div class="sales_heading-wrap">
+            <h2 class="sales_heading sales_heading-<?php echo $class; ?>">
+                <?php echo $heading; ?>
+            </h2>
+        </div>
         <ul class="sales cat_sales left col-3col cat_sales_left-<?php echo $class; ?>">
-            <li class="sales_heading-wrap">
-                <h2 class="sales_heading sales_heading-<?php echo $class; ?>">
-                    <?php echo $heading; ?>
-                </h2>
-            </li>
             <?php echo $left; ?>
         </ul>
         <ul class="sales cat_sales left left-mid col-3col cat_sales_mid-<?php echo $class; ?>">
             <?php echo $mid; ?>
         </ul>
-        <ul class="sales cat_sales right col-3col cat_sales_right-<?php echo $class; ?>">
-            <?php echo $right; ?>
-        </ul>
+        
         <div class="page_end_wide"></div>
     </div><!-- .sale_section -->
     <?php

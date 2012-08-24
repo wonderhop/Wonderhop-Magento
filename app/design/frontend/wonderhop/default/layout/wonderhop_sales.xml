@@ -47,7 +47,7 @@
             <action method="addCss"><stylesheet>css/sales/login_popup.css</stylesheet></action>
             
         </reference>
-        <reference name="footer">
+        <reference name="before_body_end">
             <block type="wonderhop_sales/login_login" name="wonderhop.login" as="wonderhop_login" template="wonderhop/sales/login.phtml" />
             <block type="customer/account_forgotpassword" name="forgotPassword" template="wonderhop/forgotpassword.phtml" />
         </reference> 

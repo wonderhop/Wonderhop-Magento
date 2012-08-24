@@ -22,6 +22,9 @@
  * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+@import url('./local.css');
+
+
 
 /* Reset ================================================================================= */
 * { margin:0; padding:0; } /*font-family: "letter-gothic-std",Arial, Helvetica, sans-serif;}*/
@@ -100,7 +103,7 @@ ul,ol         { list-style:none; }
 .page-empty { background:#fff; padding:20px; text-align:left; }
 .page-popup { background:#fff; padding:25px 30px; text-align:left; }
 /*.main-container { background:#fbfaf6 url(../images/bkg_main1.gif) 50% 0 no-repeat; }*/
-.main { width:912px; margin:0 auto; min-height:400px; padding:15px 12px; background:white; text-align:left; }
+.main { width:912px; margin:0 auto; min-height:400px; padding:15px 12px; background:white; text-align:left; clear:both; position:relative; display:inline-block; }
 .main-no-background .main { background: none; }
 .main-no-margin .main { margin:0 auto; }
 .main-no-padding .main { padding:0; width:936px; }
@@ -1724,7 +1727,7 @@ margin-right: 4px;}
 
 /* Footer ================================================================================ */
 /*.footer-container { border-top:15px solid #b6d1e2; }*/
-.footer-container { height: 130px; overflow:hidden; margin-top:-33px; padding-top:33px; }
+.footer-container { height: 130px; overflow:hidden; margin-top:-33px; padding-top:48px; clear:both;  }
 .footer { width: 936px; height: 111px; left: 5px; margin: 0 auto; padding: 7px 10px 15px 0; position: relative; background: url("../images/foot_back.png") no-repeat scroll left top transparent; z-index:45; }
 .footer ul { margin:0; padding:0 56px; position:absolute; top:5px; bottom:0px; left:0; right:0;  }
 .footer ul.links {display:none; }
@@ -1779,6 +1782,12 @@ margin-right: 4px;}
 .decorations-before-footer, .decorations-after-footer { margin:0 auto; padding:0; width:936px; height:0; position:relative; overflow:visible;}
 .after-footer-plant { background: url("../images/after_footer_plant.png") no-repeat scroll left top transparent; width:124px; height:124px; z-index:60; display:block; position:absolute; bottom:-24px; right:-18px; }
 .before-footer-plant { background: url("../images/before_footer_plant.png") no-repeat scroll left top transparent; width:260px; height:230px; z-index:40; display:block; position:absolute; bottom:-46px; left:-32px; }
+
+
+.main_page_end_normal { display:block; position:absolute; height:12px; width:936px; background: url("../images/page_end_normal.png") no-repeat left top transparent; bottom:-12px; left:0; }
+.page_end_normal { display:block; position:absolute; height:12px; width:936px; background: url("../images/page_end_normal.png") no-repeat left top transparent; bottom:-12px; }
+.page_begin_wide { display:block; position:absolute; height:15px; width:948px; background: url("../images/page_begin_wide.png") no-repeat left top transparent; top:-15px; }
+.page_end_wide { display:block; position:absolute; height:7px; width:948px; background: url("../images/page_end_wide.png") no-repeat left top transparent; bottom:-7px; }
 
 /*.footer .store-switcher { display:inline; margin:0 5px 0 0; color:#fff; }
 .footer .store-switcher label { font-weight:bold; vertical-align:middle; }
