@@ -129,7 +129,8 @@ ul#cat_sales li a {
 
 
 
-.sale_end { display:block; height:0; position:relative; overflow:visible; width:100&; clear:both; }
+.sale_end { display:none; height:0; position:relative; overflow:visible; width:100&; clear:both; }
+.sale:hover .sale_end { display:block; }
 .sale_end.size-1 { width: 330px; }
 .sale_end.size-2 { width: 410px; }
 .sale_end_description { display:block; position:absolute; height: 64px; width: 420px; top: -94px; background: url("../../images/saleend_backs.png") no-repeat scroll left top transparent; text-align:center; color: white; font-size:16px; font-weight:bold; line-height:64px; }
