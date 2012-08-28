@@ -554,9 +554,11 @@ tr.summary-details-excluded { font-style:italic; }
 .header .account-top { float: right; min-width: 50px; height: 42px; /*margin-right:25px;*/ line-height: 42px; position:relative; }
 .header .account-top-action-link { background: url("../images/topaction_back.png") no-repeat scroll left top transparent; clear: none; float: left; margin: 0 0 0 10px; width: 296px; }
 .header .account-top-action-link a { color: white; display: block; font-size: 15px; padding: 0 30px 0 20px; text-align: center; text-decoration: none; width: 246px; }
-.header .account-top-welcome { background: url("../images/welcome.png") no-repeat scroll left top transparent; padding-left:50px; padding-right:8px ; cursor:pointer; max-width:150px; }
+/*.header .account-top-welcome { background: url("../images/welcome.png") no-repeat scroll left top transparent; padding-left:50px; padding-right:8px ; cursor:pointer; max-width:150px; }
 .header .account-top-welcome .welcome-box { padding-left: 8px; display:inline-block; overflow:hidden; max-width: 114px; line-height: 20px; max-height: 40px; vertical-align:middle; word-wrap: break-word; }
-.header .account-top-welcome .welcome-box-arrow { display:inline-block; width:25px; height: 42px; vertical-align:middle; background: url("../images/dot_arrow_down.png") no-repeat scroll right 13px transparent; }
+.header .account-top-welcome .welcome-box-arrow { display:inline-block; width:25px; height: 42px; vertical-align:middle; background: url("../images/dot_arrow_down.png") no-repeat scroll right 13px transparent; }*/
+.header .account-top-welcome { background: url("../images/welcome.png") no-repeat scroll left top transparent; padding-left:50px; padding-right:8px ; cursor:pointer; max-width:150px; }
+.header .account-top-welcome .welcome-box { padding-left: 8px; display:block; overflow:hidden; max-width: 114px; line-height: 42px; height: 42px; background: url("../images/dot_arrow_down.png") no-repeat scroll right 13px transparent; white-space:nowrap; padding:0 25px 0 8px; }
 .header .account-top-cart { width:60px; background: url("../images/basket.png") no-repeat scroll left top transparent; margin-right: 8px; cursor:pointer; }
 .header .account-top-cart .item-count { position:absolute; top:3px; right:3px; height:15px; min-width:11px; font-weight:bold;color:white;font-size:10px; background:#444;border-radius:7px; text-align:center; line-height: 15px; font-family:sans-serif; word-spacing:normal; letter-spacing:normal; padding:0 2px; }
 
@@ -565,7 +567,7 @@ tr.summary-details-excluded { font-style:italic; }
 
 /********** < Navigation */
 .nav-container { background:url("../images/menu_back.png") no-repeat scroll left top transparent; position:absolute; top:77px; left: 171px; display:block; height:50px;  }
-#nav { /*width:918px;*/ margin:0 auto; padding:10px 31px; height: 30px; line-height:30px; text-transform:uppercase; color:#696b6e; text-align:center; }
+#nav { /*width:918px;*/ margin:0 auto; padding:10px 31px; height: 30px; line-height:30px; text-transform:uppercase; color:#696b6e; text-align:center; font-size: 14px; }
 
 /* All Levels */ /* Style consistent throughout all nav levels */
 #nav li { position:relative; text-align:left; height:30px; width: 127px; margin-left: 13px; }

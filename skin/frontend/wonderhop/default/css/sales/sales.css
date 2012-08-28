@@ -70,7 +70,7 @@ ul#cat_sales li a {
 */
 
 /*layout alterations */
-.sales-page .main { background:none; margin:0 auto; width:936px; }
+.sales-page .main { background:none; margin:0 auto; width:936px; padding-top:0; }
 .sales-page .main .main_page_end_normal { display:none; }
 .sales-page .col-main { z-index:auto; }
 .sales-page .footer-container { margin-top: -58px; }
@@ -103,14 +103,14 @@ ul#cat_sales li a {
 .sales_section-closing .sale_text { width:290px; }
 
 .sale_text-back { background:url("../../images/saletext_backs.png") no-repeat left top transparent; }
-.sale_text-back-1, .sale_text-back-1.back-left { background-position: right 0px; }
-.sale_text-back-2, .sale_text-back-2.back-left { background-position: right -120px; }
-.sale_text-back-3, .sale_text-back-3.back-left { background-position: right -240px; }
-.sale_text-back-1.back-right { background-position: left 0px; }
-.sale_text-back-2.back-right { background-position: left -120px; }
-.sale_text-back-3.back-right { background-position: left -240px; }
+.sale_text-back-1, .sale_text-back-1.back-left { background-position: right -5px; }
+.sale_text-back-2, .sale_text-back-2.back-left { background-position: right -125px; }
+.sale_text-back-3, .sale_text-back-3.back-left { background-position: right -250px; }
+.sale_text-back-1.back-right { background-position: left -5px; }
+.sale_text-back-2.back-right { background-position: left -125px; }
+.sale_text-back-3.back-right { background-position: left -200px; }
 
-.sale_title { font-size: 18px; color:#585254;  margin:0; }
+.sale_title { font-size: 17px; color:#585254;  margin:0; }
 .sale_description { font-size: 16px; color: #a9a4a6;  margin:0; }
 
 /* page elements start */
