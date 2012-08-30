@@ -5,15 +5,15 @@ function buildBlock(element) {
             // these and use an external stylesheet then do this in your code: 
             // $.blockUI.defaults.css = {}; 
             css: { 
-                padding:        '227px 131px 46px 96px', 
+                padding:        0, 
                 margin:         0, 
-                width:          563, 
-                height:         237,
+                width:          '100%', 
+                height:         '100%',
                 position:       'fixed',
-                marginTop:      '50%',
-                top:            -270,
+                top:            0,
+                bottom:         0,
                 right:          0,
-                left:           'auto',
+                left:           0,
                 textAlign:      'center', 
                 color:          '#000', 
                 border:         'none', 

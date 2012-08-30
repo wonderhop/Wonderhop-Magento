@@ -1,3 +1,4 @@
+
 <div class="login_overlay"></div>
  <?php  
     $is_sales = 0;
@@ -8,7 +9,8 @@
            
  ?>
 <?php if(!$this->email): ?>
-<div class="popup_register" style="display:none;">
+<div class="popup_register block_popup" style="display:none;">
+<div class="block_popup_inner">
         <!--<div class="logo_image"></div> -->
        <h1>Join Now</h1>
         <p>Treat takes you on a daily shopping <br /> 
@@ -65,9 +67,11 @@
     </script>
  
 </div>
+</div>
 <?php endif; ?>
 
-<div class="popup_register_2"  style="display:none;">
+<div class="popup_register_2 block_popup"  style="display:none;">
+<div class="block_popup_inner">
     <div class="logo_image"></div> 
     <form action="/customer/account/createpost" method="post" id="register-form">
      <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?>  id="registration_email" />
@@ -103,10 +107,13 @@
     </script>
      
 </div>
+</div>
+
 <script type="text/javascript">var url = '';  </script>
 
 
-<div class="popup_login"  style="display:none;">
+<div class="popup_login block_popup"  style="display:none;">
+<div class="block_popup_inner">
 <!--<div class="logo_image"></div> -->
 <div class="box base-mini mini-login-form">
     <div class="head">
@@ -172,4 +179,5 @@
 </script>
 </div>
 </div>
-      
+</div>
+
