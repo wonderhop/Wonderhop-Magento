@@ -1,0 +1,22 @@
+<?php
+
+$_product = $this->getProduct();
+$_helper = $this->helper('catalog/output');
+?>
+<ul class="messages">
+    <li class="success-msg">
+        <ul>
+            <li>
+                <span>
+                    <div class="j2tajax-checkout-img">
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($this->getProductImageWidth(), $this->getProductImageHeight()); ?>" width="<?php echo $this->getProductImageWidth();?>" height="<?php echo $this->getProductImageHeight();?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                    </div>
+                    <div class="j2tajax-checkout-txt">
+                        <?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?>
+                    </div>
+                </span>
+            </li>
+        </ul>
+    </li>
+</ul>
+ <?php ?>

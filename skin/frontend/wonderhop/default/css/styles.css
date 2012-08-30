@@ -520,12 +520,12 @@ tr.summary-details-excluded { font-style:italic; }
 /* Header ================================================================================ */
 .logo { float:left; }
 /*.header-container { border-top:5px solid #0d2131; border-bottom:1px solid #415966; background:url(../images/bkg_header.jpg) 50% 0 repeat; }*/
-.header { width:960px; margin:0 auto; padding:0px; text-align:right; position:relative; z-index:50; height: 134px; background: url("../images/head_back.png") no-repeat scroll left top transparent; font-size:16px; }
+.header { width:960px; margin:0 auto; padding:0px; text-align:right; position:relative; z-index:50; height: 134px; background: url("../images/head_back.png") no-repeat scroll left top transparent; font-size:16px; z-index:100; }
 .header .logo { float:left; /*margin:3px 0 10px 12px;*/ text-decoration:none !important; }
 .header .logo strong { position:absolute; top:-999em; left:-999em; width:0; height:0; font-size:0; line-height:0; text-indent:-999em; overflow:hidden; }
 .header h1.logo { margin:0; }
 .header .quick-access-container {float:right; width:582px; padding:0 38px 20px 20px; height: 66px; position:absolute; right:0; background:url("../images/fuzzy_border.png") no-repeat scroll left top transparent; color: white; }
-.header .quick-access { padding: 12px 0; }
+.header .quick-access { padding: 12px 0; height:43px; background: #fd706b; position:relative; z-index:120; }
 .header .welcome-msg { margin:0; color:#fff; text-align:right; }
 .header .welcome-msg a { color:#ebbc58; }
 .header .form-search { position:absolute; top:0; right:29px; width:315px; height:30px; background:url(../images/bkg_form-search.gif) 0 0 no-repeat; padding:1px 0 0 16px; }
@@ -563,6 +563,9 @@ tr.summary-details-excluded { font-style:italic; }
 .header .account-top-cart .item-count { position:absolute; top:3px; right:3px; height:15px; min-width:11px; font-weight:bold;color:white;font-size:10px; background:#444;border-radius:7px; text-align:center; line-height: 15px; font-family:sans-serif; word-spacing:normal; letter-spacing:normal; padding:0 2px; }
 
 
+#block-cart-header-wrap { position:absolute; top:67px; right:38px; width:260px; overflow:hidden; min-height: 70px; background:white; box-shadow: 2px 2px 1px 0.5 black;}
+#block-cart-header-wrap .block-cart { border:none; color: black; }
+#block-cart-header-wrap .block-cart .empty { display:block; height: 50px; padding: 10px; text-align:center; font-size: 13px; }
 /********** Account and Cart top Boxes > */
 
 /********** < Navigation */
@@ -677,6 +680,8 @@ tr.summary-details-excluded { font-style:italic; }
 .block-cart .mini-products-list .product-details .product-name,
 .block-cart .mini-products-list .product-details .nobr small { word-wrap:break-word; }
 .block-cart .mini-products-list .product-details .nobr { white-space:normal !important; }
+
+
 
 /* Block: Account */
 .block-account { border-color:#bbb; }

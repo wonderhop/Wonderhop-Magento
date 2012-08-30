@@ -144,7 +144,12 @@ if ( ! empty($sales_categories) and count($sales_categories)) {
         $counter++;
     }
     ?>
-        
+    <?php
+    $blank = '<li class="sale-wrap" style="min-height:100px;"></li>';
+    $left = ( ! $left) ? $blank : $left;
+    $mid = ( ! $mid) ? $blank : $mid;
+    $right = ( ! $right) ? $blank : $right;
+    ?>
     <div class="sales_section sales_section-<?php echo $class; ?>">
         <div class="page_begin_wide"></div>
         <ul class="sales cat_sales right col-3col cat_sales_right-<?php echo $class; ?>">

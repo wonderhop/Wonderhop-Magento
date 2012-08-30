@@ -36,20 +36,138 @@
         <?php endif?>
         <?php echo $this->getChildHtml('topMenu') ?>
         <div class="quick-access-container">
+            <div id="block-cart-header-wrap">
+                <?php echo $this->getChildHtml('header_cart'); ?>
+            </div>
             <div class="quick-access">
                 <?php //echo $this->getChildHtml('topSearch') ?>
                
                 <?php //echo $this->getChildHtml('topLinks') ?>
                  <?php if(Mage::getSingleton('customer/session')->isLoggedIn()): ?>
-                      <!--<p class="welcome-msg"><?php echo str_replace('-', '', $this->getWelcome()); ?> &nbsp; <?php echo $this->getAdditionalHtml() ?></p>-->
-                      <div class="account-top account-top-cart"><div class="item-count"><?php echo Mage::helper('checkout/cart')->getCart()->getItemsCount(); ?></div></div>
-                      <div class="account-top account-top-welcome"><span class="welcome-box"><?php echo substr( strtoupper( Mage::getSingleton('customer/session')->getCustomer()->getFirstname() ), 0, 9 ); ?></span><!--<span class="welcome-box-arrow"></span>--></div>
-                      <div class="account-top account-top-action-link"><a href="/invite-friends" title="Invite your friends !">Invite Friends &amp; Earn Cash!</a></div>
+                    <!--<p class="welcome-msg"><?php echo str_replace('-', '', $this->getWelcome()); ?> &nbsp; <?php echo $this->getAdditionalHtml() ?></p>-->
+                    <div id="cart-toplink" class="account-top account-top-cart">
+                        <div class="item-count top-link-cart"><?php echo Mage::helper('checkout/cart')->getCart()->getItemsCount(); ?></div>
+                    </div>
+                    <div class="account-top account-top-welcome"><span class="welcome-box"><?php echo substr( strtoupper( Mage::getSingleton('customer/session')->getCustomer()->getFirstname() ), 0, 9 ); ?></span><!--<span class="welcome-box-arrow"></span>--></div>
+                    <div class="account-top account-top-action-link"><a href="/invite-friends" title="Invite your friends !">Invite Friends &amp; Earn Cash!</a></div>
                 <?php endif; ?>
                 <?php //echo $this->getChildHtml('store_language') ?>
             </div>
+            <script type="text/javascript">
+            var HeaderCart = (function(){ function HeaderCart($) { var self = this; return $.extend(self,{
+                data : {
+                    selectors : {
+                        container : '#block-cart-header-wrap' ,
+                        toplink   : '#cart-toplink' ,
+                    },
+                    timers : {},
+                    over : false,
+                    visible : true,
+                    stick : false,
+                },
+                
+                
+                init : function()
+                {
+                    self.$container = $(self.data.selectors.container);
+                    self.$toplink = $(self.data.selectors.toplink);
+                    self.data.top = isNaN( parseInt(self.$container.css('top')) ) ? 0 : parseInt(self.$container.css('top'));
+                    
+                    self.$toplink
+                    .click( self.toggle_stick )
+                    .mouseenter(function(){ self.clear('hide').over(true).schedule('show',500, self.show, true, ! self.visible()); })
+                    .mouseleave(function(){ self.clear('show').over(false).schedule('hide',3000, self.hide, true,self.visible() && ! self.stick()); });
+
+                    self.$container
+                    .mouseenter(function(){ self.clear('hide').clear('show').over(true); })
+                    .mouseleave(function(){ self.schedule('hide', 3000, self.hide, true, ! self.stick()).over(false); });
+                    
+                    $('html').click(function(){ if ( ! self.over() && self.visible() && ! self.stick()) { self.clear('hide').clear('show').hide(); }; });
+                    
+                    self.hide();
+                    
+                    return self;
+                },
+                
+                over : function(over)
+                {
+                    if (over == undefined || over == null) return self.data.over;
+                    over = over ? true : false;
+                    self.data.over = over;
+                    return self;
+                },
+                
+                visible : function(visible)
+                {
+                    if (visible == undefined || visible == null) return self.data.visible;
+                    visible = visible ? true : false;
+                    self.data.visible = visible;
+                    return self;
+                },
+                
+                stick : function(stick)
+                {
+                    if (stick == undefined || stick == null) return self.data.stick;
+                    stick = stick ? true : false;
+                    self.data.stick = stick;
+                    return self;
+                },
+                
+                show : function(auto)
+                {
+                    self.visible(true);
+                    self.$container.animate({top: self.data.top },400,'swing')
+                    .css({boxShadow: '0 0 10px -2px #ddd'});
+                    return self;
+                },
+                
+                
+                hide : function(auto)
+                {
+                    self.visible(false);
+                    self.$container.animate({top:  (self.data.top - self.$container.height() - 10)}, 400, 'swing', function(){
+                        $(this).css({boxShadow: 'none'});
+                    });
+                    return self;
+                },
+                
+                
+                toggle : function()
+                {
+                    return self.visible() ? self.hide() : self.show();
+                },
+                
+                toggle_stick : function()
+                {
+                    if (self.visible() && ! self.stick()) self.stick(true);
+                    else self.stick(false);
+                    return self.stick() ? self : self.toggle();
+                },
+                
+                schedule : function(id, msec, cb, override, cond)
+                {
+                    override = ((override == undefined) || override) ? true : false;
+                    cond = ((cond == undefined) || cond) ? true : false;
+                    if (cond) {
+                        if (override) self.clear(id);
+                        self.data.timers[id] = setTimeout(cb, msec);
+                    }
+                    return self;
+                },
+                
+                
+                clear : function(id)
+                {
+                    if (self.data.timers[id]) clearTimeout(self.data.timers[id]);
+                    return self;
+                },
+                
+                
+            }).init(); }; return new HeaderCart(jQuery); })();
+            </script>
         </div>
         
         <?php echo $this->getChildHtml('topContainer'); ?>
     </div>
 </div>
+
