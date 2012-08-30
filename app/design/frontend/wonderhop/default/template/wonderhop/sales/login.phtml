@@ -9,7 +9,7 @@
  ?>
 <?php if(!$this->email): ?>
 <div class="popup_register" style="display:none;">
-        <div class="logo_image"></div> 
+        <!--<div class="logo_image"></div> -->
        <h1>Join Now</h1>
         <p>Treat takes you on a daily shopping <br /> 
         journey through fun and creative products <br /> to inspire your home, family and more!</p>
@@ -37,17 +37,17 @@
         Validation.add('validate-duplicate','Email has already registered',function(the_field_value){
             var validated = 0;
             jQuery.ajax({
-				    url: '/sales/index/mailchecker',
-				    data: {'email' : jQuery('#email').val()},
-				    dataType: 'json',
-				    type: 'POST',
-				    async: false,
-				    success: function(data, text, request) {
-					    if (data == 'OK') {
-						   validated = 1;
-					    }
-				    }
-		    });
+                    url: '/sales/index/mailchecker',
+                    data: {'email' : jQuery('#email').val()},
+                    dataType: 'json',
+                    type: 'POST',
+                    async: false,
+                    success: function(data, text, request) {
+                        if (data == 'OK') {
+                           validated = 1;
+                        }
+                    }
+            });
             return validated;
         });
 
@@ -66,6 +66,7 @@
  
 </div>
 <?php endif; ?>
+
 <div class="popup_register_2"  style="display:none;">
     <div class="logo_image"></div> 
     <form action="/customer/account/createpost" method="post" id="register-form">
@@ -103,8 +104,10 @@
      
 </div>
 <script type="text/javascript">var url = '';  </script>
+
+
 <div class="popup_login"  style="display:none;">
-<div class="logo_image"></div> 
+<!--<div class="logo_image"></div> -->
 <div class="box base-mini mini-login-form">
     <div class="head">
         <h4><?php echo $this->__('Welcome back!') ?></h4>
@@ -142,21 +145,21 @@
         var validated = 0;
 
         jQuery.ajax({
-			    url: '/sales/index/loginpost',
-			    data: jQuery('#login-form').serialize(),
-			    dataType: 'json',
-			    type: 'POST',
-			    async: false,
-			    success: function(data, text, request) {
-				    if (data != 'ERR') {
-				       window.location = data;
-				       validated = 1;
-					   url = data;
-					   
-				    }
-			    }
-	    });
-	 
+                url: '/sales/index/loginpost',
+                data: jQuery('#login-form').serialize(),
+                dataType: 'json',
+                type: 'POST',
+                async: false,
+                success: function(data, text, request) {
+                    if (data != 'ERR') {
+                       window.location = data;
+                       validated = 1;
+                       url = data;
+                       
+                    }
+                }
+        });
+     
         return validated;
     });
     

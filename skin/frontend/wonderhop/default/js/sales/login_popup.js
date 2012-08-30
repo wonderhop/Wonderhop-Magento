@@ -5,16 +5,20 @@ function buildBlock(element) {
             // these and use an external stylesheet then do this in your code: 
             // $.blockUI.defaults.css = {}; 
             css: { 
-                padding:        '20px', 
+                padding:        '227px 131px 46px 96px', 
                 margin:         0, 
-                width:          '30%', 
-                top:            '30%', 
-                left:           '35%', 
+                width:          563, 
+                height:         237,
+                position:       'fixed',
+                marginTop:      '50%',
+                top:            -270,
+                right:          0,
+                left:           'auto',
                 textAlign:      'center', 
                 color:          '#000', 
-                border:         '3px solid #aaa', 
-                backgroundColor:'#fff', 
-                cursor:         'auto'
+                border:         'none', 
+                backgroundColor:'transparent',
+                cursor:         'auto',
             }, 
             // styles for the overlay 
             overlayCSS:  { 
@@ -22,7 +26,7 @@ function buildBlock(element) {
                 opacity:         0.6 ,
                 cursor:         'auto' 
             }, 
-            showOverlay: false
+            showOverlay: false,
         });
 }
 jQuery(document).ready(function() { 
