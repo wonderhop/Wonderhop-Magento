@@ -28,6 +28,7 @@ function buildBlock(element) {
             }, 
             showOverlay: false,
         });
+        jQuery('html').css({height:'100%',overflow:'hidden'});
 }
 jQuery(document).ready(function() { 
      if (jQuery('.popup_register').length) {

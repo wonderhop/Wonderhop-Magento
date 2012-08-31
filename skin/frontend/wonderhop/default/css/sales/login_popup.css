@@ -12,18 +12,61 @@
 
 .block_popup { background: url("../../images/sales/login_popup/back.png") no-repeat scroll left top transparent; 
         padding: 227px 131px 46px 96px; margin:0; width: 593px ; height: 267px; position:absolute; margin-top:-270px; top: 50%;
-        right:0; left:auto; text-align: center; color:#000; border:none; background-color:transparent; cursor:auto; }
+        right:0; left:auto; text-align: center; color:#000; border:none; background-color:transparent; cursor:auto; 
+        font-size:18px; font-weight:bold; font-family:"letter-gothic-std",monospace; text-transform: uppercase; }
 /*.popup_register, .popup_register_2, .popup_login, .forgot_form { background:white; display:block;
         width:100% ;height:100%; padding:15px; }*/
-.block_popup_inner { background:white; padding:15px; width: 563px ; height: 237px; }
+.block_popup_inner { background:white; padding:15px; width: 563px ; height: 237px; position:relative; }
+#backstretch { z-index:1001 !important; }
 
 .popup_login label, .popup_register_2 label { width: 130px; text-align: left; }
 .popup_login .input-text, .popup_register_2 .input-text { float:left; }
 label[for=terms] { width: auto; }
 .validation-advice { text-align:left; }
 .terms_agreement { float: left; margin-right: 5px; margin-toP: 3px; }
-.login_overlay { z-index: 1000;  border-top-style: none; border-right-style: none; border-bottom-style: none;
-    border-left-style: none; border-width: initial; border-color: initial; border-image: initial;margin-top: 0px;
-    margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px;
-    padding-left: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: rgb(0, 0, 0); opacity: 0.6;
-    cursor: auto; position: fixed; }
+.login_overlay { z-index: 1000;  border:none; margin:0; padding:0; width: 100%; height: 100%; top: 0px; left: 0px; cursor: auto;
+    position: fixed; background-color: #000; background: rgba(0, 0, 0, 0.6); }
+
+
+.block_popup .popup_title { color: #86636e; font-family:'Cantata One',Tahoma,serif; font-size:30px; line-height: 32px;
+    width: 400px; text-align: left; padding:5px; text-transform:none; }
+.block_popup .popup_backlink { color: #ff7268;  }
+.block_popup .popup_content { background:url("../../images/sales/login_popup/reg_backchunk.png") no-repeat scroll left top transparent;
+    text-align:left;font-size: 17px; line-height: 33px; padding-top:17px; width: 563px; height: 158px; color: #7f767e; }
+.block_popup.popup_register_2 .popup_content,
+.block_popup.popup_login .popup_content { background:url("../../images/sales/login_popup/log_backchunk.png") no-repeat scroll left top transparent;
+    text-align:left;font-size: 17px; line-height: 33px; padding-top:13px; width: 563px; height: 156px; color: #7f767e; }
+    
+.block_popup .control_link { position:absolute; top:15px; right:15px; }
+.block_popup .control_link a { display:block; width: 79px; height:25px; overflow:hidden; text-decoration:underline;
+    padding-top:20px; padding-left:51px; font-size:17px; font-weight: bold; color: #ff7268; text-align: left; }
+.block_popup .control_link a:hover { text-decoration: underline; }
+.block_popup .control_link #login_link{background: url("../../images/sales/login_popup/hi_red.png") no-repeat scroll left top transparent;}
+.block_popup #forgot_link, .block_popup #forgot_link:hover { display:block; overflow:hidden; text-decoration:none;\
+    font-size:17px; font-weight: bold; color: #ff7268; text-align: left; margin-left:15px; }
+.block_popup .control_link #back_to_login { width: 143px; }
+
+
+.block_popup .popup_content #register-form1 { height: 64px; display:block; position:relative;}
+.block_popup .popup_content #register-form,
+.block_popup .popup_content #login-form { position:relative; display: block; padding-top:0px; margin-top: 12px; }
+.block_popup.forgot_form .popup_content form { position:relative; display: block; height: 64px}
+
+.block_popup .popup_content .actions button.button { width: 217px;height:50px; position:absolute; top:4px; right:12px; 
+    background:none; border:none; color: white; }
+.block_popup .popup_content .actions button.button span /*{ background:none; border:none; color:white; text-align:left;
+    font-family:"letter-gothic-std",monospace; font-size:17px; height: 50px; line-height:55px; width:180px;margin-right:16px;
+    padding:0 0 0 21px; background: url("../../images/dot_arrow_right.png") no-repeat scroll right 20px transparent; }*/
+    { background: url("../../images/dot_arrow_right.png") no-repeat scroll right 2px transparent;border:none; color: white;
+    display: block; font-family: "letter-gothic-std",monospace; font-size: 17px; height: 23px; width: 180px; line-height: 23px;
+    padding: 0 0 0 21px; margin-right: 16px; position: absolute; left: 0; margin-top: -8px; top: 50%; text-align: left; }
+    
+.block_popup .popup_content .form-list input { width: 278px; height: 37px; border:none;outline:none; line-height: 37px;
+    padding-left:24px; background:none;  padding-top:11px; font-size: 16px; font-family: "letter-gothic-std",monospace;
+    box-shadow: none; text-transform:uppercase; color: #7f767e; font-weight:bold; } 
+
+.block_popup .popup_content .form-list li { position:relative; }
+.block_popup .popup_content .form-list li .validation-advice { position:absolute; bottom:-14px;  }
+
+.block_popup.popup_register_2 .popup_content .actions button.button,
+.block_popup.popup_login .popup_content .actions button.button  { top: 63px; }

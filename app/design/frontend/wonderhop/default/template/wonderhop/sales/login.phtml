@@ -1,5 +1,14 @@
 
-<div class="login_overlay"></div>
+<div class="login_overlay">
+    <!--<img class="login_overlay_image" src="<?php echo $this->getSkinUrl('images/sales/login_popup/overlay.jpg'); ?>" alt="">-->
+    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.backstretch.min.js'); ?>"></script>
+    <script type="text/javascript">
+        jQuery.backstretch('<?php echo $this->getSkinUrl('images/sales/login_popup/overlay.jpg'); ?>');
+    </script>
+</div>
+
+
+
  <?php  
     $is_sales = 0;
     
@@ -11,29 +20,40 @@
 <?php if(!$this->email): ?>
 <div class="popup_register block_popup" style="display:none;">
 <div class="block_popup_inner">
-        <!--<div class="logo_image"></div> -->
-       <h1>Join Now</h1>
-        <p>Treat takes you on a daily shopping <br /> 
-        journey through fun and creative products <br /> to inspire your home, family and more!</p>
-        <form <?php if($is_sales): ?>onSubmit="return false;"<?php endif; ?> action="/shops" method="post" id="register-form1">
-            <input type="hidden" value="" name="url" class="document_url"/>
-            <div class="content">
-                <ul class="form-list">
+        <h1 class="popup_title">Wonderful finds <br/>for an inspired life</h1>
+        <div class="control_link">
+            <a href="#" id="login_link">Log In</a>
+        </div>
+        <div class="popup_content">
+            <p>Uniquely lovely finds to inspire your<br/> 
+            home, kitchen and family.
+            </p>
+            <form <?php if($is_sales): ?>onSubmit="return false;"<?php endif; ?> action="/shops" method="post" id="register-form1">
+                <input type="hidden" value="" name="url" class="document_url"/>
+                <div class="content">
+                    <ul class="form-list">
                         <li>
-                            <label for="email"><?php echo $this->__('Your Email Address') ?> <span class="required">*</span></label> 
-                            <input name="email" title="<?php echo $this->__('Your Email Address') ?>" id="email" type="email" class="input-text required-entry validate-duplicate validate-email" style="width:122px;" />
-                        </li>
-                        
-                    </ul>
-                   
-              </div>
-            <div class="actions">
-                <button class="button" onclick="register1Form.submit()" type="submit" name="register" id="become_member"><span><?php echo $this->__('Become a member') ?></span></button>
-            </div>
-            <div class="already_member">
-                Already a member? <a href="#" id="login_link">Log In</a>
-            </div>
-    </form> 
+                            <!--<label for="email"><?php echo $this->__('Your Email Address') ?> <span class="required">*</span></label> -->
+                            <input name="email" title="<?php echo $this->__('Your Email Address') ?>" id="email" type="email" class="input-text required-entry validate-duplicate validate-email" />
+                            <script type="text/javascript">(function($){$(function(){
+                                var popup_email = '.popup_register .form-list input#email', $e = $(popup_email),
+                                    pt = 'Your email address';
+                                if ( ! $e || ! $e.length)  return;
+                                ( ! $e.val() || ! $e.val().length) && $e.val(pt);
+                                $e.focus(function(){ $e.val() == pt && $e.val(''); })
+                                    .blur(function(){ ( ! $e.val() || ! $e.val().length) && $e.val(pt); });
+                            });})(jQuery);</script>
+                        </li>    
+                    </ul>       
+                </div>
+                <div class="actions">
+                    <button class="button" onclick="register1Form.submit()" type="submit" name="register" id="become_member">
+                        <span><?php echo $this->__('Become a member') ?></span>
+                    </button>
+                </div>
+        </form> 
+    </div>
+    
     <script type="text/javascript">
         var register1Form = new VarienForm('register-form1', true);
         Validation.add('validate-duplicate','Email has already registered',function(the_field_value){
@@ -70,35 +90,64 @@
 </div>
 <?php endif; ?>
 
+
+
 <div class="popup_register_2 block_popup"  style="display:none;">
 <div class="block_popup_inner">
-    <div class="logo_image"></div> 
-    <form action="/customer/account/createpost" method="post" id="register-form">
-     <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?>  id="registration_email" />
-     <input type="hidden" value="<?php if($this->url): ?><?=$this->url ?>" <?php endif; ?>  name="url"/>
-     <input name="lastname" type="hidden" value="-"/>
-     <input name="confirmation" type="hidden" id="passconf" value=""/>
-        <h2>You're almost there!</h2>
-        <div class="content">
-            <ul class="form-list">
-                    
+    <h1 class="popup_title">You're almost there!</h1>
+    <div class="popup_content">
+        <form action="/customer/account/createpost" method="post" id="register-form">
+            <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?>  id="registration_email" />
+            <input type="hidden" value="<?php if($this->url): ?><?=$this->url ?>" <?php endif; ?>  name="url"/>
+            <input name="lastname" type="hidden" value="-"/>    
+            <input name="confirmation" type="hidden" id="passconf" value=""/>
+            <div class="content">   
+                <ul class="form-list">
                     <li>
-                        <label for="name"><?php echo $this->__('Your first name') ?> <span class="required">*</span></label> 
-                        <input name="firstname" value="" title="<?php echo $this->__('First Name') ?>" id="first_name" type="text" class="input-text required-entry" style="width:122px;" />
+                        <input name="firstname" value="" title="<?php echo $this->__('First Name') ?>" id="first_name" type="text" class="input-text required-entry" />
+                        <script type="text/javascript">(function($){$(function(){
+                            var popup_fname = '.popup_register_2 .form-list input#first_name', $e = $(popup_fname),
+                                pt = 'Your first name';
+                            if ( ! $e || ! $e.length)  return;
+                            ( ! $e.val() || ! $e.val().length) && $e.val(pt);
+                            $e.focus(function(){ $e.val() == pt && $e.val(''); })
+                                .blur(function(){ ( ! $e.val() || ! $e.val().length) && $e.val(pt); });
+                        });})(jQuery);</script>
                     </li>
                     <li>
-                        <label for="pass"><?php echo $this->__('Create a Password') ?> <span class="required">*</span></label> 
-                        <input name="password" type="password" class="input-text required-entry validate-password" id="pass" style="width:122px;" />
+                        <input name="password" type="password" class="input-text required-entry validate-password" id="pass" />
+                        <script type="text/javascript">(function($){$(function(){
+                            var popup_makepass = '.popup_register_2 .form-list input#pass', $e = $(popup_makepass),
+                                pt = 'Create a password',
+                                $eover = (($('#cpass_hover').length && $('#cpass_hover'))|| $('<div id="cpass_hover">'+pt+'</div>'));
+                            $e.after($eover);
+                            $eover.css({position:'relative',height:0,overflow:'visible',top:-32, cursor:'text',left:26,float:'left',clear:'both'});
+                            var overpass = function(show) {
+                                if (show) {
+                                    $eover.css({display:'block', top: ($e.hasClass('validation-failed')) ? -42 : -32 });
+                                } else {
+                                    $eover.css({display:'none'});
+                                }
+                            }
+                            console.log($e);
+                            if ( ! $e || ! $e.length)  return;
+                            ( ! $e.val() || ! $e.val().length) && overpass(true);
+                            $eover.click(function(){ $eover.is(':visible') && (overpass() || $e.focus()); });
+                            $e.focus(function(){ $eover.is(':visible') && overpass(); })
+                                .blur(function(){ ( ! $e.val() || ! $e.val().length) && overpass(true); });
+                        });})(jQuery);</script>
                     </li>
-                     <li>
-                    <input type="checkbox" name="terms_agreement" class="terms_agreement required-entry" />  <label for="terms">I agree to the Sites's Terms os Use Policy  </label>
+                    <li style="padding-top:10px; ">
+                        <input id="terms_agreement" type="checkbox" name="terms_agreement" class="terms_agreement required-entry" />
+                        <label style="width:auto;cursor:pointer;" for="terms_agreement">I agree to the Sites's Terms os Use Policy  </label>
                     </li>
                 </ul>          
-          </div>
-        <div class="actions">
-            <button class="button" onclick="registerForm.submit()" type="submit" name="register" id="register2"><span><?php echo $this->__('Enter the site') ?></span></button>
-        </div>
-    </form>
+            </div>
+            <div class="actions">
+                <button class="button" onclick="registerForm.submit()" type="submit" name="register" id="register2"><span><?php echo $this->__('Enter the site') ?></span></button>
+            </div>
+        </form>
+    </div>
     <script type="text/javascript">
         var registerForm = new VarienForm('register-form', true);
         registerForm.submit = function () {
@@ -112,72 +161,102 @@
 <script type="text/javascript">var url = '';  </script>
 
 
+
 <div class="popup_login block_popup"  style="display:none;">
 <div class="block_popup_inner">
-<!--<div class="logo_image"></div> -->
-<div class="box base-mini mini-login-form">
-    <div class="head">
-        <h4><?php echo $this->__('Welcome back!') ?></h4>
+    <h1 class="popup_title">Login</h1>
+    <div class="control_link">
+        <a id="back_to_register" href="<?php echo $this->helper('customer')->getLoginUrl() ?>">Back</a>
     </div>
-    <form onSubmit="return false;" action="" method="post" id="login-form">
-       <input type="hidden" value="" name="url" class="document_url"/>
-       <script type="text/javascript">
-            jQuery('.document_url').val(document.URL.replace(/^(?:\/\/|[^\/]+)*\//, ""));
-       </script>
-        <div class="content">
-            <ul class="form-list">
+    <div class="popup_content">
+        <form onSubmit="return false;" action="" method="post" id="login-form">
+            <input type="hidden" value="" name="url" class="document_url"/>
+            <script type="text/javascript">
+                jQuery('.document_url').val(document.URL.replace(/^(?:\/\/|[^\/]+)*\//, ""));
+            </script>
+            <div class="content">
+                <ul class="form-list">
                     <li>
-                        <label for="email"><?php echo $this->__('Email Address') ?> <span class="required">*</span></label> 
-                        <input name="login[username]" type="email" value="" title="<?php echo $this->__('Email Address') ?>" id="login_email" type="text" class="input-text required-entry" style="width:122px;" />
+                        <!--<label for="email"><?php echo $this->__('Email Address') ?> <span class="required">*</span></label> -->
+                        <input name="login[username]" type="email" value="" title="<?php echo $this->__('Email Address') ?>" id="login_email" type="text" class="input-text required-entry" />
+                        <script type="text/javascript">(function($){$(function(){
+                            var popup_user = '.popup_login .form-list input#login_email', $e = $(popup_user),
+                                pt = 'Email address';
+                            if ( ! $e || ! $e.length)  return;
+                            ( ! $e.val() || ! $e.val().length) && $e.val(pt);
+                            $e.focus(function(){ $e.val() == pt && $e.val(''); })
+                                .blur(function(){ ( ! $e.val() || ! $e.val().length) && $e.val(pt); });
+                        });})(jQuery);</script>
                     </li>
                     <li>
-                        <label for="pass"><?php echo $this->__('Password') ?> <span class="required">*</span></label> 
-                        <input name="login[password]" type="password" class="input-text required-entry validate-password" id="login_pass" style="width:122px;" />
+                        <!--<label for="pass"><?php echo $this->__('Password') ?> <span class="required">*</span></label> -->
+                        <input name="login[password]" type="password" class="input-text required-entry validate-password" id="login_pass" />
+                        <script type="text/javascript">(function($){$(function(){
+                            var popup_logpass = '.popup_login .form-list input#login_pass', $e = $(popup_logpass),
+                                pt = 'Password',
+                                $eover = (($('#pass_hover').length && $('#pass_hover'))|| $('<div id="pass_hover">'+pt+'</div>'));
+                            $e.after($eover);
+                            $eover.css({position:'relative',height:0,overflow:'visible',top:-32, cursor:'text',left:26,float:'left',clear:'both'});
+                            var overpass = function(show) {
+                                if (show) {
+                                    $eover.css({display:'block', top: ($e.hasClass('validation-failed')) ? -42 : -32 });
+                                } else {
+                                    $eover.css({display:'none'});
+                                }
+                            }
+                            console.log($e);
+                            if ( ! $e || ! $e.length)  return;
+                            ( ! $e.val() || ! $e.val().length) && overpass(true);
+                            $eover.click(function(){ $eover.is(':visible') && (overpass() || $e.focus()); });
+                            $e.focus(function(){ $eover.is(':visible') && overpass(); })
+                                .blur(function(){ ( ! $e.val() || ! $e.val().length) && overpass(true); });
+                        });})(jQuery);</script>
                     </li>
-                    <li>
-                          <input name="conf" type="hidden" class="validate-email-password"/>
+                    <li style="height:5px;">
+                        <input name="conf" type="hidden" class="validate-email-password"/>
                     </li>
                 </ul>
-          
-          </div>
-          <p class="back-link"><a id="back_to_register" href="<?php echo $this->helper('customer')->getLoginUrl() ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
-    <div class="actions">
-        <button class="button" onClick="loginForm.submit();" type="submit" name="send" id="send2"><span><?php echo $this->__('Login') ?></span></button>
-    </div>
-    <p><a id="forgot_link" href="">Forgot Password</a></p>
-</form>
-<script type="text/javascript">
-    var loginForm = new VarienForm('login-form', true);
-     Validation.add('validate-email-password','Email or password incorrect',function(the_field_value){
-        var validated = 0;
+            </div>
+            <div class="actions">
+                <button class="button" onClick="loginForm.submit();" type="submit" name="send" id="send2">
+                    <span><?php echo $this->__('Start Browsing') ?></span>
+                </button>
+            </div>
+            <a id="forgot_link" href="#">Forgot Password?</a>
+        </form>
+    </div><!-- .popup_content -->
+    <script type="text/javascript">
+        var loginForm = new VarienForm('login-form', true);
+         Validation.add('validate-email-password','Email or password incorrect',function(the_field_value){
+            var validated = 0;
 
-        jQuery.ajax({
-                url: '/sales/index/loginpost',
-                data: jQuery('#login-form').serialize(),
-                dataType: 'json',
-                type: 'POST',
-                async: false,
-                success: function(data, text, request) {
-                    if (data != 'ERR') {
-                       window.location = data;
-                       validated = 1;
-                       url = data;
-                       
+            jQuery.ajax({
+                    url: '/sales/index/loginpost',
+                    data: jQuery('#login-form').serialize(),
+                    dataType: 'json',
+                    type: 'POST',
+                    async: false,
+                    success: function(data, text, request) {
+                        if (data != 'ERR') {
+                           window.location = data;
+                           validated = 1;
+                           url = data;
+                           
+                        }
                     }
-                }
+            });
+         
+            return validated;
         });
-     
-        return validated;
-    });
-    
-    
-    loginForm.submit = function () {
-
         
-        return false; 
-    }
-</script>
-</div>
+        
+        loginForm.submit = function () {
+
+            
+            return false; 
+        }
+    </script>
+
 </div>
 </div>
 
