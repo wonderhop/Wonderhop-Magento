@@ -10,8 +10,8 @@
 
 .blockUI {  }
 
-.block_popup { background: url("../../images/sales/login_popup/back.png") no-repeat scroll left top transparent; 
-        padding: 227px 131px 46px 96px; margin:0; width: 593px ; height: 267px; position:absolute; margin-top:-270px; top: 50%;
+.block_popup { background: url("../../images/sales/login_popup/popup_back.png") no-repeat scroll left top transparent; 
+        padding: 227px 131px 46px 96px; margin:0; width: 593px ; height: 267px; position:absolute; margin-top:-284px; top: 50%;
         right:0; left:auto; text-align: center; color:#000; border:none; background-color:transparent; cursor:auto; 
         font-size:18px; font-weight:bold; font-family:"letter-gothic-std",monospace; text-transform: uppercase; }
 /*.popup_register, .popup_register_2, .popup_login, .forgot_form { background:white; display:block;
@@ -47,9 +47,9 @@ label[for=terms] { width: auto; }
     padding-top:20px; padding-left:51px; font-size:16px; font-weight: bold; color: #ff7268; text-align: left; letter-spacing:2px; }
 .block_popup .control_link a:hover { text-decoration: underline; }
 .block_popup .control_link #login_link{background: url("../../images/sales/login_popup/hi_red.png") no-repeat scroll left top transparent;}
-.block_popup #forgot_link, .block_popup #forgot_link:hover { display:block; overflow:hidden; text-decoration:none;\
-    font-size:17px; font-weight: bold; color: #ff7268; text-align: left; margin-left:15px; }
-.block_popup .control_link #back_to_login { width: 143px; }
+.block_popup #forgot_link, .block_popup #forgot_link:hover { display:block; overflow:hidden; text-decoration:none;
+    font-size:15px; font-weight: bold; color: #ff7268; text-align: left; margin-left:-2px; margin-top: 10px; max-width: 260px;  }
+.block_popup .control_link #back_to_login { width: 173px; padding-left:10px; }
 
 
 .block_popup .popup_content form { margin-top: 21px; }
@@ -80,4 +80,24 @@ label[for=terms] { width: auto; }
 .block_popup .popup_content .form-list li .validation-advice { position:absolute; bottom:-14px;  }
 
 .block_popup.popup_register_2 .popup_content .actions button.button,
-.block_popup.popup_login .popup_content .actions button.button  { top: 63px; }
+.block_popup.popup_login .popup_content .actions button.button  { top: 65px; right:38px;  }
+
+ .block_popup.forgot_form .popup_content .actions button.button { right: 30px; top: -1px; }
+ .block_popup.forgot_form .popup_content .actions button.button span span { text-align: center; }
+
+.block_popup.popup_login .popup_title { padding-top: 17px; }
+.block_popup.popup_login .popup_content { margin-top:-14px; }
+.block_popup.popup_login .control_link { top:12px; right:7px;  }
+.block_popup.popup_login #login_pass { margin-top: 15px; }
+
+#home_popup_menu { display:block; position:fixed; bottom:0; z-index: 4000; height:28px; border:none; left:0; right:0;
+    background: url("../../images/sales/login_popup/hp_back.png") repeat scroll left top transparent;
+    line-height: 1.5; margin:0; list-style:none;  padding-right:142px; font-weight:bold; }
+
+#home_popup_menu .hp_copyright { float:left;  margin-left:84px; font-size: 15px; color:#ede5dd; padding-top: 6px; }
+#home_popup_menu .hp_menuitem { float:right; height: 28px; display:inline-block; padding-right:1px; 
+    background: url("../../images/sales/login_popup/stitch.png") no-repeat scroll left top transparent; }
+#home_popup_menu .hp_menuitem a { display:block; height: 21px; padding:6px 32px 0 30px; font-size: 15px; color:#ede5dd; 
+    text-decoration:none; text-transform: uppercase; }
+#home_popup_menu .hp_menuitem:first-child a { 
+    background:url("../../images/sales/login_popup/stitch.png") no-repeat scroll right top transparent; }

@@ -8,6 +8,23 @@
 </div>
 
 
+<ul id="home_popup_menu" class="bottom_menu">    
+    <li class="hp_menuitem"><a href="/contacts" title="Contact Us">Contact</a></li>
+    <li class="hp_menuitem"><a href="/blog" title="Visit our Blog">Blog</a></li>
+    <li class="hp_menuitem"><a href="/about" title="About Us">About</a></li>
+    <li class="hp_copyright">WONDERHOP &copy; 2102</li>
+</ul>
+
+<?php if ( ! function_exists('home_popup_menu')  ) { function home_popup_menu() { ?>
+<!--<ul id="home_popup_menu" class="bottom_menu">    
+    <li class="hp_menuitem"><a href="/contacts" title="Contact Us">Contact</a></li>
+    <li class="hp_menuitem"><a href="/blog" title="Visit our Blog">Blog</a></li>
+    <li class="hp_menuitem"><a href="/about" title="About Us">About</a></li>
+    <li class="hp_copyright">WONDERHOP &copy; 2102</li>
+</ul>-->
+<?php }} ?>
+
+
 
  <?php  
     $is_sales = 0;
@@ -86,6 +103,7 @@
     </script>
  
 </div>
+<?php home_popup_menu(); ?>
 </div>
 <?php endif; ?>
 
@@ -177,10 +195,10 @@
                 <ul class="form-list">
                     <li>
                         <!--<label for="email"><?php echo $this->__('Email Address') ?> <span class="required">*</span></label> -->
-                        <input name="login[username]" type="email" value="" title="<?php echo $this->__('Email Address') ?>" id="login_email" type="text" class="input-text required-entry" />
+                        <input name="login[username]"  value="" title="Your Email Address" id="login_email" type="text" class="input-text required-entry validate-email" />
                         <script type="text/javascript">(function($){$(function(){
                             var popup_user = '.popup_login .form-list input#login_email', $e = $(popup_user),
-                                pt = 'Email address';
+                                pt = 'Your Email Address';
                             if ( ! $e || ! $e.length)  return;
                             ( ! $e.val() || ! $e.val().length) && $e.val(pt);
                             $e.focus(function(){ $e.val() == pt && $e.val(''); })
@@ -188,17 +206,17 @@
                         });})(jQuery);</script>
                     </li>
                     <li>
-                        <!--<label for="pass"><?php echo $this->__('Password') ?> <span class="required">*</span></label> -->
+                        <!--<label for="pass">Password<span class="required">*</span></label> -->
                         <input name="login[password]" type="password" class="input-text required-entry validate-password" id="login_pass" />
                         <script type="text/javascript">(function($){$(function(){
                             var popup_logpass = '.popup_login .form-list input#login_pass', $e = $(popup_logpass),
                                 pt = 'Password',
                                 $eover = (($('#pass_hover').length && $('#pass_hover'))|| $('<div id="pass_hover">'+pt+'</div>'));
                             $e.after($eover);
-                            $eover.css({position:'relative',height:0,overflow:'visible',top:-32, cursor:'text',left:26,float:'left',clear:'both'});
+                            $eover.css({position:'relative',height:0,overflow:'visible',top:-31, cursor:'text',left:-2,float:'left',clear:'both'});
                             var overpass = function(show) {
                                 if (show) {
-                                    $eover.css({display:'block', top: ($e.hasClass('validation-failed')) ? -42 : -32 });
+                                    $eover.css({display:'block', top: ($e.hasClass('validation-failed')) ? -34 : -31 });
                                 } else {
                                     $eover.css({display:'none'});
                                 }
@@ -257,5 +275,6 @@
     </script>
 
 </div>
+<?php home_popup_menu(); ?>
 </div>
 
