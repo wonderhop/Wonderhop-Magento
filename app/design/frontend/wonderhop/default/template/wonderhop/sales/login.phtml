@@ -1,30 +1,21 @@
 
 <div class="login_overlay">
-    <!--<img class="login_overlay_image" src="<?php echo $this->getSkinUrl('images/sales/login_popup/overlay.jpg'); ?>" alt="">-->
+<?php if (Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms'
+        and Mage::getSingleton('cms/page')->getIdentifier() == 'home') { ?>
     <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.backstretch.min.js'); ?>"></script>
     <script type="text/javascript">
         jQuery.backstretch('<?php echo $this->getSkinUrl('images/sales/login_popup/overlay.jpg'); ?>');
     </script>
-</div>
-
-
-<ul id="home_popup_menu" class="bottom_menu">    
-    <li class="hp_menuitem"><a href="/contacts" title="Contact Us">Contact</a></li>
-    <li class="hp_menuitem"><a href="/blog" title="Visit our Blog">Blog</a></li>
-    <li class="hp_menuitem"><a href="/about" title="About Us">About</a></li>
-    <li class="hp_copyright">WONDERHOP &copy; 2102</li>
-</ul>
-
-<?php if ( ! function_exists('home_popup_menu')  ) { function home_popup_menu() { ?>
-<!--<ul id="home_popup_menu" class="bottom_menu">    
-    <li class="hp_menuitem"><a href="/contacts" title="Contact Us">Contact</a></li>
-    <li class="hp_menuitem"><a href="/blog" title="Visit our Blog">Blog</a></li>
-    <li class="hp_menuitem"><a href="/about" title="About Us">About</a></li>
-    <li class="hp_copyright">WONDERHOP &copy; 2102</li>
-</ul>-->
-<?php }} ?>
-
-
+    <ul id="home_popup_menu" class="bottom_menu">    
+        <li class="hp_menuitem"><a href="/contacts" title="Contact Us">Contact</a></li>
+        <li class="hp_menuitem"><a href="/blog" title="Visit our Blog">Blog</a></li>
+        <li class="hp_menuitem"><a href="/about" title="About Us">About</a></li>
+        <li class="hp_copyright">WONDERHOP &copy; 2102</li>
+    </ul>
+    <script type="text/javascript">
+        setTimeout(function(){jQuery('#home_popup_menu').insertBefore('#backstretch');}, 200);
+    </script>
+<?php } ?>
 
  <?php  
     $is_sales = 0;
@@ -103,7 +94,7 @@
     </script>
  
 </div>
-<?php home_popup_menu(); ?>
+
 </div>
 <?php endif; ?>
 
@@ -275,6 +266,6 @@
     </script>
 
 </div>
-<?php home_popup_menu(); ?>
+
 </div>
 

@@ -90,14 +90,4 @@ label[for=terms] { width: auto; }
 .block_popup.popup_login .control_link { top:12px; right:7px;  }
 .block_popup.popup_login #login_pass { margin-top: 15px; }
 
-#home_popup_menu { display:block; position:fixed; bottom:0; z-index: 4000; height:28px; border:none; left:0; right:0;
-    background: url("../../images/sales/login_popup/hp_back.png") repeat scroll left top transparent;
-    line-height: 1.5; margin:0; list-style:none;  padding-right:142px; font-weight:bold; }
 
-#home_popup_menu .hp_copyright { float:left;  margin-left:84px; font-size: 15px; color:#ede5dd; padding-top: 6px; }
-#home_popup_menu .hp_menuitem { float:right; height: 28px; display:inline-block; padding-right:1px; 
-    background: url("../../images/sales/login_popup/stitch.png") no-repeat scroll left top transparent; }
-#home_popup_menu .hp_menuitem a { display:block; height: 21px; padding:6px 32px 0 30px; font-size: 15px; color:#ede5dd; 
-    text-decoration:none; text-transform: uppercase; }
-#home_popup_menu .hp_menuitem:first-child a { 
-    background:url("../../images/sales/login_popup/stitch.png") no-repeat scroll right top transparent; }
