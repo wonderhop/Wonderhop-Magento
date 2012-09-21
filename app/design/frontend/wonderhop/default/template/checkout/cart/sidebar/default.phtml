@@ -40,8 +40,9 @@
         <?php if ($isVisibleProduct): ?>
         <a href="<?php echo $this->getConfigureUrl() ?>" title="<?php echo $this->__('Edit item') ?>" class="btn-edit"><?php echo $this->__('Edit item')?></a>
         <?php endif ?>
+        <span class="heighter"></span>
         <p class="product-name"><?php if ($this->hasProductUrl()): ?><a href="<?php echo $this->getProductUrl() ?>"><?php endif; ?><?php echo $this->htmlEscape($this->getProductName()) ?><?php if ($this->hasProductUrl()): ?></a><?php endif; ?></p>
-        <strong><?php echo $this->getQty() ?></strong> x
+        <!--<strong><?php echo $this->getQty() ?></strong> x -->
 
     <?php if ($canApplyMsrp): ?>
 
@@ -53,11 +54,15 @@
         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
             <?php echo $this->__('Excl. Tax'); ?>:
         <?php endif; ?>
-        <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
-            <?php echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()+$_item->getWeeeTaxAppliedAmount()+$_item->getWeeeTaxDisposition()); ?>
-        <?php else: ?>
-            <?php echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()) ?>
-        <?php endif; ?>
+        <span class="price" >
+            <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
+                <?php //echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()+$_item->getWeeeTaxAppliedAmount()+$_item->getWeeeTaxDisposition()); ?>
+                <?php echo '$' . $_item->getCalculationPrice()+$_item->getWeeeTaxAppliedAmount()+$_item->getWeeeTaxDisposition() ?>
+            <?php else: ?>
+                <?php //echo $this->helper('checkout')->formatPrice($_item->getCalculationPrice()) ?>
+                <?php echo '$' . $_item->getCalculationPrice() ?>
+            <?php endif; ?>
+        </span>
         <?php if (Mage::helper('weee')->getApplied($_item)): ?>
             <br />
             <?php if (Mage::helper('weee')->typeOfDisplay($_item, 1, 'sales')): ?>
@@ -85,7 +90,7 @@
 
 
 
-    <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+    <?php /*if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
         <?php $_incl = $this->helper('checkout')->getPriceInclTax($_item); ?>
         <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
             <br /><?php echo $this->__('Incl. Tax'); ?>:
@@ -118,11 +123,11 @@
                 <span class="nobr"><?php echo Mage::helper('weee')->__('Total incl. tax'); ?>:<br /> <?php echo $this->helper('checkout')->formatPrice($_incl+$_item->getWeeeTaxAppliedAmount()); ?></span>
             <?php endif; ?>
         <?php endif; ?>
-    <?php endif; ?>
+    <?php endif; */?>
 
     <?php endif; //Can apply MSRP ?>
 
-        <?php if ($_options = $this->getOptionList()):?>
+        <?php /* if ($_options = $this->getOptionList()):?>
         <div class="truncated">
           <div class="truncated_full_value">
             <dl class="item-options">
@@ -140,6 +145,6 @@
           </div>
         <a href="#" onclick="return false;" class="details"><?php echo $this->__('Details') ?></a>
         </div>
-        <?php endif; ?>
+        <?php endif; */?>
     </div>
 </li>
