@@ -567,7 +567,7 @@ tr.summary-details-excluded { font-style:italic; }
 #block-cart-header-wrap { position:absolute; top:67px; right:38px; width:260px; overflow:hidden; min-height: 70px;
     background:url("../images/header_cart_fuzzy_margin.png") no-repeat scroll left bottom transparent;
     /*box-shadow: 2px 2px 1px 0.5 black;*/ 
-    box-shadow: -3px -3px 10px -5px #ddd; }
+    box-shadow: 0 -7px 13px -5px #ccc; }
 #block-cart-header-wrap .block-cart { border:none; color: black; background:#fcfcf3; }
 #block-cart-header-wrap .block-cart .empty { display:block; height: 50px; padding: 10px; text-align:center; font-size: 13px; }
 #block-cart-header-wrap #cart-sidebar { background: none repeat scroll 0 0 transparent; margin: 0; padding: 10px; }
