@@ -55,7 +55,7 @@ $customer = $session->getCustomer();
 $ref_id = '';
 $fb_comment_url = '';
 if($session->isLoggedIn() && $customer->getReferralCode()) {
-	$ref_id = '?r=' .$customer->getReferralCode();
+    $ref_id = '?r=' .$customer->getReferralCode();
 }
 
 if ($_product->getUrlPath() != '') {
@@ -77,24 +77,28 @@ if ($_product->getUrlPath() != '') {
             <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
             <input type="hidden" name="related_product" id="related-products-field" value="" />
         </div>
+        
+        <div class="prod-flower"></div>
 
         <div class="product-shop">
             <div class="product-name">
                 <div class="product_title">
                     <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
                 </div>
-                <div class="pinterest"><a href="http://pinterest.com/pin/create/button/?url=<?php if ($_product->getUrlPath() != '') echo urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id); else echo urlencode($_product->getProductUrl() . $ref_id); ?>&media=<?php echo $this->helper('catalog/image')->init($_product, 'image')->constrainOnly(TRUE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(375,478) ?>" class="pin-it-button" count-layout="none">Pin It</a></div>
+                <!--<div class="pinterest"><a href="http://pinterest.com/pin/create/button/?url=<?php if ($_product->getUrlPath() != '') echo urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id); else echo urlencode($_product->getProductUrl() . $ref_id); ?>&media=<?php echo $this->helper('catalog/image')->init($_product, 'image')->constrainOnly(TRUE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize(375,478) ?>" class="pin-it-button" count-layout="none">Pin It</a></div>-->
             </div>
-                <h5>by <a href="<?php echo $category->getUrl(); ?>"><?php echo $category->getName(); ?></a></h5>
+            <h5>by <a href="<?php echo $category->getUrl(); ?>"><?php echo $category->getName(); ?></a></h5>
             <?php if (0 && $this->canEmailToFriend()): ?>
                 <p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
             <?php endif; ?>
-
+            <div class="prod-undertitle"></div>
+            
+            
             <?php //$this->getReviewsSummaryHtml($_product, false, true)?>
-            <?php echo $this->getChildHtml('alert_urls') ?>
+            <?php //echo $this->getChildHtml('alert_urls') ?>
             <?php echo $this->getChildHtml('product_type_data') ?>
-            <?php echo $this->getTierPriceHtml() ?>
-            <?php echo $this->getChildHtml('extrahint') ?>
+            <?php //echo $this->getTierPriceHtml() ?>
+            <?php //echo $this->getChildHtml('extrahint') ?>
 
             <?php if (!$this->hasOptions()):?>
                 <div class="add-to-box">
@@ -112,13 +116,18 @@ if ($_product->getUrlPath() != '') {
                     <?php echo $this->getChildHtml('addto') ?>
                 </div>
             <?php endif; ?>
+            
+            
+            <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html){ if ($alias == 'description') { ?>
+                <div class="<?php echo "box-{$alias}"?>"><?php echo $html; ?></div>
+            <?php }} ?>
 
-            <?php if ($_product->getShortDescription()):?>
+            <?php /*if ($_product->getShortDescription()):?>
                 <div class="short-description">
                     <h2><?php echo $this->__('Quick Overview') ?></h2>
                     <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
                 </div>
-            <?php endif;?>
+            <?php endif;*/ ?>
               <ul class="social_share">
                 <li>
                     <div onclick="post_on_wall();" class="fb-share"><a id="product-facebook-link-share" name="fb_share" type="icon_link" share_url="<?php echo $fb_comment_url; ?>"></a>
@@ -146,21 +155,24 @@ if ($_product->getUrlPath() != '') {
                               });</script>
                    </div>
                </li>
-                <li>Share to earn cash</li>
+                <!--<li>Share to earn cash</li>-->
               </ul>
             <script type="text/javascript">
-	            function post_on_wall() {
-		            url = 'http://www.facebook.com/sharer.php?u=<?php echo $fb_comment_url ?>&t=<?php echo $fb_comment_url ?>';
-		            window.open(url, "Post on Wall", "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0");
-	            }
+                function post_on_wall() {
+                    url = 'http://www.facebook.com/sharer.php?u=<?php echo $fb_comment_url ?>&t=<?php echo $fb_comment_url ?>';
+                    window.open(url, "Post on Wall", "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0");
+                }
             </script>
             <?php echo $this->getChildHtml('other');?>
 
             <?php if ($_product->isSaleable() && $this->hasOptions()):?>
                 <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
             <?php endif;?>
+            
+            <div class="prod-bottom"></div>
 
         </div>
+        
 
         <div class="product-img-box">
             <?php echo $this->getChildHtml('media') ?>
@@ -224,7 +236,8 @@ if ($_product->getUrlPath() != '') {
     </script>
     </div>
 
-    <div class="product-collateral">
+
+    <!--<div class="product-collateral">
 <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html):?>
         <div class="box-collateral <?php echo "box-{$alias}"?>">
             <?php if ($title = $this->getChildData($alias, 'title')):?>
@@ -235,5 +248,6 @@ if ($_product->getUrlPath() != '') {
 <?php endforeach;?>
         <?php echo $this->getChildHtml('upsell_products') ?>
         <?php echo $this->getChildHtml('product_additional_data') ?>
-    </div>
+    </div>-->
 </div>
+<div class="clear"></div>

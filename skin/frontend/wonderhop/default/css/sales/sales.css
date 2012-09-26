@@ -72,6 +72,9 @@ ul#cat_sales li a {
 /*layout alterations */
 .sales-page .main { background:none; margin:0 auto; width:936px; padding-top:0; }
 .sales-page .main .main_page_end_normal { display:none; }
+.sales-page .main .main_page_begin_normal { display:none; }
+.sales-page .main .main_page_back_normal { display:none; }
+.sales-page .main .page_end_normal { display:none; }
 .sales-page .col-main { z-index:auto; }
 .sales-page .footer-container { margin-top: -58px; }
 .sales-page .footer { width: 948px; }
