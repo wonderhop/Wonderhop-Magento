@@ -174,7 +174,7 @@ $helper = Mage::helper('onestepcheckout/checkout');
             <?php endif; ?>
             <?php echo $this->getChildHtml('choose-payment-method'); ?>
         <?php else: ?>
-            <p class="onestepcheckout-numbers onestepcheckout-numbers-<?php echo $step_counter++; ?>"><?php echo $this->__('Payment method'); ?></p>
+            <p class="onestepcheckout-numbers onestepcheckout-numbers-<?php echo $step_counter++; ?>"><?php echo $this->__('Payment info'); ?></p>
             <?php if(isset($this->formErrors['payment_method']) && $this->formErrors['payment_method']): ?>
                 <div class="onestepcheckout-error onestepcheckout-payment-method-error">
                     <?php echo $this->__('Please choose a payment method.'); ?>
@@ -202,7 +202,7 @@ $helper = Mage::helper('onestepcheckout/checkout');
 
     <div class="onestepcheckout-column-right">
 
-        <p class="onestepcheckout-numbers onestepcheckout-numbers-4"><?php echo $this->__('Review your order'); ?></p>
+        <p class="onestepcheckout-numbers onestepcheckout-numbers-4"><?php echo $this->__('Review order'); ?></p>
 
         <div class="onestepcheckout-summary">
             <?php echo $this->getChildHtml('summary'); ?>
@@ -811,7 +811,7 @@ $helper = Mage::helper('onestepcheckout/checkout');
         ?>
 
         <div class="onestepcheckout-place-order-wrapper">
-            <button type="button" title="<?php echo $this->__('Place order now'); ?>" id="onestepcheckout-place-order" class="large orange onestepcheckout-button onestepcheckout-place-order" onclick="javascript:void(0);"><span><span><?php echo $this->__('Place order now'); ?></span></span></button>
+            <button type="button" title="<?php echo $this->__('Place order now'); ?>" id="onestepcheckout-place-order" class="large orange onestepcheckout-button onestepcheckout-place-order" onclick="javascript:void(0);"><span><span><?php echo $this->__('Order'); ?></span></span></button>
         </div>
     </div>
     <div style="clear: both;">&nbsp;</div>

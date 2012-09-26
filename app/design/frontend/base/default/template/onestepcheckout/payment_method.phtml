@@ -91,7 +91,7 @@ if($helper->settings['hide_nonfree_payment_methods'])   {
             <?php else: ?>
                 <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" /></span>
             <?php endif; ?>
-                <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?></label>
+                <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() == 'Internal Credit' ? 'Apply my credits to this purchase' : $_method->getTitle() ?></label>
             </dt>
             <?php if($html = $this->getChildHtml('payment.method.'.$_code)): ?>
             <dd id="container_payment_method_<?php echo $_code; ?>" class="payment-method">
