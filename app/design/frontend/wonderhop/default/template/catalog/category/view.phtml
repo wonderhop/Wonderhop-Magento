@@ -37,7 +37,7 @@
     $ref_id = '';
     $fb_comment_url = '';
     if($session->isLoggedIn() && $customer->getReferralCode()) {
-	    $ref_id = '?r=' .$customer->getReferralCode();
+        $ref_id = '?r=' .$customer->getReferralCode();
     }
     $_helper    = $this->helper('catalog/output');
     $_category  = $this->getCurrentCategory();
@@ -58,6 +58,133 @@
         $_additionalImg2 = $_helper->categoryAttribute($_category, $_additionalImg2, 'image');
     }
 ?>
+
+<div class="tag_header">
+    <div class="dynamic_header">
+        <div class="page-title category-title">
+            <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+        </div>
+        <div class="cat-sharebox">
+            <script type="text/javascript">
+                function post_on_wall()
+                {
+                    console.log('fb');
+                    var share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
+                        $a              = jQuery('.cat-sharebox a.cat-share-fb'),
+                        share_text      = 'Curio Road -- <?php echo $_category->getName(); ?>',
+                        sharer          = 'http://www.facebook.com/sharer.php?u='+share_link+'&t='+share_text,
+                        window_title    = 'Post on Wall',
+                        window_options  = "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0";
+                    if ( ! $a || ! $a.length) return false;
+                    $a.attr('share_url',share_link);
+                    window.open(sharer, window_title, window_options);
+                    return false;
+                }
+                
+                function tweet_it()
+                {
+                    console.log('tweet');
+                    var width           = 575,
+                        height          = 400,
+                        $window         = jQuery(window), 
+                        $a              = jQuery('.cat-sharebox a.cat-share-tweet'),
+                        left            = ($window.width()  - width)  / 2,
+                        top             = ($window.height() - height) / 2,
+                        share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
+                        sharer0         = 'http://twitter.com/share/?url=' + share_link,
+                        share_text      = 'Curio Road -- <?php echo $_category->getName(); ?>',
+                        sharer          = sharer0+'&text='+share_text,
+                        window_title    = 'Tweet This !',
+                        window_options  = 'status=1,width='+ width +',height='+ height +',top='+ top +',left='+ left;
+                    if ( ! $a || ! $a.length) return false;
+                    $a.attr('href',share_link);
+                    window.open(sharer, window_title, window_options);
+                    return false;
+                }
+                
+                function pin_it()
+                {
+                    console.log('pin');
+                    var width           = 575,
+                        height          = 400,
+                        $window         = jQuery(window), 
+                        $a              = jQuery('.cat-sharebox a.cat-share-pin'),
+                        left            = ($window.width()  - width)  / 2,
+                        top             = ($window.height() - height) / 2,
+                        share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
+                        sharer0         = 'http://pinterest.com/pin/create/button/?url=' + share_link,
+                        share_text      = 'Curio Road -- <?php echo $_category->getName(); ?>',
+                        sharer          = sharer0+'&description='+share_text,
+                        window_title    = 'Pin It !',
+                        window_options  = 'status=1,width='+ width +',height='+ height +',top='+ top +',left='+ left;
+                    if ( ! $a || ! $a.length) return false;
+                    $a.attr('href',share_link);
+                    window.open(sharer, window_title, window_options);
+                    return false;
+                    // http://pinterest.com/pin/create/button/?url={URI-encoded URL of the page to pin}&media={URI-encoded URL of the image to pin}&description={optional URI-encoded description}
+                    // @TBD
+                    return false;
+                }
+                
+            </script>
+            <a class="cat-share-item cat-share-fb" onclick="post_on_wall()"></a>
+            <a class="cat-share-item cat-share-tweet" onclick="tweet_it()"></a>
+            <a class="cat-share-item cat-share-pin" onclick="pin_it()"></a>
+        </div>
+        <div class="cat-countdown">
+            <span><?php echo  Wonderhop_Sales_Helper_Data::getCountDown($_category); ?></span>
+        </div>
+    </div><!-- .dynamic_header -->
+</div>
+
+<script type="text/javascript">
+    var dynHead = (function($){
+        var $win = $(window),
+            $t = $('.tag_header').first(),
+            $c = $('<div></div>').insertBefore($t),
+            $tc = $t.clone().html('').appendTo($c).css({display:'none',zIndex:1000}).addClass('clone'),
+            $h = $('.dynamic_header').first(),
+            $hc = $h.clone().appendTo($c).css({display:'none',zIndex:1001}).addClass('clone'),
+            _limit1 = $h.offset().top,
+            _limit2 = $t.offset().top+$t.height() - $h.height();
+        
+        $hc.css({position:'fixed', left:'50%', marginLeft: '-'+($h.width()/2)+'px' , top:0});
+        $tc.css({position:'fixed', left:'50%', marginLeft: '-'+($t.width()/2 + 295 - 15)+'px' , top: '-'+($t.height()-$h.height() +20)+'px' });
+        
+        var stick1 = function() {
+            $h.css({visibility:'hidden'});
+            $hc.css({display:'block'});
+        }
+        var unstick1 = function() {
+            $h.css({visibility:'visible'});
+            $hc.css({display:'none'});
+        }    
+        var stick2 = function() {
+            $t.css({visibility:'hidden'});
+            $tc.css({display:'block'});
+        }
+        var unstick2 = function() {
+            $t.css({visibility:'visible'});
+            $tc.css({display:'none'});
+        }
+        $win.scroll(function(ev){
+            if ($win[0].scrollY > _limit1){
+                stick1();
+            } else {
+                unstick1();
+            }
+            if ($win[0].scrollY > _limit2){
+                stick2();
+            } else {
+                unstick2();
+            }
+        });
+        
+        
+    })(jQuery);
+</script>
+
+<!--
 <div class="page-title category-title">
     <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
         <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
@@ -65,8 +192,11 @@
     <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
     <h2><?php echo  Wonderhop_Sales_Helper_Data::getCountDown($_category); ?></h2>
 </div>
+-->
 
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php /*
 <div class="product_images">
     <?php if($_imgUrl): ?>
         <?php echo $_imgHtml ?>
@@ -79,6 +209,9 @@
         <?php echo $_additionalImg2 ?>
     <?php endif; ?>
 </div>
+*/ ?>
+
+<?php /*
 <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
     <div class="small_description">
         <b><?php echo $this->getCurrentCategory()->getSaleDescription(); ?></b>
@@ -118,14 +251,15 @@
         </ul>
     </div>
      <script type="text/javascript">
-	            function post_on_wall() {
-		            url = 'http://www.facebook.com/sharer.php?u=<?php echo $fb_comment_url ?>&t=<?php echo $fb_comment_url ?>';
-		            window.open(url, "Post on Wall", "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0");
-	            }
+                function post_on_wall() {
+                    url = 'http://www.facebook.com/sharer.php?u=<?php echo $fb_comment_url ?>&t=<?php echo $fb_comment_url ?>';
+                    window.open(url, "Post on Wall", "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0");
+                }
     </script>
     <?php endif; ?>
+*/?>
 
-<?php if($this->isContentMode()): ?>
+<?php /*if($this->isContentMode()): ?>
     <?php echo $this->getCmsBlockHtml() ?>
 
 <?php elseif($this->isMixedMode()): ?>
@@ -134,4 +268,4 @@
 
 <?php else: ?>
     <?php echo $this->getProductListHtml() ?>
-<?php endif; ?>
+<?php endif;*/ ?>

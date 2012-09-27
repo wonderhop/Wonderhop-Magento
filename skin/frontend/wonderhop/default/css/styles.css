@@ -2073,5 +2073,22 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
     background:url("../images/sales/login_popup/stitch.png") no-repeat scroll right top transparent; }
 
 
-
+/* product page */
 .catalog-product-view .decorations-before-footer { display:none; }
+
+/* brand page */
+.catalog-category-view .main { margin-top:300px; }
+.catalog-category-view .col-main { margin-top:-300px; position:relative;}
+/* width:1248px; height:567px; */
+.tag_header { width:937px; height:256px; padding:16px 16px 295px 295px; position:absolute; top:-16px; left:-295px;
+    background:url("../images/brand/tag_back.png") no-repeat scroll left top transparent; }
+.dynamic_header { background:url("../images/brand/dynamic_header_back.png") no-repeat scroll left top transparent;
+    position: relative; height: 70px; width: 937px; left: -12px; top: -7px; padding: 7px 0 0 12px; }
+.dynamic_header .category-title { display:block; float:left; width:360px; margin-left:60px; font-size: 24px; height:30px; 
+    text-transform:uppercase; font-family:"letter-gothic-std",monospace;margin-top:17px;line-height:1; overflow:hidden; }
+.dynamic_header .cat-sharebox { display:block; float:left; overflow:hidden; margin: 13px 0 0 40px; }
+.dynamic_header .cat-share-item { display:block; float:left; height:32px; width:32px; margin: 0 0 0 10px; cursor:pointer; }
+.dynamic_header .cat-countdown { color:#fd706b; font-size:19px; font-weight:bold; font-family:"letter-gothic-std",monospace;
+    display:block; float:right; margin-right:68px; width: 240px; height:30px; margin-top:16px; overflow:hidden;
+    text-transform:uppercase; }
+
