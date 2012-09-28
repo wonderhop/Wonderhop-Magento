@@ -2078,7 +2078,7 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 
 /* brand page */
 .catalog-category-view .main { margin-top:300px; }
-.catalog-category-view .col-main { margin-top:-300px; position:relative;}
+.catalog-category-view .col-main { margin-top:-300px; position:relative;padding-top:310px; }
 /* width:1248px; height:567px; */
 .tag_header { width:937px; height:256px; padding:16px 16px 295px 295px; position:absolute; top:-16px; left:-295px;
     background:url("../images/brand/tag_back.png") no-repeat scroll left top transparent; }
@@ -2091,4 +2091,14 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 .dynamic_header .cat-countdown { color:#fd706b; font-size:19px; font-weight:bold; font-family:"letter-gothic-std",monospace;
     display:block; float:right; margin-right:68px; width: 240px; height:30px; margin-top:16px; overflow:hidden;
     text-transform:uppercase; }
+.tag_header .small_description { background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;
+    color: #FD706B; font-size: 19px; line-height: 1; margin-left: 60px; text-transform: uppercase; padding-bottom: 18px; 
+    min-width:540px; display:inline-block;  float:left; clear:left; }
+.tag_header .category-description { display:inline-block; width:550px; margin-left:60px; font-size:13px; line-height: 18px;
+    font-family:Georgia,serif; margin-top:10px; color: #6f5f6d; float:left; clear:left; }
+.tag_header .category-image { display:block; position:absolute; text-align:center; width: 290px; right:0; top: 95px; right:18px;
+    margin: 0; padding:0; overflow:visible; }
+.tag_header .category-image img { width: auto; display:inline; margin:0; padding:0; }
+.tag_header .category-image .cat_image_adhesive { background: url("../images/brand/adhesive.png") no-repeat scroll left top; 
+    position:absolute; top: -12px; left:0; width:100%; height: 29px; }
 
