@@ -63,6 +63,7 @@
 ?>
 
 <div class="tag_header">
+    <div class="tag_header_wire"></div>
     <div class="dynamic_header">
         <div class="page-title category-title">
             <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
@@ -171,15 +172,16 @@
     var dynHead = (function($){
         var $win = $(window),
             $t = $('.tag_header').first(),
+            wr = $('.tag_header_wire')[0].outerHTML,
             $c = $('<div></div>').insertBefore($t),
-            $tc = $t.clone().html('').appendTo($c).css({display:'none',zIndex:1000}).addClass('clone'),
+            $tc = $t.clone().html(wr).appendTo($c).css({display:'none',zIndex:1000}).addClass('clone'),
             $h = $('.dynamic_header').first(),
             $hc = $h.clone().appendTo($c).css({display:'none',zIndex:1010}).addClass('clone'),
             _limit1 = $h.offset().top,
             _limit2 = $t.offset().top+$t.height() - $h.height();
         
         $hc.css({position:'fixed', left:'50%', marginLeft: '-'+($h.width()/2)+'px' , top:-7});
-        $tc.css({position:'fixed', left:'50%', marginLeft: '-'+($t.width()/2 + 295 - 15)+'px' , top: '-'+($t.height()-$h.height() +20)+'px' });
+        $tc.css({position:'fixed', left:'50%', marginLeft: '-'+($t.width()/2 + 70 - 15)+'px' , top: '-'+($t.height()-$h.height() +20)+'px' });
         $fix = $('<div></div>').css({display:'none', position:'fixed', width:$hc.width(), height: 10, top:0, left:'50%', 
             marginLeft: '-'+($h.width()/2-12)+'px', background:'white', zIndex:1005});
         $fix.appendTo($c);

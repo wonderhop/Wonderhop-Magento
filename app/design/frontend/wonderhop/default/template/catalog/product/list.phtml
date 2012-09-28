@@ -45,50 +45,60 @@
 <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
 
 <?php elseif($current_category->getEndDate() < date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))): ?>
-<?php else: ?>
-    <?php 
-    $session = Mage::getSingleton('customer/session');
-    $customer = $session->getCustomer();
-    $ref_id = '';
-    if($session->isLoggedIn() && $customer->getReferralCode()) {
-	    $ref_id = '?r=' .$customer->getReferralCode();
-    }
-    ?>
+<?php else:
+
+$session = Mage::getSingleton('customer/session');
+$customer = $session->getCustomer();
+$ref_id = '';
+if($session->isLoggedIn() && $customer->getReferralCode()) {
+    $ref_id = '?r=' .$customer->getReferralCode();
+} 
+$_collectionSize = $_productCollection->count(); 
+$_columnCount = $this->getColumnCount(); 
+$_cols = array();
+for($ci = 0; $ci < $_columnCount; $ci++) { $_cols[$ci] = ''; };
+$current = &$_cols[0];
+?>
  
-<div class="category-products">
+<div class="category-products prod-cols-<?php echo $_columnCount; ?>">
     
-    <?php $_collectionSize = $_productCollection->count() ?>
-    <?php $_columnCount = $this->getColumnCount(); ?>
     <?php $i=0; foreach ($_productCollection as $_product): ?>
         <?php if($is_future_sale && $i > 3) break; ?>
-        <?php if ($i++%$_columnCount==0): ?>
+        <?php $i++; ?>
+        <?php $current = &$_cols[ (($i-1)%$_columnCount) ]; ?>
+        <?php ob_start(); ?>
+        <?php /*if ($i++%$_columnCount==0): ?>
         <ul class="products-grid">
-        <?php endif ?>
-            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+        <?php endif*/ ?>
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> item-col-<?php echo (($i-1)%$_columnCount+1); ?>">
                 <div class="product_list_image">
                 <?php if (!$is_future_sale): ?>
                         <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
                     <?php endif; ?>    
-                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(235); ?>" width="235" height="235" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(283); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
                     <?php if (!$is_future_sale): ?>    
                         </a>
                          <?php ?>
                
                          <div class="pinterest"><a href="http://pinterest.com/pin/create/button/?url=<?php if ($_product->getUrlPath() != '') echo urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id); else echo urlencode($_product->getProductUrl() . $ref_id); ?>&media=<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(235); ?>" width="235" height="335" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="pin-it-button" count-layout="none">Pin It</a></div> 
                 <?php endif; ?> 
-                 </div>
+                </div>
+                <div class="product-text">
                 <h2 class="product-name">
-                <?php if (!$is_future_sale): ?>
-                 <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
-                  <?php endif; ?> 
-                 <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
-                 <?php if (!$is_future_sale): ?>
-                 </a><?php endif; ?> </h2>
+                    <?php if (!$is_future_sale): ?>
+                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
+                    <?php endif; ?> 
+                    <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                    <?php if (!$is_future_sale): ?>
+                        </a>
+                    <?php endif; ?>
+                </h2>
                 <?php if (!$is_future_sale): ?>
                     <?php if($_product->getRatingSummary()): ?>
                     <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
                     <?php endif; ?>
                     <?php echo $this->getPriceHtml($_product, true) ?>
+                    <?php /*
                     <div class="actions">
                         <?php if($_product->isSaleable()): ?>
                             <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
@@ -97,13 +107,22 @@
                         <?php endif; ?>
                          
                     </div>
+                    */ ?>
                  <?php endif; ?>
+                 </div><!-- .product-text -->
             </li>
-        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+        <?php /*if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
         </ul>
-        <?php endif ?>
-        <?php endforeach ?>
-        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+        <?php endif*/ ?>
+        <?php $current .= ob_get_clean(); ?>
+    <?php endforeach ?>
+        
+    <?php foreach($_cols as $_i => $_col) { ?>
+        <ul class="prod-col prod-col-<?php echo $_i+1; ?>"><?php echo $_col; ?></ul>
+    <?php } ?>
+    
+    <script type="text/javascript">//decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
     
 </div>
+
 <?php endif; ?>
