@@ -938,8 +938,8 @@ margin-right: 4px;}
 .prod-col .product-name { display: table-cell; font-size: 16px; height: 80px; padding-left: 10px; text-decoration: none;
     text-transform: uppercase; vertical-align: middle; width: 190px; color:#585254; font-weight:bold; }
 .prod-col .product-name a { text-decoration: none; color:#585254;}
-.prod-col .price-box { font-size:17px; color:white; background: url("../images/brand/price_back.png") no-repeat; 
-    padding-right: 13px; width: 60px; height:30px; display:table-cell; vertical-align:middle; float:right; margin-top:25px; 
+.prod-col .price-box { font-size:17px; color:white; background: url("../images/brand/price_back.png") no-repeat scroll right top; 
+    padding-right: 13px; padding-left:5px; width: auto; height:30px; display:table-cell; vertical-align:middle; margin-top:25px; 
     position:absolute; top:0; right:0; }
 
 .prod-col .price-box .price { font-size:17px; color:white; line-height:1; padding-top:8px; display:block; }

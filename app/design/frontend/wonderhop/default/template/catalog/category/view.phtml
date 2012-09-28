@@ -44,7 +44,9 @@
     $_imgHtml   = '';
     $_additionalImg = '';
     $_additionalImg2 = '';
+    $_mainImgUrl = '';
     if ($_imgUrl = $_category->getImageUrl()) {
+        $_mainImgUrl = $_imgUrl;
         $_imgHtml = '<div class="category-image">'
                         .'<img src="'.$_imgUrl.'" height="150" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" />'
                         .'<div class="cat_image_adhesive"></div>'
@@ -118,9 +120,11 @@
                         share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
                         sharer0         = 'http://pinterest.com/pin/create/button/?url=' + share_link,
                         share_text      = 'Curio Road -- <?php echo $_category->getName(); ?>',
-                        sharer          = sharer0+'&description='+share_text,
+                        media_url       = '<?php echo $_mainImgUrl; ?>',
+                        sharer          = sharer0+'&media='+media_url+'&description='+share_text,
                         window_title    = 'Pin It !',
                         window_options  = 'status=1,width='+ width +',height='+ height +',top='+ top +',left='+ left;
+                    console.log(media_url);
                     if ( ! $a || ! $a.length) return false;
                     $a.attr('href',share_link);
                     window.open(sharer, window_title, window_options);
