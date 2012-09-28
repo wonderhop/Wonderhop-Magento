@@ -146,8 +146,11 @@ ul,ol         { list-style:none; }
 /* Global Styles ========================================================================= */
 /* Form Elements */
 input,select,textarea,button { font:12px/15px Arial, Helvetica, sans-serif; vertical-align:middle; color:#2f2f2f; }
-input.input-text,select,textarea { background:#fff; border:1px solid #b6b6b6; }
-input.input-text,textarea { padding:2px; }
+input.input-text,select,textarea { background:#fff; border:1px solid #D8D8D8; }
+input.input-text,textarea { color: #6F5F6E; padding:2px; background: url(../images/text_input_shaddow.png) top left no-repeat; }
+input.input-text { height: 29px; padding: 1px 0 0 6px; font-size:14px;
+background: url(../images/text_input_shaddow.png)0px 0px no-repeat;
+}
 select { padding:1px; }
 select option { padding-right:10px; }
 select.multiselect option { border-bottom:1px solid #b6b6b6; padding:2px 5px; }
@@ -155,6 +158,63 @@ select.multiselect option:last-child { border-bottom:0; }
 textarea { overflow:auto; }
 input.radio { margin-right:3px; }
 input.checkbox { margin-right:3px; }
+/* 
+    Hide the original radios and checkboxes
+    (but still accessible)
+    
+    :not(#foo) > is a rule filter to block browsers
+                 that don't support that selector from
+                 applying rules they shouldn't
+       
+*/
+
+input[type='checkbox'] {
+    
+    /* Hide the input, but have it still be clickable */
+    opacity: 0;
+    display: none;
+    float: left;
+    width: 18px;
+}
+
+
+input[type='checkbox'] + label {
+    margin: 0;
+    clear: none;
+    
+    /* Left padding makes room for image */
+    padding: 2px 0 4px 24px;
+
+    /* Make look clickable because they are */
+    cursor: pointer;
+    
+    background: url(../images/input_checkbox_unchecked.png) left center no-repeat; 
+}
+input[type='checkbox']:checked + label {
+    background: url(../images/input_checkbox_checked.png) left center no-repeat; 
+    padding: 7px 0 4px 24px;
+}
+.my-account .customStyleSelectBox {
+    max-width: 190px;
+}
+span.customStyleSelectBox { font-size: 11px;
+color: #7C7C7C;
+padding: 0 0 0 7px;
+border-top: 1px solid #D6D6D6; 
+border-left: 1px solid #D6D6D6;
+border-bottom: 1px solid #D6D6D6;
+line-height: 31px;
+height:31px;
+float:left;
+overflow: hidden;
+background:url(../images/input_select_bg.png) top left repeat-x; } 
+span.customStyleSelectBox.changed { background-color: #f0dea4; } 
+.customStyleSelectBoxInner { background:url(../images/input_select_arrow_bg.png) no-repeat center right; 
+border-top: 1px solid #D6D6D6; 
+border-right: 1px solid #D6D6D6;
+border-bottom: 1px solid #D6D6D6;height:31px; width:24px; float:left;  margin-right: 14px;}
+ 
+
 input.qty { width:2.5em !important; }
 button.button::-moz-focus-inner { padding:0; border:0; } /* FF Fix */
 button.button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
@@ -2118,4 +2178,44 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 .tag_header .category-image img { width: auto; display:inline; margin:0; padding:0; }
 .tag_header .category-image .cat_image_adhesive { background: url("../images/brand/adhesive.png") no-repeat scroll left top; 
     position:absolute; top: -12px; left:0; width:100%; height: 29px; }
+
+
+/* CHECKOUT CART PAGE */
+.checkout-cart-index .page-title h1 { color: #5e595b; font-size: 22px; font-family: "letter-gothic-std"; font-weight: bold; text-transform: uppercase; }
+.checkout-cart-index .page-title { background: url("../images/cart/checkout_cart_title_separator.png") repeat-x bottom; padding-bottom: 15px; margin: 0 0 10px; }
+.checkout-cart-index .before-footer-plant { background: url("../images/cart/before_footer_bird.png") no-repeat scroll left top transparent; width:183px; height:205px; z-index:40; display:block; position:absolute; bottom:-46px; left:0px; }
+.checkout-cart-index .btn-remove2 { width:26px; height:26px; background:url(../images/cart/checkout_cart_remove.png) 0 0 no-repeat; }
+.checkout-cart-index #shopping-cart-table.data-table { border: none; }
+.checkout-cart-index #shopping-cart-table.data-table thead th { background: none; border: none; font-family: "Georgia"; font-size: 14px; color: #6f5f6d; font-weight: normal; }
+.checkout-cart-index #shopping-cart-table.data-table .odd { background: none; }
+.checkout-cart-index #shopping-cart-table.data-table .even { background: none; }
+.checkout-cart-index #shopping-cart-table.data-table tr td { border-top: solid 1px #ebebeb; border-left: none; border-right: none; border-bottom: none; }
+.checkout-cart-index .cart-table tfoot td { padding: 0; }
+.checkout-cart-index .cart-table .product-name a { font-family: "letter-gothic-std"; font-size: 17px; font-weight: bold; color: #5e595b; text-decoration: none; }
+.checkout-cart-index .cart-table .product-name { background: url("../images/cart/shopping_cart_separator.png") repeat-x bottom; padding-bottom: 10px; margin: 0; }
+.checkout-cart-index .cart-table .product_extra_info { color: #6f5f6d; font-family: "Georgia"; font-size: 13px; font-weight: normal; }
+.checkout-cart-index .cart-table .product_extra_info .sale_info { color: #fd726d; font-family: "Georgia"; font-size: 13px; font-weight: normal; }
+.checkout-cart-index .cart-table .cart-price .price { font-weight: bold; font-size: 17px; font-family: "letter-gothic-std"; font-weight: bold; color: #5e595b; }
+.checkout-cart-index .cart-table .update-quantity input { background: url("../images/cart/checkout_cart_update_input_bg.png") no-repeat; width: 39px !important; height: 25px !important; border: none; text-align: center; font-family: "letter-gothic-std"; font-size: 17px; color: #da7875; padding: 2px 0px 0px 0px; }
+.checkout-cart-index .cart-table .update-quantity button { float: none; margin-left: 0px; }
+
+.checkout-cart-index .cart .totals { background: none; border: none; }
+.checkout-cart-index .cart .totals #shopping-cart-totals-table td { font-family: "letter-gothic-std"; font-size: 17px; font-weight: bold; color: #5e595b; text-transform: uppercase; }
+.checkout-cart-index .cart .totals #shopping-cart-totals-table .price { font-family: "letter-gothic-std"; font-size: 17px; font-weight: bold; color: #5e595b; text-transform: uppercase; font-weight: bold; }
+.checkout-cart-index .cart .totals #shopping-cart-totals-table tr td:first-child { text-align: left !important; }
+
+.checkout-cart-index .cart .totals #shopping-cart-totals-table tfoot td { padding-top: 0px; }
+.checkout-cart-index .cart .totals #shopping-cart-totals-table tfoot td strong { font-family: "letter-gothic-std"; font-size: 20px; font-weight: bold; color: #3a383a; }
+.checkout-cart-index .cart .totals #shopping-cart-totals-table tfoot td .price { font-family: "letter-gothic-std"; font-size: 20px; font-weight: bold; color: #3a383a; }
+.checkout-cart-index .cart .totals .totals-background { background: url("../images/cart/checkout_cart_total.png") no-repeat; width: 221px; height: 50px; margin-top: -50px; float: right; }
+.checkout-cart-index .cart .totals #shopping-cart-totals-table .total-separator { background: url("../images/cart/shopping_cart_separator.png") repeat-x bottom; height: 5px; }
+
+.checkout-cart-index .cart .cart-collaterals .col2-set { width: 545px; }
+.checkout-cart-index .cart .totals { margin-right: 58px; }
+
+.checkout-cart-index .cart .totals .checkout-types { padding: 0px 0px 15px; }
+
+.checkout-cart-index .cart-collaterals button.btn-checkout span { background: url("../images/cart/checkout_cart_checkout_button.png") no-repeat; width: 122px; height: 44px; }
+.checkout-cart-index .cart-collaterals button.btn-checkout span span { font-size: 0; line-height: 0; background: none; text-indent: -999em; overflow: hidden; }
+
 
