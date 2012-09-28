@@ -146,8 +146,11 @@ ul,ol         { list-style:none; }
 /* Global Styles ========================================================================= */
 /* Form Elements */
 input,select,textarea,button { font:12px/15px Arial, Helvetica, sans-serif; vertical-align:middle; color:#2f2f2f; }
-input.input-text,select,textarea { background:#fff; border:1px solid #b6b6b6; }
-input.input-text,textarea { padding:2px; }
+input.input-text,select,textarea { background:#fff; border:1px solid #D8D8D8; }
+input.input-text,textarea { color: #6F5F6E; padding:2px; background: url(../images/text_input_shaddow.png) top left no-repeat; }
+input.input-text { height: 29px; padding: 1px 0 0 6px; font-size:14px;
+background: url(../images/text_input_shaddow.png)0px 0px no-repeat;
+}
 select { padding:1px; }
 select option { padding-right:10px; }
 select.multiselect option { border-bottom:1px solid #b6b6b6; padding:2px 5px; }
@@ -155,6 +158,59 @@ select.multiselect option:last-child { border-bottom:0; }
 textarea { overflow:auto; }
 input.radio { margin-right:3px; }
 input.checkbox { margin-right:3px; }
+/* 
+    Hide the original radios and checkboxes
+    (but still accessible)
+    
+    :not(#foo) > is a rule filter to block browsers
+                 that don't support that selector from
+                 applying rules they shouldn't
+       
+*/
+
+input[type='checkbox'] {
+    
+    /* Hide the input, but have it still be clickable */
+    opacity: 0;
+    
+    float: left;
+    width: 18px;
+}
+
+
+input[type='checkbox'] + label {
+    margin: 0;
+    clear: none;
+    
+    /* Left padding makes room for image */
+    padding: 5px 0 4px 24px;
+
+    /* Make look clickable because they are */
+    cursor: pointer;
+    
+    background: url(../images/input_checkbox_unchecked.png) left center no-repeat; 
+}
+
+span.customStyleSelectBox { font-size: 11px;
+color: #7C7C7C;
+padding: 0 0 0 7px;
+border-top: 1px solid #D6D6D6; 
+border-left: 1px solid #D6D6D6;
+border-bottom: 1px solid #D6D6D6;
+line-height: 31px;
+height:31px;
+float:left;
+overflow: hidden;
+background:url(../images/input_select_bg.png) top left repeat-x; } 
+span.customStyleSelectBox.changed { background-color: #f0dea4; } 
+.customStyleSelectBoxInner { background:url(../images/input_select_arrow_bg.png) no-repeat center right; 
+border-top: 1px solid #D6D6D6; 
+border-right: 1px solid #D6D6D6;
+border-bottom: 1px solid #D6D6D6;height:31px; width:24px; float:left;  margin-right: 14px;}
+ 
+input[type='checkbox']:checked + label {
+    background: url(../images/input_checkbox_checked.png) left center no-repeat; 
+}
 input.qty { width:2.5em !important; }
 button.button::-moz-focus-inner { padding:0; border:0; } /* FF Fix */
 button.button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
