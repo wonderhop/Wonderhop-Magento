@@ -65,7 +65,7 @@ $current = &$_cols[0];
     <?php $i=0; foreach ($_productCollection as $_product): ?>
         <?php if($is_future_sale && $i > 3) break; ?>
         <?php $i++; ?>
-        <?php $current = &$_cols[ (($i-1)%$_columnCount) ]; ?>
+        <?php $current_i = (($i-1)%$_columnCount);$current = &$_cols[ $current_i ]; ?>
         <?php ob_start(); ?>
         <?php /*if ($i++%$_columnCount==0): ?>
         <ul class="products-grid">
@@ -83,7 +83,7 @@ $current = &$_cols[0];
                          <div class="pinterest"><a href="http://pinterest.com/pin/create/button/?url=<?php if ($_product->getUrlPath() != '') echo urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id); else echo urlencode($_product->getProductUrl() . $ref_id); ?>&media=<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(235); ?>" width="235" height="335" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="pin-it-button" count-layout="none">Pin It</a></div> 
                 <?php endif; ?> 
                 </div>
-                <div class="product-text">
+                <div class="product-text prod-name-back prod-name-back-<?php echo ($i%2) ? 1 : 2; echo ($current_i%2) ? ' rev' : ''; ?>">
                 <h2 class="product-name">
                     <?php if (!$is_future_sale): ?>
                         <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
