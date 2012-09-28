@@ -21,45 +21,23 @@ ol.checkout-agreements {
 
 /* Button CSS */
 .onestepcheckout-button, .onestepcheckout-button:visited {
-    background: #222 url(images/button-background.png) repeat-x;
-    display: inline-block;
-    padding: 5px 10px 6px;
-    color: #fff;
-    text-decoration: none;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
-    border: none;
-    border-bottom: 1px solid rgba(0,0,0,0.25);
-    position: relative;
-    cursor: pointer;
+    background: url(../images/Order.png) no-repeat;
+   display: inline-block;
+padding: 12px 10px 6px;
+color: white;
+text-decoration: none;
+border: none;
+width: 122px;
+height: 43px;
+font-family: "letter-gothic-std",monospace;
+font-size: 20px;
+text-transform: uppercase;
+cursor: pointer;
+font-weight: bold;
+    
 }
 
-    .onestepcheckout-button:hover                          { background-color: #111; color: #fff; }
-    .onestepcheckout-button:active                         { top: 1px; }
-    .small.onestepcheckout-button, .small.onestepcheckout-button:visited          { font-size: 11px; padding: ; }
-    .onestepcheckout-button, .onestepcheckout-button:visited,
-    .medium.onestepcheckout-button, .medium.onestepcheckout-button:visited        { font-size: 13px; font-weight: bold; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25); }
-    .large.onestepcheckout-button, .large.onestepcheckout-button:visited          { font-size: 16px; padding: 8px 30px 9px; }
-
-    .green.onestepcheckout-button, .green.onestepcheckout-button:visited      { background-color: #91bd09; }
-    .green.onestepcheckout-button:hover                        { background-color: #749a02; }
-    .blue.onestepcheckout-button, .blue.onestepcheckout-button:visited        { background-color: #2daebf; }
-    .blue.onestepcheckout-button:hover                         { background-color: #007d9a; }
-    .red.onestepcheckout-button, .red.onestepcheckout-button:visited          { background-color: #e33100; }
-    .red.onestepcheckout-button:hover                          { background-color: #872300; }
-    .magenta.onestepcheckout-button, .magenta.onestepcheckout-button:visited      { background-color: #a9014b; }
-    .magenta.onestepcheckout-button:hover                          { background-color: #630030; }
-    .orange.onestepcheckout-button, .orange.onestepcheckout-button:visited        { background-color: #ff5c00; }
-    .orange.onestepcheckout-button:hover                           { background-color: #d45500; }
-    .yellow.onestepcheckout-button, .yellow.onestepcheckout-button:visited        { background-color: #ffb515; }
-    .yellow.onestepcheckout-button:hover                           { background-color: #fc9200; }
-
-    .grey.onestepcheckout-button, .grey.onestepcheckout-button:visited        { background-color: #cccccc; }
-    .grey.onestepcheckout-button:hover                           { background-color: #cccccc; }
-
+    
 
 
 .onestepcheckout-place-order-loading {
@@ -854,7 +832,7 @@ div.onestepcheckout-comments textarea {
     margin-top: 25px;
     background: url(../images/payment_stamp.png) top left no-repeat;
     width: 280px;
-    height: 223px;
+    height: 214px;
     position: absolute;
     bottom: -9px;
 }

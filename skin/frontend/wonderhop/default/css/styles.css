@@ -172,7 +172,7 @@ input[type='checkbox'] {
     
     /* Hide the input, but have it still be clickable */
     opacity: 0;
-    
+    display: none;
     float: left;
     width: 18px;
 }
@@ -183,14 +183,20 @@ input[type='checkbox'] + label {
     clear: none;
     
     /* Left padding makes room for image */
-    padding: 5px 0 4px 24px;
+    padding: 2px 0 4px 24px;
 
     /* Make look clickable because they are */
     cursor: pointer;
     
     background: url(../images/input_checkbox_unchecked.png) left center no-repeat; 
 }
-
+input[type='checkbox']:checked + label {
+    background: url(../images/input_checkbox_checked.png) left center no-repeat; 
+    padding: 7px 0 4px 24px;
+}
+.my-account .customStyleSelectBox {
+    max-width: 190px;
+}
 span.customStyleSelectBox { font-size: 11px;
 color: #7C7C7C;
 padding: 0 0 0 7px;
@@ -208,9 +214,7 @@ border-top: 1px solid #D6D6D6;
 border-right: 1px solid #D6D6D6;
 border-bottom: 1px solid #D6D6D6;height:31px; width:24px; float:left;  margin-right: 14px;}
  
-input[type='checkbox']:checked + label {
-    background: url(../images/input_checkbox_checked.png) left center no-repeat; 
-}
+
 input.qty { width:2.5em !important; }
 button.button::-moz-focus-inner { padding:0; border:0; } /* FF Fix */
 button.button { -webkit-border-fit:lines; } /* <- Safari & Google Chrome Fix */
