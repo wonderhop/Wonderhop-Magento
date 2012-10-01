@@ -587,7 +587,8 @@ tr.summary-details-excluded { font-style:italic; }
 .header .logo strong { position:absolute; top:-999em; left:-999em; width:0; height:0; font-size:0; line-height:0; text-indent:-999em; overflow:hidden; }
 .header h1.logo { margin:0; }
 .header .quick-access-container {float:right; width:582px; padding:0 38px 20px 20px; height: 66px; position:absolute; right:0; background:url("../images/fuzzy_border.png") no-repeat scroll left top transparent; color: white; }
-.header .quick-access { padding: 12px 0; height:43px; background: #fd706b; position:relative; z-index:120; }
+.header .quick-access { padding: 12px 0; height:43px; background: #fd706b; position:relative; z-index:120; 
+    background:url("../images/topstuff_back.png") no-repeat; }
 .header .welcome-msg { margin:0; color:#fff; text-align:right; }
 .header .welcome-msg a { color:#ebbc58; }
 .header .form-search { position:absolute; top:0; right:29px; width:315px; height:30px; background:url(../images/bkg_form-search.gif) 0 0 no-repeat; padding:1px 0 0 16px; }
@@ -614,14 +615,21 @@ tr.summary-details-excluded { font-style:italic; }
 
 /********** < Account and Cart top Boxes */
 .header .account-top { float: right; min-width: 50px; height: 42px; /*margin-right:25px;*/ line-height: 42px; position:relative; }
-.header .account-top-action-link { background: url("../images/topaction_back.png") no-repeat scroll left top transparent; clear: none; float: left; margin: 0 0 0 10px; width: 296px; }
+/*.header .account-top-action-link { background: url("../images/topaction_back.png") no-repeat scroll left top transparent; clear: none; float: left; margin: 0 0 0 10px; width: 296px; }*/
+.header .account-top-action-link { clear: none; float: left; margin: 0 0 0 10px; width: 296px; text-indent:-9988px; overflow:hidden;
+    position:absolute; top:12px; }
 .header .account-top-action-link a { color: white; display: block; font-size: 15px; padding: 0 30px 0 20px; text-align: center; text-decoration: none; width: 246px; }
 /*.header .account-top-welcome { background: url("../images/welcome.png") no-repeat scroll left top transparent; padding-left:50px; padding-right:8px ; cursor:pointer; max-width:150px; }
 .header .account-top-welcome .welcome-box { padding-left: 8px; display:inline-block; overflow:hidden; max-width: 114px; line-height: 20px; max-height: 40px; vertical-align:middle; word-wrap: break-word; }
 .header .account-top-welcome .welcome-box-arrow { display:inline-block; width:25px; height: 42px; vertical-align:middle; background: url("../images/dot_arrow_down.png") no-repeat scroll right 13px transparent; }*/
-.header .account-top-welcome { background: url("../images/welcome.png") no-repeat scroll left top transparent; padding-left:50px; padding-right:8px ; cursor:pointer; max-width:150px; }
-.header .account-top-welcome .welcome-box { padding-left: 8px; display:block; overflow:hidden; max-width: 114px; line-height: 42px; height: 42px; background: url("../images/dot_arrow_down.png") no-repeat scroll right 13px transparent; white-space:nowrap; padding:0 25px 0 8px; }
-.header .account-top-cart { width:60px; background: url("../images/basket.png") no-repeat scroll left top transparent; margin-right: 8px; cursor:pointer; }
+
+/*.header .account-top-welcome { background: url("../images/welcome.png") no-repeat scroll left top transparent; padding-left:50px; padding-right:8px ; cursor:pointer; max-width:150px; }*/
+.header .account-top-welcome { cursor: pointer; float: left; margin-left: 370px; text-align: center; width: 100px; }
+/*.header .account-top-welcome .welcome-box { padding-left: 8px; display:block; overflow:hidden; max-width: 114px; line-height: 42px; height: 42px; background: url("../images/dot_arrow_down.png") no-repeat scroll right 13px transparent; white-space:nowrap; padding:0 25px 0 8px; }*/
+.header .account-top-welcome .welcome-box {}
+
+/*.header .account-top-cart { width:60px; background: url("../images/basket.png") no-repeat scroll left top transparent; margin-right: 8px; cursor:pointer; }*/
+.header .account-top-cart { width:60px; margin-right: 26px; cursor:pointer; }
 .header .account-top-cart .item-count { position:absolute; top:3px; right:3px; height:15px; min-width:11px; font-weight:bold;color:white;font-size:10px; background:#444;border-radius:7px; text-align:center; line-height: 15px; font-family:sans-serif; word-spacing:normal; letter-spacing:normal; padding:0 2px; }
 
 
@@ -652,7 +660,7 @@ tr.summary-details-excluded { font-style:italic; }
 /********** Account and Cart top Boxes > */
 
 /********** < Navigation */
-.nav-container { background:url("../images/menu_back.png") no-repeat scroll left top transparent; position:absolute; top:77px; left: 171px; display:block; height:50px;  }
+.nav-container { background:url("../images/menu_back_with_buttons.png") no-repeat scroll left top transparent; position:absolute; top:77px; left: 171px; display:block; height:50px;  }
 #nav { /*width:918px;*/ margin:0 auto; padding:10px 31px; height: 30px; line-height:30px; text-transform:uppercase; color:#696b6e; text-align:center; font-size: 14px; }
 
 /* All Levels */ /* Style consistent throughout all nav levels */
@@ -666,10 +674,10 @@ tr.summary-details-excluded { font-style:italic; }
 /*#nav ul li.parent a { background:url(../images/bkg_nav2.gif) 100% 100% no-repeat; }
 #nav ul li.parent li a { background-image:none; }
 */
-#nav li { float:left; }
-#nav .button-1 { background: url("../images/menu_buttons.png") no-repeat scroll 0px 0px transparent; }
+#nav li { float:left; text-indent:-9988px; overflow:hidden; }
+/*#nav .button-1 { background: url("../images/menu_buttons.png") no-repeat scroll 0px 0px transparent; }
 #nav .button-2 { background: url("../images/menu_buttons.png") no-repeat scroll 0px -50px transparent; }
-#nav .button-3 { background: url("../images/menu_buttons.png") no-repeat scroll 0px -100px transparent; }
+#nav .button-3 { background: url("../images/menu_buttons.png") no-repeat scroll 0px -100px transparent; }*/
  
 /* 0 Level 
 #nav li { float:left; }
@@ -1109,7 +1117,7 @@ margin-right: 4px;}
 .add-to-links .separator { display:none; }
 
 /* Add to Cart */
-.add-to-cart label { float:left; margin-right:5px; font-weight:bold; color:#666; }
+.add-to-cart label { float:left; margin-right:5px; font-weight:bold; color:#666; font-size: 14px; margin-top:6px; }
 .add-to-cart .qty { float:left; margin-right:5px; }
 .add-to-cart button.button { float:left; float:left; clear:both; margin: 30px 0; }
 .add-to-cart button.button.image-add-to-cart-btn { width:172px; height:40px; text-indent: -9888px; border:0; cursor:pointer; 
@@ -2106,27 +2114,14 @@ margin-right: 4px;}
 .category-products li:hover  .pinterest {
     display:block;
 }
-.fb-share a {
-    height: 29px;
-    background: url('../images/facebook-share.png') no-repeat;
-    color: #333;
-    display: block;
-    padding-left: 35px;
-    font-size: 12px;
-    cursor: hand;
-    cursor: pointer;
-}
+.fb-share a { height: 38px; background: url('../images/cool_fb.png') no-repeat; color: #333; display: block; padding-left: 35px;
+    font-size: 12px; cursor: hand; cursor: pointer; }
 
-.twitter-share a {
-    height: 29px;
-    background: url('../images/twitter.png') no-repeat;
-    color: #333;
-    display: block;
-    padding-left: 35px;
-    font-size: 12px;
-    cursor: hand;
-    cursor: pointer;
-}
+.twitter-share a { height: 38px; background: url('../images/cool_teet.png') no-repeat; color: #333; display: block; padding-left: 35px;
+    font-size: 12px; cursor: hand; cursor: pointer; }
+
+.pin-share a { height: 38px; background: url('../images/cool_pin.png') no-repeat; color: #333; display: block; padding-left: 35px;
+    font-size: 12px; cursor: hand; cursor: pointer; }
 
 ul.social_share { clear: both; display: block; margin: 25px 18px 10px 0; overflow: hidden; }
 ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-style:none; }
