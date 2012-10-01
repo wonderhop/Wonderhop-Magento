@@ -2192,7 +2192,7 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 .checkout-cart-index .cart-table .product_extra_info { color: #6f5f6d; font-family: "Georgia"; font-size: 13px; font-weight: normal; }
 .checkout-cart-index .cart-table .product_extra_info .sale_info { color: #fd726d; font-family: "Georgia"; font-size: 13px; font-weight: normal; }
 .checkout-cart-index .cart-table .cart-price .price { font-weight: bold; font-size: 17px; font-family: "letter-gothic-std"; font-weight: bold; color: #5e595b; }
-.checkout-cart-index .cart-table .update-quantity input { background: url("../images/cart/checkout_cart_update_input_bg.png") no-repeat; width: 39px !important; height: 25px !important; border: none; text-align: center; font-family: "letter-gothic-std"; font-size: 17px; color: #da7875; padding: 2px 0px 0px 0px; }
+.checkout-cart-index .cart-table .update-quantity input { background: url("../images/cart/checkout_cart_update_input_bg.png") no-repeat; width: 39px !important; height: 25px !important; border: none; text-align: center; font-family: "letter-gothic-std"; font-size: 17px; padding: 2px 0px 0px 0px; }
 .checkout-cart-index .cart-table .update-quantity button { float: none; margin-left: 0px; }
 
 .checkout-cart-index .cart .totals { background: none; border: none; }
