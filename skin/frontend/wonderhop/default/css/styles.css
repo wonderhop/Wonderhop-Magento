@@ -2105,15 +2105,9 @@ margin-right: 4px;}
 .product-view .pinterest { float:right; margin-left: 10px; }
 
 .product_list_image {position:relative;}
-.category-products .pinterest {
-    position:absolute;
-    top: 10px;
-    right: 10px;
-    display:none;
-}
-.category-products li:hover  .pinterest {
-    display:block;
-}
+.category-products .cat-prod-shares {  display: none; position: absolute; bottom: -1px; right: 10px; width: 38px; }
+.category-products li:hover .cat-prod-shares { display:block; }
+
 .fb-share a { height: 38px; background: url('../images/cool_fb.png') no-repeat; color: #333; display: block; padding-left: 35px;
     font-size: 12px; cursor: hand; cursor: pointer; }
 

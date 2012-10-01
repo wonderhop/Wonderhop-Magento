@@ -80,7 +80,16 @@ $current = &$_cols[0];
                         </a>
                          <?php ?>
                
-                         <div class="pinterest"><a href="http://pinterest.com/pin/create/button/?url=<?php if ($_product->getUrlPath() != '') echo urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id); else echo urlencode($_product->getProductUrl() . $ref_id); ?>&media=<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(235); ?>" width="235" height="335" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="pin-it-button" count-layout="none">Pin It</a></div> 
+                         <div class="cat-prod-shares">
+                            <?php $_prodUrl = ($_product->getUrlPath() != '') ? urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id) :  urlencode($_product->getProductUrl() . $ref_id); ?>
+                            <?php $_prodMedia = urldecode($this->helper('catalog/image')->init($_product, 'small_image')->resize(400)); ?>
+                            <div class="fb-share" onclick="return GenShare.post_on_wall(this);">
+                                <a id="product-facebook-link-share" href="<?php echo $_prodUrl ?>" name="fb_share" type="icon_link" share_url="<?php echo $_prodUrl; ?>"></a>
+                            </div>
+                            <div class="pin-share" onclick="return GenShare.pin_it(this,{text:'<?php echo urlencode($_product->getShortDescription()); ?>',media:'<?php echo $_prodMedia; ?>'});">
+                                <a href="<?php echo $_prodUrl; ?>" title="Share this on Pinterest" rel="nofollow" target="_blank"></a>
+                            </div>
+                        </div> 
                 <?php endif; ?> 
                 </div>
                 <div class="product-text prod-name-back prod-name-back-<?php echo ($i%2) ? 1 : 2; echo ($current_i%2) ? ' rev' : ''; ?>">

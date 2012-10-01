@@ -27,7 +27,7 @@ var GenShare = (function($){ function GenShare(){ var self = this; var _ ={}; re
                     sharer += urlkey + '=' + opts[key] + '&';
                 }
             });
-            sharer = sharer.slice(0,sharer.length-2);
+            sharer = sharer.slice(0,sharer.length-1);
             window.open(sharer, opts.win_tx, win_opts);
             return false;
         }
