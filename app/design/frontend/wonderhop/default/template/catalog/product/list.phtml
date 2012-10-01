@@ -106,7 +106,17 @@ $current = &$_cols[0];
                     <?php if($_product->getRatingSummary()): ?>
                     <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
                     <?php endif; ?>
-                    <?php echo $this->getPriceHtml($_product, true) ?>
+                    <?php // TO BE REWRITTEN (it's a must)
+                    $prices = strip_tags( $this->getPriceHtml($_product, true) );
+                    $prices = explode('$',$prices);
+                    $price = array_pop($prices);
+                    $price = preg_replace('/[^0-9\.]+|(\.[\d].*?[^\d])/i','',$price);
+                    ?>
+                    <div class="price-box">
+                        <span class="price"><?php echo '$'.$price; ?></span>
+                    </div>
+                    
+                    <?php //echo $this->getPriceHtml($_product, true) ?>
                     <?php /*
                     <div class="actions">
                         <?php if($_product->isSaleable()): ?>
