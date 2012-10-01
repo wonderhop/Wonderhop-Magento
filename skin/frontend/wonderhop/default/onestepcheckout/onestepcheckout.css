@@ -827,6 +827,7 @@ div.onestepcheckout-comments textarea {
     background: url(../images/payment_bottom_img.png) top left no-repeat;
     width: 287px;
     height: 6px;
+    z-index:-100;
 }
 .payment_stamp {
     margin-top: 25px;
@@ -835,6 +836,7 @@ div.onestepcheckout-comments textarea {
     height: 214px;
     position: absolute;
     bottom: -9px;
+    z-index:-100;
 }
 
 .payment-methods {

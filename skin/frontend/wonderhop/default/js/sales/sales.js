@@ -2,7 +2,7 @@ var variables_to_set = ['r', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_co
  
 /* handle referer url */
 if (! getCookie('wonderhop_referer_url') && document.referrer != '')
-	setCookie('wonderhop_referer_url', document.referrer, 30);
+    setCookie('wonderhop_referer_url', document.referrer, 30);
 var matches  =  (document.referrer.match(/^https?:\/\/(?:[^\/]+\.)?([^.\/]+\.[a-z]+)(?:\/|$)/));
 var referer_domain = "";
 if (matches) referer_domain = matches[1];
@@ -32,10 +32,10 @@ function setParamCookie(cookie_name) {
     if (value && cookie_name == 'r') referral_id = value;
 
     if (!value && cookie_name == 'utm_source') {
-       	if (referer_domain == '' && referral_id == null ) value = 'direct';
-       	if (referer_domain == '' && referral_id != null ) value = 'referral non-web';
-       	if (referer_domain != '' && referral_id == null ) value = 'organic '+ referer_domain;
-       	if (referer_domain != '' && referral_id != null ) value = 'referral '+ referer_domain;
+        if (referer_domain == '' && referral_id == null ) value = 'direct';
+        if (referer_domain == '' && referral_id != null ) value = 'referral non-web';
+        if (referer_domain != '' && referral_id == null ) value = 'organic '+ referer_domain;
+        if (referer_domain != '' && referral_id != null ) value = 'referral '+ referer_domain;
     } 
     
     if (value) {
@@ -67,6 +67,16 @@ function getCookie(c_name)
       }
 }
 
+(function ($) {
+
+    $.fn.getWidthInPercent = function () {
+        var width = parseFloat($(this).css('width'))/parseFloat($(this).parent().css('width'));
+        return Math.round(100*width)+'%';
+    };
+
+})(jQuery);
+
+
 (function($){
     $.fn.extend({
     customStyle : function(options) {
@@ -74,12 +84,28 @@ function getCookie(c_name)
             return this.each(function() {
                
                 var currentSelected = $(this).find(':selected');
-                $(this).after('<span class="customStyleSelectBox">'+currentSelected.text()+'</span><span class="customStyleSelectBoxInner"></span>').css({position:'absolute', opacity:0,fontSize:$(this).next().css('font-size')});
+                var $wrap = $('<div class="customStyleWrap" style="position:relative;margin-right:14px;"></div>');
+                $(this).after($wrap);
+                $(this).appendTo($wrap);
+                $(this).after( '<span class="customStyleSelectBox">'
+                                        +currentSelected.text()
+                                    +'</span>'
+                                +'<span class="customStyleSelectBoxInner"></span>'
+                        ).css({opacity:0, fontSize: $(this).next().css('font-size')});
+                //$('.customStyleWrap').each(function(i,e){
+                //    var $e = $(e);
+                //    $e.css({width: $e.prev().width() });
+                //    console.log($e);
+                //    console.log($e.prev());
+                //    console.log($e.prev().width());
+                //});
                 var selectBoxSpan = $(this).next();
-                var selectBoxWidth = parseInt($(this).width());  
+                var selectBoxWidth = $(this).css('width');  
                 var selectBoxSpanInner = selectBoxSpan.find(':first-child');
                 selectBoxSpan.css({display:'block'});
-                $('.customStyleSelectBox').css({width:selectBoxWidth, display:'block'});
+                $wrap.css({width:$(this).getWidthInPercent()});
+                $(this).css('width','100%');
+                //$('.customStyleSelectBox').css({width:selectBoxWidth, display:'block'});
                 var selectBoxHeight = 31;
                 $(this).height(selectBoxHeight).change(function() {
                      $(this).next('.customStyleSelectBox').text($(this).find(':selected').text());

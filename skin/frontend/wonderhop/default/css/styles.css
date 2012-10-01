@@ -197,23 +197,21 @@ input[type='checkbox']:checked + label {
 .my-account .customStyleSelectBox {
     max-width: 190px;
 }
-span.customStyleSelectBox { font-size: 11px;
-color: #7C7C7C;
-padding: 0 0 0 7px;
-border-top: 1px solid #D6D6D6; 
-border-left: 1px solid #D6D6D6;
-border-bottom: 1px solid #D6D6D6;
-line-height: 31px;
-height:31px;
-float:left;
-overflow: hidden;
-background:url(../images/input_select_bg.png) top left repeat-x; } 
+/*span.customStyleSelectBox { font-size: 11px; color: #7C7C7C; padding: 0 0 0 7px; border-top: 1px solid #D6D6D6;  border-left: 1px solid #D6D6D6; 
+    border-bottom: 1px solid #D6D6D6; line-height: 31px; height:31px; float:left; overflow: hidden;
+    background:url(../images/input_select_bg.png) top left repeat-x; } 
 span.customStyleSelectBox.changed { background-color: #f0dea4; } 
 .customStyleSelectBoxInner { background:url(../images/input_select_arrow_bg.png) no-repeat center right; 
-border-top: 1px solid #D6D6D6; 
-border-right: 1px solid #D6D6D6;
-border-bottom: 1px solid #D6D6D6;height:31px; width:24px; float:left;  margin-right: 14px;}
- 
+    border-top: 1px solid #D6D6D6;  border-right: 1px solid #D6D6D6; border-bottom: 1px solid #D6D6D6;
+    height:31px; width:24px; float:left;  margin-right: 14px; }*/
+
+.customStyleSelectBox { font-size: 11px; color: #7C7C7C; padding: 0 0 0 7px; border: 1px solid #D6D6D6; border-right:none; 
+    line-height: 31px; height:31px; float:left; overflow: hidden; position:absolute; left:0; top:0;
+    background:url(../images/input_select_bg.png) top left repeat-x; width:90%; z-index:-2;}
+.customStyleSelectBoxInner { background:url(../images/input_select_arrow_bg.png) no-repeat center right; 
+    border: 1px solid #D6D6D6;  border-left: none; height:31px; width:24px; float:right;
+    position:absolute; top:0; right:0; z-index:-1;}
+
 
 input.qty { width:2.5em !important; }
 button.button::-moz-focus-inner { padding:0; border:0; } /* FF Fix */
@@ -1470,7 +1468,7 @@ margin-right: 4px;}
 
 .please-wait { float:right; }
 .please-wait img { vertical-align:middle; }
-.cvv-what-is-this { font-size:11px; cursor:help; margin-left:10px; }
+.cvv-what-is-this { font-size:11px; cursor:help; margin-left:10px; position:relative; top:-3px; }
 
 /* Tooltip */
 .tool-tip { border:1px solid #7BA7C9; background:#EAF6FF; padding:15px 20px; position:absolute; z-index:9999; }
@@ -2215,3 +2213,4 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 .checkout-cart-index .cart-collaterals button.btn-checkout span span { font-size: 0; line-height: 0; background: none; text-indent: -999em; overflow: hidden; }
 
 
+div.checkoutcontainer .input-box { position:relative; }
