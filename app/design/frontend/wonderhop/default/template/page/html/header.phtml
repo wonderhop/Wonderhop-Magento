@@ -36,7 +36,7 @@
         <?php endif?>
         <?php echo $this->getChildHtml('topMenu') ?>
         <div class="quick-access-container">
-            <div id="block-cart-header-wrap">
+            <div id="block-cart-header-wrap" style="display:none;">
                 <?php echo $this->getChildHtml('header_cart'); ?>
             </div>
             <div class="quick-access">
@@ -85,6 +85,7 @@
                     $('html').click(function(){ if ( ! self.over() && self.visible() && ! self.stick()) { self.clear('hide').clear('show').hide(); }; });
                     
                     self.hide();
+                    setTimeout( function(){ self.$container.css({display:'block'}) }, 500);
                     
                     return self;
                 },
