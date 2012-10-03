@@ -5,9 +5,9 @@ $helper = Mage::helper('onestepcheckout/checkout');
 
 ?>
 <?php if(!$this->canCheckout() || !$this->validateMinimumAmount()): ?>
-    <?php if($this->settings['checkout_title']): ?>
+    <?php /*if($this->settings['checkout_title']): ?>
         <h1 class="onestepcheckout-title"><?php echo $this->settings['checkout_title']; ?></h1>
-    <?php endif; ?>
+    <?php endif;*/ ?>
 
     <?php if($this->canCheckout() && !$this->validateMinimumAmount()): ?>
     <p><?php echo Mage::getStoreConfig('sales/minimum_order/description'); ?></p>
@@ -23,13 +23,13 @@ $helper = Mage::helper('onestepcheckout/checkout');
 <form id="onestepcheckout-form" method="post" action="<?php echo $this->getUrl('onestepcheckout', array('_secure'=>true)); ?>">
 <fieldset class="group-select" style="margin: 0;">
 
-<?php if($this->settings['checkout_title']): ?>
+<?php /*if($this->settings['checkout_title']): ?>
     <h1 class="onestepcheckout-title"><?php echo $this->settings['checkout_title']; ?></h1>
-<?php endif; ?>
+<?php endif;*/ ?>
 
-<?php if($this->settings['checkout_description']): ?>
+<?php /*if($this->settings['checkout_description']): ?>
     <p class="onestepcheckout-description"><?php echo $this->settings['checkout_description']; ?></p>
-<?php endif; ?>
+<?php endif;*/ ?>
 
 <?php if(!$this->isCustomerLoggedIn() && $helper->showLoginLink()): ?>
     <p class="onestepcheckout-login-link">
@@ -206,7 +206,7 @@ $helper = Mage::helper('onestepcheckout/checkout');
     <div class="onestepcheckout-column-right">
         <div class="checkout_top_bg"></div>
         <div class="summary_content">
-        <p class="onestepcheckout-numbers onestepcheckout-numbers-4"><?php echo $this->__('Review order'); ?></p>
+        <p class="onestepcheckout-numbers onestepcheckout-numbers-4"><?php echo $this->__('Review order'); ?><a class="review-order-edit-button" href="<?php echo $this->getUrl('checkout/cart'); ?>" onclick="setLocation('<?php echo $this->getUrl('checkout/cart'); ?>');"></a></p>
 
         <div class="onestepcheckout-summary">
             <?php echo $this->getChildHtml('summary'); ?>

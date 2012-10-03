@@ -2214,3 +2214,6 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 
 
 div.checkoutcontainer .input-box { position:relative; }
+
+.review-order-edit-button { display:block;float:right;display:inline-block;width:17px;height:17px; margin-top:5px;
+    background: url("../images/customer_edit_order.png") no-repeat; }
