@@ -2217,3 +2217,13 @@ div.checkoutcontainer .input-box { position:relative; }
 
 .review-order-edit-button { display:block;float:right;display:inline-block;width:17px;height:17px; margin-top:5px;
     background: url("../images/customer_edit_order.png") no-repeat; }
+    
+    
+.cms-page-view .page-title { width:100%; padding-left:0; position:relative;left:-28px; border:none; height:52px;  }
+.cms-page-view .page-title h1 { font-size: 22px; font-weight:bold; text-transform:uppercase; color:#5e595b;  
+    background: url("../images/page_header_back.png") no-repeat scroll right top; height: 52px; 
+    padding:14px 20px 0 30px; display:inline-block; margin-left: 20px; }
+.cms-page-view .page-title .page-title-clip { position:absolute; display:block; left:0; top:0; width: 44px; height:52px;
+    background: url("../images/page_header_back_clip.png") no-repeat;}
+
+.cms-page-view .std { font-family: Georgia,serif;  }
