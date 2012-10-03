@@ -117,5 +117,8 @@ function getCookie(c_name)
 })(jQuery);
 
 jQuery(function() {
-    jQuery('select').not(jQuery('.payment-methods select')).customStyle();
+    var elems =jQuery('select').not(jQuery('.payment-methods select'));
+    if (jQuery.customStyle) {
+        elems.customStyle();
+    }
 });

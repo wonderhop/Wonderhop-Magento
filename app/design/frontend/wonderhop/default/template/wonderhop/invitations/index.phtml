@@ -3,7 +3,7 @@
     i=0;
     var recipCount  = 1;
     var maxRecip    = 15;
-	var baseUrl    	= "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>";
+    var baseUrl     = "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>";
     
     //initial email recipients limitation here and restore in showAddressRecords() every time:
     var counter = maxRecip;
@@ -38,54 +38,59 @@
     }
 //]]>
 </script>
+
 <script type="text/javascript">
     mixpanel.track("Invite friend page");
 </script>
+
 <div class="invite-page">
     <h1>Invite your friends. If they join, you and they BOTH get $3</h1>
 
     <h2>Meet your personal invite link.</h2>
-        <input id="personal_link" type="text" readonly="readonly" size="50" value="<?php echo $this->getPersonalLink() ?>" />
-        <div class="clear"></div>
+    <input id="personal_link" type="text" readonly="readonly" size="50" value="<?php echo $this->getPersonalLink() ?>" />
+    <div class="clear"></div>
     <h2>Share it with friends on Facebook and Twitter.</h2>
-<div class="clear"></div>
+    <div class="clear"></div>
     <ul class="social_share">
         <li>
-            <div onclick="post_on_wall();" class="fb-share"><a name="fb_share" type="icon_link" share_url="<?php echo $this->getPersonalLink(); ?>"></a>
-                </div>
+            <div onclick="post_on_wall();" class="fb-share">
+                <a name="fb_share" type="icon_link" share_url="<?php echo $this->getPersonalLink(); ?>"></a>
+            </div>
         </li>
         <li>
             <div class="twitter-share">
-            <a href="http://twitter.com/share/?url=<?php echo $this->getPersonalLink(); ?>" title="Share this on Twitter" id="service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
-
-             <script type="text/javascript">
-             jQuery('.twitter-share a').click(function(event) {
-                var width  = 575,
-                    height = 400,
-                    left   = (jQuery(window).width()  - width)  / 2,
-                    top    = (jQuery(window).height() - height) / 2,
-                    url    = this.href,
-                    opts   = 'status=1' +
-                             ',width='  + width  +
-                             ',height=' + height +
-                             ',top='    + top    +
-                             ',left='   + left;
-
-                window.open(url, 'twitte', opts);
-
-                return false;
-              });</script>
-               </div>
+                <a href="http://twitter.com/share/?url=<?php echo $this->getPersonalLink(); ?>" title="Share this on Twitter" id="service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
+                <script type="text/javascript">
+                    jQuery('.twitter-share a').click(function(event) {
+                        var width  = 575,
+                            height = 400,
+                            left   = (jQuery(window).width()  - width)  / 2,
+                            top    = (jQuery(window).height() - height) / 2,
+                            url    = this.href,
+                            opts   = 'status=1' +
+                                     ',width='  + width  +
+                                     ',height=' + height +
+                                     ',top='    + top    +
+                                     ',left='   + left;
+                        window.open(url, 'twitte', opts);
+                        return false;
+                    });
+                </script>
+            </div>
         </li>
-    </ul>
+    </ul><!-- .social_share -->
+    
     <script type="text/javascript">
-	                function post_on_wall() {
-		                url = 'http://www.facebook.com/sharer.php?u=<?php echo $this->getPersonalLink() ?>&t=<?php echo $this->getPersonalLink() ?>';
-		                window.open(url, "Post on Wall", "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0");
-	                }
+        function post_on_wall() {
+            url = 'http://www.facebook.com/sharer.php?u=<?php echo $this->getPersonalLink() ?>&t=<?php echo $this->getPersonalLink() ?>';
+            window.open(url, "Post on Wall", "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0");
+        }
     </script>
+    
     <div class="clear"></div>
+    
     <h2>Or send it to some special someones.</h2>
+    
     <form action="<?php echo $this->getUrl('*/*/send'); ?>" method="post" id="invitations-form">
       
         <div class="input-box">    
@@ -97,105 +102,110 @@
     
       
     </form>
-      <div id="popup-overlay" style="display:none"></div>
-       <div id="popup-content" style="display:none">
-            <div id="close_popup">X</div>
-            
-            <div id="import_loader" style="display: none">
-            <p>Your Contacts Are Loading</p>
-            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>" /></div>
-            
-            <div class="email_addresses" id="ul_email_add" style="display:none;">
-                <ul class="form-list address_records_block address_records" id="address_records" style="display:none;">
-                
-                </ul>
-            </div>
-            <div class="buttons-set-invite">
-                <button type="button"  style="display:none;" title="Proceed to Checkout" id="select_emails" class="button cloudsponge_select_emails"><span><span>Select</span></span></button>
-            </div>
-      </div>
-    <div class="clear"></div>
-        <p>or</p>
-        <p>Pick the lucky ones from your contacts
-            <a id="cloudsponge_gmail" href="#" class="cloudsponge_gmail invite-import-gmail">Gmail</a>  
-            <a onclick="return cloudsponge.launch('aol');" href="#" class="invite-import-aol">Aol</a> 
-            <a id="cloudsponge_yahoo" href="#" class="cloudsponge_yahoo invite-import-yahoo">Yahoo</a>
-            <a id="cloudsponge_msn" href="#" class="cloudsponge_msn invite-import-hotmail">Hotmail</a>          
-           
-					 
-	 
-        </p>
-         
-         <ul id="cloudsponge_emailcounter" style="display:none;"><li id="counter_content"></li></ul>
-					 
-			</div>
-        
-     <div class="clear"></div>
-     <script type="text/javascript">
-    //<![CDATA[
-        var dataForm = new VarienForm('invitations-form', true);
-       
-    //]]>
-    </script>
-    <hr class="invite-hr"/>
     
-    <?php $invitations = $this->getAllInviters(); ?>
-    <?php if (count($invitations)): ?>
-        <table width="600px" cellpading="0" cellspacing="0" border="1" align="center">
-            <thead>
-                <tr>
-                    <th>Email</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <?php foreach ($invitations as $email => $status) : ?>
-                <?php if(!$email): ?>
-                    <?php continue; ?>
-                <?php endif; ?>
-                <tr class="<?php echo $status == 0 || $status == 2 || $status == 3 ? 'not_joined' : 'joined' ?>">
-                    <td align="center" style="text-align:center"><?php echo $email ?></td>
-                    <td align="center" style="text-align:center">
-                    <?php switch($status):
-                            case 0:
-                                echo 'Not Joined';
-                                break;
-                            case 2:
-                                echo 'Already Registered' ;
-                                break;
-                            case 1:
-                                echo 'Accepted your invitation';
-                                break;
-                            case 3:
-                                echo "Joined from someone else's invite";
-                                break;
-                          endswitch;
-                     ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-     <?php endif; ?>
+    <div id="popup-overlay" style="display:none"></div>
+        
+    <div id="popup-content" style="display:none">
+        <div id="close_popup">X</div>
+        <div id="import_loader" style="display: none">
+            <p>Your Contacts Are Loading</p>
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>" />
+        </div>
+        <div class="email_addresses" id="ul_email_add" style="display:none;">
+            <ul class="form-list address_records_block address_records" id="address_records" style="display:none;">
+            </ul>
+        </div>
+        <div class="buttons-set-invite">
+            <button type="button"  style="display:none;" title="Proceed to Checkout" id="select_emails" class="button cloudsponge_select_emails"><span><span>Select</span></span></button>
+        </div>
+    </div>
+        
+    <div class="clear"></div>
+    
+    <p>or</p>
+    <p>Pick the lucky ones from your contacts
+        <a id="cloudsponge_gmail" href="#" class="cloudsponge_gmail invite-import-gmail">Gmail</a>  
+        <a onclick="return cloudsponge.launch('aol');" href="#" class="invite-import-aol">Aol</a> 
+        <a id="cloudsponge_yahoo" href="#" class="cloudsponge_yahoo invite-import-yahoo">Yahoo</a>
+        <a id="cloudsponge_msn" href="#" class="cloudsponge_msn invite-import-hotmail">Hotmail</a>          
+    </p>
+         
+    <ul id="cloudsponge_emailcounter" style="display:none;">
+        <li id="counter_content"></li>
+    </ul>
+                     
+<?php //</div>  // i think this is the one braking the html layout ?>
+        
+<div class="clear"></div>
+     
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('invitations-form', true);
+//]]>
+</script>
+<hr class="invite-hr"/>
+    
+<?php $invitations = $this->getAllInviters(); ?>
+<?php if (count($invitations)): ?>
+    <table width="600px" cellpading="0" cellspacing="0" border="1" align="center">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <?php foreach ($invitations as $email => $status) : ?>
+            <?php if(!$email): ?>
+                <?php continue; ?>
+            <?php endif; ?>
+            <tr class="<?php echo $status == 0 || $status == 2 || $status == 3 ? 'not_joined' : 'joined' ?>">
+                <td align="center" style="text-align:center"><?php echo $email ?></td>
+                <td align="center" style="text-align:center">
+                    <?php
+                    switch($status):
+                        case 0:
+                            echo 'Not Joined';
+                            break;
+                        case 2:
+                            echo 'Already Registered' ;
+                            break;
+                        case 1:
+                            echo 'Accepted your invitation';
+                            break;
+                        case 3:
+                            echo "Joined from someone else's invite";
+                            break;
+                    endswitch;
+                    ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>
+
 </div>
 
+
 <?php if (Mage::app()->getStore()->isCurrentlySecure()): ?>
-<script type="text/javascript" src="https://api.cloudsponge.com/address_books.js"></script>
+    <script type="text/javascript" src="https://api.cloudsponge.com/address_books.js"></script>
 <?php else: ?>
-<script type="text/javascript" src="http://api.cloudsponge.com/address_books.js"></script>
+    <script type="text/javascript" src="http://api.cloudsponge.com/address_books.js"></script>
 <?php endif; ?>
 
 <script type="text/javascript">
 var csPageOptions = {
-	domain_key:'<?php echo Mage::getStoreConfig("cloudsponge/account/domain_key") ?>',
-	textarea_id:'cloud_invite_input',
-	afterSubmitContacts: getContactsList
+    domain_key:'<?php echo Mage::getStoreConfig("cloudsponge/account/domain_key") ?>',
+    textarea_id:'cloud_invite_input',
+    afterSubmitContacts: getContactsList
 };
 function getContactsList(emails)
 {
-	var list = new Array();
-	for(var i = 0; i.emails.length; i++)
-	{
-		 $('cloud_invite_input').value = $('cloud_invite_input').value + ',' + emails[i].primaryEmail();
-	}
-	 
+    var list = new Array();
+    for(var i = 0; i.emails.length; i++)
+    {
+         $('cloud_invite_input').value = $('cloud_invite_input').value + ',' + emails[i].primaryEmail();
+    }
+     
 }
 </script>
  
