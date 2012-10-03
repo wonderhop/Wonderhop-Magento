@@ -791,20 +791,21 @@ div.onestepcheckout-comments textarea {
 }
 
 .checkout_bottom_bg {
-    background: url(../images/review_bottom_bg.png) top left no-repeat;
+    background: url("../images/review_bottom_bg2.png") top left no-repeat;
     width: 298px;
     height: 15px;
 }
 
 .checkout_top_bg {
-    background: url(../images/review_top_bg.png) top left no-repeat;
+    background: url("../images/review_top_bg2.png") top left no-repeat;
     width: 298px;
     height: 10px;
 }
 
 .summary_content {
-    background: url(../images/review_bg.png) top left repeat-y;
-    width: 277px;
+    /*background: url(../images/review_bg.png) top left repeat-y;*/
+    background:#FFFBFF;
+    width: 278px;
     padding: 0 10px 60px 10px;
 }
 .onestepcheckout-index-index .main {
