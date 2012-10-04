@@ -845,3 +845,7 @@ div.onestepcheckout-comments textarea {
 }
 
  
+ 
+ 
+ .form-alt select { width:100%; }
+ #billing_address select { width:100%; }

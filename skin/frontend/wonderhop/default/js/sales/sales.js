@@ -82,7 +82,7 @@ function getCookie(c_name)
     customStyle : function(options) {
         if(!$.browser.msie || ($.browser.msie&&$.browser.version>6)) {
             return this.each(function() {
-               
+                console.log(this);
                 var currentSelected = $(this).find(':selected');
                 var $wrap = $('<div class="customStyleWrap" style="position:relative;margin-right:14px;"></div>');
                 $(this).after($wrap);
@@ -110,15 +110,34 @@ function getCookie(c_name)
                 $(this).height(selectBoxHeight).change(function() {
                      $(this).next('.customStyleSelectBox').text($(this).find(':selected').text());
                 });
+                $(this).addClass('customStyle');
          });
         }
     }
     });
 })(jQuery);
 
-jQuery(function() {
+
+/*
+function doCustomStyle() {
     var elems =jQuery('select').not(jQuery('.payment-methods select'));
-    if (jQuery.customStyle) {
+    console.log(jQuery.customStyle);
+    if (jQuery.fn.customStyle) {
         elems.customStyle();
     }
-});
+    
+    customStyleEngage();
+}
+
+function customStyleEngage() {
+    //setTimeout(doCustomStyle, 1000);
+}
+
+jQuery( doCustomStyle );
+*/
+
+//jQuery(function(){ jQuery('select').not('.customStyle').customStyle(); });
+
+function doCustomStyle() { jQuery('select').not('.customStyle').customStyle(); customStyleEngage(); }
+function customStyleEngage() { setTimeout(doCustomStyle, 500); }
+doCustomStyle();
