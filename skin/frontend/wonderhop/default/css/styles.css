@@ -104,7 +104,10 @@ ul,ol         { list-style:none; }
 .page-empty { background:#fff; padding:20px; text-align:left; }
 .page-popup { background:#fff; padding:25px 30px; text-align:left; }
 /*.main-container { background:#fbfaf6 url(../images/bkg_main1.gif) 50% 0 no-repeat; }*/
-.main { width:912px; margin:0 auto; min-height:400px; padding:15px 12px; background:transparent; text-align:left; clear:both; position:relative; display:inline-block; }
+.main { width:912px; margin:0 auto; min-height:400px; background:transparent;
+    text-align:left; clear:both; position:relative; display:inline-block;
+    padding:15px 12px; }
+
 .main-no-background .main { background: none; }
 .main-no-margin .main { margin:0 auto; }
 .main-no-padding .main { padding:0; width:936px; }
@@ -773,15 +776,23 @@ tr.summary-details-excluded { font-style:italic; }
 
 
 /* Block: Account */
-.block-account { border-color:#bbb; }
-.block-account .block-title { background:#fc9d36 url(../images/bkg_block-title-account.gif) 0 100% repeat-x; border:0; padding:3px 10px; }
+.block-account { border:none; background:url("../images/account_menu_back_main.png") no-repeat;
+    position:relative; margin-bottom:30px; left:-13px; }
+.block-account-bottom { position:absolute; width:217px; height:15px; left:0; bottom:-15px;
+    background:url("../images/account_menu_back_bottom.png") no-repeat; }
+.block-account .block-title { background:transparent; border:0; padding:3px 10px; display: none; }
 .block-account .block-title strong { font-size:13px; color:#fff; }
-.block-account .block-content { background:#fbfaf6; padding:7px 10px 7px; }
-.block-account .block-content li a { display:block; border-bottom:1px solid #ddd; padding:3px 0; color:#5f5d5c; text-decoration:none !important; }
-.block-account .block-content li a:hover { color:#ea7900; }
-.block-account .block-content li.last a { border-bottom:0; }
-.block-account .block-content li.current { border-bottom:1px solid #ddd; padding:3px 0; color:#ea7900; }
-.block-account .block-content li.current.last { border-bottom:0; }
+.block-account .block-content { background:transparent; padding:42px 20px 7px 13px; }
+.block-account .block-content li { border-bottom:2px dotted #ddd; padding:2px 0px 2px 0px; }
+.block-account .block-content li a,
+.block-account .block-content li strong { display:block; color:#585254; text-decoration:none; font-size:17px; 
+    line-height:1; text-transform:uppercase; letter-spacing:-1.8px; padding: 9px 5px 5px 15px; }
+.block-account .block-content li a:hover { color:#fd7773; }
+.block-account .block-content li.last a { }
+.block-account .block-content li.current {  }
+.block-account .block-content li.current a,
+.block-account .block-content li.current strong { color:white;background:#fd7773; font-weight:bolder; }
+.block-account .block-content li.last { border-color:transparent; }
 
 /* Block: Currency Switcher */
 .block-currency { border:0; background:url(../images/bkg_block-currency.gif) 0 0 no-repeat; padding:7px 12px 10px; height:51px; }
@@ -2227,3 +2238,49 @@ div.checkoutcontainer .input-box { position:relative; }
     background: url("../images/page_header_back_clip.png") no-repeat;}
 
 .cms-page-view .std { font-family: Georgia,serif;  }
+
+
+/*
+.customercredit-index-index .main,
+.customercredit-index-log .main,
+.customer-edit-form .main,
+.customer-account-index .main,
+.customer-account-edit .main,
+.customer-address-index .main,
+.customer-address-form .main,
+.sales-order-history .main,
+.sales-order-view .main
+{ padding-top:25px; }
+*/
+
+/*
+.customercredit-index-index .col-left.sidebar,
+.customercredit-index-log .col-left.sidebar,
+.customer-edit-form .col-left.sidebar,
+.customer-account-index .col-left.sidebar,
+.customer-account-edit .col-left.sidebar,
+.customer-address-index .col-left.sidebar,
+.customer-address-form .col-left.sidebar,
+.sales-order-history .col-left.sidebar,
+.sales-order-view .col-left.sidebar
+{ width: 217px; }
+*/
+/*.customercredit-index-index .col-main,
+.customercredit-index-log .col-main,
+.customer-edit-form .col-main,
+.customer-account-index .col-main,
+.customer-account-edit .col-main,
+.customer-address-index .col-main,
+.customer-address-form .col-main,
+.sales-order-history .col-main,
+.sales-order-view .col-main
+{ width: 550px; margin-right: 124px; padding:0; }*/
+.customer-account-page .main { padding-top:25px; }
+.customer-account-page .col-left.sidebar { width: 217px; }
+.customer-account.col-main { width: 550px; margin-right: 124px; padding:0; }
+.customer-account .account-graphic { position:absolute; width:100%; height:0; overflow:visible; }
+.account-graphic .stamp { background:url("../images/graphic_stamp.png") no-repeat; width: 130px; height:126px; }
+
+.customer-account .account-graphic .stamp { position:absolute; top:5px; right:-160px; }
+.customer-account-page .before-footer-plant { background:url("../images/account_footer_plant.png") no-repeat;
+    height: 238px; bottom: -18px; left: -42px; }

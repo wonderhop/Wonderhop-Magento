@@ -45,7 +45,7 @@
                 <div class="main_page_begin_normal"></div>
                 <div class="main_page_back_normal"></div>
                 <?php echo $this->getChildHtml('breadcrumbs') ?>
-                <div class="col-main">
+                <div class="col-main<?php echo $this->getColMainExtraClass() ? ' '.$this->getColMainExtraClass():''; ?>">
                     <?php echo $this->getChildHtml('global_messages') ?>
                     <?php echo $this->getChildHtml('content') ?>
                 </div>
