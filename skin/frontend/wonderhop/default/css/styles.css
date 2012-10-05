@@ -658,6 +658,22 @@ tr.summary-details-excluded { font-style:italic; }
 #block-cart-header-wrap .actions button.button span { display:none;}
 #block-cart-header-wrap .actions { text-align:center; background:#fcfcf3; padding:15px 0; border:none; }
 
+
+
+#block-usermenu-header-wrap { position:absolute; top:67px; right:152px; width:120px; overflow:hidden; min-height: 70px;
+    background:url("../images/header_usermenu_fuzzy_margin.png") no-repeat scroll left bottom transparent;
+    /*box-shadow: 2px 2px 1px 0.5 black;*/ 
+    box-shadow: 0 -7px 13px -5px #ccc; }
+#block-usermenu-header-wrap .header-usermenu { background:#fcfcf3; margin: 0; padding: 17px 10px 0px; display:block; overflow:hidden;
+    margin-bottom:15px;}
+#block-usermenu-header-wrap .header-usermenu li { margin:0; padding:0; display: block; text-align:left; height:28px;
+    border-bottom:2px dotted #ddd; }
+#block-usermenu-header-wrap .header-usermenu li.last { border-color:transparent; }
+#block-usermenu-header-wrap .header-usermenu li a { font-size:14px; text-transform:uppercase; color:#585254; display:block;
+    text-decoration:none; line-height:1; padding-top:8px; padding-left:8px; }
+#block-usermenu-header-wrap .header-usermenu-graphic { background:url("../images/header_usermenu_graphic.png") no-repeat;
+    width:120px; height: 17px; position:absolute; left:0; top:0; } 
+
 /********** Account and Cart top Boxes > */
 
 /********** < Navigation */

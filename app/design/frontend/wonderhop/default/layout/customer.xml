@@ -52,6 +52,8 @@ Load this update on every page when customer is logged in
             <action method="addLink" translate="label title" module="customer"><label>Log Out</label><url helper="customer/getLogoutUrl"/><title>Log Out</title><prepare/><urlParams/><position>100</position></action>
         </reference>
         
+        
+        
     </customer_logged_in>
 
 <!--

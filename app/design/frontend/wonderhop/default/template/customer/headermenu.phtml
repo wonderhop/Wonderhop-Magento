@@ -1,0 +1,8 @@
+<div class="header-usermenu-graphic"></div>
+<ul class="header-usermenu">
+    <li><a href="<?php echo $this->getUrl('customer/account'); ?>">My Account</a></li>
+    <li><a href="<?php echo $this->getUrl('sales/order/history'); ?>">My Orders</a></li>
+    <li><a href="<?php echo $this->getUrl('customercredit'); ?>">My Credits</a></li>
+    <li><a href="<?php echo $this->getUrl('customer/account/logout'); ?>">Log Out</a></li>
+</ul>
+<script type="text/javascript">decorateGeneric($$('.header-usermenu li'), ['first','last']);</script>

@@ -79,6 +79,8 @@ Default layout, loads most of the pages
                     <label>Page Header</label>
                     <action method="setElementClass"><value>top-container</value></action>
                 </block>
+                
+                <block type="core/template" name="header_usermenu" template="customer/headermenu.phtml" />
             </block>
 
             <block type="page/html_breadcrumbs" name="breadcrumbs" as="breadcrumbs"/>
@@ -110,6 +112,7 @@ Default layout, loads most of the pages
             <block type="core/text_list" name="before_body_end" as="before_body_end" translate="label">
                 <label>Page Bottom</label>
             </block>
+            
         </block>
 
         <block type="core/profiler" output="toHtml" name="core_profiler"/>
