@@ -30,10 +30,10 @@
       
       // OUTPUT
       
-      $countdown = '<i>Sales Ends</i> in ';
+      $countdown = 'Shop closes in ';
       
       if ($is_start) {
-        $countdown = '<i>Sale Starts</i> in ';  
+        $countdown = 'Shop opens in ';  
       } 
       if ($days_left) {
         $countdown .=  $days_left > 1 ? "$days_left days " : "$days_left day ";
@@ -46,7 +46,7 @@
         if ($hours_left > 1) $countdown .= 's';
       }
       if (!$is_start && $hours_left == 0 && $minutes_left == 0) {
-        $countdown = '<i>Sale Ended</i>';
+        $countdown = 'Shop closed';
       }
       return $countdown;
     }
