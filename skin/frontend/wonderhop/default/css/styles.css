@@ -663,7 +663,8 @@ tr.summary-details-excluded { font-style:italic; }
 #block-usermenu-header-wrap { position:absolute; top:67px; right:152px; width:120px; overflow:hidden; min-height: 70px;
     background:url("../images/header_usermenu_fuzzy_margin.png") no-repeat scroll left bottom transparent;
     /*box-shadow: 2px 2px 1px 0.5 black;*/ 
-    box-shadow: 0 -7px 13px -5px #ccc; }
+    box-shadow: 0 -7px 13px -5px #ccc; 
+    z-index:100; }
 #block-usermenu-header-wrap .header-usermenu { background:#fcfcf3; margin: 0; padding: 17px 10px 0px; display:block; overflow:hidden;
     margin-bottom:15px;}
 #block-usermenu-header-wrap .header-usermenu li { margin:0; padding:0; display: block; text-align:left; height:28px;

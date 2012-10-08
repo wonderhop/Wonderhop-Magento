@@ -82,9 +82,10 @@
                     self.data.top = isNaN( parseInt(self.$container.css('top')) ) ? 0 : parseInt(self.$container.css('top'));
                     
                     self.$toplink
-                    .click( self.toggle_stick )
-                    .mouseenter(function(){ self.clear('hide').over(true).schedule('show',500, self.show, true, ! self.visible()); })
-                    .mouseleave(function(){ self.clear('show').over(false).schedule('hide',3000, self.hide, true,self.visible() && ! self.stick()); });
+                    //.click( self.toggle_stick )
+                    //.mouseenter(function(){ self.clear('hide').over(true).schedule('show',500, self.show, true, ! self.visible()); })
+                    //.mouseleave(function(){ self.clear('show').over(false).schedule('hide',3000, self.hide, true,self.visible() && ! self.stick()); })
+                    .click( function(ev){ ev.stopPropagation(); self.toggle(); });
 
                     self.$container
                     .mouseenter(function(){ self.clear('hide').clear('show').over(true); })
@@ -125,7 +126,7 @@
                 show : function(auto)
                 {
                     self.visible(true);
-                    self.$container.animate({top: self.data.top },400,'swing')
+                    self.$container.animate({top: self.data.top },500,'swing')
                     .css({boxShadow: '0 -7px 13px -5px #ccc'});
                     return self;
                 },
@@ -134,7 +135,7 @@
                 hide : function(auto)
                 {
                     self.visible(false);
-                    self.$container.animate({top:  (self.data.top - self.$container.height() - 10)}, 400, 'swing', function(){
+                    self.$container.animate({top:  (self.data.top - self.$container.height() - 100)}, 650, 'swing', function(){
                         $(this).css({boxShadow: 'none'});
                     });
                     return self;
@@ -197,9 +198,10 @@
                     self.data.top = isNaN( parseInt(self.$container.css('top')) ) ? 0 : parseInt(self.$container.css('top'));
                     
                     self.$toplink
-                    .click( self.toggle_stick )
-                    .mouseenter(function(){ self.clear('hide').over(true).schedule('show',500, self.show, true, ! self.visible()); })
-                    .mouseleave(function(){ self.clear('show').over(false).schedule('hide',3000, self.hide, true,self.visible() && ! self.stick()); });
+                    //.click( self.toggle_stick )
+                    //.mouseenter(function(){ self.clear('hide').over(true).schedule('show',500, self.show, true, ! self.visible()); })
+                    //.mouseleave(function(){ self.clear('show').over(false).schedule('hide',3000, self.hide, true,self.visible() && ! self.stick()); });
+                    .click( function(ev){ ev.stopPropagation(); self.toggle(); });
 
                     self.$container
                     .mouseenter(function(){ self.clear('hide').clear('show').over(true); })
@@ -240,7 +242,7 @@
                 show : function(auto)
                 {
                     self.visible(true);
-                    self.$container.animate({top: self.data.top },400,'swing')
+                    self.$container.animate({top: self.data.top },500,'swing')
                     .css({boxShadow: '0 -7px 13px -5px #ccc'});
                     return self;
                 },
@@ -249,7 +251,7 @@
                 hide : function(auto)
                 {
                     self.visible(false);
-                    self.$container.animate({top:  (self.data.top - self.$container.height() - 10)}, 400, 'swing', function(){
+                    self.$container.animate({top:  (self.data.top - self.$container.height() - 100)}, 650, 'swing', function(){
                         $(this).css({boxShadow: 'none'});
                     });
                     return self;
