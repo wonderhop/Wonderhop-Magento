@@ -678,7 +678,7 @@ tr.summary-details-excluded { font-style:italic; }
 /********** Account and Cart top Boxes > */
 
 /********** < Navigation */
-.nav-container { background:url("../images/menu_back_with_buttons.png") no-repeat scroll left top transparent; position:absolute; top:77px; left: 171px; display:block; height:50px;  }
+.nav-container { background:url("../images/menu_back_with_buttons.png") no-repeat scroll left top transparent; position:absolute; top:77px; left: 255px; display:block; height:50px;  }
 #nav { /*width:918px;*/ margin:0 auto; padding:10px 31px; height: 30px; line-height:30px; text-transform:uppercase; color:#696b6e; text-align:center; font-size: 14px; }
 
 /* All Levels */ /* Style consistent throughout all nav levels */
