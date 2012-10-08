@@ -28,7 +28,7 @@ label[for=terms] { width: auto; }
     position: fixed; background-color: #000; background: rgba(0, 0, 0, 0.6); }
 
 
-.block_popup .popup_title { color: #86636e; font-family:'Cantata One',Tahoma,serif; font-size:28px; line-height: 32px;
+.block_popup .popup_title { color: #7d2f67; font-family:'Cantata One',Tahoma,serif; font-size:28px; line-height: 32px;
     width: 380px; text-align: left; padding:9px 5px 5px 28px; text-transform:none; letter-spacing: -0.5px; }
 .block_popup .popup_backlink { color: #ff7268;  }
 .block_popup .popup_content { background:url("../../images/sales/login_popup/reg_backchunk.png") no-repeat scroll left top transparent;
