@@ -1,7 +1,13 @@
+<?php
+
+$is_home = (Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' and Mage::getSingleton('cms/page')->getIdentifier() == 'home');
+$home_class = $is_home ? ' home' : '';
+
+?>
+
 
 <div class="login_overlay">
-<?php if (Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms'
-        and Mage::getSingleton('cms/page')->getIdentifier() == 'home') { ?>
+<?php if ($is_home) { ?>
     <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.backstretch.min.js'); ?>"></script>
     <script type="text/javascript">
         jQuery.backstretch('<?php echo $this->getSkinUrl('images/sales/login_popup/overlay.jpg'); ?>');
@@ -26,7 +32,7 @@
            
  ?>
 <?php if(!$this->email): ?>
-<div class="popup_register block_popup" style="display:none;">
+<div class="popup_register block_popup<?php echo $home_class; ?>" style="display:none;">
 <div class="block_popup_inner">
         <h1 class="popup_title">Wonderful finds <br/>for an inspired life.</h1>
         <div class="control_link">
@@ -100,7 +106,7 @@
 
 
 
-<div class="popup_register_2 block_popup"  style="display:none;">
+<div class="popup_register_2 block_popup<?php echo $home_class; ?>"  style="display:none;">
 <div class="block_popup_inner">
     <h1 class="popup_title">You're almost there!</h1>
     <div class="popup_content">
@@ -170,7 +176,7 @@
 
 
 
-<div class="popup_login block_popup"  style="display:none;">
+<div class="popup_login block_popup<?php echo $home_class; ?>"  style="display:none;">
 <div class="block_popup_inner">
     <h1 class="popup_title">Login</h1>
     <div class="control_link">
@@ -204,7 +210,7 @@
                                 pt = 'Password',
                                 $eover = (($('#pass_hover').length && $('#pass_hover'))|| $('<div id="pass_hover">'+pt+'</div>'));
                             $e.after($eover);
-                            $eover.css({position:'relative',height:0,overflow:'visible',top:-31, cursor:'text',left:-2,float:'left',clear:'both'});
+                            $eover.css({position:'relative',height:0,overflow:'visible',top:-31, cursor:'text',left:4,float:'left',clear:'both'});
                             var overpass = function(show) {
                                 if (show) {
                                     $eover.css({display:'block', top: ($e.hasClass('validation-failed')) ? -34 : -31 });
