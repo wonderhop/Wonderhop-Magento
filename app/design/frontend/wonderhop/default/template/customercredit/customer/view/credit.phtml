@@ -36,11 +36,11 @@
 ?>
 <div class="box-account box-recent">
     <ol>
-        <li>
+        <li class="ccredit-status">
             <label><?php echo $this->__('Your current credit balance is:')?></label>&nbsp;
             <strong><?php echo Mage::helper('core')->currency($this->getCredit()); ?></strong>
         </li>
-        <?php if ($this->isEnabledCodes()):?>
+        <?php /* if ($this->isEnabledCodes()):?>
         <li>
             <form id="refill-credit-form" action="<?php echo $this->getFormAction()?>" method="post">
                 <fieldset>
@@ -54,9 +54,9 @@
                 </fieldset>
             </form>
         </li>
-        <?php endif;?>
+        <?php endif;*/ ?>
         <?php $creditProduct = $this->helper('customercredit')->getCreditProduct(true); ?>
-        <?php if ($creditProduct && $creditProduct->isAvailable()):?>
+        <?php /*if ($creditProduct && $creditProduct->isAvailable()):?>
             <?php $qty = $this->helper('customercredit')->getDefaultQtyCreditUnits(); ?>
             <li>
                 <ul class="form-list" >
@@ -79,6 +79,6 @@
                 }
             //]]
             </script>
-        <?php endif;?>        
+        <?php endif;*/ ?>        
     </ol>
 </div>

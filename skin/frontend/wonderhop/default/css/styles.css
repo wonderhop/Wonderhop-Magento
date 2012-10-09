@@ -34,7 +34,7 @@ body          { /*background:url(../images/back_grad.jpg);*/ background: url("..
 
 img           { border:0; vertical-align:top; }
 
-a             { color:#1e7ec8; text-decoration:underline; text-transform:uppercase; }
+a             { color:#1e7ec8; text-decoration:underline; text-transform:uppercase;}
 a:hover       { text-decoration:none; }
 :focus        { outline:0; }
 
@@ -1746,7 +1746,7 @@ margin-right: 4px;}
 /* General Box */
 .box-account { background:#fff url(../images/bkg_account_box.gif) 0 0 repeat-x; border:1px solid #ccc; border-color:#ccc #999 #999 #ccc; padding:15px; margin: 0 0 20px; }
 .box-account .box-head { border-bottom:1px solid #d9dde3; margin:0 0 10px; text-align:right; }
-.box-account .box-head h2 { float:left; margin:0; font-size:13px; font-weight:bold; text-transform:uppercase; background-position:0 0; background-repeat:no-repeat; padding-left:21px; color:#fd7773; }
+.box-account .box-head h2 { float:left; margin:0; font-size:16px; font-weight:bold; text-transform:uppercase; background-position:0 0; background-repeat:no-repeat; padding-left:21px; color:#fd7773; }
 
 .dashboard .box .box-title { background:url(../images/bkg_divider1.gif) 0 100% repeat-x; padding:0 0 2px; margin:0 0 8px; text-align:right; }
 .dashboard .box .box-title h3,
@@ -1779,7 +1779,7 @@ margin-right: 4px;}
 /********** Dashboard > */
 
 /* Address Book */
-.addresses-list h2 { font-weight:bold; font-size:13px; color:#fd7773; text-transform:uppercase; }
+.addresses-list h2 { font-weight:bold; font-size:16px; color:#fd7773; text-transform:uppercase; }
 .addresses-list h3 { font-weight:bold; font-size:13px; }
 .addresses-list address { margin:0 0 3px; }
 .addresses-list p { margin:0; }
@@ -2302,6 +2302,7 @@ div.checkoutcontainer .input-box { position:relative; }
 .sales-order-view .col-main
 { width: 550px; margin-right: 124px; padding:0; }*/
 .customer-account-page .main { padding-top:25px; }
+.customer-account-page .main a { font-family:"letter-gothic-std",monospace; }
 .customer-account-page .col-left.sidebar { width: 217px; }
 .customer-account.col-main { width: 550px; margin-right: 124px; padding:0; }
 .customer-account .account-graphic { position:absolute; width:100%; height:0; overflow:visible; }
@@ -2314,6 +2315,9 @@ div.checkoutcontainer .input-box { position:relative; }
 .customer-account .data-table td.last .nobr { display:block; }
 .customer-account .data-table td.last .nobr .separator { display:none; }
 .customer-account .data-table td.last .nobr a { display:block; }
+
+.customer-account .ccredit-status label { font-size:14px; }
+.customer-account .ccredit-status strong { color: #fd7773; }
 
 
 
@@ -2329,3 +2333,8 @@ select.customStyle { height:31px; }
 .pager .customStyleSelectBox { height:16px; line-height: 1; padding-top:5px; }
 .pager .customStyleWrap { width:60px !important; display:inline-block;}
 .pager .limiter { min-width: 200px;  }
+
+
+
+
+p.no-orders { font-size: 14px; }
