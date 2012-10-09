@@ -138,3 +138,5 @@ label[for=terms] { width: auto; }
 .block_popup.popup_login #login_pass { margin-top: 15px; }
 
 #sp_ajaxify_message_container { display:none !important; }
+
+#pass_hover { font-family: "letter-gothic-std",monospace; }

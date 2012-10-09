@@ -82,7 +82,7 @@ function getCookie(c_name)
     customStyle : function(options) {
         if(!$.browser.msie || ($.browser.msie&&$.browser.version>6)) {
             return this.each(function() {
-                console.log(this);
+                //console.log(this);
                 var currentSelected = $(this).find(':selected');
                 var $wrap = $('<div class="customStyleWrap" style="position:relative;margin-right:14px;"></div>');
                 $(this).after($wrap);
@@ -106,8 +106,8 @@ function getCookie(c_name)
                 $wrap.css({width:$(this).getWidthInPercent()});
                 $(this).css('width','100%');
                 //$('.customStyleSelectBox').css({width:selectBoxWidth, display:'block'});
-                var selectBoxHeight = 31;
-                $(this).height(selectBoxHeight).change(function() {
+                //var selectBoxHeight = 31;
+                $(this).change(function() {
                      $(this).next('.customStyleSelectBox').text($(this).find(':selected').text());
                 });
                 $(this).addClass('customStyle');
@@ -138,6 +138,26 @@ jQuery( doCustomStyle );
 
 //jQuery(function(){ jQuery('select').not('.customStyle').customStyle(); });
 
-function doCustomStyle() { jQuery('select').not('.customStyle').customStyle(); customStyleEngage(); }
-function customStyleEngage() { setTimeout(doCustomStyle, 500); }
-doCustomStyle();
+function getCustomStyleables(include,exclude) {
+    var o = {}, $ = jQuery, $elems = jQuery('select').not('.customStyle');
+    if( ! $elems.length) {
+        if ( ! include) return o;
+        return $(include);
+    } else {
+        if (include) $elems.add($(include));
+        if (exclude) $elems.not($(exclude));
+        return $elems;
+    }
+}
+
+function doCustomStyle(include, exclude) {
+    getCustomStyleables(include,exclude).customStyle ? getCustomStyleables().customStyle() : 0;
+    customStyleEngage(include,exclude);
+    //console.log('dcs');
+}
+
+function customStyleEngage(inc,exc) {
+    setTimeout(function(){ doCustomStyle(inc,exc) },500);
+}
+
+doCustomStyle(false,'.limiter select');
