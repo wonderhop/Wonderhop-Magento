@@ -44,12 +44,152 @@
 </script>
 
 <div class="invite-page">
-    <h1>Invite your friends. If they join, you and they BOTH get $3</h1>
-
-    <h2>Meet your personal invite link.</h2>
-    <input id="personal_link" type="text" readonly="readonly" size="50" value="<?php echo $this->getPersonalLink() ?>" />
-    <div class="clear"></div>
-    <h2>Share it with friends on Facebook and Twitter.</h2>
+    <h1 class="invite-title">
+    Invite your friends. If they join, you and they BOTH get $3<br/>
+    Some other Info
+    </h1>
+    
+    <div class="reward-sistem-desc">
+        <div class="inv-2col left">
+            <div class="rews-item">
+                <span class="rews-purp">2</span> friends join = <span class="rews-purp">$5 credit</span>
+            </div>
+            <div class="rews-item">
+                <span class="rews-purp">2</span> friends join = <span class="rews-purp">$5 credit</span>
+            </div>
+        </div>
+        <div class="inv-2col right">
+            <div class="rews-item">
+                <span class="rews-purp">2</span> friends join = <span class="rews-purp">$5 credit</span>
+            </div>
+            <div class="rews-item">
+                <span class="rews-purp">2</span> friends join = <span class="rews-purp">$5 credit</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="invite-sep"></div>
+    
+    <div class="personal-invite-container">
+        <h2>SHARE YOUR PERSONAL INVITE</h2>
+        <input id="personal_link" type="text" readonly="readonly" class="input-text" size="50" value="<?php echo $this->getPersonalLink() ?>" />
+        <h2 class="social_share-text">SHARE</h2>
+        <ul class="social_share">
+            <li>
+                <div onclick="return GenShare.post_on_wall(this);" class="fb-share">
+                    <a id="product-facebook-link-share" href="<?php echo $this->getPersonalLink(); ?>" name="fb_share" type="icon_link" share_url="<?php echo $this->getPersonalLink(); ?>"></a>
+                </div>
+            </li>
+            <li>
+                <div class="twitter-share" onclick="return GenShare.tweet_it(this,{'text':' '});">
+                    <a href="<?php echo $this->getPersonalLink(); ?>" title="Share this on Twitter" id="product-service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
+                </div>
+            </li>
+        <?php /*
+        <li>
+            <div class="pin-share" onclick="return GenShare.pin_it(this,{'text':'<?php echo $_product->getShortDescription() ?>','media':'<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(400); ?>'});">
+                <a href="<?php echo $fb_comment_url; ?>" title="Share this on Pinterest" rel="nofollow" target="_blank"></a>
+            </div>
+        </li>
+         */ ?>
+        </ul>
+        
+        <div id="gifts" style="">
+            <div class="money initial">
+                <span>GET STARTED!</span>
+            </div>
+            <ul class="indicator">
+                <li class="i-level i-level-3"><span class="ammount">$40</span><span class="remainder"></span></li>
+                <li class="i-level i-level-2"><span class="ammount">$20</span><span class="remainder"></span></li>
+                <li class="i-level i-level-1"><span class="ammount">$10</span><span class="remainder"></span></li>
+            </ul>
+        </div>
+        
+        <script type="text/javascript">(function($) {
+            function friends_invited(fcount)
+            {
+                //var fc = (fcount > 30) ? 30 : fcount, 
+                //    rem = (fc%5) ? (5 - (fc%5)) : 0,
+                //    level = parseInt((fc - (rem ? 5 - rem : 0)) /5);
+                ////if (fcount < 5) {
+                ////    fc = fcount; level = 0; rem = 5-fcount;
+                ////}
+                //console.log(fc, rem, level);
+                //activate_winning(level, rem);
+                var fc = (fcount > 15) ? 15 : fcount, rem, level, msg = 0, acls, rcls;
+                switch(true) {
+                    case (fc <= 6) :
+                        rem = 6-fc; level = rem ? 0 : 1; rcls = 'skipper'; break;
+                    case (fc <= 10):
+                        rem = 10-fc; level = rem ? 1 : 2; rcls = 'skipper'; break;
+                    case (fc <= 15):
+                        rem = 15-fc; level = rem ? 2 : 3; rcls = 'skipper'; break;
+                    default:
+                        level = 0; rem = 0;
+                }
+                activate_winning(level,rem, msg, acls, rcls);
+            }
+            
+            function activate_winning(level, remainder, msg, add_msg_class, rem_msg_class)
+            {
+                var $cc = $('.i-level-'+level);
+                if ( ! $cc.length && level != 0) return;
+                show_level(level);
+                $('.indicator li').removeClass('current').removeClass('remaining');
+                $('.money.initial').removeClass('initial');
+                if (remainder && remainder != 0) {
+                    var $nc = $('.i-level-'+(level+1));
+                    if ( ! $nc.length) return;
+                    $('.indicator li').removeClass('remains');
+                    $('.remainder',$nc).html(''+remainder+'<br/><span style="color:gray;font-weight:normal;">more</span>');
+                    $nc.addClass('remaining');
+                    $('.money span').html('+' + remainder + ' INVITES TO ' + $('.ammount',$nc).text().slice(0,5) + '!');
+                    if (add_msg_class) { $('.money span').addClass(add_msg_class); $('.ammount',$cc).addClass(add_msg_class); }
+                    if (rem_msg_class) { $('.money span').removeClass(rem_msg_class); $('.ammount',$cc).removeClass(rem_msg_class); }
+                } else {
+                    $cc.addClass('current');
+                    msg = msg ? msg : ('YOU\'VE EARNED ' + $('.ammount',$cc).text() + '!');
+                    $('.money span').html(msg);
+                    //console.log(add_msg_class);
+                    //console.log(rem_msg_class);
+                    if (add_msg_class) { $('.money span').addClass(add_msg_class); $('.ammount',$cc).addClass(add_msg_class); }
+                    if (rem_msg_class) { $('.money span').removeClass(rem_msg_class); $('.ammount',$cc).removeClass(rem_msg_class); }
+                }
+            }
+            
+            function show_level(level)
+            {
+                $('.indicator li').removeClass('active').removeClass('current');
+                for(var i=1; i<=level; i++) {
+                    var $c = $('.i-level-'+i);
+                    if ($c.length) {
+                        $c.addClass('active');
+                        if (i == level) $c.addClass('current')
+                    }
+                }
+            }
+            
+            window.activate_winning = activate_winning;
+            window.friends_invited = friends_invited;
+            window.show_level = show_level;
+            
+            <?php
+            if(Mage::getSingleton('customer/session')->isLoggedIn()) { 
+                $helper = new Wonderhop_Invitations_Helper_Data;
+                $fcount = $helper->getNumberOfFriends( Mage::getSingleton('customer/session')->getCustomer()->getReferralCode() );
+                if ($fcunt) {
+                    ?>$(function(){ friends_invited( <?php echo $fcount; ?> ); }); <?php
+                }
+            }
+            ?>
+            
+        })(jQuery);</script>
+        
+    </div>
+    
+    
+    
+    <?php /*
     <div class="clear"></div>
     <ul class="social_share">
         <li>
@@ -88,10 +228,10 @@
     </script>
     
     <div class="clear"></div>
-    
+    <?php *//*
     <h2>Or send it to some special someones.</h2>
     
-    <form action="<?php echo $this->getUrl('*/*/send'); ?>" method="post" id="invitations-form">
+    <form action="<?php *///echo $this->getUrl('*/*/send'); ?><?php /*" method="post" id="invitations-form">
       
         <div class="input-box">    
             <input id="cloud_invite_input" class="invite-emails input-text required-entry" size="150" rel="1" type="text" name="emails" value="" />
@@ -121,7 +261,7 @@
     </div>
         
     <div class="clear"></div>
-    
+    <?php *//*
     <p>or</p>
     <p>Pick the lucky ones from your contacts
         <a id="cloudsponge_gmail" href="#" class="cloudsponge_gmail invite-import-gmail">Gmail</a>  
@@ -133,17 +273,19 @@
     <ul id="cloudsponge_emailcounter" style="display:none;">
         <li id="counter_content"></li>
     </ul>
-                     
+    */ ?>
+    
 <?php //</div>  // i think this is the one braking the html layout ?>
         
 <div class="clear"></div>
-     
+
+
+<?php /*     
 <script type="text/javascript">
 //<![CDATA[
     var dataForm = new VarienForm('invitations-form', true);
 //]]>
 </script>
-<hr class="invite-hr"/>
     
 <?php $invitations = $this->getAllInviters(); ?>
 <?php if (count($invitations)): ?>
@@ -212,8 +354,9 @@ function getContactsList(emails)
 
 
 
+*/?>
 
-
+</div><?php // invitations page, to be removed ?>
 
 
 
