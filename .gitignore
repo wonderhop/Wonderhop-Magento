@@ -1,4 +1,6 @@
+.gitignore
 /app/etc/local.xml
 /var
 /downloader
 /media
+local.css

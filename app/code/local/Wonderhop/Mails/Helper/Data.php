@@ -48,4 +48,5 @@
         
         $translate->setTranslateInline(true);
 	}
+	 
 }

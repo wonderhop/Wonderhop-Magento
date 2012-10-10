@@ -358,7 +358,7 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                         
                             $inviter = Mage::getModel('customer/customer')->getCollection()
                                 ->addAttributeToFilter('referral_code', $customer->getReferrerId())->getFirstItem();
-                            if ($_COOKIE['wonderhop_confirmation'] == md5($inviter->getId()) || !Mage::helper('wonderhop_invitations')->giveInviteeEnabled()) {
+                            if ((isset($_COOKIE['wonderhop_confirmation']) && $_COOKIE['wonderhop_confirmation'] == md5($inviter->getId())) || !Mage::helper('wonderhop_invitations')->giveInviteeEnabled()) {
                                 //give the credits
                                 Mage::helper('wonderhop_invitations')->rewardCustomers($customer->getId());
                             }
