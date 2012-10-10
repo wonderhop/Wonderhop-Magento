@@ -15,7 +15,6 @@
  ?>
 <?php $counter = 1; ?>
 <?php foreach($opening_sales as $sale): ?>
-    <?php if($counter > 4) break; ?>
     <?php if ($counter == 1 || $counter-1 == $first_column_sales || ($no_sales == 2 && $counter == 2)): ?>
  
         <?php if(($counter!= 1 && $counter-1 == $first_column_sales)  || ($no_sales == 2 && $counter == 2)): ?>

@@ -21,10 +21,10 @@ var j2t_error = "";
 var waitProductDetails = false;
 
 if (window.location.toString().search('/product_compare/') != -1){
-	var win = window.opener;
+    var win = window.opener;
 }
 else{
-	var win = window;
+    var win = window;
 }
 
 if (window.location.toString().search('/checkout/cart/') != -1){
@@ -63,7 +63,7 @@ function setLocation(url){
         showJ2tProductDetails(url);
         if (ajax_cart_qty == 1){
             showLoading();
-	    var j2tReg = /\/product\/([0-9]+)/;
+        var j2tReg = /\/product\/([0-9]+)/;
             if (url.search(j2tReg) != -1) {
                 //check if product has options
                 //get product id
@@ -359,6 +359,7 @@ function sendcart(url, type, qty_to_insert, form_name){
         
         hideJ2tOverlay(false);
         showLoading();
+        /*console.log('A');*/
         if (type == 'form'){
             
             var found_file = false;
@@ -425,6 +426,7 @@ function sendcart(url, type, qty_to_insert, form_name){
                             } else {
                                 isLoading = false;
                                 hideJ2tOverlay(true);
+                                /*console.log('B');*/
                             }
                             $('j2t-temp-div').innerHTML = '';
                             return false;
@@ -498,6 +500,8 @@ function sendcart(url, type, qty_to_insert, form_name){
                         } else {
                             isLoading = false;
                             hideJ2tOverlay(true);
+                            HeaderCart.show();
+                            /*console.log('C');*/
                         }
 
                     }
@@ -592,6 +596,7 @@ function j2tSendCartUrl(url, qty_to_insert){
                 } else {
                     isLoading = false;
                     hideJ2tOverlay(true);
+                    /*console.log('D');*/
                 }
                 return false;
             }
@@ -668,6 +673,7 @@ function j2tSendCartUrl(url, qty_to_insert){
             } else {
                 isLoading = false;
                 hideJ2tOverlay(true);
+                /*console.log('E');*/
             }
         }
 
@@ -853,6 +859,7 @@ function cartdelete(url){
             
             isLoading = false;
             hideJ2tOverlay(true);
+            /*console.log('F');*/
             $('j2t-temp-div').innerHTML = '';
         }
 
@@ -996,11 +1003,11 @@ function generateTemplateBox(content, box_w, box_h){
 
 function showLoading(){
     isLoading = true;
-    showJ2tOverlay();
+    //showJ2tOverlay();
     var progress_box = $('j2t_ajax_progress');
-    progress_box.show();
-    progress_box.style.width = loadingW + 'px';
-    progress_box.style.height = loadingH + 'px';
+    //progress_box.show();
+    //progress_box.style.width = loadingW + 'px';
+    //progress_box.style.height = loadingH + 'px';
 
     //width : 320 height : 140
     //312 x 102
@@ -1052,7 +1059,7 @@ function showConfirm(){
     if (j2t_show_close){
         $('j2t_ajax_confirm_wrapper').insert('<div id="j2t-closing-button" class="j2t-closing-button"><span>x</span></div>');
         $('j2t-closing-button').stopObserving();
-        Event.observe($('j2t-closing-button'), 'click', function(){hideJ2tOverlay(true)});
+        Event.observe($('j2t-closing-button'), 'click', function(){hideJ2tOverlay(true); /*console.log('G');*/});
     }
     
     
@@ -1126,12 +1133,12 @@ Event.observe(window, 'scroll', function(){
 document.observe("dom:loaded", function() {
     replaceDelUrls();
     replaceAddUrls();
-    Event.observe($('j2t-overlay'), 'click', function(){hideJ2tOverlay(true)});
+    Event.observe($('j2t-overlay'), 'click', function(){hideJ2tOverlay(true); /*console.log('H');*/ });
 
     var cartInt = setInterval(function(){
         if (typeof productAddToCartForm  != 'undefined'){
             if ($('j2t-overlay')){
-                Event.observe($('j2t-overlay'), 'click', function(){hideJ2tOverlay(true)});
+                Event.observe($('j2t-overlay'), 'click', function(){hideJ2tOverlay(true); /*console.log('I');*/});
             }
             productAddToCartForm.submit = function(url){
                 if(this.validator && this.validator.validate()){
