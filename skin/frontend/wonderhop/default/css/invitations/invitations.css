@@ -1,5 +1,5 @@
 .invitations-index-index .col-main { z-index:100; }
-.invitations-index-index .header { z-index:100; }
+.invitations-index-index .header { z-index:101; }
 .invitations-index-index .quick-access-container { z-index:101; }
 .invitations-index-index .invite-page { z-index:100; }
 
