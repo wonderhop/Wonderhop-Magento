@@ -135,8 +135,16 @@ label[for=terms] { width: auto; }
 .block_popup.popup_login .popup_title { padding-top: 17px; }
 .block_popup.popup_login .popup_content { margin-top:-14px; }
 .block_popup.popup_login .control_link { top:12px; right:7px;  }
-.block_popup.popup_login #login_pass { margin-top: 15px; }
+.block_popup.popup_login #login_pass, .block_popup.popup_register_2 #pass { margin-top: 15px; }
+
+html body .block_popup .block_popup_inner .validation-advice { font-family:"letter-gothic-std",monospace; }
+
+.block_popup.popup_register_2 .validation-advice#advice-required-entry-pass { bottom: -22px; font-family: "letter-gothic-std",monospace;  }
+.block_popup.popup_register_2 .validation-advice#advice-validate-password-pass { bottom: -31px; font-family: "letter-gothic-std",monospace; width: 450px; }
+.block_popup.popup_register_2 .validation-advice#advice-required-entry-terms_agreement { bottom:-14px; }
 
 #sp_ajaxify_message_container { display:none !important; }
 
-#pass_hover { font-family: "letter-gothic-std",monospace; }
+#pass_hover, #cpass_hover { font-family: "letter-gothic-std",monospace; }
+
+#register2 { top:85px; right:100px; }
