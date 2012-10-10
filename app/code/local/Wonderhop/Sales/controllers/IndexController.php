@@ -18,7 +18,8 @@
         $templateId = Mage::getStoreConfig('Wonderhop_Sales/general/daily_newsletter_template',Mage::app()->getStore()); 
         $template = Mage::getModel('core/email_template');
 	    $template->load($templateId);
-        $templateProcessed = $template->getProcessedTemplate(array(), true);
+	    $url =  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+        $templateProcessed = $template->getProcessedTemplate(array('url' => $url), true);
         echo $templateProcessed;
     }
     
