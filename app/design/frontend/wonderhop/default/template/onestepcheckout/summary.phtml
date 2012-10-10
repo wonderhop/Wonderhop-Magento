@@ -107,7 +107,7 @@ $checkoutHelper = Mage::helper('onestepcheckout/checkout');
 <script type="text/javascript">
 //<![CDATA[
 var total = <?php echo $this->getGrandTotal();?>;
-    if(payment.reloadcallback){
+    if(payment.reloadcallback || 1){
         var url = '<?php echo $this->getUrl('onestepcheckout/ajax/paymentrefresh', array('_secure'=>true)); ?>';
         paymentrefresh(url);
         payment.countreload = 0;

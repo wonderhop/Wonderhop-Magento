@@ -1,36 +1,53 @@
 <?php 
     $sections = $this->getSaleSections(); 
 ?>
-<table width="600px">
-<?php foreach($sections as $heading => $interval) : ?>
-<tr>
-    <td colspan="2"><h2><?php echo $heading; ?></h2></td>
-</tr>
-    <?php $i=0; ?>
-    <?php $sales_categories = $this->getSales( $interval ); ?>
  
-    <?php $counter = 0; ?>
-    <?php foreach($sales_categories as $sale): ?>
-        <?php if ($counter % 2 == 0): ?>
-            <?php if($counter != 0): ?>
-                </tr>
-            <?php endif; ?>
-            <tr>
+<table cellpadding="0" bgcolor="#ffffff" cellspacing="0" border="0" align="center" width="511">
+				<tr>
+					<td width="10"> </td>					
+ 
+<?php $i=0; ?>
+
+<?php $opening_sales = $this->getSales( $sections['opening']['interval'] ); ?>
+<?php $no_sales = $opening_sales->count(); 
+      $first_column_sales = ceil($no_sales/2);
+      
+ ?>
+<?php $counter = 1; ?>
+<?php foreach($opening_sales as $sale): ?>
+    <?php if($counter > 4) break; ?>
+    <?php if ($counter == 1 || $counter-1 == $first_column_sales || ($no_sales == 2 && $counter == 2)): ?>
+ 
+        <?php if(($counter!= 1 && $counter-1 == $first_column_sales)  || ($no_sales == 2 && $counter == 2)): ?>
+            </td>
+            <td> </td>
         <?php endif; ?>
-        <?php $counter++; ?>
-                <td align="left">
-                    <?php echo  Wonderhop_Sales_Helper_Data::getCountDown($sale); ?>
-                    <?php if($sale->getThumbnail()): ?>
-                        <a href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
-                         <img alt="<?php echo $sale->getName(); ?>" src="<?php echo $this->getResizedImage($sale, 280, 280);  ?>" />
-                        </a>
-                    <?php endif; ?>
-                    <a href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
-                        <h3><?php print $sale->getName(); ?></h3>   
-                    </a> 
-                    <?php print $sale->getSaleDescription(); ?>
-                   </td>
-    <?php endforeach; ?>
-     
+        <td align="center" valign="top" width="234">
+        <?php if($counter == 1): ?>
+            <font face="georgia" size="+2" color="#966987"><em>Open it to discover</em></font><br /><br />
+        <?php endif; ?>
+    <?php endif; ?>
+    
+            <a href="<?php echo Mage::getModel('catalog/category')->load($sale->getId())->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
+            <img alt="<?php echo $sale->getName(); ?>" border="0" height="193" src="<?php echo $this->getResizedImage($sale, 234, 193);  ?>" style="display:block" width="234" /></a><br />
+            <a href="<?php echo Mage::getModel('catalog/category')->load($sale->getId())->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
+			    <font face="verdana" size="-1" color="#7f767e"><?php echo $sale->getName(); ?></font></a><br /><br />
+			 
+			<?php if($counter == 1 || $counter == 3): ?>
+			    <br />
+			    <br />
+			    <br />
+            <?php endif; ?>
+            <?php if ($counter == $no_sales): ?>
+                <br />
+				<br />
+				
+				<img alt="red line" border="0" height="4" src="http://test.wonderhop.com/skin/frontend/wonderhop/default/images/newsletter/daily/red_line.png" style="display:block" width="228" />
+				<font face="georgia" size="+2" color="#fd706b"><em>and much more!</em></font>					
+            <?php  endif; ?>
+    <?php $counter++; ?>
 <?php endforeach; ?>
+        </td>
+        <td width="10"> </td>
+    </tr>
 </table>
