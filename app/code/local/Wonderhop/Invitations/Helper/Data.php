@@ -48,7 +48,7 @@
             #get number of already registered customers with this referral code
             
           
-            $number_invited_customers = $this->getNumberOfFriends($registered_customer);
+            $number_invited_customers = $this->getNumberOfFriends($registered_customer, $inviter);
     
             $amount = $this->getAmountReward($number_invited_customers);
           
@@ -104,11 +104,27 @@
      /*
       * Get the number of friends by referral_id
       */
-     public function getNumberOfFriends($registered_customer) {
+     public function getNumberOfFriends($registered_customer, $inviter) {
+        
         $invited_customers =  Mage::getModel('customer/customer')->getCollection()
                               ->addAttributeToFilter('referrer_id', $registered_customer->getReferrerId())->load();
-          
-        return $invited_customers->count();
+        $existing_customers = array();
+        
+        foreach ($invited_customers as $customer) {
+            $existing_customers[$customer->getEmail()] = 1;
+        }
+      
+        $sql = "select email from subscribers where is_user = 1 and invited_by = 
+                (select id from subscribers where email = '{$inviter->getEmail()}')";
+        $read = Mage::getSingleton('core/resource')->getConnection('core_read');        
+        $read->query( $sql );
+
+        foreach( $read->fetchAll( $sql ) as $result ) {
+            $existing_customers[$result['email']] = 1;
+        }
+        
+         
+        return count($existing_customers);
         
         
      }
