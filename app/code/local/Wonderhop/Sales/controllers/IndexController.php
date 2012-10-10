@@ -14,7 +14,13 @@
 		$this->renderLayout();
     }
 
-    
+    public function templateAction() {
+        $templateId = Mage::getStoreConfig('Wonderhop_Sales/general/daily_newsletter_template',Mage::app()->getStore()); 
+        $template = Mage::getModel('core/email_template');
+	    $template->load($templateId);
+        $templateProcessed = $template->getProcessedTemplate(array(), true);
+        echo $templateProcessed;
+    }
     
     public function mailcheckerAction()
     {
