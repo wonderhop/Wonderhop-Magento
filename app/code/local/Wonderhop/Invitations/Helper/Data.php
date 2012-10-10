@@ -74,10 +74,10 @@
                 $amount = 10;
                 break;
             case 10: 
-                $amount = 20;
+                $amount = 10;
                 break;
             case 15:
-                $amount = 40;
+                $amount = 20;
                 break;
         } 
         return $amount;

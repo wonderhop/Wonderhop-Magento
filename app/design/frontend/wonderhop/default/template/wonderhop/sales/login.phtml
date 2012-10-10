@@ -3,6 +3,17 @@
 $is_home = (Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' and Mage::getSingleton('cms/page')->getIdentifier() == 'home');
 $home_class = $is_home ? ' home' : '';
 
+$get_email = '';
+
+if (isset($_SESSION['reg_email'])) {
+    $get_email = $_SESSION['reg_email'];
+}
+
+if(isset($_GET['email'])) {
+    $get_email =  $_GET['email'];
+    $_SESSION['reg_email'] = $get_email;
+} 
+ 
 ?>
 
 
@@ -31,7 +42,7 @@ $home_class = $is_home ? ' home' : '';
      }
            
  ?>
-<?php if(!$this->email): ?>
+<?php if(!$this->email && !$get_email): ?>
 <div class="popup_register block_popup<?php echo $home_class; ?>" style="display:none;">
 <div class="block_popup_inner">
         <h1 class="popup_title">Wonderful finds <br/>for an inspired life.</h1>
@@ -111,7 +122,8 @@ $home_class = $is_home ? ' home' : '';
     <h1 class="popup_title">You're almost there!</h1>
     <div class="popup_content">
         <form action="/customer/account/createpost" method="post" id="register-form">
-            <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?>  id="registration_email" />
+            <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?> 
+            <?php if ($get_email): ?>  value="<?=$get_email?>" <?php endif; ?>  id="registration_email" />
             <input type="hidden" value="<?php if($this->url): ?><?=$this->url ?>" <?php endif; ?>  name="url"/>
             <input name="lastname" type="hidden" value="-"/>    
             <input name="confirmation" type="hidden" id="passconf" value=""/>
