@@ -53,19 +53,19 @@ endif;
 <![endif]-->
 <meta property="og:url" content="<?php echo $this->helper('core/url')->getCurrentUrl(); ?>" />
 <?php if(Mage::registry('current_product')): ?>
-<meta property="og:title" content="<?php echo $this->__('Wonderhop') . ' - ' . trim(Mage::registry('current_product')->getName()); ?>" />
+<meta property="og:title" content="<?php echo $this->__('Curio Road') . ' - ' . trim(Mage::registry('current_product')->getName()); ?>" />
 <meta property="og:type" content="product" />
 <meta property="og:description" content="<?php echo strip_tags(Mage::registry('current_product')->getDescription()); ?>" />
 <meta property="og:image" content="<?php echo Mage::helper('catalog/image')->init(Mage::registry('current_product'), 'image')->resize(200,200); ?>" />
       <link rel="image_src" href="<?php echo Mage::helper('catalog/image')->init(Mage::registry('current_product'), 'image')->resize(200,200); ?>" />
 <?php elseif(Mage::registry('current_category')): ?>
-<meta property="og:title" content="<?php echo $this->__('Wonderhop') . ' - ' . trim(Mage::registry('current_category')->getName()); ?>" />
+<meta property="og:title" content="<?php echo $this->__('Curio Road') . ' - ' . trim(Mage::registry('current_category')->getName()); ?>" />
 <meta property="og:type" content="sale" />
 <meta property="og:description" content="<?php echo strip_tags(Mage::registry('current_category')->getDescription()); ?>" />
 <meta property="og:image" content="<?php echo Mage::registry('current_category')->getImageUrl(); ?>" />
 <link rel="image_src" href="<?php echo Mage::registry('current_category')->getImageUrl(); ?>" /> 
 <?php else: ?>
-<meta property="og:title" content="<?php echo $this->__('Wonderhop flash sales') ?>" />
+<meta property="og:title" content="<?php echo $this->__('Curio Road - Unique finds for an inspired life') ?>" />
 <meta property="og:type" content="company" />
 <meta property="og:image" content="<?php  echo $this->getSkinUrl()?>images/logo.png" />
 <link rel="image_src" href="<?php  echo $this->getSkinUrl()?>images/logo.png" />
