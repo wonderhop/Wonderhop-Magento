@@ -140,7 +140,7 @@ if ($_product->getUrlPath() != '') {
                     </div>
                 </li>-->
                 <li>
-                    <div class="pin-share" onclick="return GenShare.pin_it(this,{'text':'<?php echo $_product->getShortDescription() ?>','media':'<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(400); ?>'});">
+                    <div class="pin-share" onclick="return GenShare.pin_it(this,{'text':'<?php echo urldecode(preg_replace('/\s+/g',' ',strip_tags($_product->getShortDescription()))); ?>','media':'<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(400); ?>', 'win_h': 500});">
                         <a href="<?php echo $fb_comment_url; ?>" title="Share this on Pinterest" rel="nofollow" target="_blank"></a>
                     </div>
                 </li>

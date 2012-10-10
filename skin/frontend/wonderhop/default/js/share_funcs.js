@@ -85,3 +85,4 @@ function hcontact(el)
     setTimeout(function(){ $(el).attr('href', href); }, 500);
 }
 
+if(typeof Validation != 'undefined') Validation.get('validate-email').error = 'Please enter a valid email address.';
