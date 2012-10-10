@@ -36,14 +36,53 @@
             $comment = sprintf("Customer registered from invitation. Receives %s credits", $amount);
             $this->giveCredits($registered_customer_id, $amount, $comment);
          }
-         
+          
          if($this->giveInviterEnabled()) {
             $amount = $this->getInviterAmount();
-            $comment = sprintf("Customer %s %s registered from invitation. Giving %s credits",  $registered_customer->getId(), $registered_customer->getEmail(), $amount);
-            $this->giveCredits($inviter->getId(), $amount, $comment);
+            
+            #get number of already registered customers with this referral code
+            
+          
+            $number_invited_customers = $this->getNumberOfFriends($registered_customer->getReferrerId());
+    
+            $amount = $this->getAmountReward($number_invited_customers);
+          
+            if ($amount > 0) {
+                $comment = sprintf("Customer %s %s registered from invitation. Number %s. Giving %s credits",  $registered_customer->getId(), $registered_customer->getEmail(), $number_invited_customers, $amount);
+                $this->giveCredits($inviter->getId(), $amount, $comment);
+            }
          }
          
      } 
+     
+     /*
+      * Get the number of friends by referral_id
+      */
+     public function getNumberOfFriends($referral_id) {
+        $invited_customers =  Mage::getModel('customer/customer')->getCollection()
+                              ->addAttributeToFilter('referrer_id', $referral_id)->load();
+        
+        return $invited_customers->count();
+        
+     }
+     
+     public function getAmountReward($number_of_friends) {
+        
+        $amount = 0;
+        switch($number_of_friends) {
+            case 6:
+                $amount = 10;
+                break;
+            case 10: 
+                $amount = 20;
+                break;
+            case 15:
+                $amount = 40;
+                break;
+        } 
+        return $amount;
+        
+     }
 	 public function giveCredits($customer_id, $amount, $comment) {
 	 
         if (!Mage::helper('customercredit')->isEnabled()) return false;                

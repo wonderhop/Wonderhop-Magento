@@ -350,13 +350,15 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                         $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure'=>true)));
                         return;
                     } else {
-                        if ($customer->getReferrerId() && !isset($_COOKIE['wonderhop_confirmation'])) {
+                  
+                        if (Mage::helper('wonderhop_invitations')->giveInviteeEnabled() && $customer->getReferrerId() && !isset($_COOKIE['wonderhop_confirmation'])) {
                             $customer->setEmailConfirmation($customer->getRandomConfirmationKey());
                             $customer->save();
-                        } elseif($customer->getReferrerId() && isset($_COOKIE['wonderhop_confirmation'])) {
+                        } elseif($customer->getReferrerId() && (isset($_COOKIE['wonderhop_confirmation']) || !Mage::helper('wonderhop_invitations')->giveInviteeEnabled())) {
+                        
                             $inviter = Mage::getModel('customer/customer')->getCollection()
                                 ->addAttributeToFilter('referral_code', $customer->getReferrerId())->getFirstItem();
-                            if ($_COOKIE['wonderhop_confirmation'] == md5($inviter->getId())) {
+                            if ($_COOKIE['wonderhop_confirmation'] == md5($inviter->getId()) || !Mage::helper('wonderhop_invitations')->giveInviteeEnabled()) {
                                 //give the credits
                                 Mage::helper('wonderhop_invitations')->rewardCustomers($customer->getId());
                             }
