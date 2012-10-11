@@ -1064,6 +1064,10 @@ margin-right: 4px;}
 .price-box .price { font-weight:bold; color:#c76200; }
 .price-box, .add-to-box { font-family:"letter-gothic-std",monospace; }
 
+.regular-price.old-price { margin-bottom:0; }
+.product-view .price-box .regular-price.old-price .price { font-size: 13px; color:#A0A19D; }
+.regular-price.has-old-price { margin-bottom: 0; }
+
 /* Regular price */
 .regular-price { color:#c76200; }
 .regular-price .price { font-weight:bold; font-size:13px; color:#c76200; }

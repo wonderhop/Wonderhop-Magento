@@ -96,7 +96,22 @@ if ($_product->getUrlPath() != '') {
             
             <?php //$this->getReviewsSummaryHtml($_product, false, true)?>
             <?php //echo $this->getChildHtml('alert_urls') ?>
-            <?php echo $this->getChildHtml('product_type_data') ?>
+            <?php //echo $this->getChildHtml('product_type_data') ?>
+            <div class="price-box">
+                <?php if ($_specialPrice = $_product->getSpecialPrice()) { ?>
+                <p class="regular-price has-old-price">
+                    <span class="price">
+                        <?php echo '$'.number_format($_specialPrice,0); ?>
+                    </span>
+                </p>
+                <?php } ?>
+                <p class="regular-price<?php if($_specialPrice) echo ' old-price'; ?>">
+                    <span class="price">
+                        <?php echo '$'.number_format($_product->getPrice(),0).($_specialPrice ? ' Retail': ''); ?>
+                    </span>
+                </p>
+            </div>
+            
             <?php //echo $this->getTierPriceHtml() ?>
             <?php //echo $this->getChildHtml('extrahint') ?>
 
