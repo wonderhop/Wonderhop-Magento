@@ -36,6 +36,7 @@
             <block type="wonderhop_sales/sales" name="wonderhop_sales" template="wonderhop/calendar.phtml" />
         </reference> 
     </calendar_index_index>
+    
     <customer_account_forgotpasswordpost translate="label">
          <update handle="ajaxify_all"/>
     </customer_account_forgotpasswordpost>
@@ -52,6 +53,13 @@
             <block type="customer/account_forgotpassword" name="forgotPassword" template="wonderhop/forgotpassword.phtml" />
         </reference> 
     </customer_logged_out>
+    <customer_account_forgotpassword translate="label">
+         <remove name="wonderhop.login" />
+    </customer_account_forgotpassword>
+    
+    <customer_account_resetpassword translate="label">
+         <remove name="wonderhop.login" />
+    </customer_account_resetpassword>
     <customer_account_create translate="label">
          <remove name="wonderhop.login" />
     </customer_account_create>
