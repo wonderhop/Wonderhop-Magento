@@ -1,54 +1,54 @@
 <script>
 var floatingMenu = Class.create({
-	initialize : function(elm, options) {
-		elm.each(function(elm){
-			var menu = elm;
-			var topOfMenu = menu.cumulativeOffset().top;
-			Event.observe(window,'scroll', function(evt) {
-				var y = document.viewport.getScrollOffsets().top;
-				if (y >= topOfMenu) {
-					menu.addClassName('fixed');
-				} else {
-					menu.removeClassName('fixed');
-				}
-			});
-		}.bind(this));
-		
-		this.options = Object.extend({}, options || {});
+    initialize : function(elm, options) {
+        elm.each(function(elm){
+            var menu = elm;
+            var topOfMenu = menu.cumulativeOffset().top;
+            Event.observe(window,'scroll', function(evt) {
+                var y = document.viewport.getScrollOffsets().top;
+                if (y >= topOfMenu) {
+                    menu.addClassName('fixed');
+                } else {
+                    menu.removeClassName('fixed');
+                }
+            });
+        }.bind(this));
+        
+        this.options = Object.extend({}, options || {});
 
-	}
-	
+    }
+    
 });
 
 document.observe("dom:loaded", function() {
-	new floatingMenu($$('.floating_message'));
+    new floatingMenu($$('.floating_message'));
 });
 </script>
 <style>
 .fixed{
-	position: fixed!important;
-	top:0;
-	width:100%;
+    position: fixed!important;
+    top:0;
+    width:100%;
 }
 .sp_message {
-	text-align: center;
+    text-align: center;
 }
 
 .floating_message {
     z-index: 100000000;
 }
 .sp_close {
-	font-weight:bold;
-	float: right;
-	position: fixed!important;
-	top: 12px;
-	right: 1px;
-	margin-top:-12px;
-	padding-left: 2px;
-	padding-right: 2px;
-	text-decoration: none;
-	display: block;
-	cursor: pointer;
+    font-weight:bold;
+    float: right;
+    position: fixed!important;
+    top: 12px;
+    right: 1px;
+    margin-top:-12px;
+    padding-left: 2px;
+    padding-right: 2px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
 }
 
 
@@ -75,14 +75,31 @@ document.observe("dom:loaded", function() {
 </style>
 
 <div class="floating_message" id="sp_ajaxify_message_container" style="display:none;">
-	<div class="sp_message" id="sp_ajaxify_message"></div>
-	<div id="sp_close" class="sp_close">X</div>
+    <div class="sp_message" id="sp_ajaxify_message"></div>
+    <div id="sp_close" class="sp_close">X</div>
+    <script type="text/javascript">
+        function sp_message_is_success(){
+            var $ = jQuery;
+            var $m = $('#sp_ajaxify_message').first();
+            var $e = $('.forgot_form.block_popup #email_address');
+            if ($m.length && $e.length) {
+                if($m.html() && $m.html().indexOf('"success-msg"')) {
+                    var $succ = $('<div class="validation-advice validation-success" style="color: green; background:none; display:none;">Please check your email for a reset link.</div>');
+                    $e.parents('li').first().append($succ);
+                    $succ.fadeIn(600);
+                } else {
+                    setTimeout(sp_message_is_success,100);
+                }
+            }
+        }
+        setTimeout(sp_message_is_success,400);
+    </script>
 </div>
 
 <script>
-	$('sp_close').observe('click', function() {
-		$('sp_ajaxify_message_container').hide();
-	});
+    $('sp_close').observe('click', function() {
+        $('sp_ajaxify_message_container').hide();
+    });
 </script>
 
 <div id="sp-loading">
