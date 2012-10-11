@@ -50,7 +50,7 @@
         </reference>
         <reference name="before_body_end">
             <block type="wonderhop_sales/login_login" name="wonderhop.login" as="wonderhop_login" template="wonderhop/sales/login.phtml" />
-            <block type="customer/account_forgotpassword" name="forgotPassword" template="wonderhop/forgotpassword.phtml" />
+             <block type="customer/account_forgotpassword" name="wonderhop.forgotPassword" template="wonderhop/forgotpassword.phtml" />
         </reference> 
     </customer_logged_out>
     <customer_account_forgotpassword translate="label">
