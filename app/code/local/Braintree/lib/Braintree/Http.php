@@ -35,6 +35,8 @@ class Braintree_Http
     public static function post($path, $params = null)
     {
         $response = self::_doRequest('POST', $path, self::_buildXml($params));
+	error_log("---------------------------------Braintree post $path\n" .
+	print_r($params,true) . $response['body']);
         $responseCode = $response['status'];
         if($responseCode === 200 || $responseCode === 201 || $responseCode === 422) {
             return Braintree_Xml::buildArrayFromXml($response['body']);
