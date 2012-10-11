@@ -30,15 +30,16 @@ tr.not_joined { background: #ccc; }
 
 
 
-.invite-page h2, .invite-page h1 { margin-bottom:8px; display: block; font-weight:bold; color: #6F5F6D; font-size:21px; }
-.invite-title { display:block; overflow:hidden; margin-top:40px; margin-bottom:40px; text-align:center; font-weight:bold; }
+.invite-page h2, .invite-page h1 { margin-bottom:8px; display: block; font-weight:bold; color: #6F5F6D; font-size:22px; }
+.invite-title { display:block; overflow:hidden; margin-top:25px; margin-bottom:40px; text-align:center; font-weight:bold;
+    padding-top: 15px; }
 
 .invite-page input[type="text"] { margin-bottom:10px;  }
 
 
 .invite-page .social_share { float: left; clear:right; position: relative; margin-top: 0; width: 90px; }
 
-.invite-sep { background:url("../../images/invite_sep.png") no-repeat scroll center top white; height:7px; display: block; margin: 10px 0;}
+.invite-sep { background:url("../../images/invite_sep.png") no-repeat scroll center top white; height:7px; display: block; margin:0;}
 
 .reward-sistem-desc { display:block; margin: 10px auto; overflow:hidden; }
 .rews-item { display:block; height: 50px; font-size: 15px; color: #938792; font-weight:bold; }
@@ -48,14 +49,14 @@ tr.not_joined { background: #ccc; }
 .rews-purp {color: #AA8BB1; }
 
 
-.personal-invite-container { display: block; min-height: 230px; overflow: hidden; padding-left: 120px; padding-top: 30px; 
+.personal-invite-container { display: block; min-height: 230px; overflow: hidden; padding-left: 120px; padding-top: 20px; 
     position: relative; }
 .social_share-text { float:left; clear:left; margin-top: 8px; }
 
 
 
 
-#gifts { position: absolute; right: 50px; top: 30px; width: 250px; height: 220px; }
+#gifts { position: absolute; right: 50px; top: 20px; width: 250px; height: 220px; }
 #gifts .money { color: #ff6f67; font-size: 17px; font-style: italic; position: absolute; left:0; top:0; height:50px;
     font-family: "letter-gothic-std",monospace; font-weight: bold; padding-top:7px; width:100%;
     background: url("../../images/invite_counter/invite_dotline.png") no-repeat scroll -6px top; }
@@ -77,4 +78,21 @@ tr.not_joined { background: #ccc; }
 
 
 #personal_link { border:none; border-radius:0; height:31px; padding-left:20px; width:360px; 
-    background: url("../../images/text_input_shadow_pre.png") no-repeat scroll left top #f7f7f7; }
+    background: url("../../images/text_input_shadow_pre.png") no-repeat scroll left top #f7f7f7; 
+    color: #7F767E; font-family: "letter-gothic-std",monospace; font-size: 17px; 
+    padding-top:10px; }
+
+.withback { display:inline-block; position:relative; overflow:visible; min-width:150px; }
+
+.watercolored { background:url("../../images/watercolored.png") no-repeat; position:absolute; left:-14px; top:-14px;
+    width: 186px; height:47px; display:inline-block;z-index:-1; }
+
+.logoed { background:url("../../images/logoed.png") no-repeat; position:absolute; left:0px; top:-28px;
+    width: 186px; height:47px; display:inline-block;z-index:-1; }
+
+.logo-read { display:inline-block; overflow:hidden; position:absolute; width: 1px; height:1px; }
+
+.rews-3col { left: 12px; margin: 0 auto; overflow: hidden; position: relative; width: 750px; }
+.rews-3col .rews-item { width: 33%; float: left; height: 30px; font-weight:normal; }
+.rews-3col .rews-item .rews-purp { font-weight:bold;  }
+

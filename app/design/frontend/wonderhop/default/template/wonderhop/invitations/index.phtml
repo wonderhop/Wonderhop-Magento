@@ -45,25 +45,36 @@
 
 <div class="invite-page">
     <h1 class="invite-title">
-    Invite your friends. If they join, you and they BOTH get $3<br/>
-    Some other Info
+    Get to <span class="withback"><span class="watercolored"></span>$40 to spend</span> on <span class="withback"><span class="logoed"></span><span class="logo-read">Curio Road.</span></span><br/>
+    just by inviting your friends!
     </h1>
     
     <div class="reward-sistem-desc">
-        <div class="inv-2col left">
+        <!--<div class="inv-2col left">
             <div class="rews-item">
-                <span class="rews-purp">2</span> friends join = <span class="rews-purp">$5 credit</span>
+                <span class="rews-purp">6</span> friends join = <span class="rews-purp">$10 credit</span>
             </div>
             <div class="rews-item">
-                <span class="rews-purp">2</span> friends join = <span class="rews-purp">$5 credit</span>
+                <span class="rews-purp">10</span> friends join = <span class="rews-purp">$20 credit</span>
             </div>
         </div>
         <div class="inv-2col right">
             <div class="rews-item">
-                <span class="rews-purp">2</span> friends join = <span class="rews-purp">$5 credit</span>
+                <span class="rews-purp">15</span> friends join = <span class="rews-purp">$40 credit</span>
             </div>
             <div class="rews-item">
                 <span class="rews-purp">2</span> friends join = <span class="rews-purp">$5 credit</span>
+            </div>
+        </div>-->
+        <div class="rews-3col">
+            <div class="rews-item">
+                <span class="rews-purp">6</span> friends join = <span class="rews-purp">$10 credit</span>
+            </div>
+            <div class="rews-item">
+                <span class="rews-purp">10</span> friends join = <span class="rews-purp">$20 credit</span>
+            </div>
+            <div class="rews-item">
+                <span class="rews-purp">15</span> friends join = <span class="rews-purp">$40 credit</span>
             </div>
         </div>
     </div>
@@ -176,7 +187,10 @@
             <?php
             if(Mage::getSingleton('customer/session')->isLoggedIn()) { 
                 $helper = new Wonderhop_Invitations_Helper_Data;
-                $fcount = $helper->getNumberOfFriends( Mage::getSingleton('customer/session')->getCustomer()->getReferralCode() );
+                $customer = Mage::getSingleton('customer/session')->getCustomer();
+                $inviter = Mage::getModel('customer/customer')->getCollection()
+                   ->addAttributeToFilter('referral_code', $customer->getReferrerId())->getFirstItem();
+                $fcount = $helper->getNumberOfFriends($customer, $inviter);
                 if ($fcunt) {
                     ?>$(function(){ friends_invited( <?php echo $fcount; ?> ); }); <?php
                 }
