@@ -42,7 +42,7 @@
               ?>
 			 <font  style="text-transform:uppercase;"  face="verdana" size="-1" color="#7f767e"><?php echo $desc_text; ?></a></font><br /><br />
 			<a style="text-decoration:none;" href="<?php echo Mage::getModel('catalog/category')->load($sale->getId())->getUrl(); ?>" title="<?php echo $sale->getName(); ?>"><font face="georgia" size="+0" color="#966987"><em>by <strong><?php echo $sale->getName(); ?></strong></em></font></a>
-			<?php if($counter == 1 || $counter == 3): ?>
+			<?php if($counter != $no_sales): ?>
 			    <br />
 			    <br />
 			    <br />
