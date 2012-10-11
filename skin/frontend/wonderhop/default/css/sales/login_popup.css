@@ -148,3 +148,6 @@ html body .block_popup .block_popup_inner .validation-advice { font-family:"lett
 #pass_hover, #cpass_hover { font-size: 15px; font-family: "letter-gothic-std",monospace; }
 
 #register2 { top:85px; right:100px; }
+.block_popup.home.popup_register_2 #register2 { right: 39px; top: 66px; }
+
+.block_popup.home.popup_register_2 #cpass_hover { left: 0 !important; } 
