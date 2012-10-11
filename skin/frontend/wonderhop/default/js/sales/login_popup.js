@@ -29,6 +29,8 @@ function buildBlock(element) {
             showOverlay: false,
         });
         jQuery('html').css({height:'100%',overflow:'hidden'});
+        
+        setTimeout(function(){ jQuery(element).find('input[type="text"],input[type="email"]').blur(); },50);
 }
 jQuery(document).ready(function() { 
      if (jQuery('.popup_register').length) {
@@ -54,6 +56,5 @@ jQuery(document).ready(function() {
      jQuery('#back_to_register').click(function(){
           buildBlock('.popup_register'); 
          return false;
-     }); 
-     
+     });
 }); 
