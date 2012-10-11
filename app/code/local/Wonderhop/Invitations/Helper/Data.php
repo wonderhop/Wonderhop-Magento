@@ -19,6 +19,12 @@
      public function rewardCustomers($registered_customer_id) {
          
          $registered_customer = Mage::getModel('customer/customer')->load($registered_customer_id);
+         try {
+		error_log  ("Trying rewardme for $register_customer_id");
+            $this->rewardMe($registered_customer);
+         } catch(Exception $e) {
+            Mage::log("$e");
+         }
          #inviter customers having this friend code
          $inviter = Mage::getModel('customer/customer')->getCollection()
                    ->addAttributeToFilter('referral_code', $registered_customer->getReferrerId())->getFirstItem();
@@ -35,11 +41,6 @@
             $amount = $this->getInviteeAmount();
             $comment = sprintf("Customer registered from invitation. Receives %s credits", $amount);
             $this->giveCredits($registered_customer_id, $amount, $comment);
-         }
-         try {
-            $this->rewardMe($registered_customer);
-         } catch(Exception $e) {
-            Mage::log("$e");
          }
          
          if($this->giveInviterEnabled()) {
@@ -76,6 +77,7 @@
         }
         
         $no = count($existing_customers);
+	error_log ("rewardme " . $registered_customer->getEmail() . " has $no friends");
         if (!$no) {
             return;
         }
@@ -95,7 +97,7 @@
         }
         
         if ($amount > 0) {
-            $comment = sprintf("Customer %s %s registered from invitation. Number %s. Giving %s credits",  $registered_customer->getId(), $registered_customer->getEmail(), $no, $amount);
+            $comment = sprintf("Customer %s %s registered with  %s friends. Giving %s credits",  $registered_customer->getId(), $registered_customer->getEmail(), $no, $amount);
             $this->giveCredits($registered_customer->getId(), $amount, $comment);
         }
          
@@ -123,6 +125,8 @@
             $existing_customers[$result['email']] = 1;
         }
         
+
+	error_log(print_r($existing_customers,true));
          
         return count($existing_customers);
         

@@ -191,7 +191,7 @@
                 $inviter = Mage::getModel('customer/customer')->getCollection()
                    ->addAttributeToFilter('referral_code', $customer->getReferrerId())->getFirstItem();
                 $fcount = $helper->getNumberOfFriends($customer, $inviter);
-                if ($fcunt) {
+                if ($fcount) {
                     ?>$(function(){ friends_invited( <?php echo $fcount; ?> ); }); <?php
                 }
             }

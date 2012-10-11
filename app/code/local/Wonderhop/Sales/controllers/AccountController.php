@@ -354,15 +354,15 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                         if (Mage::helper('wonderhop_invitations')->giveInviteeEnabled() && $customer->getReferrerId() && !isset($_COOKIE['wonderhop_confirmation'])) {
                             $customer->setEmailConfirmation($customer->getRandomConfirmationKey());
                             $customer->save();
-                        } elseif($customer->getReferrerId() && (isset($_COOKIE['wonderhop_confirmation']) || !Mage::helper('wonderhop_invitations')->giveInviteeEnabled())) {
+                        } /* elseif($customer->getReferrerId() && (isset($_COOKIE['wonderhop_confirmation']) || !Mage::helper('wonderhop_invitations')->giveInviteeEnabled())) {
                         
                             $inviter = Mage::getModel('customer/customer')->getCollection()
                                 ->addAttributeToFilter('referral_code', $customer->getReferrerId())->getFirstItem();
                             if ((isset($_COOKIE['wonderhop_confirmation']) && $_COOKIE['wonderhop_confirmation'] == md5($inviter->getId())) || !Mage::helper('wonderhop_invitations')->giveInviteeEnabled()) {
                                 //give the credits
-                                Mage::helper('wonderhop_invitations')->rewardCustomers($customer->getId());
                             }
-                        }
+                        }*/
+                                Mage::helper('wonderhop_invitations')->rewardCustomers($customer->getId());
                         $redirect_url = '/shops';
                         if($this->getRequest()->getPost('url')) {
                             $url = $this->getRequest()->getPost('url');
