@@ -145,6 +145,6 @@ html body .block_popup .block_popup_inner .validation-advice { font-family:"lett
 
 #sp_ajaxify_message_container { display:none !important; }
 
-#pass_hover, #cpass_hover { font-family: "letter-gothic-std",monospace; }
+#pass_hover, #cpass_hover { font-size: 15px; font-family: "letter-gothic-std",monospace; }
 
 #register2 { top:85px; right:100px; }
