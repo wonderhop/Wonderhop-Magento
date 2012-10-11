@@ -77,8 +77,8 @@
                     console.log('fb');
                     var share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
                         $a              = jQuery('.cat-sharebox a.cat-share-fb'),
-                        share_text      = 'Curio Road -- <?php echo $_category->getName(); ?>',
-                        sharer          = 'http://www.facebook.com/sharer.php?u='+share_link+'&t='+share_text,
+                        share_text      = 'Just discovered this amazing brand on @CurioRoad '+share_link,
+                        sharer          = 'http://www.facebook.com/sharer.php?u='+share_link+'&amp;t='+share_text,
                         window_title    = 'Post on Wall',
                         window_options  = "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0";
                     if ( ! $a || ! $a.length) return false;
@@ -98,7 +98,7 @@
                         top             = ($window.height() - height) / 2,
                         share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
                         sharer0         = 'http://twitter.com/share/?url=' + share_link,
-                        share_text      = 'Curio Road -- <?php echo $_category->getName(); ?>',
+                        share_text      = 'Just discovered this amazing brand on @CurioRoad ',
                         sharer          = sharer0+'&text='+share_text,
                         window_title    = 'Tweet This !',
                         window_options  = 'status=1,width='+ width +',height='+ height +',top='+ top +',left='+ left;
@@ -119,12 +119,12 @@
                         top             = ($window.height() - height) / 2,
                         share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
                         sharer0         = 'http://pinterest.com/pin/create/button/?url=' + share_link,
-                        share_text      = 'Curio Road -- <?php echo $_category->getName(); ?>',
+                        share_text      = '<?php echo urlencode($_category->getName().' -- '.preg_replace('/\s+/',' ',strip_tags($this->getCurrentCategory()->getSaleDescription()))); ?>',
                         media_url       = '<?php echo $_mainImgUrl; ?>',
-                        sharer          = sharer0+'&media='+media_url+'&description='+share_text,
+                        sharer          = sharer0+'&media='+media_url+'&apm;description='+share_text,
                         window_title    = 'Pin It !',
                         window_options  = 'status=1,width='+ width +',height='+ height +',top='+ top +',left='+ left;
-                    console.log(media_url);
+                    //console.log(media_url);
                     if ( ! $a || ! $a.length) return false;
                     $a.attr('href',share_link);
                     window.open(sharer, window_title, window_options);

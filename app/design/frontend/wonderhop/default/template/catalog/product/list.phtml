@@ -82,12 +82,14 @@ $current = &$_cols[0];
                
                          <div class="cat-prod-shares">
                             <?php $_prodUrl = ($_product->getUrlPath() != '') ? urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id) :  urlencode($_product->getProductUrl() . $ref_id); ?>
+                            <?php $_prodName = $_product->getName(); ?>
+                            <?php $_prodBrand = $current_category->getName(); ?>
                             <?php $_prodMedia = urldecode($this->helper('catalog/image')->init($_product, 'small_image')->resize(400)); ?>
                             <?php $_prodDesc = urldecode( preg_replace('/\s+/g',' ',strip_tags($this->getShortDescription()))); ?>
                             <div class="fb-share" onclick="return GenShare.post_on_wall(this);">
                                 <a id="product-facebook-link-share" href="<?php echo $_prodUrl ?>" name="fb_share" type="icon_link" share_url="<?php echo $_prodUrl; ?>"></a>
                             </div>
-                            <div class="pin-share" onclick="return GenShare.pin_it(this,{text:'<?php echo $_prodDesc; ?>',media:'<?php echo $_prodMedia; ?>', 'win_h': 500});">
+                            <div class="pin-share" onclick="return GenShare.pin_it(this,{text:'<?php echo urlencode($_prodName).' by '.urlencode($_prodBrand); ?>',media:'<?php echo $_prodMedia; ?>', 'win_h': 500});">
                                 <a href="<?php echo $_prodUrl; ?>" title="Share this on Pinterest" rel="nofollow" target="_blank"></a>
                             </div>
                         </div> 
