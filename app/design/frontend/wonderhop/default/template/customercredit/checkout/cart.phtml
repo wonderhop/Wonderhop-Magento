@@ -31,6 +31,9 @@
  * @see Mage_Checkout_Block_Cart
  */
 ?>
+<script type="text/javascript">
+    mixpanel.track('Cart visited');
+</script>
 <div class="cart">
     <div class="page-title title-buttons">
         <h1><?php echo $this->__('Shopping Cart') ?></h1>

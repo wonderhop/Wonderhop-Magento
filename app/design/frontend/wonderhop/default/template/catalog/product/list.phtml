@@ -78,9 +78,15 @@ $current = &$_cols[0];
                         <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(283); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
                     <?php if (!$is_future_sale): ?>    
                         </a>
-                         <?php ?>
-               
-                         <div class="cat-prod-shares">
+                    <?php ?>
+                        <?php if(0 and $_product->getSpecialPrice()) { ?>
+                            <div class="cat-prod-retail-badge">
+                                <div class="retail-badge-price">
+                                    <?php echo '$'.number_format($_product->getPrice(), 0); ?>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        <div class="cat-prod-shares">
                             <?php $_prodUrl = ($_product->getUrlPath() != '') ? urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id) :  urlencode($_product->getProductUrl() . $ref_id); ?>
                             <?php $_prodName = $_product->getName(); ?>
                             <?php $_prodBrand = $current_category->getName(); ?>
@@ -92,7 +98,7 @@ $current = &$_cols[0];
                             <div class="pin-share" onclick="return GenShare.pin_it(this,{text:'<?php echo urlencode($_prodName).' by '.urlencode($_prodBrand); ?>',media:'<?php echo $_prodMedia; ?>', 'win_h': 500});">
                                 <a href="<?php echo $_prodUrl; ?>" title="Share this on Pinterest" rel="nofollow" target="_blank"></a>
                             </div>
-                        </div> 
+                        </div>
                 <?php endif; ?> 
                 </div>
                 <div class="product-text prod-name-back prod-name-back-<?php echo ($i%2) ? 1 : 2; echo ($current_i%2) ? ' rev' : ''; ?>">
@@ -109,14 +115,9 @@ $current = &$_cols[0];
                     <?php if($_product->getRatingSummary()): ?>
                     <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
                     <?php endif; ?>
-                    <?php // TO BE REWRITTEN (it's a must)
-                    $prices = strip_tags( $this->getPriceHtml($_product, true) );
-                    $prices = explode('$',$prices);
-                    $price = array_pop($prices);
-                    $price = preg_replace('/[^0-9\.]+|(\.[\d].*?[^\d])/i','',$price);
-                    ?>
+
                     <div class="price-box">
-                        <span class="price"><?php echo '$'.$price; ?></span>
+                        <div class="price"><?php echo '$'.number_format($_product->getSpecialPrice() ? $_product->getSpecialPrice() : $_product->getPrice(), 0); ?></div>
                     </div>
                     
                     <?php //echo $this->getPriceHtml($_product, true) ?>
