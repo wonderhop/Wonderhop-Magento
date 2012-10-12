@@ -19,6 +19,12 @@
      public function rewardCustomers($registered_customer_id) {
          
          $registered_customer = Mage::getModel('customer/customer')->load($registered_customer_id);
+         try {
+		error_log  ("Trying rewardme for $registered_customer_id");
+            $this->rewardMe($registered_customer);
+         } catch(Exception $e) {
+            Mage::log("$e");
+         }
          #inviter customers having this friend code
          $inviter = Mage::getModel('customer/customer')->getCollection()
                    ->addAttributeToFilter('referral_code', $registered_customer->getReferrerId())->getFirstItem();
@@ -36,11 +42,6 @@
             $comment = sprintf("Customer registered from invitation. Receives %s credits", $amount);
             $this->giveCredits($registered_customer_id, $amount, $comment);
          }
-         try {
-            $this->rewardMe($registered_customer);
-         } catch(Exception $e) {
-            Mage::log("$e");
-         }
          
          if($this->giveInviterEnabled()) {
             $amount = $this->getInviterAmount();
@@ -48,7 +49,7 @@
             #get number of already registered customers with this referral code
             
           
-            $number_invited_customers = $this->getNumberOfFriends($registered_customer, $inviter);
+            $number_invited_customers = $this->getNumberOfFriends( $inviter);
     
             $amount = $this->getAmountReward($number_invited_customers);
           
@@ -76,6 +77,7 @@
         }
         
         $no = count($existing_customers);
+	error_log ("rewardme " . $registered_customer->getEmail() . " has $no friends");
         if (!$no) {
             return;
         }
@@ -95,7 +97,7 @@
         }
         
         if ($amount > 0) {
-            $comment = sprintf("Customer %s %s registered from invitation. Number %s. Giving %s credits",  $registered_customer->getId(), $registered_customer->getEmail(), $no, $amount);
+            $comment = sprintf("Customer %s %s registered with  %s friends. Giving %s credits",  $registered_customer->getId(), $registered_customer->getEmail(), $no, $amount);
             $this->giveCredits($registered_customer->getId(), $amount, $comment);
         }
          
@@ -104,10 +106,10 @@
      /*
       * Get the number of friends by referral_id
       */
-     public function getNumberOfFriends($registered_customer, $inviter) {
+     public function getNumberOfFriends($user) {
         
         $invited_customers =  Mage::getModel('customer/customer')->getCollection()
-                              ->addAttributeToFilter('referrer_id', $registered_customer->getReferrerId())->load();
+                              ->addAttributeToFilter('referrer_id', $user->getReferralCode())->load();
         $existing_customers = array();
         
         foreach ($invited_customers as $customer) {
@@ -115,7 +117,7 @@
         }
       
         $sql = "select email from subscribers where is_user = 1 and invited_by = 
-                (select id from subscribers where email = '{$inviter->getEmail()}')";
+                (select id from subscribers where email = '{$user->getEmail()}')";
         $read = Mage::getSingleton('core/resource')->getConnection('core_read');        
         $read->query( $sql );
 
@@ -123,6 +125,8 @@
             $existing_customers[$result['email']] = 1;
         }
         
+
+	error_log(print_r($existing_customers,true));
          
         return count($existing_customers);
         

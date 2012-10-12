@@ -188,10 +188,8 @@
             if(Mage::getSingleton('customer/session')->isLoggedIn()) { 
                 $helper = new Wonderhop_Invitations_Helper_Data;
                 $customer = Mage::getSingleton('customer/session')->getCustomer();
-                $inviter = Mage::getModel('customer/customer')->getCollection()
-                   ->addAttributeToFilter('referral_code', $customer->getReferrerId())->getFirstItem();
-                $fcount = $helper->getNumberOfFriends($customer, $inviter);
-                if ($fcunt) {
+                $fcount = $helper->getNumberOfFriends($customer);
+                if ($fcount) {
                     ?>$(function(){ friends_invited( <?php echo $fcount; ?> ); }); <?php
                 }
             }

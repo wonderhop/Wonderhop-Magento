@@ -1,6 +1,6 @@
 <?php if($this->displayBlock()): ?>
  <script type="text/javascript">
-    mixpanel.track("User Registered");
+    mixpanel.track("User Registered", {'ad' : '<?php echo $this->getAd(); ?>'});
  </script>
 <?php endif; ?>
 <?php $attr = array(); ?>
