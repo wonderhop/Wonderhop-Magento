@@ -2146,11 +2146,11 @@ margin-right: 4px;}
 .product_list_image {position:relative;}
 .category-products .cat-prod-shares {  display: none; position: absolute; bottom: -1px; right: 10px; width: 38px; }
 .category-products li:hover .cat-prod-shares { display:block; }
-.category-products .cat-prod-retail-badge { display:none; position:absolute; top:-47px; right:-47px; width:94px; height:94px;
+.category-products .cat-prod-retail-badge { display:none; position:absolute; top:-27px; right:-18px; width:94px; height:94px;
     background: url("../images/brand/retail_badge.png") no-repeat; z-index:1; }
 .category-products li:hover .cat-prod-retail-badge { display:block; }
 
-.cat-prod-retail-badge .retail-badge-price  {font-family: "letter-gothic-std",monospace; font-size: 17px; line-height: 1.5;
+.cat-prod-retail-badge .retail-badge-price  {font-family: "letter-gothic-std",monospace; font-size: 18px; line-height: 1.5;
     margin-top: -12px;position: relative;top: 50%;text-align: center; width: 94%; text-decoration: line-through;
     color: #696b6e; }
     
