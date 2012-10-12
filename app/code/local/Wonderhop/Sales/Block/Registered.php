@@ -18,7 +18,7 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
     
     public function displayBlock() {
         if($this->_getCustomerSession()->isLoggedIn() && Mage::getSingleton('core/session')->getCustomerRegistered()) {
-            Mage::getSingleton('core/session')->unsCustomerRegistered();
+	    Mage::getSingleton('core/session')->unsCustomerRegistered();
             return 1;
         }
     }
@@ -55,7 +55,11 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
     public function getCustomer() {
         return $this->_getCustomerSession()->getCustomer();
     }
-    
+
+    public function getAd() {
+	return $this->getCustomer()->getAd();	
+    }  
+  
     public function getCustomerInformation($json = True) {
         $customer   = $this->_getCustomerSession()->getCustomer();
         
@@ -63,6 +67,7 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
                         '$created'      => $customer->getCreatedAt(),
                         '$first_name'   => $customer->getFirstname(),
                         '$id'           => $customer->getId(),
+			'$ad'		=> $customer->getAd(),
                         '$utm_source'   => $customer->getUtmSource(),
                         '$utm_campaign' => $customer->getUtmCampaign(),
                         '$utm_medium'   => $customer->getUtmMedium(),

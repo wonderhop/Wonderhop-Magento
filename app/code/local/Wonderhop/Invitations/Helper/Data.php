@@ -20,7 +20,7 @@
          
          $registered_customer = Mage::getModel('customer/customer')->load($registered_customer_id);
          try {
-		error_log  ("Trying rewardme for $register_customer_id");
+		error_log  ("Trying rewardme for $registered_customer_id");
             $this->rewardMe($registered_customer);
          } catch(Exception $e) {
             Mage::log("$e");
@@ -49,7 +49,7 @@
             #get number of already registered customers with this referral code
             
           
-            $number_invited_customers = $this->getNumberOfFriends($registered_customer, $inviter);
+            $number_invited_customers = $this->getNumberOfFriends( $inviter);
     
             $amount = $this->getAmountReward($number_invited_customers);
           
@@ -106,10 +106,10 @@
      /*
       * Get the number of friends by referral_id
       */
-     public function getNumberOfFriends($registered_customer, $inviter) {
+     public function getNumberOfFriends($user) {
         
         $invited_customers =  Mage::getModel('customer/customer')->getCollection()
-                              ->addAttributeToFilter('referrer_id', $registered_customer->getReferrerId())->load();
+                              ->addAttributeToFilter('referrer_id', $user->getReferralCode())->load();
         $existing_customers = array();
         
         foreach ($invited_customers as $customer) {
@@ -117,7 +117,7 @@
         }
       
         $sql = "select email from subscribers where is_user = 1 and invited_by = 
-                (select id from subscribers where email = '{$inviter->getEmail()}')";
+                (select id from subscribers where email = '{$user->getEmail()}')";
         $read = Mage::getSingleton('core/resource')->getConnection('core_read');        
         $read->query( $sql );
 

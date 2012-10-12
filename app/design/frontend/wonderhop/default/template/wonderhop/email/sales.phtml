@@ -27,7 +27,7 @@
         <?php endif; ?>
     <?php endif; ?>
     
-            <a href="<?php echo Mage::getModel('catalog/category')->load($sale->getId())->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
+            <a href="<?php echo Mage::getModel('catalog/category')->load($sale->getId())->getUrl(); ?>?email=|*EMAIL*|" title="<?php echo $sale->getName(); ?>">
             <img alt="<?php echo $sale->getName(); ?>" border="0" height="193" src="<?php echo $this->getResizedImage($sale, 234, 193);  ?>" style="display:block" width="234" /></a><br />
              <?php 
                 $words = explode(" ", $sale->getSaleDescription());

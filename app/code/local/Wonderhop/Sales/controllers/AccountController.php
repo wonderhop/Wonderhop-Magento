@@ -869,6 +869,9 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                   $customer->setData('referrer_id', $_COOKIE['wonderhop_r']);
             }
           
+	     if (isset($_COOKIE['wonderhop_a'])) {
+                  $customer->setData('ad', $_COOKIE['wonderhop_a']);
+            }
       
     }
     

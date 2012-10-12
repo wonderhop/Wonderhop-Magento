@@ -1,4 +1,4 @@
-var variables_to_set = ['r', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'confirmation'];
+var variables_to_set = ['r', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'confirmation', 'a'];
  
 /* handle referer url */
 if (! getCookie('wonderhop_referer_url') && document.referrer != '')
