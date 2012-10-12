@@ -35,8 +35,10 @@ function buildBlock(element) {
 jQuery(document).ready(function() { 
      if (jQuery('.popup_register').length) {
         buildBlock('.popup_register'); 
-     } else {
+     } else if(jQuery('.popup_register_2').length) {
         buildBlock('.popup_register_2');
+     } else {
+        buildBlock('.popup_login');
      }
     
      jQuery('#login_link').click(function(){
