@@ -233,22 +233,10 @@ error_log('prefill --'.$prefill_email);
                         <script type="text/javascript">(function($){$(function(){
                             var popup_logpass = '.popup_login .form-list input#login_pass', $e = $(popup_logpass),
                                 pt = 'Password',
-                                $eover = (($('#pass_hover').length && $('#pass_hover'))|| $('<div id="pass_hover">'+pt+'</div>'));
-                            $e.after($eover);
-                            $eover.css({position:'relative',height:0,overflow:'visible',top:-31, cursor:'text',left:4,float:'left',clear:'both'});
-                            var overpass = function(show) {
-                                if (show) {
-                                    $eover.css({display:'block', top: ($e.hasClass('validation-failed')) ? -34 : -31 });
-                                } else {
-                                    $eover.css({display:'none'});
-                                }
-                            }
-                            console.log($e);
                             if ( ! $e || ! $e.length)  return;
-                            ( ! $e.val() || ! $e.val().length) && overpass(true);
-                            $eover.click(function(){ $eover.is(':visible') && (overpass() || $e.focus()); });
-                            $e.focus(function(){ $eover.is(':visible') && overpass(); })
-                                .blur(function(){ ( ! $e.val() || ! $e.val().length) && overpass(true); });
+                            ( ! $e.val() || ! $e.val().length) && $e.val(pt);
+                            $e.focus(function(){ $e.val() == pt && (($e.val('') ||) 1 && $e.attr('type','password')); })
+                                .blur(function(){ ( ! $e.val() || ! $e.val().length) && (($e.val(pt) || 1) && $.attr('type','text')); });
                         });})(jQuery);</script>
                     </li>
                     <li style="height:5px;">
