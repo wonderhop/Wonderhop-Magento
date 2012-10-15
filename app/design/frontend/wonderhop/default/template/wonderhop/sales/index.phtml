@@ -48,11 +48,11 @@ if ( ! empty($sales_categories) and count($sales_categories)) {
                         <img alt="<?php echo $sale->getName(); ?>" src="<?php echo $this->getResizedImage($sale, $img_width);  ?>" />
                     </a>
                 <?php } ?>
-                <span class="sale_end size-<?php echo "$size $not_current"; ?> clear no-margin">
+                <a class="sale_end size-<?php echo "{$size} {$not_current}"; ?> clear no-margin" href="<?php echo $sale->getUrl(); ?>">
                     <h3 class="sale_end_description size-<?php echo $size; ?>">
                         <?php echo  Wonderhop_Sales_Helper_Data::getCountDown($sale); ?>
                     </h3>
-                </span>
+                </a>
                 <a class="<?php echo $not_current; ?> clear no-margin" href="<?php echo $sale->getUrl(); ?>" title="<?php echo $sale->getName(); ?>">
                     <span class="sale_text sale_text-back sale_text-back-<?php echo ($counter%3)+1; ?> back-<?php echo $current; ?>"><span>
                             <h3 class="sale_title"><?php print $sale->getName(); ?></h3>  
