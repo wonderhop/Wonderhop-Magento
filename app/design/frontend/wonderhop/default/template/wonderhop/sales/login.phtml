@@ -230,13 +230,38 @@ error_log('prefill --'.$prefill_email);
                     <li>
                         <!--<label for="pass">Password<span class="required">*</span></label> -->
                         <input name="login[password]" type="password" class="input-text required-entry validate-password" id="login_pass" />
+                        <input type="text" class="input-text required-entry validate-password" id="login_pass-clear" value="Password" style="display:none;"/>
                         <script type="text/javascript">(function($){$(function(){
-                            var popup_logpass = '.popup_login .form-list input#login_pass', $e = $(popup_logpass),
-                                pt = 'Password';
-                            if ( ! $e || ! $e.length)  return;
-                            ( ! $e.val() || ! $e.val().length) && (($e.val(pt) || 1) && ($e[0].type='text'));
-                            $e.focus(function(){ $e.val() == pt && (($e.val('') || 1) && ($e[0].type='password')); })
-                                .blur(function(){ ( ! $e.val() || ! $e.val().length) && (($e.val(pt) || 1) && ($e[0].type='text')); });
+                            var popup_logpass = '.popup_login .form-list input#login_pass',
+                                $e = $(popup_logpass),
+                                eh_id = 'login_pass-real',
+                                popup_logpass_clear = '.popup_login .form-list input#login_pass-clear',
+                                $ec = $(popup_logpass_clear),
+                                ec_id = 'login_pass-clear',
+                                e_id = 'login_pass';
+                            if ( ! $e || ! $e.length || ! $ec || ! $ec.length) return;
+                            $ec.hide();
+                            if ( ! $e.val() || ! $e.val().length) {
+                                $e.attr('id',eh_id);
+                                $ec.attr('id',e_id);
+                                $e.hide();
+                                $ec.show();
+                            }
+                            $ec.focus(function(){
+                                $ec.attr('id',ec_id);
+                                $e.attr('id',e_id);
+                                $ec.hide();
+                                $e.show();
+                                $e.focus();
+                            });
+                            $e.blur(function(){
+                                if( ! $e.val() || ! $e.val().length) {
+                                    $e.attr('id',eh_id);
+                                    $ec.attr('id',e_id);
+                                    $e.hide();
+                                    $ec.show();
+                                }
+                            });
                         });})(jQuery);</script>
                     </li>
                     <li style="height:5px;">
