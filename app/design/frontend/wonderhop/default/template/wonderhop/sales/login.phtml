@@ -234,9 +234,9 @@ error_log('prefill --'.$prefill_email);
                             var popup_logpass = '.popup_login .form-list input#login_pass', $e = $(popup_logpass),
                                 pt = 'Password';
                             if ( ! $e || ! $e.length)  return;
-                            ( ! $e.val() || ! $e.val().length) && $e.val(pt);
-                            $e.focus(function(){ $e.val() == pt && (($e.val('') ||) 1 && $e.attr('type','password')); })
-                                .blur(function(){ ( ! $e.val() || ! $e.val().length) && (($e.val(pt) || 1) && $.attr('type','text')); });
+                            ( ! $e.val() || ! $e.val().length) && (($e.val(pt) || 1) && ($e[0].type='text'));
+                            $e.focus(function(){ $e.val() == pt && (($e.val('') || 1) && ($e[0].type='password')); })
+                                .blur(function(){ ( ! $e.val() || ! $e.val().length) && (($e.val(pt) || 1) && ($e[0].type='text')); });
                         });})(jQuery);</script>
                     </li>
                     <li style="height:5px;">
