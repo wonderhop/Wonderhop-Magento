@@ -232,7 +232,7 @@ error_log('prefill --'.$prefill_email);
                         <input name="login[password]" type="password" class="input-text required-entry validate-password" id="login_pass" />
                         <script type="text/javascript">(function($){$(function(){
                             var popup_logpass = '.popup_login .form-list input#login_pass', $e = $(popup_logpass),
-                                pt = 'Password',
+                                pt = 'Password';
                             if ( ! $e || ! $e.length)  return;
                             ( ! $e.val() || ! $e.val().length) && $e.val(pt);
                             $e.focus(function(){ $e.val() == pt && (($e.val('') ||) 1 && $e.attr('type','password')); })
