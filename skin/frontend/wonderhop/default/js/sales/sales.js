@@ -105,6 +105,7 @@ function getCookie(c_name)
                 selectBoxSpan.css({display:'block'});
                 $wrap.css({width:$(this).getWidthInPercent()});
                 $(this).css('width','100%');
+                $(this).attr('style', $(this).attr('style').replace(/width\: 100\%/,'width: 100% !important') );
                 //$('.customStyleSelectBox').css({width:selectBoxWidth, display:'block'});
                 //var selectBoxHeight = 31;
                 $(this).change(function() {
@@ -160,4 +161,5 @@ function customStyleEngage(inc,exc) {
     setTimeout(function(){ doCustomStyle(inc,exc) },500);
 }
 
-doCustomStyle(false,'.limiter select');
+//doCustomStyle(false,'.limiter select');
+doCustomStyle();
