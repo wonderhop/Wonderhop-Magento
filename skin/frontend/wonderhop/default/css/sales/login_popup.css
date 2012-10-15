@@ -39,7 +39,7 @@ label[for=terms] { width: auto; }
     position: fixed; background-color: #000; background: rgba(0, 0, 0, 0.3); }
 
 
-.block_popup .popup_title { color: #7d2f67; font-family:'Cantata One',Tahoma,serif; font-size:28px; line-height: 32px;
+.block_popup .popup_title { color: #80456f; font-family:'Cantata One',Tahoma,serif; font-size:28px; line-height: 32px;
     width: 380px; text-align: left; padding:9px 5px 5px 8px; text-transform:none; letter-spacing: -0.5px; }
 .block_popup.home .popup_title { padding-left:28px; }
 
@@ -99,14 +99,14 @@ label[for=terms] { width: auto; }
 
 .block_popup .popup_content .form-list input  { width: 218px; height: 23px; border: none; outline: none; line-height: 1.5;
     background: none; font-size: 15px; font-family: "letter-gothic-std",monospace; box-shadow: none; text-transform: uppercase;
-    color: #7F767E; font-weight: bold; margin-left: -8px; margin-top: 29px; padding: 10px 13px 5px 13px; letter-spacing: 2px; }
+    color: #80456f; font-weight: bold; margin-left: -8px; margin-top: 29px; padding: 10px 13px 5px 13px; letter-spacing: 2px; }
     
 .block_popup.home .popup_content .form-list input /*{ width: 278px; height: 37px; border:none;outline:none; line-height: 37px;
     padding-left:24px; background:none;  padding-top:11px; font-size: 16px; font-family: "letter-gothic-std",monospace;
     box-shadow: none; text-transform:uppercase; color: #7f767e; font-weight:bold; } */
     {width: 264px; height: 23px; border: none; outline: none; line-height: 1.5; background: none;
     font-size: 15px; font-family: "letter-gothic-std",monospace; box-shadow: none; text-transform: uppercase;
-    color: #7F767E; font-weight: bold; margin-left: -16px; margin-top: 9px; padding: 10px 13px 5px 13px; letter-spacing: 2px; }
+    color: #80456f; font-weight: bold; margin-left: -16px; margin-top: 9px; padding: 10px 13px 5px 13px; letter-spacing: 2px; }
 
 
 .block_popup .popup_content .form-list li { position:relative; }
@@ -145,7 +145,7 @@ html body .block_popup .block_popup_inner .validation-advice { font-family:"lett
 
 #sp_ajaxify_message_container { display:none !important; }
 
-#pass_hover, #cpass_hover { font-size: 15px; font-family: "letter-gothic-std",monospace; }
+#pass_hover, #cpass_hover { font-size: 15px; font-family: "letter-gothic-std",monospace; color: #80456f; }
 
 #register2 { top:85px; right:100px; }
 .block_popup.home.popup_register_2 #register2 { right: 39px; top: 66px; }
