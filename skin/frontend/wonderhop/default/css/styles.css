@@ -2355,3 +2355,6 @@ select.customStyle { height:31px; }
 
 
 p.no-orders { font-size: 14px; }
+
+
+#product-options-wrapper { background:none; border:none;  }
