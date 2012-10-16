@@ -96,6 +96,11 @@ if ($_product->getUrlPath() != '') {
             <div class="prod-undertitle"></div>
             
             
+            <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html){ if ($alias == 'description') { ?>
+                <div class="<?php echo "box-{$alias}"?>"><?php echo $html; ?></div>
+            <?php }} ?>
+            
+            
             <?php //$this->getReviewsSummaryHtml($_product, false, true)?>
             <?php //echo $this->getChildHtml('alert_urls') ?>
             <?php //echo $this->getChildHtml('product_type_data') ?>
@@ -135,9 +140,7 @@ if ($_product->getUrlPath() != '') {
             <?php endif; ?>
             
             
-            <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html){ if ($alias == 'description') { ?>
-                <div class="<?php echo "box-{$alias}"?>"><?php echo $html; ?></div>
-            <?php }} ?>
+            
 
             <?php /*if ($_product->getShortDescription()):?>
                 <div class="short-description">
