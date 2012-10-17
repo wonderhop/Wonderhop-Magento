@@ -366,7 +366,7 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                         $redirect_url = '/shops';
                         if($this->getRequest()->getPost('url')) {
                           
-                            $url = preg_replace('/\?.*/', '',  $this->getRequest()->getPost('url'));
+                            $url = preg_replace('/\/?\?.*/', '',  $this->getRequest()->getPost('url'));
 
                             $oRewrite = Mage::getModel('core/url_rewrite')
                                     ->setStoreId(Mage::app()->getStore()->getId())
