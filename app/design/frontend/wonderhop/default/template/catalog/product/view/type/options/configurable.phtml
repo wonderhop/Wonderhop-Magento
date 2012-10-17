@@ -30,12 +30,12 @@ $_product    = $this->getProduct();
 $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
 ?>
 <?php if ($_product->isSaleable() && count($_attributes)):?>
-    <dl>
+    <dl<?php echo $this->getListClass() ? " class=\"{$this->getListClass()}\"" : '';?>>
     <?php foreach($_attributes as $_attribute): ?>
         <dt><label class="required"><em>*</em><?php echo $_attribute->getLabel() ?></label></dt>
         <dd<?php if ($_attribute->decoratedIsLast){?> class="last"<?php }?>>
             <div class="input-box">
-                <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select">
+                <select name="super_attribute[<?php echo $_attribute->getAttributeId() ?>]" id="attribute<?php echo $_attribute->getAttributeId() ?>" class="required-entry super-attribute-select" onchange="pcRePrice()">
                     <option><?php echo $this->__('Choose an Option...') ?></option>
                   </select>
               </div>
@@ -43,6 +43,30 @@ $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
     <?php endforeach; ?>
     </dl>
     <script type="text/javascript">
+        //removes price formatter
+        //Product.Config.prototype.formatPrice = function(){
+        //   return '';
+        //}
+        
+        var pcBasePrice = parseInt( jQuery('.price-box .price').text().replace(/\.[\d]*$/g,'').replace(/[^\d]/g,'') );
+        pcBasePrice = isNaN(pcBasePrice) ? 0 : pcBasePrice;
+        
+        function pcRePrice()
+        {
+            var $ = jQuery, $selects = $('.config-prod-fields select'), $pricebox = $('.price-box .price');
+            var reprice = pcBasePrice;
+            $selects.each(function(i,e){
+                var $sel = $(e).children().filter(':selected');
+                var price = parseInt($sel.attr('price'));
+                reprice += ( ! isNaN(price)) ? price : 0;
+            });
+            $pricebox.hide();
+            $pricebox.parent().css( {display:'block', 'height': $pricebox.height()});
+            setTimeout(function(){ 
+                $pricebox.html( '$' + reprice ).fadeIn(200);
+            }, 10);
+        }
+        
         var spConfig = new Product.Config(<?php echo $this->getJsonConfig() ?>);
     </script>
 <?php endif;?>

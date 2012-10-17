@@ -132,8 +132,9 @@ if ($_product->getUrlPath() != '') {
                     <?php endif; ?>
                 </div>
             <?php } elseif ($_product->isSaleable() && $this->hasOptions()) { ?>
-                <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                <?php //echo $this->getChildChildHtml('container2', '', true, true) ?>
             <?php } ?>
+            <?php echo $this->getChildHtml('configurable_product_fields'); ?>
             
             
 
