@@ -345,6 +345,7 @@ function sendoptions(url){
 
 
 function sendcart(url, type, qty_to_insert, form_name){
+    mixpanel.track('put item in cart');
     var continue_scr = true;
     if ($('pp_checkout_url')){
         //http://www.j2t-design.net
