@@ -1450,9 +1450,9 @@ margin-right: 4px;}
 .cart .discount .buttons-set button.button,
 .cart .shipping .buttons-set button.button { float:none; margin-left:0; }
 
-.cart .discount h2 { background-image:url(../images/i_discount.gif); }
+.cart .discount h2 { background:none; padding-left:0; }
 .cart .discount .input-box { margin:8px 0 0; width:260px; }
-.cart .discount input.input-text { width:254px; }
+.cart .discount input.input-text { width:240px; }
 
 .cart .shipping h2 { background-image:url(../images/i_shipping.gif); }
 .cart .shipping .sp-methods { margin:10px 0 0; padding:5px 0 0; background:url(../images/bkg_divider1.gif) 0 0 repeat-x; }
