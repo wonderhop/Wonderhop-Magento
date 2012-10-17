@@ -40,7 +40,7 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
         </h2>
 	<?php $product = Mage::getModel('catalog/product')->load($_item->getProduct()->getId()); ?>
-        <p class="product_extra_info"><?php if ($product->getArrivalTime()): ?>Arrival time: <?php echo $product->getArrivalTime() ?> days  <br /> <?php endif; ?> <span class="sale_info">Final sale. No returns</span></p>
+        <p class="product_extra_info"><?php if ($product->getArrivalTime()): ?>Arrival time: <?php echo $product->getArrivalTime() ?> days  <br /> <?php endif; ?> <span class="sale_info">This discounted item is not eligible for returns.</span></p>
         <?php if ($_options = $this->getOptionList()):?>
         <dl class="item-options">
             <?php foreach ($_options as $_option) : ?>
