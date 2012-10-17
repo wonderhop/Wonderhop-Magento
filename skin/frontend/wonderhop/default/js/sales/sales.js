@@ -109,7 +109,7 @@ function getCookie(c_name)
                 //$('.customStyleSelectBox').css({width:selectBoxWidth, display:'block'});
                 //var selectBoxHeight = 31;
                 $(this).change(function() {
-                     $(this).next('.customStyleSelectBox').text($(this).find(':selected').text());
+                     $(this).nextAll('.customStyleSelectBox').text($(this).find(':selected').text());
                 });
                 $(this).addClass('customStyle');
          });
