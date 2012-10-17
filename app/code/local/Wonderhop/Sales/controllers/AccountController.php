@@ -365,8 +365,9 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
                                 Mage::helper('wonderhop_invitations')->rewardCustomers($customer->getId());
                         $redirect_url = '/shops';
                         if($this->getRequest()->getPost('url')) {
-                            $url = $this->getRequest()->getPost('url');
-                            
+                          
+                            $url = preg_replace('/\?.*/', '',  $this->getRequest()->getPost('url'));
+
                             $oRewrite = Mage::getModel('core/url_rewrite')
                                     ->setStoreId(Mage::app()->getStore()->getId())
                                     ->loadByRequestPath($url);
