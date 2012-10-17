@@ -234,10 +234,12 @@ Product view
                     </block>
                 <block type="catalog/product_view" name="product.info.options.wrapper.bottom" as="product_options_wrapper_bottom" template="catalog/product/view/options/wrapper/bottom.phtml" translate="label">
                     <label>Bottom Block Options Wrapper</label>
+                    <!--
                     <action method="insert"><block>product.tierprices</block></action>
                     <block type="catalog/product_view" name="product.clone_prices" as="prices" template="catalog/product/view/price_clone.phtml"/>
+                    -->
                     <action method="append"><block>product.info.addtocart</block></action>
-                    <action method="append"><block>product.info.addto</block></action>
+                    <!--<action method="append"><block>product.info.addto</block></action>-->
                 </block>
 
                 <block type="core/template_facade" name="product.info.container1" as="container1">
@@ -272,19 +274,39 @@ Additional block dependant on product type
             </block>
         </reference>
     </PRODUCT_TYPE_simple>
+    
+    
+    
     <PRODUCT_TYPE_configurable translate="label" module="catalog">
         <label>Catalog Product View (Configurable)</label>
-        <reference name="product.info">
+        <!--<reference name="product.info">
             <block type="catalog/product_view_type_configurable" name="product.info.configurable" as="product_type_data" template="catalog/product/view/type/default.phtml">
                 <block type="core/text_list" name="product.info.configurable.extra" as="product_type_data_extra" translate="label">
                     <label>Product Extra Info</label>
                 </block>
             </block>
-        </reference>
+        </reference>-->
+        <!--
         <reference name="product.info.options.wrapper">
             <block type="catalog/product_view_type_configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="catalog/product/view/type/options/configurable.phtml"/>
         </reference>
+        -->
+        <remove name="product.info.container1" />
+        <remove name="product.info.container2" />
+        <reference name="product.info">
+            <block type="core/template" name="configurable_product_fields" template="catalog/product/view/type/configurable/fields.phtml">
+                <action method="append"><block>product.info.addtocart</block></action>
+            </block>
+        </reference>
+        <reference name="product.info.addtocart">
+            <block type="catalog/product_view_type_configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="catalog/product/view/type/options/configurable.phtml">
+                <action method="setListClass"><value>config-prod-fields</value></action>
+            </block>
+        </reference>
     </PRODUCT_TYPE_configurable>
+    
+    
+    
     <PRODUCT_TYPE_grouped translate="label" module="catalog">
         <label>Catalog Product View (Grouped)</label>
         <reference name="product.info">

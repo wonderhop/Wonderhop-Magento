@@ -106,23 +106,23 @@ if ($_product->getUrlPath() != '') {
             <?php //echo $this->getChildHtml('product_type_data') ?>
             <div class="price-box">
                 <?php if ($_specialPrice = $_product->getSpecialPrice()) { ?>
-                <p class="regular-price has-old-price">
+                <span class="regular-price has-old-price" id="product-price-<?php echo $_product->getId(); ?>" >
                     <span class="price">
                         <?php echo '$'.number_format($_specialPrice,0); ?>
                     </span>
-                </p>
+                </span>
                 <?php } ?>
-                <p class="regular-price<?php if($_specialPrice) echo ' old-price'; ?>">
+                <span class="regular-price<?php if($_specialPrice) echo ' old-price'; ?>" <?php echo $_specialPrice ? '' : ('id="product-price-'.$_product->getId().'"'); ?> >
                     <span class="price">
                         <?php echo '$'.number_format($_product->getPrice(),0).($_specialPrice ? ' Retail': ''); ?>
                     </span>
-                </p>
+                </span>
             </div>
             
             <?php //echo $this->getTierPriceHtml() ?>
             <?php //echo $this->getChildHtml('extrahint') ?>
 
-            <?php if (!$this->hasOptions()):?>
+            <?php if ( ! $this->hasOptions()) {?>
                 <div class="add-to-box">
                     <?php if($_product->isSaleable()): ?>
                         <?php echo $this->getChildHtml('addtocart') ?>
@@ -130,15 +130,11 @@ if ($_product->getUrlPath() != '') {
                             <span class="or"><?php echo $this->__('OR') ?></span>
                         <?php endif; ?>
                     <?php endif; ?>
-                    <?php //echo $this->getChildHtml('addto') ?>
                 </div>
-                <?php //echo $this->getChildHtml('extra_buttons') ?>
-            <?php elseif (!$_product->isSaleable()): ?>
-                <div class="add-to-box">
-                    <?php echo $this->getChildHtml('addto') ?>
-                </div>
-            <?php endif; ?>
-            
+            <?php } elseif ($_product->isSaleable() && $this->hasOptions()) { ?>
+                <?php //echo $this->getChildChildHtml('container2', '', true, true) ?>
+            <?php } ?>
+            <?php echo $this->getChildHtml('configurable_product_fields'); ?>
             
             
 
@@ -182,9 +178,7 @@ if ($_product->getUrlPath() != '') {
         </div>
 
         <div class="clearer"></div>
-        <?php if ($_product->isSaleable() && $this->hasOptions()):?>
-            <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
-        <?php endif;?>
+        
     </form>
     <script type="text/javascript">
     //<![CDATA[

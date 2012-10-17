@@ -2355,3 +2355,13 @@ select.customStyle { height:31px; }
 
 
 p.no-orders { font-size: 14px; }
+
+
+#product-options-wrapper { background:none; border:none;  }
+
+.config-prod-fields { display: inline-block; width: 290px; padding-left:20px; }
+.config-prod-fields dt { display:block; float: left;  }
+.config-prod-fields dd { display:block; float: right; width:240px; }
+.config-prod-fields .input-box { display:block; width: 260px;  }
+.config-prod-fields .input-box .customStyleWrap { width:135px !important; }
+.config-prod-fields .required em { display: none; }
