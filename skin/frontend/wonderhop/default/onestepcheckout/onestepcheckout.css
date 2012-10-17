@@ -849,3 +849,25 @@ div.onestepcheckout-comments textarea {
  
  .form-alt select { width:100%; }
  #billing_address select { width:100%; }
+
+
+#onestepcheckout-form input.input-text { background:white; }
+#onestepcheckout-form .onestepcheckout-threecolumns .onestepcheckout-column-left {
+    width:304px; padding-right: 9px; margin-right:9px; }
+#onestepcheckout-form .onestepcheckout-threecolumns .onestepcheckout-column-middle {
+    width:271px; padding-right: 6px; margin-right:9px; }
+
+#onestepcheckout-form .onestepcheckout-threecolumns input.input-text { width:90%;  }
+
+#onestepcheckout-form .input-text.onestepcheckout-address-line[id="billing:street2"] { display: none;  }
+
+.group-select li { padding: 3px 0; }
+#onestepcheckout-form li .input-address .input-text,
+#onestepcheckout-form li .input-city .input-text
+ { width: 283px; }
+#onestepcheckout-form li .input-region { width: 176px; }
+#onestepcheckout-form li .input-region .customStyleWrap { width: 160px !important; }
+#onestepcheckout-form li .input-country { width: 292px; }
+
+/*#onestepcheckout-form #container_payment_method_braintree .customStyleWrap { width:248px !important; }*/
+#onestepcheckout-form li #braintree_cc_number { width:224px !important; }
