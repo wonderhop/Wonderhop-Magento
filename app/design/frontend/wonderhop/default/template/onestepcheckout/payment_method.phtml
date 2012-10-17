@@ -201,7 +201,7 @@ payment.switchMethod(payment.currentMethod);
 
 
 <?php echo $this->getChildHtml('giftcardaccount_scripts');?>
-$$('div.payment-methods input[name="payment\[use_internal_credit\]"]').invoke('observe', 'click', get_separate_save_methods_function('<?php echo  $this->getBaseUrl(); ?>onestepcheckout/ajax/set_methods_separate/'));
+$$('div.payment-methods input[name="payment\[use_internal_credit\]"]').invoke('observe', 'click', get_separate_save_methods_function('<?php echo $this->getUrl('onestepcheckout/ajax/set_methods_separate', array('_secure'=>true)); ?>'));
 jQuery(function() {
     //jQuery('.payment-methods select').customStyle();
 });
