@@ -82,8 +82,14 @@ if (file_exists($loc_key_file) and ($loc_key = trim( file_get_contents($loc_key_
 }
 ?>
 
+<?php if( Mage::app()->getStore()->isCurrentlySecure()): ?>
+
+<link href='https://fonts.googleapis.com/css?family=Cantata+One' rel='stylesheet' type='text/css'>
+<?php else: ?>
+
 <link href='http://fonts.googleapis.com/css?family=Cantata+One' rel='stylesheet' type='text/css'>
 
+<?php endif; ?>
 <?php echo $this->getCssJsHtml() ?>
 <?php echo $this->getChildHtml() ?>
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
