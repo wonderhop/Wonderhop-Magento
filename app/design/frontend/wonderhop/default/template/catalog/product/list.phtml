@@ -66,6 +66,8 @@ $current = &$_cols[0];
         <?php if($is_future_sale && $i > 3) break; ?>
         <?php $i++; ?>
         <?php $current_i = (($i-1)%$_columnCount);$current = &$_cols[ $current_i ]; ?>
+        <?php $specialPrice = $_product->getSpecialPrice(); ?>
+        <?php $productPrice = $_product->getPrice(); ?>
         <?php ob_start(); ?>
         <?php /*if ($i++%$_columnCount==0): ?>
         <ul class="products-grid">
@@ -116,9 +118,14 @@ $current = &$_cols[0];
                     <?php if($_product->getRatingSummary()): ?>
                     <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
                     <?php endif; ?>
-
+                    
                     <div class="price-box">
-                        <div class="price"><?php echo '$'.number_format($_product->getSpecialPrice() ? $_product->getSpecialPrice() : $_product->getPrice(), 0); ?></div>
+                        <div class="price"><?php echo '$'.number_format($specialPrice ? $specialPrice : $productPrice, 0); ?></div>
+                        <?php if($specialPrice) { ?>
+                            <div class="price-box-retail">
+                                <div class="price"><?php echo '$'.number_format($productPrice,0); ?></div>
+                            </div>
+                        <?php } ?>
                     </div>
                     
                     <?php //echo $this->getPriceHtml($_product, true) ?>
