@@ -868,6 +868,16 @@ div.onestepcheckout-comments textarea {
 #onestepcheckout-form li .input-region { width: 176px; }
 #onestepcheckout-form li .input-region .customStyleWrap { width: 160px !important; }
 #onestepcheckout-form li .input-country { width: 292px; }
+#onestepcheckout-form li .input-country .customStyleWrap { margin-right: 2px !important; }
+#onestepcheckout-form li .input-box.billing-select,
+#onestepcheckout-form li .input-box.shipping-select { width: 294px; }
+#onestepcheckout-form li .input-box.billing-select .customStyleWrap,
+#onestepcheckout-form li .input-box.shipping-select .customStyleWrap { margin-right: 0px !important; }
+#onestepcheckout-form li .input-box.cc-type-select .customStyleWrap { margin-right: 0px !important; width: 233px !important; }
+#onestepcheckout-form li .input-box .exp-date-m { margin-right:10px; }
+#onestepcheckout-form li .input-box .exp-date-m .customStyleWrap { margin-right: 0px !important; }
 
+#onestepcheckout-form .cvv-what-is-this { cursor: help; display: inline-block; font-size: 11px; margin-left: 10px; 
+    position: relative; top: -3px; width: 60px; }
 /*#onestepcheckout-form #container_payment_method_braintree .customStyleWrap { width:248px !important; }*/
 #onestepcheckout-form li #braintree_cc_number { width:224px !important; }

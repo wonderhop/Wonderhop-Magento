@@ -60,7 +60,7 @@ $helper = Mage::helper('onestepcheckout/checkout');
                 <?php if ($this->customerHasAddresses()): ?>
                 <li>
                     <label for="billing-address-select"><?php echo $this->__('Select a billing address from your address book or enter a new address.') ?></label>
-                    <div class="input-box">
+                    <div class="input-box billing-select">
                         <?php echo $this->getAddressesHtmlSelect('billing') ?>
                     </div>
                 </li>
@@ -109,7 +109,7 @@ $helper = Mage::helper('onestepcheckout/checkout');
                 <?php if ($this->customerHasAddresses()): ?>
                    <li class="form-alt">
                        <label for="shipping-address-select"><?php echo $this->__('Select a shipping address from your address book or enter a new address.') ?></label>
-                       <div class="input-box"><?php echo $this->getAddressesHtmlSelect('shipping') ?></div>
+                       <div class="input-box shipping-select"><?php echo $this->getAddressesHtmlSelect('shipping') ?></div>
                    </li>
                 <?php endif ?>
                 <li id="shipping_address_list" <?php if($this->customerHasAddresses() && !$this->getNewAddressSelectValueOnError('shipping')) { echo '  style="display: none;" '; } ?>>

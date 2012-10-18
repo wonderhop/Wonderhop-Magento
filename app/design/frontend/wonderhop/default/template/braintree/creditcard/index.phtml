@@ -1,0 +1,25 @@
+<?php
+    $braintree = Mage::getModel('braintree/paymentmethod');
+    $_storedCards = $braintree->currentCustomerStoredCards();
+?>
+
+<h1><?php echo $this->__('My Credit Cards') ?></h1>
+<?php echo Mage::helper('braintree/messages')->success() ?>
+<?php if (count($_storedCards)): ?>
+    <ul id="credit_cards">
+        <?php foreach ($_storedCards as $card): ?>
+            <li>
+                <a href="<?php echo Mage::getBaseUrl() ?>braintree/creditcard/edit?token=<?php echo $card->token ?>">
+                    <?php echo $card->cardType ?>:
+                    <?php echo $card->maskedNumber ?>
+                    <?php echo ($card->default) ? '(default)' : '' ?>
+                </a> | <a href="<?php echo Mage::getBaseUrl() ?>braintree/creditcard/delete?token=<?php echo $card->token ?>">Delete</a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+<?php if ($braintree->useVault()): ?>
+    <a href="<?php echo Mage::getBaseUrl() ?>braintree/creditcard/new">
+        <?php echo $this->__('Add Credit Card'); ?>
+    </a>
+<?php endif ?>
