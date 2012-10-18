@@ -2223,7 +2223,7 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 .tag_header .small_description { background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;
     color: #FD706B; font-size: 19px; line-height: 1; margin-left: 60px; text-transform: uppercase; padding-bottom: 18px; 
     min-width:540px; display:inline-block;  float:left; clear:left; font-family:"letter-gothic-std",monospace; }
-.tag_header .category-description { display:inline-block; width:550px; margin-left:60px; font-size:13px; line-height: 18px;
+.tag_header .category-description { display:inline-block; width:550px; margin-left:60px; font-size:14px; line-height: 18px;
     font-family:Georgia,serif; margin-top:10px; color: #6f5f6d; float:left; clear:left; }
 .tag_header .category-image { display:block; position:absolute; text-align:center; width: 290px; right:0; top: 95px; right:18px;
     margin: 0; padding:0; overflow:visible; }
