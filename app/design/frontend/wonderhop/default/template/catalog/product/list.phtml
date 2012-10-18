@@ -79,13 +79,14 @@ $current = &$_cols[0];
                     <?php if (!$is_future_sale): ?>    
                         </a>
                     <?php ?>
-                        <?php /*if($_product->getSpecialPrice()) { ?>
+                        <?php if($_product->getSpecialPrice()) { ?>
+                            <?php $_off = number_format( 100  * ( 1 - ((float)$_product->getSpecialPrice() / (float)$_product->getPrice()))  , 0); ?>
                             <div class="cat-prod-retail-badge">
                                 <div class="retail-badge-price">
-                                    <?php echo '$'.number_format($_product->getPrice(), 0); ?>
+                                    <?php echo "{$_off}%<br/>OFF"; ?>
                                 </div>
                             </div>
-                        <?php }*/ ?>
+                        <?php } ?>
                         <div class="cat-prod-shares">
                             <?php $_prodUrl = ($_product->getUrlPath() != '') ? urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id) :  urlencode($_product->getProductUrl() . $ref_id); ?>
                             <?php $_prodName = $_product->getName(); ?>
