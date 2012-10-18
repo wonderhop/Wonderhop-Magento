@@ -71,7 +71,8 @@ function getCookie(c_name)
 
     $.fn.getWidthInPercent = function () {
         var width = parseFloat($(this).css('width'))/parseFloat($(this).parent().css('width'));
-        return Math.round(100*width)+'%';
+        pWidth = Math.round(100*width);
+        return  !isNaN(pWidth) ? (pWidth+'%') : false;
     };
 
 })(jQuery);
@@ -103,7 +104,10 @@ function getCookie(c_name)
                 var selectBoxWidth = $(this).css('width');  
                 var selectBoxSpanInner = selectBoxSpan.find(':first-child');
                 selectBoxSpan.css({display:'block'});
-                $wrap.css({width:$(this).getWidthInPercent()});
+                widthObj = {width:$(this).getWidthInPercent()}; 
+                if (widthObj.width) {
+                    $wrap.css(widthObj);
+                }
                 $(this).css('width','100%');
                 $(this).attr('style', $(this).attr('style').replace(/width\: 100\%/,'width: 100% !important') );
                 //$('.customStyleSelectBox').css({width:selectBoxWidth, display:'block'});
