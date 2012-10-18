@@ -986,6 +986,8 @@ margin-right: 4px;}
 
 .prod-col .price-box .price { font-size:17px; color:white; line-height:1; padding-top:8px; display:block; }
 
+.prod-col .item { margin-bottom: 20px; }
+
 .prod-name-back { background:url("../images/brand/prod_name_backs.png") no-repeat; }
 .prod-name-back-1 { background-position: left top; }
 .prod-name-back-2 { background-position: right top; }
