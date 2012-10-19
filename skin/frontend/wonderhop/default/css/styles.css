@@ -1257,6 +1257,11 @@ margin-right: 4px;}
 .product-view .product-shop .add-to-links li .separator { display:inline; }
 .product-view .product-shop .add-to-links a { color:#1E7EC8 !important; font-weight:normal !important; }
 
+.product-view .prod-cat-countdown { color: #FD706B; display: block; font-family: "letter-gothic-std",monospace;
+    font-size: 19px; font-weight: bold; height: 50px; width:290px; margin:0; overflow: hidden; text-transform: uppercase;
+    text-align:center; background:url("../images/prod/prod_cat_countdown_back.png") no-repeat scroll right top; }
+.product-view .prod-cat-countdown span { display: block; height: 22px;width: 250px;  margin: 8px 0 0; overflow: hidden; }
+
 /* Product Options */
 .product-options { margin:20px 0 0; padding:10px 15px 20px; position:relative; background-color:#f6f6f6; border:1px solid #e4e4e4; }
 .product-options dt { padding:10px 0 0; font-weight:normal; }
