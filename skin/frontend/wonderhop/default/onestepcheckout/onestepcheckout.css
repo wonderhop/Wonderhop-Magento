@@ -881,3 +881,12 @@ div.onestepcheckout-comments textarea {
     position: relative; top: -3px; width: 60px; }
 /*#onestepcheckout-form #container_payment_method_braintree .customStyleWrap { width:248px !important; }*/
 #onestepcheckout-form li #braintree_cc_number { width:224px !important; }
+
+#onestepcheckout-form .customStyleSelectBox { background:none; }
+#onestepcheckout-form .customStyleSelectBoxInner { background: url("../images/input_select_arrow_bg-nograd.png") no-repeat scroll right center transparent; }
+
+#onestepcheckout-form select.validation-failed + .validation-advice + .customStyleSelectBox { border:1px dashed red;
+    border-right:none; background-color:#FAEBE7; }
+#onestepcheckout-form select.validation-failed + .validation-advice + .customStyleSelectBox + .customStyleSelectBoxInner {
+    border:1px dashed red; background-color:#FAEBE7; }
+
