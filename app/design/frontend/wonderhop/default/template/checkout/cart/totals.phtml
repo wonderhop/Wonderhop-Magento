@@ -39,12 +39,12 @@
         <col />
         <col width="1" />
         <tfoot>
-			<tr><td colspan="2" class="total-separator"></td></tr>
+            <tr><td colspan="2" class="total-separator"></td></tr>
             <?php echo $this->renderTotals('footer'); ?>
         </tfoot>
         <tbody>
-            <?php echo $this->renderTotals(); ?>
+            <?php echo preg_replace('/((shipping)\s&[^<]+)/i', '\2', $this->renderTotals()); ?>
         </tbody>
     </table>
-	<div class="totals-background"></div>
+    <div class="totals-background"></div>
 <?php endif; ?>
