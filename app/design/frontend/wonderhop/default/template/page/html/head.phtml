@@ -72,15 +72,13 @@ endif;
 <?php endif; ?>
 
 
-<?php
-$loc_key_file = rtrim($_SERVER['DOCUMENT_ROOT'],'/') . '/typekit.key';
-if (file_exists($loc_key_file) and ($loc_key = trim( file_get_contents($loc_key_file) ))) {
-    ?>
-    <script type="text/javascript" src="//use.typekit.net/<?php echo $loc_key; ?>.js"></script>
+<!-- start Typekit -->
+<?php if ($key = (string)Mage::getConfig()->getNode('localconf/fonts/typekit/key')) { ?>
+    <script type="text/javascript" src="//use.typekit.net/<?php echo $key; ?>.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-    <?php
-}
-?>
+<?php } ?>
+<!-- end Typekit -->
+
 
 <?php if( Mage::app()->getStore()->isCurrentlySecure()): ?>
     <link href='https://fonts.googleapis.com/css?family=Cantata+One' rel='stylesheet' type='text/css'>
@@ -98,16 +96,14 @@ if (file_exists($loc_key_file) and ($loc_key = trim( file_get_contents($loc_key_
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
 <?php echo $this->getIncludes() ?>
 
-<?php
-$loc_key_file = rtrim($_SERVER['DOCUMENT_ROOT'],'/') . '/mixpanel.key';
-if (file_exists($loc_key_file) and ($loc_key = trim( file_get_contents($loc_key_file) ))) {
-    ?>
-    <!-- start Mixpanel -->
-    <script type="text/javascript">
-        (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+'//api.mixpanel.com/site_media/js/api/mixpanel.2.js';d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!== typeof f?g=a[f]=[]:f="mixpanel";g.people=g.people||[];h="disable track track_pageview track_links track_forms register register_once unregister identify name_tag set_config people.set people.increment".split(" ");for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.1})(document,window.mixpanel||[]);
-        mixpanel.init("<?php echo $loc_key; ?>");
-    </script>
-    <!-- end Mixpanel -->
-    <?php
-}
-?>
+<!-- start Mixpanel -->
+<script type="text/javascript">
+    (function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+'//api.mixpanel.com/site_media/js/api/mixpanel.2.js';d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!== typeof f?g=a[f]=[]:f="mixpanel";g.people=g.people||[];h="disable track track_pageview track_links track_forms register register_once unregister identify name_tag set_config people.set people.increment".split(" ");for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.1})(document,window.mixpanel||[]);
+<?php if ($key = (string)Mage::getConfig()->getNode('localconf/analytics/mixpanel/key')) { ?>
+    mixpanel.init("<?php echo $key; ?>");
+<?php } else { ?>
+    mixpanel = { init:function(){}, track:function(){}, track_links:function(){}, people:{set:function(){}, increment:function(){}}, name_tag:function(){}, identify:function(){},  };
+<?php } ?>
+</script>
+<!-- end Mixpanel -->
+

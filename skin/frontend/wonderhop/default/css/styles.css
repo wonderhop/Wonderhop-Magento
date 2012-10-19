@@ -977,14 +977,21 @@ margin-right: 4px;}
 .prod-cols-3 .prod-col-3 { padding-right:0;  }
 .prod-col { width:283px; padding:0 7px; position:relative; display:inline-block; vertical-align:top; }
 .prod-col .product-text { display:block; width:100%; height:80px; position:relative; padding:0 6px; }
-.prod-col .product-name { display: table-cell; font-size: 16px; height: 80px; padding-left: 10px; text-decoration: none;
-    text-transform: uppercase; vertical-align: middle; width: 190px; color:#585254; font-weight:bold; }
+.prod-col .product-name { display: table-cell; font-size: 16px; height: 76px; padding-left: 10px; text-decoration: none;
+    text-transform: uppercase; vertical-align: middle; width: 182px; color:#585254; font-weight:bold; padding-top:6px; }
 .prod-col .product-name a { text-decoration: none; color:#585254;}
 .prod-col .price-box { font-size:17px; color:white; background: url("../images/brand/price_back.png") no-repeat scroll right top; 
     padding-right: 13px; padding-left:5px; width: auto; height:30px; display:table-cell; vertical-align:middle; margin-top:25px; 
     position:absolute; top:0; right:0; }
+.prod-col .price-box-retail { padding-right: 8px; padding-left:5px;
+    width: auto; height:30px; display:table-cell; vertical-align:middle; margin-top:2px; 
+    position:absolute; top:0; right:100%; }
 
-.prod-col .price-box .price { font-size:17px; color:white; line-height:1; padding-top:8px; display:block; }
+.prod-col .price-box .price,
+.prod-col .price-box-retail .price { font-size:17px; color:white; line-height:1; padding-top:8px; display:block; }
+.prod-col .price-box-retail .price { font-size:15px; color:#6f5f6d; text-decoration: line-through; }
+
+.prod-col .item { margin-bottom: 20px; }
 
 .prod-name-back { background:url("../images/brand/prod_name_backs.png") no-repeat; }
 .prod-name-back-1 { background-position: left top; }
@@ -1243,7 +1250,7 @@ margin-right: 4px;}
 .product-view .product-shop .availability { margin:10px 0; }
 .product-view .product-shop .short-description { margin:10px 0; background:url(../images/bkg_divider1.gif) 0 0 repeat-x; padding:10px 0 0; }
 .product-view .product-shop .price-box { margin:0 0 24px 0; }
-.product-view .product-shop .price-box .price { color:#5e595b; font-size:17px;}
+.product-view .product-shop .price-box .price { color:#5e595b; font-size:19px;}
 .product-view .product-shop .add-to-links { margin:0; }
 .product-view .product-shop .add-to-links { font-size:12px; text-align:right; }
 .product-view .product-shop .add-to-links li,
@@ -2148,12 +2155,12 @@ margin-right: 4px;}
 .product_list_image {position:relative;}
 .category-products .cat-prod-shares {  display: none; position: absolute; bottom: -1px; right: 10px; width: 38px; }
 .category-products li:hover .cat-prod-shares { display:block; }
-.category-products .cat-prod-retail-badge { display:none; position:absolute; top:-27px; right:-18px; width:94px; height:94px;
-    background: url("../images/brand/retail_badge.png") no-repeat; z-index:1; }
+.category-products .cat-prod-retail-badge { display:none; position:absolute; top:-27px; right:-18px; width:73px; height:73px;
+    background: url("../images/brand/retail_badge2.png") no-repeat; z-index:1; }
 .category-products li:hover .cat-prod-retail-badge { display:block; }
 
-.cat-prod-retail-badge .retail-badge-price  {font-family: "letter-gothic-std",monospace; font-size: 18px; line-height: 1.5;
-    margin-top: -12px;position: relative;top: 50%;text-align: center; width: 94%; text-decoration: line-through;
+.cat-prod-retail-badge .retail-badge-price  {font-family: "letter-gothic-std",monospace; font-size: 17px; line-height: 1;
+    margin-top: -15px;position: relative;top: 50%;text-align: center; width: 100%; text-decoration: none;
     color: #696b6e; }
     
     
@@ -2221,7 +2228,7 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 .tag_header .small_description { background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;
     color: #FD706B; font-size: 19px; line-height: 1; margin-left: 60px; text-transform: uppercase; padding-bottom: 18px; 
     min-width:540px; display:inline-block;  float:left; clear:left; font-family:"letter-gothic-std",monospace; }
-.tag_header .category-description { display:inline-block; width:550px; margin-left:60px; font-size:13px; line-height: 18px;
+.tag_header .category-description { display:inline-block; width:550px; margin-left:60px; font-size:14px; line-height: 18px;
     font-family:Georgia,serif; margin-top:10px; color: #6f5f6d; float:left; clear:left; }
 .tag_header .category-image { display:block; position:absolute; text-align:center; width: 290px; right:0; top: 95px; right:18px;
     margin: 0; padding:0; overflow:visible; }
