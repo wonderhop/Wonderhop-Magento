@@ -1242,7 +1242,7 @@ margin-right: 4px;}
 .product-view .product-shop { float:right; width:330px; }
 .col1-layout .product-view .product-shop { float:right; width:400px; }
 .col3-layout .product-view .product-shop { float:none; width:auto; font-family:"letter-gothic-std", monospace; }
-.product-view .product-shop .product-name { margin:25px 0 6px 0; width: 100%; float:left;}
+.product-view .product-shop .product-name { margin:45px 0 6px 0; width: 100%; float:left;}
 /*.product-view .product-shop .product-name h1 { margin:0; font:bold 15px/1.35 Arial, Helvetica, sans-serif; }*/
 .product-view .product-shop .product-name h1 { margin:0; font:bold 22px/1 "letter-gothic-std",monospace; text-transform:uppercase; }
 .product-view .product-shop h5, .product-view .product-shop h5 a { color: #9da6ab; text-transform:uppercase; font-size: 17px; text-decoration:none; line-height:1; }
@@ -1259,7 +1259,8 @@ margin-right: 4px;}
 
 .product-view .prod-cat-countdown { color: #FD706B; display: block; font-family: "letter-gothic-std",monospace;
     font-size: 19px; font-weight: bold; height: 50px; width:290px; margin:0; overflow: hidden; text-transform: uppercase;
-    text-align:center; background:url("../images/prod/prod_cat_countdown_back.png") no-repeat scroll right top; }
+    text-align:center; background:url("../images/prod/prod_cat_countdown_back.png") no-repeat scroll right top;
+    position:absolute; top:-7px; right:-12px; }
 .product-view .prod-cat-countdown span { display: block; height: 22px;width: 250px;  margin: 8px 0 0; overflow: hidden; }
 
 /* Product Options */
