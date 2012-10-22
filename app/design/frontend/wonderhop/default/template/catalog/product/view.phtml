@@ -34,6 +34,11 @@
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
 <?php 
+
+$session = Mage::getSingleton('customer/session');
+$customer = $session->getCustomer();
+$is_staff = (strtolower((string)Mage::getModel('customer/group')->load($customer->getGroupId())->getCode()) === 'staff');
+
 $categoryIds = $_product->getCategoryIds();
 $category = null;
 foreach($categoryIds as $categoryId) {
@@ -42,7 +47,7 @@ foreach($categoryIds as $categoryId) {
         continue;
     }
     $now = date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()));
-    if ($category->getStartDate() > $now || $category->getEndDate() < $now) {
+    if (($category->getStartDate() > $now || $category->getEndDate() < $now) and ! $is_staff) {
         header("Location: ". $category->getUrl());
         exit();
     }
@@ -50,8 +55,7 @@ foreach($categoryIds as $categoryId) {
 ?>
 
 <?php 
-$session = Mage::getSingleton('customer/session');
-$customer = $session->getCustomer();
+
 $ref_id = '';
 $fb_comment_url = '';
 if($session->isLoggedIn() && $customer->getReferralCode()) {
