@@ -83,9 +83,10 @@
                     
                     self.$toplink
                     //.click( self.toggle_stick )
-                    //.mouseenter(function(){ self.clear('hide').over(true).schedule('show',500, self.show, true, ! self.visible()); })
+                    .mouseenter(function(){ self.clear('hide').over(true).schedule('show',100, self.show, true, ! self.visible()); })
                     //.mouseleave(function(){ self.clear('show').over(false).schedule('hide',3000, self.hide, true,self.visible() && ! self.stick()); })
-                    .click( function(ev){ ev.stopPropagation(); self.toggle(); });
+                    //.click( function(ev){ ev.stopPropagation(); self.toggle(); });
+                    .click( function(ev){ ev.stopPropagation(); setLocation('<?php echo Mage::getUrl('checkout/cart'); ?>'); });
 
                     self.$container
                     .mouseenter(function(){ self.clear('hide').clear('show').over(true); })
