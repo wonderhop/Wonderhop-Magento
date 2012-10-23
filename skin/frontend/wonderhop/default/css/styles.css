@@ -2224,7 +2224,7 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 .dynamic_header .cat-share-item { display:block; float:left; height:32px; width:32px; margin: 0 0 0 10px; cursor:pointer; }
 .dynamic_header .cat-countdown { color:#fd706b; font-size:19px; font-weight:bold; font-family:"letter-gothic-std",monospace;
     display:block; float:right; margin-right:68px; width: 240px; height:30px; margin-top:16px; overflow:hidden;
-    text-transform:uppercase; letter-spacing: -0.5px; }
+    text-transform:uppercase; letter-spacing: -1px; text-align:center; }
 .tag_header .small_description { background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;
     color: #FD706B; font-size: 19px; line-height: 1; margin-left: 60px; text-transform: uppercase; padding-bottom: 18px; 
     min-width:540px; display:inline-block;  float:left; clear:left; font-family:"letter-gothic-std",monospace; }
