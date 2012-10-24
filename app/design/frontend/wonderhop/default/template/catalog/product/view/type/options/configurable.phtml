@@ -49,9 +49,11 @@ $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
         //}
         
         var $priceBox = jQuery('.price-box .price').first();
+	var $oldPrice = jQuery('.price-box .old-price .price').first();
         priceBoxHeight = 18;
         $priceBox.parent().css( {display:'block', height: priceBoxHeight} );
         var pcBasePrice = parseInt( $priceBox.text().replace(/\.[\d]*$/g,'').replace(/[^\d]/g,'') );
+        var pcBasePriceOld = parseInt( $oldPrice.text().replace(/\.[\d]*$/g,'').replace(/[^\d]/g,'') );
         pcBasePrice = isNaN(pcBasePrice) ? 0 : pcBasePrice;
         
         
@@ -59,16 +61,20 @@ $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
         {
             var $ = jQuery, $selects = $('.config-prod-fields select'), $pricebox = $priceBox;
             var reprice = pcBasePrice;
+            var reprice_old = pcBasePriceOld;
             $selects.each(function(i,e){
                 var $sel = $(e).children().filter(':selected');
                 var price = parseInt($sel.attr('price'));
                 reprice += ( ! isNaN(price)) ? price : 0;
+                reprice_old += ( ! isNaN(price)) ? price : 0;
+		
             });
             //if (pcBasePrice != reprice) {
                 $pricebox.hide();
             
                 setTimeout(function(){ 
                     $pricebox.html( '$' + reprice ).fadeIn(200);
+		    $oldPrice.html( '$' + reprice_old + ' Retail').fadeIn(200);
                 }, 10);
             //}
         }
