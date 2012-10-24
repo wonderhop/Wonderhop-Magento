@@ -1,0 +1,56 @@
+<?php
+$_model = Mage::getModel('braintree/paymentMethod');
+?>
+<script type="text/javascript">
+var _super;
+
+if (typeof _super === 'undefined' && typeof _super !== 'function')
+    _super = Review.prototype.save;
+
+Review.prototype.save = function() {
+    if (payment.currentMethod !== 'braintree') {
+        return _super();
+    }
+
+    braintree = Braintree.create('<?php echo $_model->getConfigData('client_side_encryption_key') ?>');
+
+    if (checkout.loadWaiting!=false) return;
+    checkout.setLoadWaiting('review');
+
+    encrypted_form = $(payment.form).clone(true);
+
+    encrypted_form.select('input, select').each(function (element) {
+      var old_value = $$('#' + payment.form + ' #' + element.getAttribute('id'))[0].getValue();
+      element.setAttribute('id', 'encrypted_' + element.getAttribute('id'));
+
+      if (element.readAttribute('data-encrypt') === 'true')
+        {
+          var encrypted_value = braintree.encrypt(old_value);
+          element.setValue(encrypted_value);
+        }
+        else
+          {
+            element.setValue(old_value);
+          }
+    });
+
+    params = Form.serialize(encrypted_form);
+
+    if (this.agreementsForm) {
+        params += '&'+Form.serialize(this.agreementsForm);
+    }
+    params.save = true;
+    var request = new Ajax.Request(
+        this.saveUrl,
+        {
+            method:'post',
+            parameters:params,
+            onComplete: this.onComplete,
+            onSuccess: this.onSave,
+            onFailure: checkout.ajaxFailure.bind(checkout)
+        }
+    );
+};
+</script>
+
+

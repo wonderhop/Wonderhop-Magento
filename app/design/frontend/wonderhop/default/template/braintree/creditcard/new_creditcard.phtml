@@ -1,0 +1,100 @@
+<h1><?php echo $this->__('Add Credit Card') ?></h1>
+<?php if ($this->hasErrors()): ?>
+    <?php echo $this->errors() ?>
+<?php endif ?>
+<form action='<?php echo Braintree_TransparentRedirect::url() ?>' method="post">
+    <h3>Credit Card: </h3>
+    <dl>
+        <dt>
+            <label for="credit_card_cardholder_name">Cardholder Name: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[cardholder_name]" id="credit_card_cardholder_name" value="<?php echo $this->getPostParam('creditCard.cardholderName') ?>">
+        </dd>
+        <dt>
+            <label for="credit_card_number">Credit Card Number: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[number]" id="credit_card_number">
+        </dd>
+        <dt>
+            <label for="credit_card_expiration_date">Expiration Date: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[expiration_date]" id="credit_card_expiration_date" value="<?php echo $this->getPostParam('creditCard.expirationDate') ?>">
+        </dd>
+        <dt>
+            <label for="credit_card_cvv">CVV: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[cvv]" id="credit_card_cvv" value="">
+        </dd>
+        <dt>
+            <label for="credit_card_options_make_default">Make Default? </label>
+        </dt>
+        <dd>
+            <input type="checkbox" name="credit_card[options][make_default]" id="credit_card_options_make_default" value="1" <?php echo $this->getPostParam('creditCard.options.makeDefault') ? "checked" : "" ?>>
+        </dd>
+    </dl>
+    <h3>Billing Address:</h3>
+    <dl>
+        <dt>
+            <label for="billing_address_first_name">First Name: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[billing_address][first_name]" id="billing_address_first_name" value="<?php echo $this->getPostParam('creditCard.billingAddress.firstName') ?>">
+        </dd>
+        <dt>
+            <label for="billing_address_last_name">Last Name: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[billing_address][last_name]" id="billing_address_last_name" value="<?php echo $this->getPostParam('creditCard.billingAddress.lastName') ?>">
+        </dd>
+        <dt>
+            <label for="billing_address_company">Company: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[billing_address][company]" id="billing_address_company" value="<?php echo $this->getPostParam('creditCard.billingAddress.company') ?>">
+        </dd>
+        <dt>
+            <label for="billing_address_street_address">Street Address: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[billing_address][street_address]" id="billing_address_street_address" value="<?php echo $this->getPostParam('creditCard.billingAddress.streetAddress') ?>"
+        </dd>
+        <dt>
+            <label for="billing_address_extended_address">Extended Address: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[billing_address][extended_address]" id="billing_address_extended_address" value="<?php echo $this->getPostParam('creditCard.billingAddress.extendedAddress') ?>">
+        </dd>
+        <dt>
+            <label for="billing_address_locality">City: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[billing_address][locality]" id="billing_address_locality" value="<?php echo $this->getPostParam('creditCard.billingAddress.locality') ?>">
+        </dd>
+        <dt>
+            <label for="billing_address_region">State/Province: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[billing_address][region]" id="billing_address_region" value="<?php echo $this->getPostParam('creditCard.billingAddress.region') ?>">
+        </dd>
+        <dt>
+            <label for="billing_address_postal_code">Postal Code: </label>
+        </dt>
+        <dd>
+            <input type="text" name="credit_card[billing_address][postal_code]" id="billing_address_postal_code" value="<?php echo $this->getPostParam('creditCard.billingAddress.postalCode') ?>">
+        </dd>
+        <dt>
+            <label for="billing_address_country">Country: </label>
+        </dt>
+        <dd>
+            <?php $default = $this->getPostParam('creditCard.billingAddress.countryCodeAlpha2') ?>
+            <?php echo Mage::helper('braintree/form')->countrySelect('credit_card[billing_address][country_code_alpha2]', $default) ?>
+        </dd>
+    </dl>
+    <input type="hidden" name="tr_data" id="tr_data" value="<?php echo $this->buildTrData(Mage::getBaseUrl() . 'braintree/creditcard/create') ?>">
+    <input type="submit" value="Submit">
+</form>
+
