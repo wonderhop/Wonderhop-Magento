@@ -93,7 +93,7 @@ class Wonderhop_Sales_Block_Sales extends Mage_Core_Block_Template {
     public function getSaleSections() {
         $date = new DateTime(date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())));
         $past_date = clone $date;
-        date_add($date, date_interval_create_from_date_string('24 hours'));
+        date_add($date, date_interval_create_from_date_string('48 hours'));
         date_sub($past_date, date_interval_create_from_date_string('24 hours'));        
 
         $core_date = date("Y-m-d", Mage::getModel('core/date')->timestamp(time()));

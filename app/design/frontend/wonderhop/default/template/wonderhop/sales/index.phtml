@@ -33,6 +33,9 @@ if ( ! empty($sales_categories) and count($sales_categories)) {
             if(round(abs($to_time - $from_time) / 3600,2) > 24 && $sale->getEndDate() < date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time()))) {
                 continue;
             }
+	   if(round(abs($to_time - strtotime(date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())))) /3600,2) < 48 ) {
+		continue;
+	  }
         }
         ob_start();
         ?>
