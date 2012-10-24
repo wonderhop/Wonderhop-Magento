@@ -48,11 +48,12 @@ $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
         //   return '';
         //}
         
-        var $priceBox = jQuery('.price-box .price');
+        var $priceBox = jQuery('.price-box .price').first();
         priceBoxHeight = 18;
         $priceBox.parent().css( {display:'block', height: priceBoxHeight} );
         var pcBasePrice = parseInt( $priceBox.text().replace(/\.[\d]*$/g,'').replace(/[^\d]/g,'') );
         pcBasePrice = isNaN(pcBasePrice) ? 0 : pcBasePrice;
+        
         
         function pcRePrice()
         {
@@ -63,11 +64,13 @@ $_attributes = Mage::helper('core')->decorateArray($this->getAllowAttributes());
                 var price = parseInt($sel.attr('price'));
                 reprice += ( ! isNaN(price)) ? price : 0;
             });
-            $pricebox.hide();
+            //if (pcBasePrice != reprice) {
+                $pricebox.hide();
             
-            setTimeout(function(){ 
-                $pricebox.html( '$' + reprice ).fadeIn(200);
-            }, 10);
+                setTimeout(function(){ 
+                    $pricebox.html( '$' + reprice ).fadeIn(200);
+                }, 10);
+            //}
         }
         
         var spConfig = new Product.Config(<?php echo $this->getJsonConfig() ?>);
