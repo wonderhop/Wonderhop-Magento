@@ -34,6 +34,10 @@ $height = 407;
         $_imgpath = Mage::getBaseDir() . '/media/catalog/product' . $product->getImage();
         list($_rwidth, $_rheight) = getimagesize($_imgpath);
         if ($_rwidth && $_rheight) {
+            if ($_rwidth > 1000) {
+                $_rheight = intval( (1000 / $_rwidth) * $_rheight );
+                $_rwidth = 1000;
+            }
             if ($_rwidth < $width) {
                 $bigImageWidth = $width;
                 $bigImageHeight = intval( ($width / $_rwidth) * $_rheight );
