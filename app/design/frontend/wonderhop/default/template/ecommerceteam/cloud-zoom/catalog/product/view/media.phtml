@@ -30,6 +30,26 @@ $bigImageHeight = intval($helper->getConfigData('big_image_height'));
 $width  = 430;
 $height = 407;
 
+    if($product->getImage()) {
+        $_imgpath = Mage::getBaseDir() . '/media/catalog/product' . $product->getImage();
+        list($_rwidth, $_rheight) = getimagesize($_imgpath);
+        if ($_rwidth && $_rheight) {
+            if ($_rwidth < $width) {
+                $bigImageWidth = $width;
+                $bigImageHeight = intval( ($width / $_rwidth) * $_rheight );
+            } elseif ( $_rheight < $height ) {
+                $bigImageWidth = intval( ($height / $_rheight) * $_rwidth );
+                $bigImageHeight = $height;
+            } else {
+                $bigImageWidth = $_rwidth;
+                $bigImageHeight = $_rheight;
+            }
+        }
+    }
+    
+    
+    
+
 $config = array(
     "position:'{$position}'",
     "showTitle:{$showTitle}",
