@@ -22,7 +22,6 @@
  * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-@import url('./local.css');
 
 
 
@@ -2233,7 +2232,7 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
     display:block; float:right; margin-right:68px; width: 240px; height:30px; margin-top:16px; overflow:hidden;
     text-transform:uppercase; letter-spacing: -1px; text-align:center; }
 .tag_header .small_description { background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;
-    color: #FD706B; font-size: 19px; line-height: 1; margin-left: 60px; text-transform: uppercase; padding-bottom: 18px; 
+    color: #FD706B; font-size: 19px; line-height: 1; margin-left: 60px; text-transform: uppercase; padding-bottom: 14px; 
     min-width:540px; display:inline-block;  float:left; clear:left; font-family:"letter-gothic-std",monospace; }
 .tag_header .category-description { display:inline-block; width:550px; margin-left:60px; font-size:14px; line-height: 18px;
     font-family:Georgia,serif; margin-top:10px; color: #6f5f6d; float:left; clear:left; }
