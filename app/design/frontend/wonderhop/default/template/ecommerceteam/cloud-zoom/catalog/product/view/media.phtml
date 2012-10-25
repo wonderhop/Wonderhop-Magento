@@ -29,27 +29,43 @@ $bigImageHeight = intval($helper->getConfigData('big_image_height'));
 
 $width  = 430;
 $height = 407;
+$def_size = array($bigImageWidth, $bigImageHeight);
+$def_limit = 1000;
 
-    if($product->getImage()) {
-        $_imgpath = Mage::getBaseDir() . '/media/catalog/product' . $product->getImage();
-        list($_rwidth, $_rheight) = getimagesize($_imgpath);
+if ( ! function_exists('_get_prod_img_size')) {
+    function _get_prod_img_size($image, $width, $height, $wlimit = 1000, $default = array(800,800)) {
+        list($_rwidth, $_rheight) = getimagesize($image);
+        $size = $default;
         if ($_rwidth && $_rheight) {
-            if ($_rwidth > 1000) {
-                $_rheight = intval( (1000 / $_rwidth) * $_rheight );
-                $_rwidth = 1000;
+            if ($_rwidth > $wlimit) {
+                $_rheight = intval( ($wlimit/ $_rwidth) * $_rheight );
+                $_rwidth = $wlimit;
             }
             if ($_rwidth < $width) {
-                $bigImageWidth = $width;
-                $bigImageHeight = intval( ($width / $_rwidth) * $_rheight );
+                if( $_rheight < $height and  (($height - $_rheight) >= ($width - $_rwidth ))) {
+                    $size[0] = intval( ($height / $_rheight) * $_rwidth );
+                    $size[1] = $height;
+                } else {
+                    $size[0] = $width;
+                    $size[1] = intval( ($width / $_rwidth) * $_rheight );
+                }
             } elseif ( $_rheight < $height ) {
-                $bigImageWidth = intval( ($height / $_rheight) * $_rwidth );
-                $bigImageHeight = $height;
+                $size[0] = intval( ($height / $_rheight) * $_rwidth );
+                $size[1] = $height;
             } else {
-                $bigImageWidth = $_rwidth;
-                $bigImageHeight = $_rheight;
+                $size[0] = $_rwidth;
+                $size[1] = $_rheight;
             }
+            //error_log("box: $width x $height  |  real: $_rwidth x $_rheight  |  size: {$size[0]} x {$size[1]}");
         }
+        return $size;
     }
+}
+
+if($product->getImage()) {
+    $_imgpath = Mage::getBaseDir() . '/media/catalog/product' . $product->getImage();
+    list($bigImageWidth, $bigImageHeight) = _get_prod_img_size($_imgpath, $width, $height, $def_limit, $def_size);
+}
     
     
     
@@ -107,6 +123,7 @@ if ($zoomHeight) {
     <!--<h2><?php echo $this->__('More Views') ?></h2>-->
     <ul>
     <?php foreach ($this->getGalleryImages() as $_image): ?>
+        <?php list($bigImageWidth, $bigImageHeight) = _get_prod_img_size($_image->getPath(), $width, $height, $def_limit, $def_size); ?>
         <li>
             <a href='<?php echo $this->helper('catalog/image')->init($product, 'image', $_image->getFile())->resize($bigImageWidth, $bigImageHeight);?>' class='cloud-zoom-gallery' title='<?php echo $this->htmlEscape($_image->getLabel()) ?>'
             rel="useZoom: 'zoom1', smallImage: '<?php echo $this->helper('catalog/image')->init($product, 'image', $_image->getFile())->resize($width, $height);?>' ">
