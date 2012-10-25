@@ -85,6 +85,9 @@ if ($_product->getUrlPath() != '') {
         <div class="prod-flower"></div>
 
         <div class="product-shop">
+            <div class="prod-cat-countdown">
+                <span><?php echo  Wonderhop_Sales_Helper_Data::getShortCountDown($category); ?></span>
+            </div>
             <div class="product-name">
                 <div class="product_title">
                     <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>

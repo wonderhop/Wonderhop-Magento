@@ -50,4 +50,12 @@
       }
       return $countdown;
     }
+    
+    public function getShortCountDown($sale)
+    {
+        $text = self::getCountDown($sale);
+        if(preg_match('/days?\s+[\d]{1,2}\s+hours/i',$text))
+            $text = preg_replace('/\s+[\d]{1,2}\s+hours/i','',$text);
+        return $text;
+    }
 }

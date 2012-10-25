@@ -22,7 +22,6 @@
  * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-@import url('./local.css');
 
 
 
@@ -1242,7 +1241,7 @@ margin-right: 4px;}
 .product-view .product-shop { float:right; width:330px; }
 .col1-layout .product-view .product-shop { float:right; width:400px; }
 .col3-layout .product-view .product-shop { float:none; width:auto; font-family:"letter-gothic-std", monospace; }
-.product-view .product-shop .product-name { margin:25px 0 6px 0; width: 100%; float:left;}
+.product-view .product-shop .product-name { margin:45px 0 6px 0; width: 100%; float:left;}
 /*.product-view .product-shop .product-name h1 { margin:0; font:bold 15px/1.35 Arial, Helvetica, sans-serif; }*/
 .product-view .product-shop .product-name h1 { margin:0; font:bold 22px/1 "letter-gothic-std",monospace; text-transform:uppercase; }
 .product-view .product-shop h5, .product-view .product-shop h5 a { color: #9da6ab; text-transform:uppercase; font-size: 17px; text-decoration:none; line-height:1; }
@@ -1256,6 +1255,13 @@ margin-right: 4px;}
 .product-view .product-shop .add-to-links li,
 .product-view .product-shop .add-to-links li .separator { display:inline; }
 .product-view .product-shop .add-to-links a { color:#1E7EC8 !important; font-weight:normal !important; }
+
+.product-view .prod-cat-countdown { color: #FD706B; display: block; font-family: "letter-gothic-std",monospace;
+    font-size: 19px; font-weight: bold; height: 50px; width:290px; margin:0; overflow: hidden; text-transform: uppercase;
+    text-align:center; background:url("../images/prod/prod_cat_countdown_back.png") no-repeat scroll right top;
+    position:absolute; top:-7px; right:-12px; }
+.product-view .prod-cat-countdown span { display: block; height: 22px;width: 250px;  margin: 8px 0 0; overflow: hidden; 
+    letter-spacing: -1px;}
 
 /* Product Options */
 .product-options { margin:20px 0 0; padding:10px 15px 20px; position:relative; background-color:#f6f6f6; border:1px solid #e4e4e4; }
@@ -2224,9 +2230,9 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 .dynamic_header .cat-share-item { display:block; float:left; height:32px; width:32px; margin: 0 0 0 10px; cursor:pointer; }
 .dynamic_header .cat-countdown { color:#fd706b; font-size:19px; font-weight:bold; font-family:"letter-gothic-std",monospace;
     display:block; float:right; margin-right:68px; width: 240px; height:30px; margin-top:16px; overflow:hidden;
-    text-transform:uppercase; }
+    text-transform:uppercase; letter-spacing: -1px; text-align:center; }
 .tag_header .small_description { background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;
-    color: #FD706B; font-size: 19px; line-height: 1; margin-left: 60px; text-transform: uppercase; padding-bottom: 18px; 
+    color: #FD706B; font-size: 19px; line-height: 1; margin-left: 60px; text-transform: uppercase; padding-bottom: 14px; 
     min-width:540px; display:inline-block;  float:left; clear:left; font-family:"letter-gothic-std",monospace; }
 .tag_header .category-description { display:inline-block; width:550px; margin-left:60px; font-size:14px; line-height: 18px;
     font-family:Georgia,serif; margin-top:10px; color: #6f5f6d; float:left; clear:left; }
