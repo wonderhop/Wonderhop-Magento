@@ -124,7 +124,7 @@ if ($get_email) {
         $prefill_email = $get_email;
     }
 }
-error_log('prefill --'.$prefill_email);
+//error_log('prefill --'.$prefill_email);
 ?>
 
 <?php if ( ! $prefill_email) { ?>
@@ -203,7 +203,7 @@ error_log('prefill --'.$prefill_email);
 
 <div class="popup_login block_popup<?php echo $home_class; ?>"  style="display:none;">
 <div class="block_popup_inner">
-    <h1 class="popup_title">Login</h1>
+    <h1 class="popup_title">Login To Shop</h1>
     <div class="control_link">
         <a id="back_to_register" href="<?php echo $this->helper('customer')->getLoginUrl() ?>">Back</a>
     </div>
