@@ -84,13 +84,13 @@
                     self.$toplink
                     //.click( self.toggle_stick )
                     .mouseenter(function(){ self.clear('hide').over(true).schedule('show',100, self.show, true, ! self.visible()); })
-                    //.mouseleave(function(){ self.clear('show').over(false).schedule('hide',3000, self.hide, true,self.visible() && ! self.stick()); })
+                    .mouseleave(function(){ self.clear('show').over(false).schedule('hide',500, self.hide, true, self.visible() && ! self.stick()); })
                     //.click( function(ev){ ev.stopPropagation(); self.toggle(); });
-                    .click( function(ev){ ev.stopPropagation(); setLocation('<?php echo Mage::getUrl('checkout/cart'); ?>'); });
+                    .click( function(ev){ ev.stopPropagation(); self.hide(); setLocation('<?php echo Mage::getUrl('checkout/cart'); ?>'); });
 
                     self.$container
                     .mouseenter(function(){ self.clear('hide').clear('show').over(true); })
-                    .mouseleave(function(){ self.schedule('hide', 3000, self.hide, true, ! self.stick()).over(false); });
+                    .mouseleave(function(){ self.schedule('hide', 500, self.hide, true, ! self.stick()).over(false); });
                     
                     $('html').click(function(){ if ( ! self.over() && self.visible() && ! self.stick()) { self.clear('hide').clear('show').hide(); }; });
                     
