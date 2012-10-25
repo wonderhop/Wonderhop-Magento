@@ -65,7 +65,7 @@ $current = &$_cols[0];
 <div class="category-products prod-cols-<?php echo $_columnCount; ?>">
     
     <?php $i=0; foreach ($_productCollection as $_product): ?>
-        <?php if($is_future_sale && $i > 3) break; ?>
+        <?php //if($is_future_sale && $i > 3) break; ?>
         <?php $i++; ?>
         <?php $current_i = (($i-1)%$_columnCount);$current = &$_cols[ $current_i ]; ?>
         <?php $specialPrice = $_product->getSpecialPrice(); ?>
