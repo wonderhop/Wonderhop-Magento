@@ -2380,3 +2380,9 @@ p.no-orders { font-size: 14px; }
 .config-prod-fields .input-box { display:block; width: 260px;  }
 .config-prod-fields .input-box .customStyleWrap { width:135px !important; }
 .config-prod-fields .required em { display: none; }
+
+
+.checkout-cart-index .success-msg, 
+.checkout-cart-index .error-msg, 
+.checkout-cart-index .note-msg, 
+.checkout-cart-index .notice-msg { border:none !important; background-color:transparent; }
