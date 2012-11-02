@@ -86,7 +86,8 @@
                     .mouseenter(function(){ self.clear('hide').over(true).schedule('show',100, self.show, true, ! self.visible()); })
                     .mouseleave(function(){ self.clear('show').over(false).schedule('hide',500, self.hide, true, self.visible() && ! self.stick()); })
                     //.click( function(ev){ ev.stopPropagation(); self.toggle(); });
-                    .click( function(ev){ ev.stopPropagation(); self.hide(); setLocation('<?php echo Mage::getUrl('checkout/cart'); ?>'); });
+                    //.click( function(ev){ ev.stopPropagation(); self.hide(); setLocation('<?php echo Mage::getUrl('checkout/cart'); ?>'); });
+                    .click( function(ev){ ev.stopPropagation(); self.visible() ? self.clear('show').clear('hide').stick(true) : self.hide(); setLocation('<?php echo Mage::getUrl('checkout/cart'); ?>'); });
 
                     self.$container
                     .mouseenter(function(){ self.clear('hide').clear('show').over(true); })

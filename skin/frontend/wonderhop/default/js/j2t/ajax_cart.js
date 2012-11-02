@@ -501,7 +501,8 @@ function sendcart(url, type, qty_to_insert, form_name){
                         } else {
                             isLoading = false;
                             hideJ2tOverlay(true);
-                            HeaderCart.clear('hide').clear('show').schedule('hide',3000,HeaderCart.hide, ! HeaderCart.over()).show();
+                            //HeaderCart.clear('hide').clear('show').schedule('hide',3000,HeaderCart.hide, ! HeaderCart.over()).show();
+                            HeaderCart.clear('hide').clear('show').show();
                             /*console.log('C');*/
                         }
 
