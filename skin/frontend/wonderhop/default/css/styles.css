@@ -2387,3 +2387,7 @@ p.no-orders { font-size: 14px; }
 .checkout-cart-index .error-msg, 
 .checkout-cart-index .note-msg, 
 .checkout-cart-index .notice-msg { border:none !important; background-color:transparent; }
+
+
+.sold-out-badge { position:absolute; width:310px; height:150px; top:50%; margin-top:-75px; 
+    background:url("../images/sold_out_badge.png") no-repeat; text-indent: -9888px; left:-10px; }

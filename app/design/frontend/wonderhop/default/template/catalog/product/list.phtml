@@ -70,6 +70,8 @@ $current = &$_cols[0];
         <?php $current_i = (($i-1)%$_columnCount);$current = &$_cols[ $current_i ]; ?>
         <?php $specialPrice = $_product->getSpecialPrice(); ?>
         <?php $productPrice = $_product->getPrice(); ?>
+        <?php $stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product); ?>
+        <?php $sold_out = ( ! $stock->getIsInStock()); ?>
         <?php ob_start(); ?>
         <?php /*if ($i++%$_columnCount==0): ?>
         <ul class="products-grid">
@@ -83,7 +85,7 @@ $current = &$_cols[0];
                     <?php if ( ! $is_future_sale or $is_staff): ?>    
                         </a>
 
-                        <?php if($_product->getSpecialPrice()) { ?>
+                        <?php if( ! $sold_out and $_product->getSpecialPrice()) { ?>
                             <?php $_off = number_format( 100  * ( 1 - ((float)$_product->getSpecialPrice() / (float)$_product->getPrice()))  , 0); ?>
                             <div class="cat-prod-retail-badge">
                                 <div class="retail-badge-price">
@@ -91,6 +93,7 @@ $current = &$_cols[0];
                                 </div>
                             </div>
                         <?php } ?>
+                        <?php if ( ! $sold_out) { ?>
                         <div class="cat-prod-shares">
                             <?php $_prodUrl = ($_product->getUrlPath() != '') ? urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id) :  urlencode($_product->getProductUrl() . $ref_id); ?>
                             <?php $_prodName = $_product->getName(); ?>
@@ -104,7 +107,11 @@ $current = &$_cols[0];
                                 <a href="<?php echo $_prodUrl; ?>" title="Share this on Pinterest" rel="nofollow" target="_blank"></a>
                             </div>
                         </div>
+                        <?php } ?>
                     <?php endif; ?> 
+                    <?php if ($sold_out) { ?>
+                        <div class="sold-out-badge">Sold Out !</div>
+                    <?php } ?>
                 </div>
                 <div class="product-text prod-name-back prod-name-back-<?php echo ($i%2) ? 1 : 2; echo ($current_i%2) ? ' rev' : ''; ?>">
                 <h2 class="product-name">
