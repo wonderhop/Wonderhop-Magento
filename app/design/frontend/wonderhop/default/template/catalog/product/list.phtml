@@ -78,11 +78,11 @@ $current = &$_cols[0];
         <?php endif*/ ?>
             <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> item-col-<?php echo (($i-1)%$_columnCount+1); ?>">
                 <div class="product_list_image">
-                    <?php if ( ! $is_future_sale or $is_staff): ?>
+                    <?php if (( ! $is_future_sale or $is_staff) and ! $sold_out): ?>
                         <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
                     <?php endif; ?>    
                         <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(283); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
-                    <?php if ( ! $is_future_sale or $is_staff): ?>    
+                    <?php if (( ! $is_future_sale or $is_staff) and ! $sold_out): ?>    
                         </a>
 
                         <?php if( ! $sold_out and $_product->getSpecialPrice()) { ?>
@@ -115,11 +115,11 @@ $current = &$_cols[0];
                 </div>
                 <div class="product-text prod-name-back prod-name-back-<?php echo ($i%2) ? 1 : 2; echo ($current_i%2) ? ' rev' : ''; ?>">
                 <h2 class="product-name">
-                    <?php if ( ! $is_future_sale or $is_staff): ?>
+                    <?php if (( ! $is_future_sale or $is_staff) and ! $sold_out): ?>
                         <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>">
                     <?php endif; ?> 
                     <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
-                    <?php if ( ! $is_future_sale or $is_staff): ?>
+                    <?php if (( ! $is_future_sale or $is_staff) and ! $sold_out): ?>
                         </a>
                     <?php endif; ?>
                 </h2>
