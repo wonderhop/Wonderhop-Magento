@@ -90,6 +90,11 @@ endif;
         . preg_replace('/^.*skin/i','', $local_css_href = $this->getSkinUrl('css/local.css') ))) { ?>
     <link href='<?php echo $local_css_href; ?>' rel='stylesheet' type='text/css' />
 <?php } ?>
+    
+    <script type="text/javascript">
+        var REconsole = window.console;
+    </script>
+
 
 <?php echo $this->getCssJsHtml() ?>
 <?php echo $this->getChildHtml() ?>
