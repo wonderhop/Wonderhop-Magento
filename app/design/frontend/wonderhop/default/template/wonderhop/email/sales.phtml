@@ -3,8 +3,8 @@
 ?>
  
 <table cellpadding="0" bgcolor="#ffffff" cellspacing="0" border="0" align="center" width="511">
-				<tr>
-					<td width="10"> </td>					
+                <tr>
+                    <td width="10"> </td>                   
  
 <?php $i=0; ?>
 
@@ -27,7 +27,7 @@
         <?php endif; ?>
     <?php endif; ?>
     
-            <a href="<?php echo Mage::getModel('catalog/category')->load($sale->getId())->getUrl(); ?>?email=|*EMAIL*|" title="<?php echo $sale->getName(); ?>">
+            <a href="<?php echo Mage::getModel('catalog/category')->load($sale->getId())->getUrl(); ?>?email=*|EMAIL|*" title="<?php echo $sale->getName(); ?>">
             <img alt="<?php echo $sale->getName(); ?>" border="0" height="193" src="<?php echo $this->getResizedImage($sale, 234, 193);  ?>" style="display:block" width="234" /></a><br />
              <?php 
                 $words = explode(" ", $sale->getSaleDescription());
@@ -40,19 +40,19 @@
                     
                 }
               ?>
-			 <font  style="text-transform:uppercase;"  face="verdana" size="-1" color="#7f767e"><?php echo $desc_text; ?></a></font><br /><br />
-			<a style="text-decoration:none;" href="<?php echo Mage::getModel('catalog/category')->load($sale->getId())->getUrl(); ?>" title="<?php echo $sale->getName(); ?>"><font face="georgia" size="+0" color="#966987"><em>by <strong><?php echo $sale->getName(); ?></strong></em></font></a>
-			<?php if($counter != $no_sales): ?>
-			    <br />
-			    <br />
-			    <br />
+             <font  style="text-transform:uppercase;"  face="verdana" size="-1" color="#7f767e"><?php echo $desc_text; ?></a></font><br /><br />
+            <a style="text-decoration:none;" href="<?php echo Mage::getModel('catalog/category')->load($sale->getId())->getUrl(); ?>" title="<?php echo $sale->getName(); ?>"><font face="georgia" size="+0" color="#966987"><em>by <strong><?php echo $sale->getName(); ?></strong></em></font></a>
+            <?php if($counter != $no_sales): ?>
+                <br />
+                <br />
+                <br />
             <?php endif; ?>
             <?php if ($counter == $no_sales): ?>
                 <br />
-				<br />
-				
-				<img alt="red line" border="0" height="4" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>skin/frontend/wonderhop/default/images/newsletter/daily/red_line.png" style="display:block" width="228" />
-				<font face="georgia" size="+1" color="#fd706b"><em>and much more!</em></font>					
+                <br />
+                
+                <img alt="red line" border="0" height="4" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?>skin/frontend/wonderhop/default/images/newsletter/daily/red_line.png" style="display:block" width="228" />
+                <font face="georgia" size="+1" color="#fd706b"><em>and much more!</em></font>                   
             <?php  endif; ?>
     <?php $counter++; ?>
 <?php endforeach; ?>
