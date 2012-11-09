@@ -9,7 +9,7 @@ $_useVault = $_loggedIn && $_model->useVault() && count($_storedCards);
 ?>
 
 <?php if ($_useVault): ?>
-    <ul class="form-list" id="payment_form_<?php echo $_code ?>">
+    <ul class="form-list" id="payment_form_<?php echo $_code ?>" style="display:none;">
         <li id="<?php echo $_code ?>_token_selector">
         <label for="<?php echo $_code ?>_cc_token"><?php echo $this->__('Payment Information') ?></label>
             <div class="input-box">
@@ -26,7 +26,7 @@ $_useVault = $_loggedIn && $_model->useVault() && count($_storedCards);
     </ul>
 <?php endif; ?>
 
-<ul class="form-list" id="payment_form_<?php echo $_code ?>_preencrypt" style="<?php echo ($_useVault) ? 'display:none;' : '' ?>">
+<ul class="form-list payment_form_<?php echo $_code; ?>_alternate" id="payment_form_<?php echo $_code ?>_preencrypt" style="<?php echo ($_useVault) ? 'display:none;' : 'display:none' ?>">
     <li>
         <label for="<?php echo $_code ?>_cc_type" class="required"><em>*</em><?php echo $this->__('Credit Card Type') ?></label>
         <div class="input-box cc-type-select">

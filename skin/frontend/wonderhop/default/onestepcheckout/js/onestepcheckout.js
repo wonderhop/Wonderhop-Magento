@@ -913,16 +913,19 @@ var Payment = Class.create();
     },
 
     switchMethod: function(method){
-        if (this.currentMethod && $('payment_form_'+this.currentMethod)) {
-            var form = $('payment_form_'+this.currentMethod);
-            form.style.display = 'none';
-            var elements = form.select('input').concat(form.select('select')).concat(form.select('textarea'));
+        var current_form = this.currentMethod && ($('payment_form_'+this.currentMethod) || $$('.payment_form_'+this.currentMethod+'_alternate')[0]);
+        if (current_form) {
+            current_form.style.display = 'none';
+            var selector = $('p_method_'+this.currentMethod);
+            if (selector) selector.checked = false;
+            var elements = current_form.select('input').concat(current_form.select('select')).concat(current_form.select('textarea'));
             for (var i=0; i<elements.length; i++) elements[i].disabled = true;
         }
-
-        if ($('payment_form_'+method)){
-            var form = $('payment_form_'+method);
+        var form = $('payment_form_'+method) || $$('.payment_form_'+method+'_alternate')[0];
+        if (form){
             form.style.display = '';
+            var selector = $('p_method_'+method);
+            if (selector) selector.checked = true;
             var elements = form.select('input').concat(form.select('select')).concat(form.select('textarea'));
             for (var i=0; i<elements.length; i++) elements[i].disabled = false;
             this.currentMethod = method;
