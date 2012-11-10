@@ -913,24 +913,95 @@ var Payment = Class.create();
     },
 
     switchMethod: function(method){
-        var current_form = this.currentMethod && ($('payment_form_'+this.currentMethod) || $$('.payment_form_'+this.currentMethod+'_alternate')[0]);
+        if (this.getIsMixedMethod(true)) return this.switchMixedMethod(method);
+        var current_form = this.currentMethod && this.findMethodForm(this.currentMethod);
         if (current_form) {
-            current_form.style.display = 'none';
-            var selector = $('p_method_'+this.currentMethod);
-            if (selector) selector.checked = false;
-            var elements = current_form.select('input').concat(current_form.select('select')).concat(current_form.select('textarea'));
-            for (var i=0; i<elements.length; i++) elements[i].disabled = true;
+            this.methodSelector(this.currentMethod, false);
+            this.disableMethodForm(current_form);
         }
-        var form = $('payment_form_'+method) || $$('.payment_form_'+method+'_alternate')[0];
+        var form = this.findMethodForm(method);
         if (form){
-            form.style.display = '';
-            var selector = $('p_method_'+method);
-            if (selector) selector.checked = true;
-            var elements = form.select('input').concat(form.select('select')).concat(form.select('textarea'));
-            for (var i=0; i<elements.length; i++) elements[i].disabled = false;
+            this.methodSelector(method, true);
+            this.enableMethodForm(form);
             this.currentMethod = method;
         }
     },
+    
+    findMethodForm : function(method)
+    {
+        return $('payment_form_'+method) || $$('.payment_form_'+method+'_alternate')[0];
+    },
+    
+    disableMethodForm : function(elmform)
+    {
+        if (elmform) {
+            elmform.style.display = 'none';
+            var elements = elmform.select('input').concat(elmform.select('select')).concat(elmform.select('textarea'));
+            for (var i=0; i<elements.length; i++) elements[i].disabled = true;
+        }
+    },
+    
+    enableMethodForm : function(elmform)
+    {
+        if (elmform) {
+            elmform.style.display = '';
+            var elements = elmform.select('input').concat(elmform.select('select')).concat(elmform.select('textarea'));
+            for (var i=0; i<elements.length; i++) elements[i].disabled = false;
+        }
+    },
+    
+    methodSelector : function(method, action)
+    {
+        var selector = $('p_method_'+method);
+        if (typeof action == 'undefined' || action === null) return selector;
+        if (selector) selector.checked = !!action;
+        return selector;
+    },
+    
+    switchMixedMethod : function(Method)
+    {
+        var radiocheck = false, methods = this.methodsRecord.methods, mixed = this.methodsRecord.mixed, 
+            simple = this.methodsRecord.simple;
+        for (var i=0; i<methods.length; i++) {
+            var method = methods[i], form = this.findMethodForm(method);
+            if (mixed.indexOf(method) > -1 && this.methodSelector(method,null).checked || method == Method) {
+                this.enableMethodForm( form );
+                this.methodSelector(method, true);
+            } else {
+                this.disableMethodForm(form);
+                this.methodSelector(method, false); 
+            }
+        }
+        if (mixed.indexOf(Method) > -1 || ! Method) Method = simple[0];
+        for (var i=0; i<simple.length; i++) {
+            var method = simple[i], form = this.findMethodForm(method);
+            if  (method == Method) {
+                this.enableMethodForm(form);
+                this.methodSelector(method, true);
+                this.currentMethod = method;
+                break;
+            }
+        }
+    },
+    
+    getIsMixedMethod : function(refresh)
+    {
+        if (typeof this.isMixedMethod != 'undefined' && this.isMixedMethod !== null && ! refresh) return this.isMixedMethod;
+        // get all payment methods
+        var methods_container = $$('.payment-methods')[0],
+            method_elems = methods_container ? methods_container.select('dt input[type="radio"], dt input[type="checkbox"]') : [];
+            record = { methods : [], simple : [], mixed : [] };
+        for(var i=0; i<method_elems.length; i++) {
+            var elem = method_elems[i], method = elem.id.replace(/^p_method_/,'');
+            record.methods.push(method);
+            if (elem.type == 'checkbox') record.mixed.push(method);
+            else record.simple.push(method);
+        }
+        this.methodsRecord = record;
+        this.isMixedMethod = record.simple.length && record.mixed.length
+        return this.isMixedMethod;
+    },
+
 
     addBeforeValidateFunction : function(code, func) {
         this.beforeValidateFunc.set(code, func);
