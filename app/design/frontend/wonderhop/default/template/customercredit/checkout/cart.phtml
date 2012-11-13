@@ -30,6 +30,31 @@
  *
  * @see Mage_Checkout_Block_Cart
  */
+    
+    $session = Mage::getSingleton('customer/session');
+    $customer = $session->isLoggedIn() ? $session->getCustomer() : null;
+    $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : '';
+    /*
+    $kill = false;
+    
+    foreach(array('to','from','message','is') as $_var) {
+        $field = "gift_{$_var}_text";
+        if ($_var == 'is') $field = 'gift_is_gift';
+        $$field = '';
+        if ($customer) {
+            if($session->getData($field)) $$field = $session->getData($field);
+            error_log($field . ' -- ' . $$field);
+            if(isset($_POST[$field]) and $_POST[$field] or $_POST[$field] == '0') {
+                if ( ! $kill and isset($_SERVER['X_REQUESTED_WITH']) and strtolower($_SERVER['X_REQUESTED_WITH']) == 'xmlhttprequest') $kill = true;
+                $session->setData($field, $_POST[$field]);
+                $$field = $_POST[$field];
+            }
+            if ($_var == 'from' and ! $$field) $$field = $customer_name;
+            if ($_var == 'is' and $$field === '') $$field = (int)$$field;
+        }
+    }
+    if ($kill) return;*/
+    
 ?>
 <script type="text/javascript">
     mixpanel.track('Cart visited');
@@ -105,7 +130,72 @@
                 <?php echo $this->getChildHtml('crosssell') ?>
             </div>
             <div class="col-2">
-            	<?php echo $this->getChildHtml('cart_credit') ?>
+                <?php echo $this->getChildHtml('cart_credit') ?>
+                <!--<form id="gift_message_form" method="post">
+                    <div id="switch-wrap">
+                        <input type="checkbox" id="gift_is_gift" value="1" name="gift_is_gift" <?php echo $gift_is_gift ? 'checked="checked"' : ''; ?> />
+                        <label for ="gift_is_gift">Is this order a gift ?</label>
+                    </div>
+                    <ul class="form-list" style="display:none;">
+                        <li>
+                            <div class="input-box half">
+                                <input name="gift_from_text" value="<?php echo $gift_from_text; ?>" />
+                                <label for="gift_from_text">From:</label>
+                            </div>
+                            <div class="input-box half">
+                                <input name="gift_to_text" value="<?php echo $gift_to_text; ?>" />
+                                <label for="gift_to_text">To:</label>
+                            </div>
+                        </li>
+                        <li>
+                            <textarea name="gift_message_text"><?php echo $gift_message_text; ?></textarea>
+                            <label for="gift_message_text">Message</label>
+                        </li>
+                        <li class="action">
+                            <button class="button"><span><span>Save Message</span></span></button>
+                        </li>
+                    </ul>
+                </form>-->
+                <?php $gmsg = $this->getLayout()->createBlock('giftmessage/message_inline', 'cart_giftmessage'); ?>
+                <?php $gmsg->setTemplate('onestepcheckout/gift_message.phtml'); $gmsg->setEntity( Mage::getSingleton('checkout/cart')->getQuote() ); ?>
+                <form id="cart_gift_message" method="post" action="/sales/index/savegmsg">
+                    <?php echo $gmsg->toHtml(); ?>
+                    <button class="button"><span><span>Save Message</span></span></button>
+                </form>
+                <script type="text/javascript">
+                    (function($){
+                        /*var $form = $('#gift_message_form'), $fields = $form.find('.form-list'), 
+                            $switch = $form.find('#gift_is_gift');
+                        $switch.change(function(){
+                            $fields['fade'+($(this).is(':checked') ? 'In' : 'Out')]();
+                            $.post(
+                                '/sales/index/savegmsg',
+                                $form.serialize() + ( ! $(this).is(':checked') ? '&gift_is_gift=0' :''), 
+                                function(data){}
+                            );
+                        });
+                        if ($switch.is(':checked')) $fields.fadeIn();
+                        $form.submit(function(ev){
+                            ev.preventDefault();
+                            $.post(
+                                '/sales/index/savegmsg',
+                                $form.serialize(), 
+                                function(data){}
+                            );
+                            return false;
+                        });*/
+                        
+                        var $form = $('#cart_gift_message');
+                        $form.submit(function(ev){
+                            ev.preventDefault();
+                            $.post($form.attr('action'), $form.serialize(), function(data){
+                                //
+                            });
+                            return false;
+                        });
+                        
+                    })(jQuery);
+                </script>
                 <?php echo $this->getChildHtml('coupon') ?>
                 <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
             </div>

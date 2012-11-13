@@ -30,6 +30,11 @@
  *
  * @see Mage_Checkout_Block_Cart
  */
+ 
+ //var_dump('asdasdasdasd asdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd');
+ die('mr');
+ 
+ 
 ?>
 <script type="text/javascript">
     mixpanel.track("Shopping Cart");
@@ -139,7 +144,7 @@
             <div class="col-2">
                 <?php /* Extensions placeholder */ ?>
                 <?php echo $this->getChildHtml('checkout.cart.extra') ?>
-                <?php echo $this->getChildHtml('coupon') ?>
+                <?php //echo $this->getChildHtml('coupon') ?>
                 <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
             </div>
         </div>

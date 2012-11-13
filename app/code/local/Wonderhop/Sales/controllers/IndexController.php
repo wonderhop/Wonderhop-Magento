@@ -1,26 +1,80 @@
 <?php class Wonderhop_Sales_IndexController extends Mage_Core_Controller_Front_Action {
     
     public function indexAction() {
-		$this->loadLayout(array('default'));
-		 
-	    if( $this->getRequest()->isPost() && $this->getRequest()->getParam('email')) {
-	        $email = $this->getRequest()->getParam('email');
-		    $block = $this->getLayout()->getBlock('wonderhop.login');
+        $this->loadLayout(array('default'));
+         
+        if( $this->getRequest()->isPost() && $this->getRequest()->getParam('email')) {
+            $email = $this->getRequest()->getParam('email');
+            $block = $this->getLayout()->getBlock('wonderhop.login');
             $block->setData('email', $email);
             if ($this->getRequest()->getParam('url')) {
                 $block->setData('url', $this->getRequest()->getParam('url'));
             }
         }
-		$this->renderLayout();
+        $this->renderLayout();
     }
 
     public function templateAction() {
         $templateId = Mage::getStoreConfig('Wonderhop_Sales/general/daily_newsletter_template',Mage::app()->getStore()); 
         $template = Mage::getModel('core/email_template');
-	    $template->load($templateId);
-	    $url =  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+        $template->load($templateId);
+        $url =  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
         $templateProcessed = $template->getProcessedTemplate(array('url' => $url), true);
         echo $templateProcessed;
+    }
+    
+    public function savegmsgAction() {
+        $session = Mage::getSingleton('customer/session');
+        if ( ! $session->isLoggedIn()) return;
+        error_log('working 2');
+        $customer = $session->getCustomer();
+        $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : '';
+        //if ( ! $this->_isAjaxPost()) return;
+        foreach(array('to','from','message','is') as $_var) {
+            $field = "gift_{$_var}_text";
+            if ($_var == 'is') $field = 'gift_is_gift';
+            $$field = '';
+            if($session->getData($field)) $$field = $session->getData($field);
+            if(isset($_POST[$field]) and $_POST[$field] or $_POST[$field] == '0') {
+                $session->setData($field, $_POST[$field]);
+                $$field = $_POST[$field];                
+            }
+            if ($_var == 'from' and ! $$field) $$field = $customer_name;
+            if ($_var == 'is' and $$field === '') $$field = (int)$$field;
+        }
+        $quote = Mage::getSingleton('checkout/session')->getQuote();
+        //if ( ! $quote) return;
+        //error_log(Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $quote) ? 'a' : 'na');
+        $giftMessage = Mage::getModel('giftmessage/message');
+        if($this->getRequest()->getParam('message')) {
+            $giftMessage->load($this->getRequest()->getParam('message'));
+        }
+        try {
+            error_log($this->getRequest()->getParam('type'));
+            $entity = $giftMessage->getEntityModelByType($this->getRequest()->getParam('type'));
+            
+
+            $giftMessage->setSender($this->getRequest()->getParam('sender'))
+                ->setRecipient($this->getRequest()->getParam('recipient'))
+                ->setMessage($this->getRequest()->getParam('messagetext'))
+                ->save();
+
+
+            $entity->load($this->getRequest()->getParam('item'))
+                ->setGiftMessageId($giftMessage->getId())
+                ->save();
+
+            $this->getRequest()->setParam('message', $giftMessage->getId());
+            $this->getRequest()->setParam('entity', $entity);
+        } catch (Exception $e) {
+
+        }
+    }
+    
+    protected function _isAjaxPost()
+    {
+        return (! empty($_POST) and isset($_SERVER['X_REQUESTED_WITH']) 
+            and strtolower($_SERVER['X_REQUESTED_WITH']) == 'xmlhttprequest');
     }
     
     public function mailcheckerAction()
