@@ -27,6 +27,16 @@
 
 <?php
 
+$session = Mage::getSingleton('customer/session');
+$customer = $session->isLoggedIn() ? $session->getCustomer() : null;
+$gift = new Varien_Object;
+$gift->setIsChecked(false);
+if ($customer) {
+    $gift->setSender( $session->getGiftFromText() );
+    $gift->setRecipient( $session->getGiftToText() );
+    $gift->setMessage( $session->getGiftMessageText() );
+    $gift->setIsChecked( (bool)(int)$session->getGiftIsGift() );
+}
 
 if($this->getEntityHasMessage())    {
     $gift_checked = true;
@@ -34,6 +44,7 @@ if($this->getEntityHasMessage())    {
 else    {
     $gift_checked = false;
 }
+if ($gift->getIsChecked()) $gift_checked = true;
 
 ?>
 
@@ -64,7 +75,7 @@ Event.observe(window, 'load', function(e)    {
 
     <div class="inner-box">
         <div class="input-checkbox">
-            <input type="checkbox" name="allow_gift_messages" id="allow_gift_messages" value="1"  <?php if($this->getEntityHasMessage()): ?>checked="checked"<?php endif ?> />
+            <input type="checkbox" name="allow_gift_messages" id="allow_gift_messages" value="1"  <?php if( $gift->getIsChecked()/*$this->getEntityHasMessage()*/): ?>checked="checked"<?php endif ?> />
             <label for="allow_gift_messages"><?php echo $this->__('Add a gift message to my order') ?></label>
         </div>
     </div>
@@ -77,17 +88,17 @@ Event.observe(window, 'load', function(e)    {
                     <li>
                         <div class="input-box">
                             <label for="gift-message-whole-from"><?php echo $this->__('From') ?></label><br />
-                            <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][from]" id="gift-message-whole-from" title="<?php echo $this->__('From') ?>"  value="<?php echo $this->getEscaped($this->getMessage()->getSender(), $this->getDefaultFrom()) ?>" class="input-text validation-passed" />
+                            <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][from]" id="gift-message-whole-from" title="<?php echo $this->__('From') ?>"  value="<?php echo $this->getEscaped($gift->getSender()); //$this->getEscaped($this->getMessage()->getSender(), $this->getDefaultFrom()) ?>" class="input-text validation-passed" />
                         </div>
                         <div class="input-box input-box-last">
                             <label for="gift-message-whole-to"><?php echo $this->__('To') ?></label><br />
-                            <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][to]" id="gift-message-whole-to" title="<?php echo $this->__('To') ?>" value="<?php echo $this->getEscaped($this->getMessage()->getRecipient(), $this->getDefaultTo()) ?>" class="input-text validation-passed" />
+                            <input type="text" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][to]" id="gift-message-whole-to" title="<?php echo $this->__('To') ?>" value="<?php echo $this->getEscaped($gift->getRecipient()); //$this->getEscaped($this->getMessage()->getRecipient(), $this->getDefaultTo()) ?>" class="input-text validation-passed" />
                         </div>
                     </li>
                     <li>
                         <label for="gift-message-whole-message"><?php echo $this->__('Message') ?></label>
                         <br/>
-                        <textarea id="gift-message-whole-message" class="input-text validation-passed giftmessage-area" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][message]" title="<?php echo $this->__('Message') ?>" rows="5" cols="40"><?php echo $this->getEscaped($this->getMessage()->getMessage()) ?></textarea>
+                        <textarea id="gift-message-whole-message" class="input-text validation-passed giftmessage-area" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][message]" title="<?php echo $this->__('Message') ?>" rows="5" cols="40"><?php echo $this->getEscaped($gift->getMessage()); //$this->getEscaped($this->getMessage()->getMessage()) ?></textarea>
                     </li>
                 </ul>
 

@@ -26,10 +26,9 @@
     public function savegmsgAction() {
         $session = Mage::getSingleton('customer/session');
         if ( ! $session->isLoggedIn()) return;
-        error_log('working 2');
         $customer = $session->getCustomer();
         $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : '';
-        //if ( ! $this->_isAjaxPost()) return;
+        if ( ! $this->_isAjaxPost()) { error_log('NOT is_ajax_post'); return; }
         foreach(array('to','from','message','is') as $_var) {
             $field = "gift_{$_var}_text";
             if ($_var == 'is') $field = 'gift_is_gift';
@@ -37,44 +36,25 @@
             if($session->getData($field)) $$field = $session->getData($field);
             if(isset($_POST[$field]) and $_POST[$field] or $_POST[$field] == '0') {
                 $session->setData($field, $_POST[$field]);
-                $$field = $_POST[$field];                
+                $$field = $_POST[$field];
             }
-            if ($_var == 'from' and ! $$field) $$field = $customer_name;
-            if ($_var == 'is' and $$field === '') $$field = (int)$$field;
-        }
-        $quote = Mage::getSingleton('checkout/session')->getQuote();
-        //if ( ! $quote) return;
-        //error_log(Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $quote) ? 'a' : 'na');
-        $giftMessage = Mage::getModel('giftmessage/message');
-        if($this->getRequest()->getParam('message')) {
-            $giftMessage->load($this->getRequest()->getParam('message'));
-        }
-        try {
-            error_log($this->getRequest()->getParam('type'));
-            $entity = $giftMessage->getEntityModelByType($this->getRequest()->getParam('type'));
-            
-
-            $giftMessage->setSender($this->getRequest()->getParam('sender'))
-                ->setRecipient($this->getRequest()->getParam('recipient'))
-                ->setMessage($this->getRequest()->getParam('messagetext'))
-                ->save();
-
-
-            $entity->load($this->getRequest()->getParam('item'))
-                ->setGiftMessageId($giftMessage->getId())
-                ->save();
-
-            $this->getRequest()->setParam('message', $giftMessage->getId());
-            $this->getRequest()->setParam('entity', $entity);
-        } catch (Exception $e) {
-
+            if ($_var == 'from' and ! $$field) {
+                $$field = $customer_name;
+                $session->setData($field, $$field);
+            }
+            if ($_var == 'is' and $$field === '') {
+                $$field = (int)$$field;
+                $session->setData($field, $$field);
+            }
         }
     }
     
     protected function _isAjaxPost()
     {
-        return (! empty($_POST) and isset($_SERVER['X_REQUESTED_WITH']) 
-            and strtolower($_SERVER['X_REQUESTED_WITH']) == 'xmlhttprequest');
+        return isset($_SERVER['REQUEST_METHOD']) 
+            and strtolower($_SERVER['REQUEST_METHOD']) == 'post'
+            and isset($_SERVER['HTTP_X_REQUESTED_WITH']) 
+            and strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
     }
     
     public function mailcheckerAction()

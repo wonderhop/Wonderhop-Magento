@@ -2394,3 +2394,8 @@ p.no-orders { font-size: 14px; }
 
 
 #advice-validate-register-terms-terms_agreement { bottom:-14px; }
+
+
+#gift_message_form .input-box.half { width:140px; display:inline-block; clear:none; }
+#gift_message_form .input-box.half input { width:120px; }
+#gift_message_form textarea { width:264px; height:50px; }
