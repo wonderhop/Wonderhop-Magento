@@ -23,6 +23,10 @@
  * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+ $session = Mage::getSingleton('customer/session');
+ foreach(array( 'message', 'from','to') as $var) $session->setData("gift_{$var}_text",'');
+ $session->setGiftIsGift(0);
+ 
 ?>
 <div class="page-title">
     <h1><?php echo $this->__('Your order has been received.') ?></h1>
@@ -63,5 +67,5 @@
     <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
 </div>
 <script type="text/javascript">
-	mixpanel.track("Order placed");
+    mixpanel.track("Order placed");
 </script>

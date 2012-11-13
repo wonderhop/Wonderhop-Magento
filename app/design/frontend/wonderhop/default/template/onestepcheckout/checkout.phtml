@@ -814,7 +814,7 @@ $helper = Mage::helper('onestepcheckout/checkout');
         ?>
 
         <div class="onestepcheckout-place-order-wrapper">
-            <button type="button" title="<?php echo $this->__('Place order now'); ?>" id="onestepcheckout-place-order" class="large orange onestepcheckout-button onestepcheckout-place-order" onclick="javascript:void(0);"><span><span><?php echo $this->__('Order'); ?></span></span></button>
+            <button type="button" title="<?php echo $this->__('Place order now'); ?>" id="onestepcheckout-place-order" class="large orange onestepcheckout-button onestepcheckout-place-order" onclick="clear_gift_message(jQuery('#allow_gift_messages').is(':checked'));return false;"><span><span><?php echo $this->__('Order'); ?></span></span></button>
         </div>
         </div>
         <div class="checkout_bottom_bg"></div>

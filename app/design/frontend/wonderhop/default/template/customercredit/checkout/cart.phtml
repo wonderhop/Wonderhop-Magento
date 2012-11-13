@@ -112,6 +112,7 @@
                 <?php echo $this->getChildHtml('crosssell') ?>
             </div>
             <div class="col-2">
+                <div class="cart-col-2-inner-wrap">
                 <?php echo $this->getChildHtml('cart_credit') ?>
                 <?php if (Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $quote)) { ?>
                     <form id="gift_message_form" method="post">
@@ -144,9 +145,10 @@
                             var $form = $('#gift_message_form'), $fields = $form.find('.form-list'), 
                                 $switch = $form.find('#gift_is_gift'), formhooks = {};
                             formhooks.saving =  function(){
-                                $form.find('button').after('<span class="gmsg-saved" style="color:green;display:none;margin-left:10px;">Message Saved!</span>');
+                                $form.find('button').after('<span class="gmsg-saved" style="color:green;display:none;margin-left:10px;font-size:13px;">Message Saved!</span>');
                                 var $msg = $form.find('.gmsg-saved');
-                                $msg.fadeIn().delay(2000).fadeOut(function(){ $(this).remove(); });
+                                $msg.fadeIn().delay(2000).fadeOut(function(){ $(this).remove(); 
+                                });
                             }
                             $switch.change(function(){
                                 $fields['fade'+($(this).is(':checked') ? 'In' : 'Out')]();
@@ -156,7 +158,7 @@
                                     function(data){}
                                 );
                             });
-                            if ($switch.is(':checked')) $fields.fadeIn();
+                            if ($switch.is(':checked')) $fields.fadeIn() && (Add_Gift = true);
                             $form.submit(function(ev){
                                 ev.preventDefault();
                                 $.post(
@@ -183,6 +185,7 @@
                 <?php } // -- end gift messages available ?>
                 <?php echo $this->getChildHtml('coupon') ?>
                 <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+                </div><!-- inner wrapper -->
             </div>
         </div>
         <div class="totals">

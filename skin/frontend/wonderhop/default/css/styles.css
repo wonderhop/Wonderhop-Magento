@@ -2401,3 +2401,7 @@ p.no-orders { font-size: 14px; }
 #gift_message_form textarea { width:264px; height:50px; }
 #gift_message_form li label { color: #AA8BB1; font: bold 13px/16px Arial,Helvetica,sans-serif; 
     padding: 2px 0px; text-transform: uppercase; }
+
+
+.cart-col-2-inner-wrap { position:relative; left:-45px; }
+#switch-wrap { position:relative; top:-8px; }

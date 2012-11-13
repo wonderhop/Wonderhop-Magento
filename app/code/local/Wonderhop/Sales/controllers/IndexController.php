@@ -33,8 +33,8 @@
             $field = "gift_{$_var}_text";
             if ($_var == 'is') $field = 'gift_is_gift';
             $$field = '';
-            if($session->getData($field)) $$field = $session->getData($field);
-            if(isset($_POST[$field]) and $_POST[$field] or $_POST[$field] == '0') {
+            if ($session->getData($field)) $$field = $session->getData($field);
+            if (isset($_POST[$field])) {
                 $session->setData($field, $_POST[$field]);
                 $$field = $_POST[$field];
             }
