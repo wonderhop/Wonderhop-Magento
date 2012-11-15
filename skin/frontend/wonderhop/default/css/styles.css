@@ -1170,6 +1170,11 @@ margin-right: 4px;}
     margin: 20px 0; }
 .add-to-cart button.button.image-add-to-cart-btn span { display:none; }
 
+.add-to-cart button.button.ggift-btn  { clear: none; margin-left: 10px; overflow: visible; position: relative; 
+    background: none; }
+.add-to-cart button.button.ggift-btn img { display: block; position: absolute; top: -47px; }
+
+
 .add-to-cart .paypal-logo { clear:left; margin:0; text-align:right; }
 .add-to-cart .paypal-logo .paypal-or { clear:both; display:block; margin:5px 60px 5px 0; }
 .product-view .add-to-cart .paypal-logo { margin:0; }

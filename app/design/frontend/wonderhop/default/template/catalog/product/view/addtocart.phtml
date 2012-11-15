@@ -26,6 +26,7 @@
 ?>
 <?php $_product = $this->getProduct(); ?>
 <?php $buttonTitle = $this->__('Add to Cart'); ?>
+<?php $giftButtonTitle = $this->__('Give As Gift'); ?>
 <?php if($_product->isSaleable()): ?>
     <div class="add-to-cart">
         <?php if(!$_product->isGrouped()): ?>
@@ -33,7 +34,19 @@
         <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
         <?php endif; ?>
         <?php echo $this->getChildHtml('', true, true); ?>
-        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart image-add-to-cart-btn" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart image-add-to-cart-btn" onclick="productAddToCartForm.submit(this);"><span><span><?php echo $buttonTitle ?></span></span></button>
+        <button type="button" title="<?php echo $giftButtonTitle ?>" class="button btn-cart image-add-to-cart-btn ggift-btn" 
+            onclick="giftIt(this, function($this){ productAddToCartForm.submit($this); });">
+                <span><span><?php echo $giftButtonTitle ?></span></span>
+                <img src="<?php echo $this->getSkinUrl('images/ggift_btn.png'); ?>" alt="Give As Gift" />
+        </button>
+        <script type="text/javascript">
+            function giftIt($this, after)
+            {
+                jQuery.post('/sales/index/savegmsg','gift_is_gift=1',function(data){ after.call($this, $this); });
+                return false;
+            }
+        </script>
         <?php //echo $this->getChildHtml('', true, true) ?>
     </div>
 <?php endif; ?>
