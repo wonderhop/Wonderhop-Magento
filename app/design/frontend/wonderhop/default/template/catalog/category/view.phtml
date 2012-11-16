@@ -62,9 +62,14 @@
         $_additionalImg2 = '<div class="category-image_additional_first"><img src="' . Mage::getBaseUrl ( 'media' ) . DS . "catalog" . DS . "category" . DS .$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></div>';
         $_additionalImg2 = $_helper->categoryAttribute($_category, $_additionalImg2, 'image');
     }
+    
+    $gs_cat_id = (int)(string)Mage::getConfig()->getNode('localconf/modules/catalog/category/giftshop_cat_id');
+    $is_gs = ($gs_cat_id == $_category->getId());
+        
+    
 ?>
 
-<div class="tag_header">
+<div class="tag_header<?php echo $is_gs ? ' giftshop' : '' ?>">
     <div class="tag_header_wire"></div>
     <div class="dynamic_header">
         <div class="page-title category-title">
@@ -157,7 +162,9 @@
         <?php echo $_imgHtml ?>
     <?php endif; ?>
 </div>
-
+<?php $this->setActiveTagClasses(array()); ?>
+<?php $this->setActiveTagNames(array()); ?>
+<?php ob_start(); ?>
 <div class="cat_prods">
     <?php if($this->isContentMode()): ?>
         <?php echo $this->getCmsBlockHtml() ?>
@@ -170,6 +177,245 @@
         <?php echo $this->getProductListHtml() ?>
     <?php endif; ?>
 </div>
+<?php $product_list = ob_get_clean(); ?>
+
+<?php if ($is_gs) { ?>
+    <?php
+    // category filters
+    $rangesStr = (string)$this->getLayout()->createBlock('cms/block')->setBlockId('gs_price_ranges')->toHtml();
+    $ranges = array();
+    if ($rangesStr) {
+        $_ranges = explode('*',strip_tags($rangesStr));
+        foreach($_ranges as $_range) {
+            $_dec = trim(html_entity_decode(trim($_range)));
+            if ( ! $_dec) continue;
+            $_op = '';
+            switch(true) {
+                case (strpos($_dec,'<=') !== false) : 
+                case (strpos($_dec,'-') !== false) : 
+                    $_op = 'lteq'; $_dec = str_replace(array('<=','-'),'',$_dec); break;
+                case (strpos($_dec,'>=') !== false) : 
+                case (strpos($_dec,'+') !== false) : 
+                    $_op = 'gteq'; $_dec = str_replace(array('>=','+'),'',$_dec); break;
+                case (strpos($_dec,'<') !== false) : 
+                    $_op = 'lt'; $_dec = str_replace('<','',$_dec); break;
+                case (strpos($_dec,'>') !== false) : 
+                    $_op = 'gt'; $_dec = str_replace('>','',$_dec); break;
+            }
+            if ( ! $_op) continue;
+            $_dec = trim($_dec);
+            $_val = intval($_dec);
+            $class = 'price-'.$_op.'-'.$_val;
+            if (isset($ranges[$class])) continue;
+            $ranges[$class] = $_range;
+        }
+    }
+    $gs_data = array(
+        'tags' => $this->getActiveTagClasses(),
+        'labels' => $this->getActiveTagNames(), 
+        'prices' => $this->getAllProductPrices(),
+        'ranges' => $ranges,
+    );
+    ?>
+    <div id="filters-box" style="display:block; padding: 0 10px; position:relative; overflow:hidden; "></div>
+    <script type="text/javascript">GiftShop = (function($){ return {
+        data : {},
+        
+        init : function(data, container)
+        {
+            this.data.tags = data.tags;
+            this.data.labels = data.labels;
+            this.data.prices = data.prices;
+            if ( ! data.ranges['price-gteq-0']) data.ranges['price-gteq-0'] = 'All';
+            this.data.ranges = data.ranges;
+            this.data.filters = {};
+            this.data.$container = this.getContainer();
+            if ( ! this.data.$container.length) return;
+            this.buildFilters();
+            this.scheduleLoadProducts();
+            this.bindFilters();
+            return this;
+        },
+        
+        getContainer : function()
+        {
+            return $('#filters-box');
+        },
+        
+        getColumns : function()
+        {
+            return $('ul.prod-col');
+        },
+        
+        loadProducts : function()
+        {
+            this.data.products = $('.category-products li.item');
+        },
+        
+        scheduleLoadProducts : function()
+        {
+            $( this.loadProducts.bind(this) );
+        },
+        
+        reFlowProducts : function()
+        {
+            var $columns = this.getColumns();
+            var products = $(this.data.products).filter(':visible').get();
+            current = -1;
+            while(products.length) {
+                current++;
+                if(current >= $columns.length) { current = -1; continue; }
+                $($columns[current]).append( products.shift() );
+            };
+        },
+        
+        buildFilters : function()
+        {   
+            this.data.filters.$tags = $('<select id="filter-tags" style="width:200px;"></select>');
+            this.data.filters.$price = $('<select id="filter-price" style="width:200px;"></select>');
+            $.each(this.data.filters, function(k,e){ 
+                var $wrap = $('<div class="input-box" style="width: 200px; display:block; float:left;clear:none; padding-right:30px; "></div>');
+                var name = (k == '$tags') ? 'For : ' : 'Price range : ';
+                var $label = $('<label for="filter-'+k.slice(1)+'">'+name+'</label>');
+                $wrap.append($label).append(e);
+                this.data.$container.append($wrap); 
+            }.bind(this));
+            
+            /*$.each(this.data.tags, function(className, count){
+                var $e = this.makeCheckbox(this.data.labels[className], 'filter-'+className,'filterbox', 'filter-'+className);
+                console.log($e);
+                this.data.$container.append( $e );
+            }.bind(this));*/
+            
+            // "everyone" tag must be the first option
+            this.data.filters.$tags.append( this.makeOption('Everyone', 'filter-filter-tag','filter-filter-tag') );
+            $.each(this.data.tags, function(className, count){
+                var $e = this.makeOption(this.data.labels[className], 'filter-'+className,'filter-'+className);
+                this.data.filters.$tags.append( $e );
+            }.bind(this));
+            // prices need to be in order
+            var _opts = {}, _iopts = [];
+            $.each(this.data.ranges, function(className, label){
+                var $e = this.makeOption(label, 'filter-'+className,'filter-'+className);
+                var val = parseInt(className.split('-').pop());
+                _opts[val] = $e;
+                _iopts.push(val);
+            }.bind(this));
+            _iopts.sort();
+            $.each(_iopts, function(i,e){
+                this.data.filters.$price.append( _opts[e] );
+            }.bind(this));
+        },
+        
+        bindFilters : function()
+        {
+            var GS = this;
+            $('#filter-tags, #filter-price').change(function(ev){
+                GS.applyFilters();
+            });
+        },
+        
+        getFilter : function(type)
+        {
+            var f = 'filter' + type.charAt(0).toUpperCase() + type.toLowerCase().slice(1);
+            return typeof this[f] == 'function' ? this[f]() : '';
+        },
+        
+        filterTags : function()
+        {
+            // get selected tag filter
+            return '.' + this.data.filters.$tags.find(':selected').attr('id').replace(/^filter\-/,'');
+        },
+        
+        filterPrice : function()
+        {
+            // get selected price range
+            var pr = this.data.filters.$price.find(':selected').attr('id').replace(/^filter\-price\-/,'');
+            // get operator and values
+            var op = pr.split('-').shift();
+            var val = parseInt(pr.split('-').pop());
+            // generate price classes that satisfy the value
+            var pc = [];
+            $.each(this.data.prices, function(i,p){
+                switch(op) {
+                    case 'lt':
+                        if (p < val) pc.push( '.price-'+ p); break;
+                    case 'lteq' : 
+                        if (p <= val) pc.push( '.price-'+ p); break;
+                    case 'gt':
+                        if (p > val) pc.push( '.price-'+ p); break;
+                    case 'gteq' : 
+                        if (p >= val) pc.push( '.price-'+ p); break;
+                }
+            });
+            return pc.join(' ,');
+        },
+        
+        applyFilters : function(filter)
+        {
+            // get all checked filters
+            /*var _filters = [];
+            $('.filterbox').each(function(i,e){
+                var _filter = '.' + $(e).attr('id').replace(/^filter-/, '');
+                if ($(e).is(':checked')) _filters.push(_filter);
+            }.bind(this));*/
+            var filters = ['tags', 'price'], _filters = [];
+            $.each(filters, function(i,f){
+                _filters.push( this.getFilter(f) );
+            }.bind(this));
+            this.applyFilter( _filters , true );
+            this.reFlowProducts();
+        },
+        
+        applyFilter : function(filter, direction)
+        {
+            var selection = this.getSelection(filter[0]),
+                action = direction ? 'show' : 'hide',
+                unAction = direction ? 'hide' : 'show';
+            if(filter.length > 1) {
+                for (var i=1; i < filter.length; i++) {
+                    selection = this.getSelection(filter[i], selection.positive);
+                }
+            }
+            selection.positive[action]();
+            selection.negative[unAction]();
+        },
+        
+        getSelection : function(filter, objects)
+        {
+            var objects = objects ? objects : $(this.data.products),
+                all = $(this.data.products),
+                _in = objects.filter(filter),
+                _out = all.not(_in);
+            return {positive: _in, negative: _out };
+        },
+        
+        
+        
+        makeCheckbox : function(label, name, classes, id, value, checked)
+        {
+            var $div = $('<div class="checkbox"></div>'),
+            $e = $('<input type="checkbox" class="'+classes+'" name="'+name+'" id="'+id+'"'
+                    +' value="'+(typeof value != 'undefined' ? 1 : value)+'"'
+                    +(!!checked ? ' checked="checked"' : '')
+                    + '/>');
+            $l = $('<label for="'+name+'">'+label+'</label>');
+            $div.append($e).append($l);
+            return $div;
+        },
+        
+        makeOption : function(label, id, value)
+        {
+            $e = $('<option id="'+id+'"'+' value="'+value+'"'+'>'+label+'</option>');
+            return $e;
+        },
+        
+    }})(jQuery).init(<?php echo json_encode($gs_data); ?>);</script>
+    
+<?php } // end if($is_gs) ?>
+
+<?php // output the captured product list ?>
+<?php echo $product_list; ?>
 
 
 <script type="text/javascript">

@@ -50,7 +50,7 @@
 $session = Mage::getSingleton('customer/session');
 $customer = $session->getCustomer();
 $is_staff = (strtolower((string)Mage::getModel('customer/group')->load($customer->getGroupId())->getCode()) === 'staff');
-error_log($is_staff);
+
 $ref_id = '';
 if($session->isLoggedIn() && $customer->getReferralCode()) {
     $ref_id = '?r=' .$customer->getReferralCode();
@@ -60,6 +60,9 @@ $_columnCount = $this->getColumnCount();
 $_cols = array();
 for($ci = 0; $ci < $_columnCount; $ci++) { $_cols[$ci] = ''; };
 $current = &$_cols[0];
+$allTagClasses = array();
+$allTagNames = array();
+$allPrices = array();
 ?>
  
 <div class="category-products prod-cols-<?php echo $_columnCount; ?>">
@@ -72,11 +75,30 @@ $current = &$_cols[0];
         <?php $productPrice = $_product->getPrice(); ?>
         <?php $stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product); ?>
         <?php $sold_out = ( ! $stock->getIsInStock()); ?>
+        <?php 
+            $tags = Mage::getModel('tag/tag');
+            $productTags = $tags->getResourceCollection()->addPopularity()->addStatusFilter($tags->getApprovedStatus())
+                ->addProductFilter($_product->getId())->setFlag('relation', true)
+                ->addStoreFilter(Mage::app()->getStore()->getId())->setActiveFilter()->load()->getItems();
+            $tagClasses = array();
+            foreach($productTags as $tag) {
+                if(($tagClass = 'tag-'.trim( preg_replace('/\s+/','-',strtolower($tag->getName())) , '-')) != 'tag-') {
+                    $allTagClasses[$tagClass] += (isset($tagClasses[$tagClass]) ? 0 : 1);
+                    $allTagNames[$tagClass] = $tag->getName();
+                    $tagClasses[$tagClass] = 1;
+                }        
+            }
+            $tagClasses = ( ! empty($tagClasses)) ? ' '.implode(' ',array_keys($tagClasses)) : '';
+            $tagClasses = ' filter-tag'.$tagClasses;
+            $_retPrice = ($specialPrice ? intval($specialPrice) : intval($productPrice));
+            $allPrices[] = $_retPrice;
+            $priceClasses = ' price-'.$_retPrice;
+        ?>
         <?php ob_start(); ?>
         <?php /*if ($i++%$_columnCount==0): ?>
         <ul class="products-grid">
         <?php endif*/ ?>
-            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> item-col-<?php echo (($i-1)%$_columnCount+1); ?>">
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?> item-col-<?php echo (($i-1)%$_columnCount+1); echo $tagClasses; echo $priceClasses; ?>">
                 <div class="product_list_image">
                     <?php if (( ! $is_future_sale or $is_staff) and ! $sold_out): ?>
                         <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
@@ -164,5 +186,12 @@ $current = &$_cols[0];
     <script type="text/javascript">//decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
     
 </div>
+<?php 
+    if($this->getParentBlock()) {
+        $this->getParentBlock()->setActiveTagClasses($allTagClasses);
+        $this->getParentBlock()->setActiveTagNames($allTagNames);
+        $this->getParentBlock()->setAllProductPrices(array_unique($allPrices, SORT_NUMERIC));
+    }
+?>
 
 <?php endif; ?>

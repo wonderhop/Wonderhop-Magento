@@ -2226,10 +2226,16 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 /* width:1248px; height:567px; */
 .tag_header { width:937px; height:256px; padding:16px 16px 23px 70px; position:absolute; top:-16px; left:-70px;
     background:url("../images/brand/tag_back_tag.png") no-repeat scroll left top transparent; }
+.tag_header.giftshop  { background-image:url("../images/giftshop/tag_back_tag_new.png"); }
+
 .tag_header_wire { background:url("../images/brand/tag_back_wire.png") no-repeat scroll left top transparent; 
     width: 225px; height: 567px; position:absolute; left:-225px; top:0; }
+.tag_header.giftshop .tag_header_wire { background-image:url("../images/giftshop/tag_back_wire_new.png"); 
+    width:165px; left:-165px; }
+
 .dynamic_header { background:url("../images/brand/dynamic_header_back.png") no-repeat scroll left top transparent;
     position: relative; height: 70px; width: 937px; left: -12px; top: -7px; padding: 7px 0 0 12px; }
+
 .dynamic_header .category-title { display:block; float:left; width:360px; margin-left:60px; font-size: 24px; height:30px; 
     text-transform:uppercase; font-family:"letter-gothic-std",monospace;margin-top:17px;line-height:1; overflow:hidden; }
 .dynamic_header .cat-sharebox { display:block; float:left; overflow:hidden; margin: 13px 0 0 40px; }
