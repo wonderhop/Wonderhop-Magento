@@ -58,4 +58,54 @@
             $text = preg_replace('/\s+[\d]{1,2}\s+hours/i','',$text);
         return $text;
     }
+    
+    
+    public function captureCallbackOutput($callback, $args = array(), $returnType = NULL)
+    {
+        $returnType = ($returnType === NULL) ? 'output' : ($returnType ? 'result' : 'both');
+        ob_start();
+        $result = call_user_func_array($callback, $args);
+        $output = ob_get_clean();
+        $both = array($output, $result, 'output' => $output, 'result' => $result);
+        return $$returnType;
+    }
+    
+    public function getGifShopFilterData($catBlock, $rangeBlockId = 'gs_price_ranges')
+    {
+        $rangesStr = (string)$catBlock->getLayout()->createBlock('cms/block')->setBlockId($rangeBlockId)->toHtml();
+        $ranges = array();
+        if ($rangesStr) {
+            $_ranges = explode('*',strip_tags($rangesStr));
+            foreach($_ranges as $_range) {
+                $_dec = trim(html_entity_decode(trim($_range)));
+                if ( ! $_dec) continue;
+                $_op = '';
+                switch(true) {
+                    case (strpos($_dec,'<=') !== false) : 
+                    case (strpos($_dec,'-') !== false) : 
+                        $_op = 'lteq'; $_dec = str_replace(array('<=','-'),'',$_dec); break;
+                    case (strpos($_dec,'>=') !== false) : 
+                    case (strpos($_dec,'+') !== false) : 
+                        $_op = 'gteq'; $_dec = str_replace(array('>=','+'),'',$_dec); break;
+                    case (strpos($_dec,'<') !== false) : 
+                        $_op = 'lt'; $_dec = str_replace('<','',$_dec); break;
+                    case (strpos($_dec,'>') !== false) : 
+                        $_op = 'gt'; $_dec = str_replace('>','',$_dec); break;
+                }
+                if ( ! $_op) continue;
+                $_dec = trim($_dec);
+                $_val = intval($_dec);
+                $class = 'price-'.$_op.'-'.$_val;
+                if (isset($ranges[$class])) continue;
+                $ranges[$class] = $_range;
+            }
+        }
+        return array(
+            'tags' => $catBlock->getActiveTagClasses(),
+            'labels' => $catBlock->getActiveTagNames(), 
+            'prices' => $catBlock->getAllProductPrices(),
+            'ranges' => $ranges,
+        );
+    }
+    
 }

@@ -144,13 +144,13 @@ jQuery( doCustomStyle );
 //jQuery(function(){ jQuery('select').not('.customStyle').customStyle(); });
 
 function getCustomStyleables(include,exclude) {
-    var o = {}, $ = jQuery, $elems = jQuery('select').not('.customStyle');
+    var o = {}, $ = jQuery, $elems = jQuery('select').not('.customStyle').not('.noCustomStyle');
     if( ! $elems.length) {
         if ( ! include) return o;
         return $(include);
     } else {
-        if (include) $elems.add($(include));
-        if (exclude) $elems.not($(exclude));
+        if (include) $elems = $elems.add($(include));
+        if (exclude) $elems = $elems.not($(exclude));
         return $elems;
     }
 }
