@@ -7,7 +7,7 @@ GiftShop = (function($){ return {
         this.data.tags = data.tags;
         this.data.labels = data.labels;
         this.data.prices = data.prices;
-        if ( ! data.ranges['price-gteq-0']) data.ranges['price-gteq-0'] = 'All';
+        if ( ! data.ranges['price-single-gteq-0']) data.ranges['price-single-gteq-0'] = 'All';
         this.data.ranges = data.ranges;
         this.data.filters = {};
         this.data.$container = this.getContainer();
@@ -104,26 +104,39 @@ GiftShop = (function($){ return {
     filterPrice : function()
     {
         // get selected price range
-        var pr = this.data.filters.$price.find(':selected').attr('id').replace(/^filter\-price\-/,'');
-        // get operator and values
-        var op = pr.split('-').shift();
-        var val = parseInt(pr.split('-').pop());
-        // generate price classes that satisfy the value
-        var pc = [];
-        $.each(this.data.prices, function(i,p){
-            switch(op) {
-                case 'lt':
-                    if (p < val) pc.push( '.price-'+ p); break;
-                case 'lteq' : 
-                    if (p <= val) pc.push( '.price-'+ p); break;
-                case 'gt':
-                    if (p > val) pc.push( '.price-'+ p); break;
-                case 'gteq' : 
-                    if (p >= val) pc.push( '.price-'+ p); break;
-            }
-        });
-        return pc.join(' ,');
+        var pRange = this.data.filters.$price.find(':selected').attr('id').replace(/^filter\-price\-/,''),
+            single = /^single-/i, double = /^double-/i, pc = [];
+        if (single.test(pRange)) {
+            var r = pRange.replace(single,'').split('-'), op = r.shift(), val = r.pop(),
+                pc = this.getFilteredPrices(op, val);
+        } else if ( double.test(pRange) ) {
+            var r = pRange.replace(double,'').split('-'), op1 = r.shift(), val1 = r.shift(), op2 = r.shift(), val2 = r.shift(),
+                pc = this.getFilteredPrices(op2, val2,  this.getFilteredPrices(op1, val1) );
+        }
+        var classes = [];
+        $.each(pc, function(i,e){ classes.push('.price-'+e); });
+        console.log(classes);
+        return classes.join(' ,');
     },
+    
+    getFilteredPrices : function(op, val, inject)
+    {
+        var prices = inject && inject instanceof Array ? inject : this.data.prices, filtered = [];
+        $.each(prices, function(i,p){
+                switch(op) {
+                    case 'lt':
+                        if (p < val) filtered.push(p); break;
+                    case 'lteq' : 
+                        if (p <= val) filtered.push(p); break;
+                    case 'gt':
+                        if (p > val) filtered.push(p); break;
+                    case 'gteq' : 
+                        if (p >= val) filtered.push(p); break;
+                }
+        });
+        return filtered;
+    },
+    
     
     applyFilters : function(filter)
     {
