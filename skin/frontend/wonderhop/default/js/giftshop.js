@@ -76,7 +76,8 @@ GiftShop = (function($){ return {
             _opts[val] = $e;
             _iopts.push(val);
         }.bind(this));
-        _iopts.sort();
+        //console.log(_iopts);
+        _iopts.sort(function(a,b){ return a-b; });
         $.each(_iopts, function(i,e){
             this.data.filters.$price.append( _opts[e] );
         }.bind(this));
