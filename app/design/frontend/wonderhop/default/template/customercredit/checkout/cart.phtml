@@ -33,7 +33,7 @@
     
     $session = Mage::getSingleton('customer/session');
     $customer = $session->isLoggedIn() ? $session->getCustomer() : null;
-    $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : '';
+    $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : 'Guest';
     $quote = Mage::getSingleton('checkout/session')->getQuote();
     
     

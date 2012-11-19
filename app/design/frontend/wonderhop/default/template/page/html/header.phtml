@@ -26,7 +26,26 @@
 /**
  * @var Mage_Page_Block_Html_Header $this
  */
+ 
+$session = Mage::getSingleton('customer/session');
+
+$is_home = (Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' and Mage::getSingleton('cms/page')->getIdentifier() == 'home');
+
+$nlg = (object)array(
+    'cookie_name' => 'curio_nlg',
+    'cookie_expire' => date('Y/M/d H:i:s', (time()+3600*24*30)),
+    'get_param' => 'nlg',
+);
+
+$nlg->incoming = (isset($_GET[$nlg->get_param]) and ($_GET[$nlg->get_param] == '1'));
+$nlg->cookied = (isset($_COOKIE[$nlg->cookie_name]) and ($_COOKIE[$nlg->cookie_name] == '1'));
+$nlg->is = ($nlg->incoming or $nlg->cookied); 
+Mage::register('curio_nlg_exp', $nlg);
+
+$customer_name = substr( strtoupper( $session->isLoggedIn() ? $session->getCustomer()->getFirstname() : 'Guest' ), 0, 9 );
+ 
 ?>
+
 <div class="header-container">
     <div class="header">
         <?php if ($this->getIsHomePage()):?>
@@ -40,7 +59,7 @@
                 <?php echo $this->getChildHtml('header_cart'); ?>
             </div>
             
-            <?php if(Mage::getSingleton('customer/session')->isLoggedIn()) { ?>
+            <?php if($session->isLoggedIn()) { ?>
                 <div id="block-usermenu-header-wrap" style="display:none;">
                     <?php echo $this->getChildHtml('header_usermenu'); ?>
                 </div>
@@ -50,14 +69,13 @@
                 <?php //echo $this->getChildHtml('topSearch') ?>
                
                 <?php //echo $this->getChildHtml('topLinks') ?>
-                 <?php if(Mage::getSingleton('customer/session')->isLoggedIn()): ?>
-                    <!--<p class="welcome-msg"><?php echo str_replace('-', '', $this->getWelcome()); ?> &nbsp; <?php echo $this->getAdditionalHtml() ?></p>-->
+                 <?php //if($session->isLoggedIn()): ?>
                     <div id="cart-toplink" class="account-top account-top-cart">
                         <div class="item-count top-link-cart"><?php echo Mage::helper('checkout/cart')->getCart()->getItemsCount(); ?></div>
                     </div>
-                    <div class="account-top account-top-welcome"><span class="welcome-box"><?php echo substr( strtoupper( Mage::getSingleton('customer/session')->getCustomer()->getFirstname() ), 0, 9 ); ?></span><!--<span class="welcome-box-arrow"></span>--></div>
+                    <div class="account-top account-top-welcome"><span class="welcome-box"><?php echo  $customer_name; ?></span><!--<span class="welcome-box-arrow"></span>--></div>
                     <div class="account-top account-top-action-link"><a href="/invite-friends" title="Invite your friends !">Invite Friends &amp; Earn Cash!</a></div>
-                <?php endif; ?>
+                <?php //endif; ?>
                 <?php //echo $this->getChildHtml('store_language') ?>
             </div>
             <script type="text/javascript">
