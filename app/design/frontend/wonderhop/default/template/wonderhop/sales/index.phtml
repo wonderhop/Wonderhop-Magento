@@ -33,9 +33,9 @@ if ( ! empty($sales_categories) and count($sales_categories)) {
             if(round(abs($to_time - $from_time) / 3600,2) > 24 && $sale->getEndDate() < date("Y-m-d 23:59:59", Mage::getModel('core/date')->timestamp(time()))) {
                 continue;
             }
-	   if(round(abs($to_time - strtotime(date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())))) /3600,2) < 48 ) {
-		continue;
-	  }
+       if(round(abs($to_time - strtotime(date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time())))) /3600,2) < 48 ) {
+        continue;
+      }
         }
         ob_start();
         ?>
@@ -173,10 +173,22 @@ if ( ! empty($sales_categories) and count($sales_categories)) {
         <div class="page_end_wide"></div>
     </div><!-- .sale_section -->
     <?php
-}
+}?>
 
+    
 
-
-
-
+<?php $is_logged_in = Mage::getSingleton('customer/session')->isLoggedIn(); ?>
+<?php $pa_key = (string)Mage::getConfig()->getNode('localconf/marketing/perfectaudience/key'); ?>
+<?php if ($is_logged_in and $pa_key) { ?>
+    <script type="text/javascript">
+      (function() {
+        window._pa = window._pa || {};
+        _pa.orderId = '<?php echo $ce = Mage::getSingleton('customer/session')->getCustomer()->getEmail(); ?>' ; // OPTIONAL: include your user's email address or order ID
+        _pa.onLoadEvent = "shops"; // OPTIONAL: name of segment/conversion to be fired on script load
+        var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;
+        pa.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + "//tag.perfectaudience.com/serve/<?php echo $pa_key; ?>.js";
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pa, s);
+      })();
+    </script>
+<?php } ?>
 
