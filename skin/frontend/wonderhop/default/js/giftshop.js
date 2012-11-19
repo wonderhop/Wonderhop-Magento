@@ -115,7 +115,6 @@ GiftShop = (function($){ return {
         }
         var classes = [];
         $.each(pc, function(i,e){ classes.push('.price-'+e); });
-        console.log(classes);
         return classes.join(' ,');
     },
     
@@ -123,16 +122,16 @@ GiftShop = (function($){ return {
     {
         var prices = inject && inject instanceof Array ? inject : this.data.prices, filtered = [];
         $.each(prices, function(i,p){
-                switch(op) {
-                    case 'lt':
-                        if (p < val) filtered.push(p); break;
-                    case 'lteq' : 
-                        if (p <= val) filtered.push(p); break;
-                    case 'gt':
-                        if (p > val) filtered.push(p); break;
-                    case 'gteq' : 
-                        if (p >= val) filtered.push(p); break;
-                }
+            switch(op) {
+                case 'lt':
+                    if (p < val) filtered.push(p); break;
+                case 'lteq' : 
+                    if (p <= val) filtered.push(p); break;
+                case 'gt':
+                    if (p > val) filtered.push(p); break;
+                case 'gteq' : 
+                    if (p >= val) filtered.push(p); break;
+            }
         });
         return filtered;
     },
