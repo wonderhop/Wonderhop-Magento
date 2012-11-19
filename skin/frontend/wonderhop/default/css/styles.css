@@ -2255,11 +2255,12 @@ ul.social_share  li { float:right; margin-left: 10px; min-width: 30px; list-styl
 .dynamic_header.giftshop { background-image:url("../images/giftshop/dynamic_header_back.png"); }
 .dynamic_header.giftshop .category-title { width:190px; }
 
-#filters-box { display:block; padding: 0 10px; position:relative; overflow:hidden; z-index:1; margin-top:12px; }
-#filters-box .gs-filter { width:200px; }
-#filters-box .gs-filter-wrap { width: 160px; display:block; float:left;clear:none; padding-right:15px;  }
+#filters-box { display:block; padding: 0 10px 0 80px; position:relative; overflow:hidden; z-index:1; 
+    margin-top:12px; height:35px; }
+#filters-box .gs-filter { width:150px; }
+#filters-box .gs-filter-wrap { width: 150px; display:block; float:left;clear:none; padding-right:40px;  }
 #filters-box .customStyleWrap, #filters-box select, #filters-box label { float: left;  clear:none; }
-#filters-box label { margin-top: 8px; font-style:normal; font-size:11px; font-weight:bold; color: #668; 
+#filters-box label { margin-top: 8px; font-style:normal; font-size:13px; font-weight:bold; color: #946885; 
     margin-right: 8px; }
 
 /* CHECKOUT CART PAGE */

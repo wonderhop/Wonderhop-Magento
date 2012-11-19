@@ -98,11 +98,12 @@
         <div class="page-title category-title">
             <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
         </div>
+        <?php if ( ! $is_gs) { ?>
         <div class="cat-sharebox">
             <script type="text/javascript">
                 function post_on_wall()
                 {
-                    console.log('fb');
+                    //console.log('fb');
                     var share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
                         $a              = jQuery('.cat-sharebox a.cat-share-fb'),
                         share_text      = 'Just discovered this amazing brand on @CurioRoad '+share_link,
@@ -117,7 +118,7 @@
                 
                 function tweet_it()
                 {
-                    console.log('tweet');
+                    //console.log('tweet');
                     var width           = 575,
                         height          = 400,
                         $window         = jQuery(window), 
@@ -138,7 +139,7 @@
                 
                 function pin_it()
                 {
-                    console.log('pin');
+                    //console.log('pin');
                     var width           = 575,
                         height          = 500,
                         $window         = jQuery(window), 
@@ -167,6 +168,7 @@
             <a class="cat-share-item cat-share-tweet" onclick="tweet_it()"></a>
             <a class="cat-share-item cat-share-pin" onclick="pin_it()"></a>
         </div>
+        <?php } // ! $is_gs ?>
         <?php if ( ! $is_gs) { ?>
             <div class="cat-countdown">
                 <span><?php echo  Wonderhop_Sales_Helper_Data::getShortCountDown($_category); ?></span>
