@@ -62,19 +62,48 @@
         $_additionalImg2 = '<div class="category-image_additional_first"><img src="' . Mage::getBaseUrl ( 'media' ) . DS . "catalog" . DS . "category" . DS .$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></div>';
         $_additionalImg2 = $_helper->categoryAttribute($_category, $_additionalImg2, 'image');
     }
+    
+    $gs_cat_id = (int)(string)Mage::getConfig()->getNode('localconf/modules/catalog/category/giftshop_cat_id');
+    $is_gs = ($gs_cat_id == $_category->getId());
+        
+    
 ?>
 
-<div class="tag_header">
+<?php // WE RENDER THe PRODUCTS FIRST ?>
+<?php $this->setActiveTagClasses(array()); $this->setActiveTagNames(array()); $this->setAllProductPrices(array()); ?>
+<?php ob_start(); ?>
+<div class="cat_prods">
+    <?php if($this->isContentMode()): ?>
+        <?php echo $this->getCmsBlockHtml() ?>
+
+    <?php elseif($this->isMixedMode()): ?>
+        <?php echo $this->getCmsBlockHtml() ?>
+        <?php echo $this->getProductListHtml() ?>
+
+    <?php else: ?>
+        <?php echo $this->getProductListHtml() ?>
+    <?php endif; ?>
+</div>
+<?php $_product_list = ob_get_clean(); ?>
+
+
+<?php // NOW WE RENDER THE TOP PART HAVIG FILTERS IN PLACE ?>
+
+<?php // category filters ?>
+<?php $gs_data = $is_gs ? Wonderhop_Sales_Helper_Data::getGifShopFilterData($this) : array(); ?>
+
+<div class="tag_header<?php echo $is_gs ? ' giftshop' : '' ?>">
     <div class="tag_header_wire"></div>
-    <div class="dynamic_header">
+    <div class="dynamic_header<?php echo $is_gs ? ' giftshop' : '' ?>">
         <div class="page-title category-title">
             <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
         </div>
+        <?php if ( ! $is_gs) { ?>
         <div class="cat-sharebox">
             <script type="text/javascript">
                 function post_on_wall()
                 {
-                    console.log('fb');
+                    //console.log('fb');
                     var share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
                         $a              = jQuery('.cat-sharebox a.cat-share-fb'),
                         share_text      = 'Just discovered this amazing brand on @CurioRoad '+share_link,
@@ -89,7 +118,7 @@
                 
                 function tweet_it()
                 {
-                    console.log('tweet');
+                    //console.log('tweet');
                     var width           = 575,
                         height          = 400,
                         $window         = jQuery(window), 
@@ -110,7 +139,7 @@
                 
                 function pin_it()
                 {
-                    console.log('pin');
+                    //console.log('pin');
                     var width           = 575,
                         height          = 500,
                         $window         = jQuery(window), 
@@ -139,9 +168,15 @@
             <a class="cat-share-item cat-share-tweet" onclick="tweet_it()"></a>
             <a class="cat-share-item cat-share-pin" onclick="pin_it()"></a>
         </div>
-        <div class="cat-countdown">
-            <span><?php echo  Wonderhop_Sales_Helper_Data::getShortCountDown($_category); ?></span>
-        </div>
+        <?php } // ! $is_gs ?>
+        <?php if ( ! $is_gs) { ?>
+            <div class="cat-countdown">
+                <span><?php echo  Wonderhop_Sales_Helper_Data::getShortCountDown($_category); ?></span>
+            </div>
+        <?php } else { ?>
+            <div id="filters-box"></div>
+        <?php } ?>
+        
     </div><!-- .dynamic_header -->
     
     <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
@@ -156,73 +191,31 @@
     <?php if($_imgUrl): ?>
         <?php echo $_imgHtml ?>
     <?php endif; ?>
-</div>
-
-<div class="cat_prods">
-    <?php if($this->isContentMode()): ?>
-        <?php echo $this->getCmsBlockHtml() ?>
-
-    <?php elseif($this->isMixedMode()): ?>
-        <?php echo $this->getCmsBlockHtml() ?>
-        <?php echo $this->getProductListHtml() ?>
-
-    <?php else: ?>
-        <?php echo $this->getProductListHtml() ?>
-    <?php endif; ?>
+    
 </div>
 
 
-<script type="text/javascript">
-    var dynHead = (function($){
-        var $win = $(window),
-            $t = $('.tag_header').first(),
-            wr = $('.tag_header_wire')[0].outerHTML,
-            $c = $('<div></div>').insertBefore($t),
-            $tc = $t.clone().html(wr).appendTo($c).css({display:'none',zIndex:1000}).addClass('clone'),
-            $h = $('.dynamic_header').first(),
-            $hc = $h.clone().appendTo($c).css({display:'none',zIndex:1010}).addClass('clone'),
-            _limit1 = $h.offset().top,
-            _limit2 = $t.offset().top+$t.height() - $h.height();
-        
-        $hc.css({position:'fixed', left:'50%', marginLeft: '-'+($h.width()/2)+'px' , top:-7});
-        $tc.css({position:'fixed', left:'50%', marginLeft: '-'+($t.width()/2 + 70 - 15)+'px' , top: '-'+($t.height()-$h.height() +20)+'px' });
-        $fix = $('<div></div>').css({display:'none', position:'fixed', width:$hc.width(), height: 10, top:0, left:'50%', 
-            marginLeft: '-'+($h.width()/2-12)+'px', background:'white', zIndex:1005});
-        $fix.appendTo($c);
-        var stick1 = function() {
-            $h.css({visibility:'hidden'});
-            $hc.css({display:'block'});
-            $fix.css({display:'block'});
-        }
-        var unstick1 = function() {
-            $h.css({visibility:'visible'});
-            $hc.css({display:'none'});
-            $fix.css({display:'none'});
-        }    
-        var stick2 = function() {
-            $t.css({visibility:'hidden'});
-            $tc.css({display:'block'});
-        }
-        var unstick2 = function() {
-            $t.css({visibility:'visible'});
-            $tc.css({display:'none'});
-        }
-        $win.scroll(function(ev){
-            if ($win[0].scrollY > _limit1){
-                stick1();
-            } else {
-                unstick1();
-            }
-            if ($win[0].scrollY > _limit2){
-                stick2();
-            } else {
-                unstick2();
-            }
-        });
-        
-        
-    })(jQuery);
-</script>
+<?php // initialize giftshop script ?>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/giftshop.js'); ?>"></script>
+<?php if ($is_gs) { ?>
+    <script type="text/javascript">
+        GiftShop.init(<?php echo json_encode($gs_data); ?>);
+    </script>
+<?php } ?>
+
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+
+<?php // output the captured product list ?>
+<?php echo $_product_list; ?>
+
+
+
+<?php // initialize dynamic Header ?>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/brandpage_dyn.js'); ?>"></script>
+
+
 
 <!--
 <div class="page-title category-title">
@@ -234,78 +227,4 @@
 </div>
 -->
 
-<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 
-<?php /*
-<div class="product_images">
-    <?php if($_imgUrl): ?>
-        <?php echo $_imgHtml ?>
-    <?php endif; ?>
-
-    <?php if($_additionalImg): ?>
-        <?php echo $_additionalImg ?>
-    <?php endif; ?>
-    <?php if($_additionalImg2): ?>
-        <?php echo $_additionalImg2 ?>
-    <?php endif; ?>
-</div>
-*/ ?>
-
-<?php /*
-<?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
-    <div class="small_description">
-        <b><?php echo $this->getCurrentCategory()->getSaleDescription(); ?></b>
-    </div>
-    <div class="category-description std">
-        <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
-        <?php $fb_comment_url = $_category->getUrl() . $ref_id; ?>
-         <ul class="social_share">
-                <li>
-                    <div onclick="post_on_wall();" class="fb-share"><a id="sale-facebook-link-share" name="fb_share" type="icon_link" share_url="<?php echo $fb_comment_url; ?>"></a>
-                        </div>
-                 </li>
-               <li>
-              <div class="twitter-share">
-                <a href="http://twitter.com/share/?url=<?php echo $fb_comment_url; ?>" title="Share this on Twitter" id="sale-service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
-               
-                 <script type="text/javascript">
-                 jQuery('.twitter-share a').click(function(event) {
-                    var width  = 575,
-                        height = 400,
-                        left   = (jQuery(window).width()  - width)  / 2,
-                        top    = (jQuery(window).height() - height) / 2,
-                        url    = this.href,
-                        opts   = 'status=1' +
-                                 ',width='  + width  +
-                                 ',height=' + height +
-                                 ',top='    + top    +
-                                 ',left='   + left;
-
-                    window.open(url, 'twitte', opts);
-
-                    return false;
-                  });</script>
-                   </div>
-               </li>
-                <li>Share to earn cash</li>
-        </ul>
-    </div>
-     <script type="text/javascript">
-                function post_on_wall() {
-                    url = 'http://www.facebook.com/sharer.php?u=<?php echo $fb_comment_url ?>&t=<?php echo $fb_comment_url ?>';
-                    window.open(url, "Post on Wall", "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0");
-                }
-    </script>
-    <?php endif; ?>
-*/?>
-
-<?php /*if($this->isContentMode()): ?>
-    <?php echo $this->getCmsBlockHtml() ?>
-
-<?php elseif($this->isMixedMode()): ?>
-    <?php echo $this->getCmsBlockHtml() ?>
-    <?php echo $this->getProductListHtml() ?>
-
-<?php else: ?>
-    <?php echo $this->getProductListHtml() ?>
-<?php endif;*/ ?>

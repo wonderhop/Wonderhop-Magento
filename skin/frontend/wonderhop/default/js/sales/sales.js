@@ -79,8 +79,7 @@ function getCookie(c_name)
 
 
 (function($){
-    $.fn.extend({
-    customStyle : function(options) {
+    var CustomStyle = function(options) {
         if(!$.browser.msie || ($.browser.msie&&$.browser.version>6)) {
             return this.each(function() {
                 //console.log(this);
@@ -119,43 +118,33 @@ function getCookie(c_name)
          });
         }
     }
-    });
+    
+    window.CustomStyle = CustomStyle;
+    CustomStyle.plug = function()
+    {
+        if ( ! jQuery.fn.customStyle) jQuery.fn.customStyle = CustomStyle;
+        return CustomStyle;
+    }
+    CustomStyle.plug();
+    
 })(jQuery);
 
 
-/*
-function doCustomStyle() {
-    var elems =jQuery('select').not(jQuery('.payment-methods select'));
-    console.log(jQuery.customStyle);
-    if (jQuery.fn.customStyle) {
-        elems.customStyle();
-    }
-    
-    customStyleEngage();
-}
-
-function customStyleEngage() {
-    //setTimeout(doCustomStyle, 1000);
-}
-
-jQuery( doCustomStyle );
-*/
-
-//jQuery(function(){ jQuery('select').not('.customStyle').customStyle(); });
 
 function getCustomStyleables(include,exclude) {
-    var o = {}, $ = jQuery, $elems = jQuery('select').not('.customStyle');
+    var o = {}, $ = jQuery, $elems = jQuery('select').not('.customStyle').not('.noCustomStyle');
     if( ! $elems.length) {
         if ( ! include) return o;
         return $(include);
     } else {
-        if (include) $elems.add($(include));
-        if (exclude) $elems.not($(exclude));
+        if (include) $elems = $elems.add($(include));
+        if (exclude) $elems = $elems.not($(exclude));
         return $elems;
     }
 }
 
 function doCustomStyle(include, exclude) {
+    CustomStyle.plug();
     getCustomStyleables(include,exclude).customStyle ? getCustomStyleables().customStyle() : 0;
     customStyleEngage(include,exclude);
     //console.log('dcs');

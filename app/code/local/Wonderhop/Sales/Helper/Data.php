@@ -58,4 +58,72 @@
             $text = preg_replace('/\s+[\d]{1,2}\s+hours/i','',$text);
         return $text;
     }
+    
+    
+    public function captureCallbackOutput($callback, $args = array(), $returnType = NULL)
+    {
+        $returnType = ($returnType === NULL) ? 'output' : ($returnType ? 'result' : 'both');
+        ob_start();
+        $result = call_user_func_array($callback, $args);
+        $output = ob_get_clean();
+        $both = array($output, $result, 'output' => $output, 'result' => $result);
+        return $$returnType;
+    }
+    
+    public function getGifShopFilterData($catBlock, $rangeBlockId = 'gs_price_ranges')
+    {
+        $rangesStr = (string)$catBlock->getLayout()->createBlock('cms/block')->setBlockId($rangeBlockId)->toHtml();
+        $ranges = array();
+        if ($rangesStr) {
+            $_ranges = explode('*',strip_tags($rangesStr));
+            foreach($_ranges as $_range) {
+                $_dec = trim(html_entity_decode(trim($_range)));
+                if ( ! $_dec) continue;
+                $_data = strtolower($_dec);
+                $_limits = substr_count($_data,'$');
+                if ($_limits < 1 or $_limits > 2) continue;
+                $_parsed = '';
+                if ($_limits == 1) {
+                    $_parsed = self::_parseSinglePriceLimit($_data);
+                } elseif ($_limits == 2) {
+                    $_parsed = self::_parseDoublePriceLimits($_dec);
+                }
+                if ( ! $_parsed) continue;
+                $class = 'price-'.$_parsed;
+                if (isset($ranges[$class])) continue;
+                $ranges[$class] = $_range;
+            }
+        }
+        return array(
+            'tags' => $catBlock->getActiveTagClasses(),
+            'labels' => $catBlock->getActiveTagNames(), 
+            'prices' => $catBlock->getAllProductPrices(),
+            'ranges' => $ranges,
+        );
+    }
+    
+    
+    public static function _parseSinglePriceLimit($line)
+    {
+        $line = trim(preg_replace('/\s+/',' ',strtolower(str_replace('$','', $line))));
+        foreach(array(
+            'lteq'  => '/(\<\s*\=|\-|less\s+than\s+((or\s)?equal|(\s+\d+[^i]+)including))/i',
+            'gteq'  => '/(\=\s*\>|\+|more\s+than\s+((or\s)?equal|(\s+\d+[^i]+)including))/i',
+            'lt'  => '/(\<|less\s+than)/i',
+            'gt'  => '/(\>|more\s+than)/i',
+        ) as $_op => $re) {
+            if (preg_match($re, $line) and strlen($num = preg_replace('/[^\d\.]/','',$line)))
+                return "single-{$_op}-".intval($num);
+        }
+        return '';
+    }
+    
+    public static function _parseDoublePriceLimits($line)
+    {
+        $line = explode('-', $line, 2);
+        $limit_a = intval(preg_replace('/[^\d\.]/','',$line[0]));
+        $limit_b = intval(preg_replace('/[^\d\.]/','',$line[1]));
+        return "double-gteq-{$limit_a}-lteq-{$limit_b}";
+    }
+    
 }
