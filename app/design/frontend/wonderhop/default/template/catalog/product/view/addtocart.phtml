@@ -43,6 +43,7 @@
         <script type="text/javascript">
             function giftIt($this, after)
             {
+                window.giveAsGiftFlag = 1;
                 jQuery.post('/sales/index/savegmsg','gift_is_gift=1',function(data){ after.call($this, $this); });
                 return false;
             }
