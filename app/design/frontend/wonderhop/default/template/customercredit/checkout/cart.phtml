@@ -164,7 +164,11 @@
                                 $.post(
                                     '/sales/index/savegmsg',
                                     $form.serialize(), 
-                                    function(data) { $.each(formhooks, function(k,hook){ hook.apply(this, arguments); }); }
+                                    function(data) { $.each(formhooks, function(k,hook){
+                                        if ( ! hook) return false;
+                                        var _hook = (typeof hook == 'function') ? hook : Function(hook);
+                                        _hook.call($form);
+                                    }); }
                                 );
                                 return false;
                             });
