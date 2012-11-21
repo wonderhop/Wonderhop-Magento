@@ -29,9 +29,13 @@
 
 $session = Mage::getSingleton('customer/session');
 $customer = $session->isLoggedIn() ? $session->getCustomer() : null;
+
+$nlg = is_object(Mage::registry('curio_nlg_exp')) ? Mage::registry('curio_nlg_exp') : ((object)array('is' => 0));
+
 $gift = new Varien_Object;
 $gift->setIsChecked(false);
-if ($customer) {
+
+if ($customer or $nlg->is) {
     $gift->setSender( $session->getGiftFromText() );
     $gift->setRecipient( $session->getGiftToText() );
     $gift->setMessage( $session->getGiftMessageText() );
