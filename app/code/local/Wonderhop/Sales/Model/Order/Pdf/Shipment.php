@@ -3,33 +3,34 @@
 class Wonderhop_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Shipment {
     
     
-    
     public function addGiftMsg($page, $sender, $message)
     {
         if(empty($message)) return;
-        list( $br, $ident, $lHeight, $wspan, $padding) = array( '***BREAK***', 35 , 10 , 60, 10);
+        list( $br, $ident, $lHeight, $wspan, $padding, $hIncrement) = array( '***BREAK***', 35 , 11 , 60, 10 , 3);
         // statistically , this works (the width of the gliph is lineHeight / 4)
         list( $top, $span) = array($this->y - $padding *5 , $wspan * 4);
         $message = str_replace(array("\n","\r"),array($br,''), $message);
-        $text = "Message from {$sender} :{$br}  {$br}".wordwrap($message, $wspan, $br, true);
+        $text = "A Gift Message From {$sender} :{$br}  {$br}".wordwrap($message, $wspan, $br, true);
         $lines = explode($br, $text);
         $from = array_shift($lines);
         list($startY, $startX, $height, $width) = array($top, $ident, count($lines) * $lHeight, $span );
         // box coords
         $y1 = $startY - $height - $padding - intval($lHeight/2);
-        $y2 = $startY + $padding + intval($lHeight/2);
+        $y2 = $startY + $padding + intval($lHeight/2) + $hIncrement;
         $x1 = $startX - $padding;
         $x2 = $startX + $width + $padding;
         // draw the box
         $page->setFillColor(new Zend_Pdf_Color_GrayScale(0.92));
         $page->drawRectangle($x1, $y1, $x2, $y2);
         // drow the message sender
-        $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
         $textY = $startY;
-        $this->_setFontBold($page, $lHeight);
+        //Zend_Pdf_Color_Rgb(1/148, 1/104, 1/133)
+        $page->setFillColor(new Zend_Pdf_Color_Rgb(148/255, 104/255, 133/255));
+        $this->_setFontBold($page, $lHeight + $hIncrement);
         $page->drawText($from, $startX, $textY, 'UTF-8');
         $textY -= $lHeight;
         // draw the message lines
+        $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
         $this->_setFontRegular($page, $lHeight);
         foreach ($lines as $line) {
             $page->drawText($line, $startX, $textY, 'UTF-8');
