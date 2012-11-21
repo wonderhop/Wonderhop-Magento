@@ -23,19 +23,19 @@
                 </args>
            </shops>
            <sales>
-				<args>
+                <args>
                     <modules>
-					   <wonderhop_sales before="Mage_Sales">Wonderhop_Sales</wonderhop_sales>
-				    </modules>
-				</args>
-		    </sales>
-		    <customer>
-				<args>
-					<modules>
-						<wonderhop_customer_sales before="Mage_Customer">Wonderhop_Sales</wonderhop_customer_sales>
-					</modules>
-				</args>
-			</customer>
+                       <wonderhop_sales before="Mage_Sales">Wonderhop_Sales</wonderhop_sales>
+                    </modules>
+                </args>
+            </sales>
+            <customer>
+                <args>
+                    <modules>
+                        <wonderhop_customer_sales before="Mage_Customer">Wonderhop_Sales</wonderhop_customer_sales>
+                    </modules>
+                </args>
+            </customer>
         </routers> 
         <layout>
             <updates>
@@ -46,13 +46,13 @@
         </layout>
     </frontend>
     <adminhtml>
-		<acl>
-			<resources>
-				<all>
-					<title>Allow Everything</title>
-				</all>
-				<admin>
-					<children>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
                         <system>
                             <children>
                                 <config>
@@ -65,10 +65,10 @@
                                 </config>
                             </children>
                         </system>
-					</children>
-				</admin>
-			</resources>
-		</acl>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
     </adminhtml> 
     <global>
        <helpers>
@@ -76,28 +76,28 @@
                 <class>Wonderhop_Sales_Helper</class>
              </wonderhop_sales>
         </helpers>
-		<resources>
-			<wonderhop_sales_setup>
-				<setup>
-					<module>Wonderhop_Sales</module>
-					<class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
-				</setup>
-				<connection>
-					<use>core_setup</use>
-				</connection>
-			</wonderhop_sales_setup>
-			<wonderhop_sales_write>
-				<connection>
-					<use>core_write</use>
-				</connection>
-			</wonderhop_sales_write>
-			<wonderhop_sales_read>
-				<connection>
-					<use>core_read</use>
-				</connection>
-			</wonderhop_sales_read>
-		</resources>
-		 <blocks>
+        <resources>
+            <wonderhop_sales_setup>
+                <setup>
+                    <module>Wonderhop_Sales</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </wonderhop_sales_setup>
+            <wonderhop_sales_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </wonderhop_sales_write>
+            <wonderhop_sales_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </wonderhop_sales_read>
+        </resources>
+         <blocks>
             <adminhtml>
                 <rewrite>
                     <catalog_category_tab_attributes>Wonderhop_Sales_Block_Adminhtml_Catalog_Category_Tab_Attributes</catalog_category_tab_attributes>
@@ -113,6 +113,7 @@
                     <class>Wonderhop_Sales_Block_Registered</class>
             </wonderhop_registered>
         </blocks>
+        <models><class>Wonderhop_Sales_Model</class><sales><rewrite><order_pdf_shipment>Wonderhop_Sales_Model_Order_Pdf_Shipment</order_pdf_shipment></rewrite></sales></models>
     </global>
     <admin>
         <routers>
