@@ -38,24 +38,8 @@
 <?php echo $this->getChildHtml('after_body_start') ?>
 <?php $is_home = (Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' and Mage::getSingleton('cms/page')->getIdentifier() == 'home') ; ?>
 <div class="wrapper<?php echo $is_home ? ' invisible' : ''; ?>">
-<?php if($is_home and Mage::getSingleton('customer/session')->isLoggedIn()) { /* ?>
-    <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.backstretch.min.js'); ?>"></script>
-    <script type="text/javascript">
-        jQuery.backstretch('<?php echo $this->getSkinUrl('images/sales/login_popup/overlay.jpg'); ?>');
-    </script>
-    <ul id="home_popup_menu" class="bottom_menu">    
-        <li class="hp_menuitem"><a href="/contacts" title="Contact Us">Contact</a></li>
-        <li class="hp_menuitem"><a href="/blog" title="Visit our Blog">Blog</a></li>
-        <li class="hp_menuitem"><a href="/about" title="About Us">About</a></li>
-        <li class="hp_copyright">WONDERHOP &copy; 2102</li>
-    </ul>
-    <script type="text/javascript">
-        setTimeout(function(){
-            jQuery('#home_popup_menu').insertBefore('#backstretch');
-            jQuery('#backstretch').css('z-index','1');
-        }, 200);
-    </script>
-<?php */
+<?php if($is_home) {
+            //and Mage::getSingleton('customer/session')->isLoggedIn())
 Mage::app()->getFrontController()->getResponse()->setRedirect(Mage::getUrl('shops'));
     return;
 } ?> 
