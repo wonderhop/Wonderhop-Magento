@@ -41,18 +41,29 @@ $is_staff = (strtolower((string)Mage::getModel('customer/group')->load($customer
 $sold_out = ( ! Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product)->getIsInStock());
 
 $categoryIds = $_product->getCategoryIds();
-$category = null;
-foreach($categoryIds as $categoryId) {
-    $category = Mage::getModel('catalog/category')->load($categoryId);
-    if ($category->getName() == 'Sales') {
-        continue;
+$c_cat = is_object(Mage::registry('current_category')) ? Mage::registry('current_category') : NULL;
+$category = ($c_cat and $c_cat->getId() and in_array($c_cat->getId(), $categoryIds, true)) ? $c_cat : NULL;
+//$category = NULL;
+if ( ! $category) {
+    foreach($categoryIds as $categoryId) {
+        $category = Mage::getModel('catalog/category')->load($categoryId);
+        if ($category->getName() == 'Sales') {
+            continue;
+        }
+        $now = date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()));
+        if (($category->getStartDate() > $now || $category->getEndDate() < $now) and ! $is_staff) {
+            header("Location: ". $category->getUrl());
+            exit();
+        }
     }
+} else {
     $now = date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()));
     if (($category->getStartDate() > $now || $category->getEndDate() < $now) and ! $is_staff) {
         header("Location: ". $category->getUrl());
         exit();
-    }
+    }   
 }
+
 ?>
 
 <?php 
