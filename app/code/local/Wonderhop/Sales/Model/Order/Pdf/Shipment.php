@@ -54,12 +54,18 @@ class Wonderhop_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pd
             }
             $page  = $this->newPage();
             $order = $shipment->getOrder();
+            $addOrderMethod = 'insertOrder';
+            $giftMessage = Mage::getModel("giftmessage/message")->load($order->getGiftMessageId());
+            if ($giftMessage and $giftMessage->getId()) {
+                $addOrderMethod = 'insertGiftOrder';
+            }
             // Add image 
             $this->insertLogo($page, $shipment->getStore());
             // Add address 
             $this->insertAddress($page, $shipment->getStore());
             // Add head 
-            $this->insertOrder(
+            
+            $this->{$addOrderMethod}(
                 $page,
                 $shipment,
                 Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_SHIPMENT_PUT_ORDER_ID, $order->getStoreId())
@@ -83,7 +89,6 @@ class Wonderhop_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pd
                 $page = end($pdf->pages);
                 //$this->y -= 20;
             }
-            $giftMessage = Mage::getModel("giftmessage/message")->load($order->getGiftMessageId());
             if ($giftMessage and $giftMessage->getId()) {
                 $this->addGiftMsg($page, $giftMessage->getSender(), $giftMessage->getMessage());
             }
@@ -98,7 +103,7 @@ class Wonderhop_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pd
     
     
     
-    protected function insertOrder(&$page, $obj, $putOrderId = true)
+    protected function insertGiftOrder(&$page, $obj, $putOrderId = true)
     {
         if ($obj instanceof Mage_Sales_Model_Order) {
             $shipment = null;
