@@ -11,13 +11,13 @@
             mixpanel.track("Logged In");
          <?php endif; ?>
          <?php if(Mage::registry('current_product')): ?>
-             mixpanel.track_links("a.pin-it-button", "Pinterest share");
-             mixpanel.track_links("a#product-service-links-twitter", "Twitter product share");
-             mixpanel.track_links("a#product-facebook-link-share", "Facebook product share");
+             //mixpanel.track_links("a.pin-it-button", "Pinterest share");
+             //mixpanel.track_links("a#product-service-links-twitter", "Twitter product share");
+             //mixpanel.track_links("a#product-facebook-link-share", "Facebook product share");
          <?php elseif(Mage::registry('current_category')): ?>
-             mixpanel.track_links("a.pin-it-button", "Pinterest share");
-             mixpanel.track_links("a#sale-service-links-twitter", "Twitter sale share");
-             mixpanel.track_links("a#sale-facebook-link-share", "Facebook sale share");
+             //mixpanel.track_links("a.pin-it-button", "Pinterest share");
+             //mixpanel.track_links("a#sale-service-links-twitter", "Twitter sale share");
+             //mixpanel.track_links("a#sale-facebook-link-share", "Facebook sale share");
          <?php endif; ?>
          mixpanel.people.set(<?php echo $this->getCustomerInformation() ?>);
           mixpanel.identify("<?php echo $this->getCustomer()->getId(); ?>");

@@ -35,7 +35,7 @@
     $session = Mage::getSingleton('customer/session');
     $customer = $session->getCustomer();
     $ref_id = '';
-    $fb_comment_url = '';
+    $share_url = '';
     if($session->isLoggedIn() && $customer->getReferralCode()) {
         $ref_id = '?r=' .$customer->getReferralCode();
     }
@@ -66,6 +66,14 @@
     $gs_cat_id = (int)(string)Mage::getConfig()->getNode('localconf/modules/catalog/category/giftshop_cat_id');
     $is_gs = ($gs_cat_id == $_category->getId());
         
+    
+    if ($_category->getUrlPath()) {
+        $share_url = Mage::getBaseUrl() . $_category->getUrlPath();
+    } else {
+        $share_url = $_category->getUrl();
+    }
+    
+    $share_url = $share_url . $ref_id;
     
 ?>
 
@@ -101,73 +109,10 @@
         <?php if ( ! $is_gs) { ?>
         <div class="cat-sharebox">
             <span class="shares-cta" id="brand-shares-cta"/>GET CASH WHEN FRIENDS JOIN</span>
-            <script type="text/javascript">
-                function post_on_wall()
-                {
-                    //console.log('fb');
-                    var share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
-                        $a              = jQuery('.cat-sharebox a.cat-share-fb'),
-                        share_text      = 'Just discovered this amazing brand on @CurioRoad '+share_link,
-                        sharer          = 'http://www.facebook.com/sharer.php?u='+share_link+'&amp;t='+share_text,
-                        window_title    = 'Post on Wall',
-                        window_options  = "width=780, height=410, toolbar=0, scrollbars=0, status=0, resizable=0, location=0, menuBar=0, left=0, top=0";
-                    if ( ! $a || ! $a.length) return false;
-                    $a.attr('share_url',share_link);
-                    window.open(sharer, window_title, window_options);
-                    return false;
-                }
-                
-                function tweet_it()
-                {
-                    //console.log('tweet');
-                    var width           = 575,
-                        height          = 400,
-                        $window         = jQuery(window), 
-                        $a              = jQuery('.cat-sharebox a.cat-share-tweet'),
-                        left            = ($window.width()  - width)  / 2,
-                        top             = ($window.height() - height) / 2,
-                        share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
-                        sharer0         = 'http://twitter.com/share/?url=' + share_link,
-                        share_text      = 'Just discovered this amazing brand on @CurioRoad ',
-                        sharer          = sharer0+'&text='+share_text,
-                        window_title    = 'Tweet This !',
-                        window_options  = 'status=1,width='+ width +',height='+ height +',top='+ top +',left='+ left;
-                    if ( ! $a || ! $a.length) return false;
-                    $a.attr('href',share_link);
-                    window.open(sharer, window_title, window_options);
-                    return false;
-                }
-                
-                function pin_it()
-                {
-                    //console.log('pin');
-                    var width           = 575,
-                        height          = 500,
-                        $window         = jQuery(window), 
-                        $a              = jQuery('.cat-sharebox a.cat-share-pin'),
-                        left            = ($window.width()  - width)  / 2,
-                        top             = ($window.height() - height) / 2,
-                        share_link      = '<?php echo $fb_comment_url = $_category->getUrl() . $ref_id; ?>',
-                        sharer0         = 'http://pinterest.com/pin/create/button/?url=' + share_link,
-                        share_text      = '<?php echo urlencode($_category->getName().' -- '.preg_replace('/\s+/',' ',strip_tags($this->getCurrentCategory()->getSaleDescription()))); ?>',
-                        media_url       = '<?php echo $_mainImgUrl; ?>',
-                        sharer          = sharer0+'&media='+media_url+'&apm;description='+share_text,
-                        window_title    = 'Pin It !',
-                        window_options  = 'status=1,width='+ width +',height='+ height +',top='+ top +',left='+ left;
-                    //console.log(media_url);
-                    if ( ! $a || ! $a.length) return false;
-                    $a.attr('href',share_link);
-                    window.open(sharer, window_title, window_options);
-                    return false;
-                    // http://pinterest.com/pin/create/button/?url={URI-encoded URL of the page to pin}&media={URI-encoded URL of the image to pin}&description={optional URI-encoded description}
-                    // @TBD
-                    return false;
-                }
-                
-            </script>
-            <a class="cat-share-item cat-share-fb" onclick="post_on_wall()"></a>
-            <a class="cat-share-item cat-share-tweet" onclick="tweet_it()"></a>
-            <a class="cat-share-item cat-share-pin" onclick="pin_it()"></a>
+            <?php $_pin_text = urlencode($_category->getName().' -- '.preg_replace('/\s+/',' ',strip_tags($this->getCurrentCategory()->getSaleDescription()))); ?>
+            <a class="cat-share-item cat-share-fb jshare jshare-facebook" href="<?php echo $share_url; ?>" jshare_data="text=<?php echo urlencode("Just discovered this amazing brand on @CurioRoad \n"); ?>" mp_event="Facebook sale share"></a>
+            <a class="cat-share-item cat-share-tweet jshare jshare-twitter" href="<?php echo $share_url; ?>" jshare_data="text=<?php echo urlencode("Just discovered this amazing brand on @CurioRoad \n"); ?>" mp_event="Twitter sale share"></a>
+            <a class="cat-share-item cat-share-pin jshare jshare-pinterest" href="<?php echo $share_url;?>" jshare_data="text=<?php echo $_pin_text; ?>,media=<?php echo urldecode($_mainImgUrl); ?>" mp_event="Pinterest share"></a>
         </div>
         <?php } // ! $is_gs ?>
         <?php if ( ! $is_gs) { ?>

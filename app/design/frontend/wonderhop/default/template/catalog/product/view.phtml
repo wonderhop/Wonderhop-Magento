@@ -69,16 +69,30 @@ if ( ! $category) {
 <?php 
 
 $ref_id = '';
-$fb_comment_url = '';
+$share_url = '';
 if($session->isLoggedIn() && $customer->getReferralCode()) {
     $ref_id = '?r=' .$customer->getReferralCode();
 }
 
+
+
+$cat_part = '';
+if ($c_cat and ($c_cat->getId() == $category->getId()) and  $c_cat->getUrlPath()) {
+    $cat_part = $c_cat->getUrlPath() . '/';
+}
+
 if ($_product->getUrlPath() != '') {
-    $fb_comment_url = urlencode($this->getBaseUrl() . $_product->getUrlPath() . $ref_id); 
+    $share_url = $this->getBaseUrl() . $cat_part . $_product->getUrlPath(); 
 } else {
-    $fb_comment_url = urlencode($_product->getProductUrl() . $ref_id);
-}    
+    $share_url = $_product->getProductUrl();
+}
+
+$c_url = preg_replace('/(\?|\#).*(\#.*)?/','',$this->helper('core/url')->getCurrentUrl());
+
+if ($c_url != $share_url) {
+    $share_url = $c_url;
+}
+$share_url = $c_url . $ref_id;
  
 ?>
 
@@ -172,6 +186,7 @@ if ($_product->getUrlPath() != '') {
                     <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
                 </div>
             <?php endif;*/ ?>
+            <!--
             <ul class="social_share">
                 <li>
                     <div onclick="return GenShare.post_on_wall(this);" class="fb-share">
@@ -186,6 +201,28 @@ if ($_product->getUrlPath() != '') {
                 <li>
                     <div class="pin-share" onclick="return GenShare.pin_it(this,{'text':'<?php echo urlencode($_product->getName()).($category ? (' by '.urlencode($category->getName())) : ''); ?>','media':'<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(400); ?>', 'win_h': 500});">
                         <a href="<?php echo $fb_comment_url; ?>" title="Share this on Pinterest" rel="nofollow" target="_blank"></a>
+                    </div>
+                </li>
+                <li id="prod-shares-cta-ctn">
+                    <span class="shares-cta" id="prod-shares-cta"/>GET CASH WHEN FRIENDS JOIN</span>
+                </li>
+            </ul>
+            -->
+              
+            <ul class="social_share">
+                <li>
+                    <div class="fb-share">
+                        <a class="jshare jshare-facebook" href="<?php echo $share_url ?>" mp_event="Facebook product share"></a>
+                    </div>
+                </li>
+                <li>
+                    <div class="twitter-share">
+                        <a href="<?php echo $share_url; ?>" id="product-service-links-twitter" class="jshare jshare-twitter" mp_event="Twitter product share"  jshare_data="text=<?php echo urlencode($_product->getShortDescription(). " \n" . $share_url); ?>" title="Share this on Twitter" rel="nofollow" target="_blank"></a>
+                    </div>
+                </li>
+                <li>
+                    <div class="pin-share">
+                        <a href="<?php echo $share_url; ?>" id="product-share-pinterest" class="jshare jshare-pinterest" mp_event="Pinterest share"  jshare_data="text=<?php echo urlencode($_product->getName()).($category ? (' by '.urlencode($category->getName())) : ''); ?>,media=<?php echo urlencode($this->helper('catalog/image')->init($_product, 'image')->resize(400)); ?>"  title="Share this on Pinterest" rel="nofollow" target="_blank"></a>
                     </div>
                 </li>
                 <li id="prod-shares-cta-ctn">

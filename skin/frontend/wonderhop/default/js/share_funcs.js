@@ -71,18 +71,4 @@ var GenShare = (function($){ function GenShare(){ var self = this; var _ ={}; re
 
 
 
-function hcontact(el)
-{
-    var $ = jQuery;
-    if ( ! $ || ! $(el)) return false;
-    var href = $(el).attr('href');
-    if ( ! href || (href.indexOf('contacting:') != 0)) return false;
-    new_href = href.replace('contacting:','mailto:').replace('#','@').replace('/','.');
-    $(el).attr('href', new_href);
-    //console.log(href);
-    //console.log(new_href);
-    //$(el).click();
-    setTimeout(function(){ $(el).attr('href', href); }, 500);
-}
 
-if(typeof Validation != 'undefined') Validation.get('validate-email').error = 'Please enter a valid email address.';
