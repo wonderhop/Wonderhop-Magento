@@ -41,18 +41,29 @@ $is_staff = (strtolower((string)Mage::getModel('customer/group')->load($customer
 $sold_out = ( ! Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product)->getIsInStock());
 
 $categoryIds = $_product->getCategoryIds();
-$category = null;
-foreach($categoryIds as $categoryId) {
-    $category = Mage::getModel('catalog/category')->load($categoryId);
-    if ($category->getName() == 'Sales') {
-        continue;
+$c_cat = is_object(Mage::registry('current_category')) ? Mage::registry('current_category') : NULL;
+$category = ($c_cat and $c_cat->getId() and in_array($c_cat->getId(), $categoryIds, true)) ? $c_cat : NULL;
+//$category = NULL;
+if ( ! $category) {
+    foreach($categoryIds as $categoryId) {
+        $category = Mage::getModel('catalog/category')->load($categoryId);
+        if ($category->getName() == 'Sales') {
+            continue;
+        }
+        $now = date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()));
+        if (($category->getStartDate() > $now || $category->getEndDate() < $now) and ! $is_staff) {
+            header("Location: ". $category->getUrl());
+            exit();
+        }
     }
+} else {
     $now = date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()));
     if (($category->getStartDate() > $now || $category->getEndDate() < $now) and ! $is_staff) {
         header("Location: ". $category->getUrl());
         exit();
-    }
+    }   
 }
+
 ?>
 
 <?php 
@@ -167,15 +178,18 @@ if ($_product->getUrlPath() != '') {
                         <a id="product-facebook-link-share" href="<?php echo $fb_comment_url ?>" name="fb_share" type="icon_link" share_url="<?php echo $fb_comment_url; ?>"></a>
                     </div>
                 </li>
-                <!--<li>
-                    <div class="twitter-share" onclick="return GenShare.post_on_wall(this,{'text':'<?php echo $_product->getShortDescription() ?>'});">
+                <li>
+                    <div class="twitter-share" onclick="return GenShare.post_on_wall(this,{'text':'<?php echo urlencode($_product->getShortDescription()); ?>'});">
                         <a href="<?php echo $fb_comment_url; ?>" title="Share this on Twitter" id="product-service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
                     </div>
-                </li>-->
+                </li>
                 <li>
                     <div class="pin-share" onclick="return GenShare.pin_it(this,{'text':'<?php echo urlencode($_product->getName()).($category ? (' by '.urlencode($category->getName())) : ''); ?>','media':'<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(400); ?>', 'win_h': 500});">
                         <a href="<?php echo $fb_comment_url; ?>" title="Share this on Pinterest" rel="nofollow" target="_blank"></a>
                     </div>
+                </li>
+                <li id="prod-shares-cta-ctn">
+                    <span class="shares-cta" id="prod-shares-cta"/>GET CASH WHEN FRIENDS JOIN</span>
                 </li>
             </ul>
               
