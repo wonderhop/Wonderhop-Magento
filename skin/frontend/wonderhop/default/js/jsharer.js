@@ -42,6 +42,8 @@ var jSharer = (function(){
         beforeBindAll : null,
         afterBindAll : null,
         
+        $front : $sharer,
+        
         configure : function(config)
         {
             if (typeof config != 'object') return $this;
@@ -53,12 +55,7 @@ var jSharer = (function(){
                 delete config['options'];
             }
             $.extend($this.config, config);
-            return $this;
-        },
-        
-        getObject : function()
-        {
-            return $this;
+            return $this.$front;
         },
         
         $bind : function(share, opts)
@@ -171,7 +168,7 @@ var jSharer = (function(){
                 rebind = !!$el.data('jSharer');
             $el.data('jSharer', $share);
             if ( ! rebind) {
-                $el.click(this.$shareIt);
+                $el.on('click', $this.$shareIt);
             }
         },
         
@@ -198,7 +195,7 @@ var jSharer = (function(){
             var $elem = $(elem).first();
             if ( ! $elem.length || ! $elem.data('jSharer')) return $this;
             $elem.data('jSharer').callback = callback;
-            return $this;
+            return $this.$front;
         },
         
         
@@ -211,13 +208,13 @@ var jSharer = (function(){
                 if ($this.isSupported(share)) $(e).jSharer(share);
             });
             if (typeof $this.afterBindAll == 'function') $this.afterBindAll.call(null);
-            return $this;
+            return $this.$front;
         },
         
         bindAllOnDocReady : function(config)
         {
             $(function(){ $this.bindAll(config); });
-            return $this;
+            return $this.$front;
         },
         
         getBinded : function()
@@ -233,7 +230,7 @@ var jSharer = (function(){
         {
             $this.beforeBindAll = before;
             $this.afterBindAll = after;
-            return $this;
+            return $this.$front;
         },
         
     }
@@ -246,12 +243,11 @@ var jSharer = (function(){
     $sharer.getBinded           = $this.getBinded;
     $sharer.setBindAllCallbacks = $this.setBindAllCallbacks;
     
+    
     $.fn.jsharer            = $this.$bind;
     $.fn.jSharer            = $this.$bind;
     $.fn.jShareCallback     = $this.$addCallback;
     
-    
-    //$sharer.getObject = $this.getObject;
     
     return $sharer;
 })();
