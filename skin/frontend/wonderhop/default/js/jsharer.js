@@ -151,7 +151,7 @@ var jSharer = (function(){
                 }
                 window.open.apply(window, args);
             }
-            return $e;
+            return false;
         },
         
         
