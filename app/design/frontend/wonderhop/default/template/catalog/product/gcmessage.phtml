@@ -1,0 +1,98 @@
+<?php
+    
+    $session = Mage::getSingleton('customer/session');
+    $giftcard = $this->getGiftcard();
+?>
+<div id="gift_message_form" method="post">
+    <ul class="form-list">
+        
+        <li>
+            <div class="input-box half">
+                <label for="giftcard_ammount">Giftcard Credit<span class="required">*</span>:</label>
+                <input name="gift_to_email" class="input-text required-entry validate-numeric" value="<?php echo $session->getGiftcardAmmount() ? $session->getGiftcardAmmount() : 50; ?>" />
+            </div>
+            <div class="input-box half"> (USD)</div>
+        </li>
+        <li>
+            <div class="input-box">
+                <label for="gift_to_email">Recipient Email <span class="required">*</span>:</label>
+                <input name="gift_to_email" class="input-text required-entry validate-email" value="<?php echo $session->getGiftToEmail(); ?>" />
+            </div>
+        </li>
+        <li>
+            <div class="input-box">
+                <label for="gift_from_text">From (your name):</label>
+                <input name="gift_from_text" class="input-text" value="<?php echo $session->getGiftFromText() ? $session->getGiftFromText() : ${($session->setGiftFromText($customer_name) or 1)?'customer_name':1}; ?>" />
+            </div>
+        </li>
+        <li>
+            <div class="input-box">
+                <label for="gift_to_text">To (your friend's name):</label>
+                <input name="gift_to_text" class="input-text" value="<?php echo $session->getGiftToText(); ?>" />
+            </div>
+        </li>
+        <li>
+            <label for="gift_message_text">Include a note (optional)</label>
+            <textarea name="gift_message_text" class="input-text"><?php echo $session->getGiftMessageText(); ?></textarea>
+        </li>
+        <li class="action">
+            <button class="button checkout-btn"><span><span>Send Giftcard Now ! </span></span></button>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    (function($){
+
+        var $form = $('#gift_message_form').parents('form').first(), $fields = $form.find('.form-list');
+        $form.submit(function(ev){
+            ev.preventDefault();
+            $.post('/sales/index/buygiftcard', $form.serialize(), function(data){
+                console.log('setlocation');
+            });
+        });
+        
+        //var checkReady = function()
+        /*
+        formhooks.saving =  function(){
+            $form.find('button').after('<span class="gmsg-saved" style="color:green;display:none;margin-left:10px;font-size:13px;">Message Saved!</span>');
+            var $msg = $form.find('.gmsg-saved');
+            $msg.fadeIn().delay(2000).fadeOut(function(){ $(this).remove(); 
+            });
+        }
+        $switch.change(function(){
+            $fields['fade'+($(this).is(':checked') ? 'In' : 'Out')]();
+            $.post(
+                '/sales/index/savegmsg',
+                $form.serialize() + ( ! $(this).is(':checked') ? '&gift_is_gift=0' :''), 
+                function(data){}
+            );
+        });
+        if ($switch.is(':checked')) $fields.fadeIn() && (Add_Gift = true);
+        $form.submit(function(ev){
+            ev.preventDefault();
+            $.post(
+                '/sales/index/savegmsg',
+                $form.serialize(), 
+                function(data) { $.each(formhooks, function(k,hook){
+                    if ( ! hook) return false;
+                    var _hook = (typeof hook == 'function') ? hook : Function(hook);
+                    _hook.call($form);
+                }); }
+            );
+            return false;
+        });
+        $(function(){
+            var $checkout = $('.btn-checkout'), onclickFunc = $checkout.attr('onclick');
+            $checkout.attr('onclick','');
+            $('.btn-checkout').click(function(ev){
+                ev.preventDefault();
+                ev.stopPropagation();
+                delete formhooks['saving'];
+                formhooks.redirect = onclickFunc;
+                $form.submit();
+            });
+        });
+        window.formhooks = formhooks;*/
+    })(jQuery);
+</script>

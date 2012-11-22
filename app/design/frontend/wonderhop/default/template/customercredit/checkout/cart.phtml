@@ -115,77 +115,7 @@
                 <div class="cart-col-2-inner-wrap">
                 <?php echo $this->getChildHtml('cart_credit') ?>
                 <?php if (Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $quote)) { ?>
-                    <form id="gift_message_form" method="post">
-                        <div id="switch-wrap">
-                            <input type="checkbox" id="gift_is_gift" value="1" name="gift_is_gift" <?php echo $session->getGiftIsGift() ? 'checked="checked"' : ''; ?> />
-                            <label for ="gift_is_gift" style="font-size:13px;">Is this order a gift ?</label>
-                        </div>
-                        <ul class="form-list" style="display:none;">
-                            <li>
-                                <div class="input-box half">
-                                    <label for="gift_from_text">From:</label>
-                                    <input name="gift_from_text" class="input-text" value="<?php echo $session->getGiftFromText() ? $session->getGiftFromText() : ${($session->setGiftFromText($customer_name) or 1)?'customer_name':1}; ?>" />
-                                </div>
-                                <div class="input-box half">
-                                    <label for="gift_to_text">To:</label>
-                                    <input name="gift_to_text" class="input-text" value="<?php echo $session->getGiftToText(); ?>" />
-                                </div>
-                            </li>
-                            <li>
-                                <label for="gift_message_text">Include a note (optional)</label>
-                                <textarea name="gift_message_text" class="input-text"><?php echo $session->getGiftMessageText(); ?></textarea>
-                            </li>
-                            <li class="action">
-                                <button class="button"><span><span>Save Message</span></span></button>
-                            </li>
-                        </ul>
-                    </form>
-                    <script type="text/javascript">
-                        (function($){
-                            var $form = $('#gift_message_form'), $fields = $form.find('.form-list'), 
-                                $switch = $form.find('#gift_is_gift'), formhooks = {};
-                            formhooks.saving =  function(){
-                                $form.find('button').after('<span class="gmsg-saved" style="color:green;display:none;margin-left:10px;font-size:13px;">Message Saved!</span>');
-                                var $msg = $form.find('.gmsg-saved');
-                                $msg.fadeIn().delay(2000).fadeOut(function(){ $(this).remove(); 
-                                });
-                            }
-                            $switch.change(function(){
-                                $fields['fade'+($(this).is(':checked') ? 'In' : 'Out')]();
-                                $.post(
-                                    '/sales/index/savegmsg',
-                                    $form.serialize() + ( ! $(this).is(':checked') ? '&gift_is_gift=0' :''), 
-                                    function(data){}
-                                );
-                            });
-                            if ($switch.is(':checked')) $fields.fadeIn() && (Add_Gift = true);
-                            $form.submit(function(ev){
-                                ev.preventDefault();
-                                $.post(
-                                    '/sales/index/savegmsg',
-                                    $form.serialize(), 
-                                    function(data) { $.each(formhooks, function(k,hook){
-                                        if ( ! hook) return false;
-                                        var _hook = (typeof hook == 'function') ? hook : Function(hook);
-                                        _hook.call($form);
-                                    }); }
-                                );
-                                return false;
-                            });
-                            $(function(){
-                                var $checkout = $('.btn-checkout'), onclickFunc = $checkout.attr('onclick');
-                                $checkout.attr('onclick','');
-                                $('.btn-checkout').click(function(ev){
-                                    ev.preventDefault();
-                                    ev.stopPropagation();
-                                    delete formhooks['saving'];
-                                    formhooks.redirect = onclickFunc;
-                                    $form.submit();
-                                });
-                            });
-                            window.formhooks = formhooks;
-                        })(jQuery);
-                    </script>
+                    <?php echo $this->getLayout()->createBlock('core/template', 'cart_giftmessage' , array('template' => 'checkout/gcmessage.phtml'))->toHtml(); ?>
                 <?php } // -- end gift messages available ?>
                 <?php echo $this->getChildHtml('coupon') ?>
                 <?php if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
