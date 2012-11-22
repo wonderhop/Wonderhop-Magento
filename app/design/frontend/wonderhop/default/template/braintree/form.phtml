@@ -151,9 +151,11 @@ var loggedIn = <?php echo ($_loggedIn) ? 'true' : 'false' ?>;
 
 if ($$('#onestepcheckout-form').first() && !loggedIn)
 {
-    $('id_create_account').observe('change', function() {
-        $('<?php echo $_code ?>_store_in_vault_div').toggle();
-    });
+    if ($('id_create_account')) {
+        $('id_create_account').observe('change', function() {
+            $('<?php echo $_code ?>_store_in_vault_div').toggle();
+        });
+    }
 }
 else if ($('co-payment-form'))
 {

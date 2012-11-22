@@ -33,7 +33,7 @@
     
     $session = Mage::getSingleton('customer/session');
     $customer = $session->isLoggedIn() ? $session->getCustomer() : null;
-    $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : '';
+    $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : 'Guest';
     $quote = Mage::getSingleton('checkout/session')->getQuote();
     
     
@@ -164,7 +164,11 @@
                                 $.post(
                                     '/sales/index/savegmsg',
                                     $form.serialize(), 
-                                    function(data) { $.each(formhooks, function(k,hook){ hook.apply(this, arguments); }); }
+                                    function(data) { $.each(formhooks, function(k,hook){
+                                        if ( ! hook) return false;
+                                        var _hook = (typeof hook == 'function') ? hook : Function(hook);
+                                        _hook.call($form);
+                                    }); }
                                 );
                                 return false;
                             });

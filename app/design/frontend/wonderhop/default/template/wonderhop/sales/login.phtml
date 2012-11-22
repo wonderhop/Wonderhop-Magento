@@ -3,6 +3,29 @@
 $is_home = (Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' and Mage::getSingleton('cms/page')->getIdentifier() == 'home');
 $home_class = $is_home ? ' home' : '';
 
+//error_log(print_r(Mage::registry('curio_nlg_exp'), true));
+$nlg = is_object($nlg = Mage::registry('curio_nlg_exp')) ? $nlg : ((object)array('is' => false));
+//error_log(print_r($nlg, true));
+//error_log((int)$nlg->is);
+if ($nlg->is) {
+    ?>
+    <script type="text/javascript">
+        <?php if ( ! $nlg->cookied) { ?>
+            document.cookie = '<?php echo $nlg->cookie_name; ?>=1; expires='
+                                + (new Date( '<?php echo $nlg->cookie_expire; ?>' )).toGMTString()
+                                +';path=/ ';
+        <?php } ?>
+        <?php if ($is_home) { ?>
+            setLocation('/shops');
+        <?php } else { ?>
+            jQuery('body .wrapper').first().removeClass('invisible');
+        <?php } ?>
+    </script>
+    <?php
+    return;
+}
+
+
 $get_email = '';
 
 if (isset($_SESSION['reg_email'])) {

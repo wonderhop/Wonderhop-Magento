@@ -37,8 +37,9 @@ jQuery(document).ready(function() {
         buildBlock('.popup_register'); 
      } else if(jQuery('.popup_register_2').length) {
         buildBlock('.popup_register_2');
-     } else {
+     } else if(jQuery('.popup_login').length) {
         buildBlock('.popup_login');
+     } else {
      }
     
      jQuery('#login_link').click(function(){

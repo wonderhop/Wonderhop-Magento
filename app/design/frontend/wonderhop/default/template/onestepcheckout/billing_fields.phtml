@@ -2,6 +2,8 @@
 $formErrors = $this->getParentBlock()->formErrors;
 $formErrors = (!empty($formErrors['billing_errors'])) ? $formErrors['billing_errors'] : array();
 
+$nlg = is_object(Mage::registry('curio_nlg_exp')) ? Mage::registry('curio_nlg_exp') : ((object)array('is' => 0));
+
 $helper = Mage::helper('onestepcheckout/checkout');
 $dataHelper = Mage::helper('onestepcheckout');
 
@@ -188,7 +190,7 @@ $billingFields['country_id'] = '
     <?php $billingFields['create_account'] = '
         <div class="input-box">
             <input id="id_create_account" type="checkbox" name="create_account" value="1" '.((isset($_POST['create_account']) && $_POST['create_account'] == '1') ? ' checked="checked"' : '').' />
-            <label for="id_create_account">'.$this->__('Create an account for later use').'</label>
+            <label for="id_create_account">'.$this->__('Create an account to access future sales').'</label>
         </div>
 
         <script>
@@ -202,6 +204,17 @@ $billingFields['country_id'] = '
                     $("onestepcheckout-li-password").hide();
                 }
             });
+            '
+            .($nlg->is
+                ? '
+                    if ( ! $("id_create_account").checked) {
+                        console.log("fire"); 
+                        $("id_create_account").checked = true;
+                        $("onestepcheckout-li-password").show();
+                    }
+                  '
+                : '')
+            .'
         });
         </script>';
     ?>

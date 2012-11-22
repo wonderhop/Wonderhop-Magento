@@ -1,3 +1,12 @@
+<?php
+
+$session = Mage::getSingleton('customer/session');
+$customer = $session->isLoggedIn() ? $session->getCustomer() : NULL;
+
+
+?>
+
+
 <script type="text/javascript">
 //<![CDATA[
     i=0;
@@ -83,6 +92,7 @@
     
     <div class="personal-invite-container">
         <h2>SHARE YOUR PERSONAL INVITE</h2>
+        <?php if ($customer) { ?>
         <input id="personal_link" type="text" readonly="readonly" class="input-text" size="50" value="<?php echo $this->getPersonalLink() ?>" />
         <h2 class="social_share-text">SHARE</h2>
         <ul class="social_share">
@@ -104,6 +114,11 @@
         </li>
          */ ?>
         </ul>
+        <?php } else { ?>
+            
+            <h2 style="color:red; font-weight:bold; font-family:Georgia,serif; font-size: 13px; ">You need to be logged in <br/>to access your persoal link!</h2>
+        
+        <?php } ?>
         
         <div id="gifts" style="">
             <div class="money initial">
@@ -185,7 +200,7 @@
             window.show_level = show_level;
             
             <?php
-            if(Mage::getSingleton('customer/session')->isLoggedIn()) { 
+            if ( ! $session->isLoggedIn()) { 
                 $helper = new Wonderhop_Invitations_Helper_Data;
                 $customer = Mage::getSingleton('customer/session')->getCustomer();
                 $fcount = $helper->getNumberOfFriends($customer);

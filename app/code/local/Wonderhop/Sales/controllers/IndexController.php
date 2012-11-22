@@ -25,9 +25,9 @@
     
     public function savegmsgAction() {
         $session = Mage::getSingleton('customer/session');
-        if ( ! $session->isLoggedIn()) return;
-        $customer = $session->getCustomer();
-        $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : '';
+        //if ( ! $session->isLoggedIn()) return;
+        $customer = $session->isLoggedIn() ? $session->getCustomer() : NULL;
+        $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : 'Guest';
         if ( ! $this->_isAjaxPost()) { error_log('NOT is_ajax_post'); return; }
         foreach(array('to','from','message','is') as $_var) {
             $field = "gift_{$_var}_text";
@@ -38,7 +38,7 @@
                 $session->setData($field, $_POST[$field]);
                 $$field = $_POST[$field];
             }
-            if ($_var == 'from' and ! $$field) {
+            if ($_var == 'from' and ! trim($$field)) {
                 $$field = $customer_name;
                 $session->setData($field, $$field);
             }
