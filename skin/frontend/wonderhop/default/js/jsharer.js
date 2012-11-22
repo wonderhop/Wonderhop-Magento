@@ -3,10 +3,10 @@ var jSharer = (function(){
     $this = {
         options : {
             win_w       : 575,
-            win_h       : 400,
+            win_h       : 520,
             win_tx      : 'Share This',
             win_l       : ($(window).width()  - 575)  / 2,
-            win_t       : ($(window).height() - 400) / 2,
+            win_t       : ($(window).height() - 520) / 2,
             text        : 'Share This',
             sharer      : '#',
             url         : '#',
@@ -50,7 +50,7 @@ var jSharer = (function(){
             var config = $.extend({}, config);
             if (config.options) {
                 if (typeof config.options == 'object') {
-                    $this.options = $.extend({}, config.options);
+                    $.extend($this.options, config.options);
                 }
                 delete config['options'];
             }
@@ -164,7 +164,7 @@ var jSharer = (function(){
                 }
             });
             sharer = sharer.slice(0,sharer.length-1);
-            var $share = { 'sharer_url' : sharer, 'title' : opts.win_tx, 'win_opts' : win_opts },
+            var $share = { 'sharer_url' : sharer, 'title' : opts.win_tx, 'options' : win_opts },
                 rebind = !!$el.data('jSharer');
             $el.data('jSharer', $share);
             if ( ! rebind) {
