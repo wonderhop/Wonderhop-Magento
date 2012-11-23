@@ -126,4 +126,37 @@
         return "double-gteq-{$limit_a}-lteq-{$limit_b}";
     }
     
+    
+    public static function buyGiftcardSuccess()
+    {
+        $order_id = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+        $order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
+        $session = Mage::getSingleton('customer/sessiion');
+        $items = $order->getAllItems();
+        foreach($items as $item) break;
+        $qty = $item->getQtyOrdered();
+        $ammount = intval($qty);
+        $generate = array(
+            'is_new' => 1 ,
+            'credit' => $ammount ,
+            'website_id' => Mage::app()->getWebsite()->getId() ,
+            'is_active' => 1,
+            'from_date' => NULL ,
+            'to_date' => NULL ,
+            'generate' => array(
+                'qty' => 1 ,
+                'code_length' => 16 ,
+                'group_length' => 4 ,
+                'group_separator' => '-',
+                'code_format' => 'alphanum',
+            ),
+        );
+        $codeModel = Mage::getModel('customercredit/code');
+        $codeModel->setData($generate);
+        $codeModel->generate();
+        $code = $codeModel->getCode();
+        error_log($code);
+        $template_id = (string)Mage::getConfig()->getNode('localconf/giftcard_template_id');
+    }
+    
 }

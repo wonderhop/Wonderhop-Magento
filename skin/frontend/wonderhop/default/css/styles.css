@@ -2423,6 +2423,18 @@ p.no-orders { font-size: 14px; }
 #gift_message_form li label { color: #AA8BB1; font: bold 13px/16px Arial,Helvetica,sans-serif; 
     padding: 2px 0px; text-transform: uppercase; }
 
+#gift_message_form.giftcard .input-box { width: 90%; }
+#gift_message_form.giftcard .input-box.half { width: 48%;  }
+#gift_message_form.giftcard .input-box.half input { width: 80%; }
+#gift_message_form.giftcard .input-box.half.tweak input { margin-right:8%;  }
+#gift_message_form.giftcard .input-box.half.tweak label { margin-left:8%;  }
+#gift_message_form.giftcard input { width: 100%; }
+#gift_message_form.giftcard textarea { width: 90%; }
+#gift_message_form.giftcard [name="giftcard_ammount"] { width: 48%; float: right; position:relative; top: -5px; margin-bottom: 20px; }
+#gift_message_form.giftcard small { font-size:10px; color:#555; }
+#gift_message_form.giftcard .required { color: red;  padding: 0 3px; }
+
+
 .cart-col-2-inner-wrap { position:relative; left:-45px; }
 #switch-wrap { position:relative; top:-8px; }
 

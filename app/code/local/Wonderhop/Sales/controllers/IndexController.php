@@ -49,6 +49,33 @@
         }
     }
     
+    public function preparebuygiftcardAction()
+    {
+        $session = Mage::getSingleton('customer/session');
+        $is_nlg = (isset($_COOKIE['curio_nlg']) and ($_COOKIE['curio_nlg'] == '1'));
+        $product = (isset($_GET['product']) and is_numeric($_GET['product'])) ? Mage::getModel('catalog/product')->load($_GET['product']) : null;
+        $ammount = (isset($_GET['giftcard_ammount']) and is_numeric($_GET['giftcard_ammount'])) ? abs(intval($_GET['giftcard_ammount'])) : 0;
+        $email = (isset($_GET['gift_to_email']) and strpos($_GET['gift_to_email'], '@')) ? $_GET['gift_to_email'] : '';
+        if (( ! $session->isLoggedIn() and ! $is_nlg) or ! $product or !$product->getId() or ! $ammount or ! $email) {
+            header('Location: '.Mage::getBaseUrl());
+            exit;
+        }
+        $cartHelper = Mage::helper('checkout/cart');
+        $cart = $cartHelper->getCart();
+        $checkout = Mage::getSingleton('checkout/session');
+        $checkout->clear();
+        $cart->addProduct($product , array('product'=> $product->getId(), 'qty'=>$ammount));
+        $cart->save();
+        $checkout->setIsGiftcardCheckout(true);
+        $session->setIsGiftcardCheckout(true);
+        $checkout->setRecipientEmail($email);
+        //Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+        
+        header('Location: '.Mage::getBaseUrl().'onestepcheckout');
+        exit;
+    }
+    
+    
     protected function _isAjaxPost()
     {
         return isset($_SERVER['REQUEST_METHOD']) 

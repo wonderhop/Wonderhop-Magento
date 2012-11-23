@@ -23,9 +23,13 @@
  * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
- $session = Mage::getSingleton('customer/session');
- foreach(array( 'message', 'from','to') as $var) $session->setData("gift_{$var}_text",'');
- $session->setGiftIsGift(0);
+$session = Mage::getSingleton('customer/session');
+if ($session->getIsGiftcardCheckout()) {
+    Wonderhop_Sales_Helper_Data::buyGiftcardSuccess($this->getOrderId());
+    $session->setIsGiftcardCheckout(false);
+}
+foreach(array( 'message', 'from','to') as $var) $session->setData("gift_{$var}_text",'');
+$session->setGiftIsGift(0);
  
 ?>
 <div class="page-title">

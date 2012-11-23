@@ -672,7 +672,9 @@ div.onestepcheckout-comments textarea {
 .onestepcheckout-giftmessages .group-select li .input-box {
     width: 125px;
     margin-right: 20px;
+    float: left;
 }
+.onestepcheckout-giftmessages .group-select li .input-box.wide {  width:100%; }
 
 .onestepcheckout-giftmessages .group-select li .input-box .input-text {
     width: 120px;
@@ -680,6 +682,7 @@ div.onestepcheckout-comments textarea {
 
 .onestepcheckout-giftmessages .group-select li textarea {
     width: 267px;
+    width: 257px;
 }
 
 .onestepcheckout-address-line {
@@ -858,6 +861,7 @@ div.onestepcheckout-comments textarea {
     width:271px; padding-right: 6px; margin-right:9px; }
 
 #onestepcheckout-form .onestepcheckout-threecolumns input.input-text { width:90%;  }
+#onestepcheckout-form .onestepcheckout-threecolumns input.input-text.wide { padding-right:6px;  }
 
 #onestepcheckout-form .input-text.onestepcheckout-address-line[id="billing:street2"] { display: none;  }
 

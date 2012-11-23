@@ -1,13 +1,14 @@
 <?php
 $_coreHelper = $this->helper('core');
 $checkoutHelper = Mage::helper('onestepcheckout/checkout');
+$ckSession = Mage::getSingleton('checkout/session');
 ?>
 
 <table class="onestepcheckout-summary">
     <thead>
         <tr>
             <th class="name"><?php echo $this->__('Product'); ?></th>
-            <th class="qty"><?php echo $this->__('Qty'); ?></th>
+            <th class="qty"><?php echo  ( ! $ckSession->getIsGiftcardCheckout()) ? $this->__('Qty') : '&nbsp;'; ?></th>
             <th class="total"><?php echo $this->__('Subtotal'); ?></th>
         </tr>
     </thead>
@@ -43,7 +44,7 @@ $checkoutHelper = Mage::helper('onestepcheckout/checkout');
 
             <?php endif; ?>
         </td>
-        <td class="qty"><?php echo $item->getQty(); ?></td>
+        <td class="qty"><?php echo ( ! $ckSession->getIsGiftcardCheckout()) ? $item->getQty() : '&nbsp;'; ?></td>
         <td class="total">
             <?php if($checkoutHelper->settings['display_tax_included']): ?>
             <?php echo $this->helper('checkout')->formatPrice($this->helper('checkout')->getSubtotalInclTax($item)); ?>
