@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+ 
+<config>
+    <modules>
+        <Wonderhop_Generic>
+            <version>0.1.0</version>
+        </Wonderhop_Generic>
+    </modules>
+    <global>
+        <models>
+            <generic>
+                <class>Wonderhop_Generic_Model</class>
+            </generic>
+        </models>
+        <events>
+            <!-- -->
+            <sales_quote_save_before>
+                <observers>
+                    <observe_quote_save_checkout_type>
+                        <type>singleton</type>
+                        <class>Wonderhop_Generic_Observer</class>
+                        <method>on_sales_quote_save_before</method>
+                    </observe_quote_save_checkout_type>
+                </observers>
+            </sales_quote_save_before>
+            <!-- -->
+            <checkout_type_onepage_save_order_after>
+                <observers>
+                    <observe_checkout_type_register>
+                        <type>singleton</type>
+                        <class>Wonderhop_Generic_Observer</class>
+                        <method>on_checkout_type_onepage_save_order_after</method>
+                    </observe_checkout_type_register>
+                </observers>
+            </checkout_type_onepage_save_order_after>
+            <!-- -->
+        </events>
+    </global>
+</config>
+ 
