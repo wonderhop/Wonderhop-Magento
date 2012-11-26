@@ -86,7 +86,7 @@ Event.observe(window, 'load', function(e)    {
     <div class="gift-box" id="allow-gift-message-container">
         <div class="scroll-box">
             <?php if (Mage::helper('giftmessage/message')->isMessagesAvailable('quote', $this->getEntity())): ?>
-            <span>To give gifts to multiple people, create separate orders.</span>
+            <!--<span>To give gifts to multiple people, create separate orders.</span>-->
             <fieldset class="group-select">
                 <input type="hidden" name="giftmessage[<?php echo $this->getEntity()->getId() ?>][type]"  value="quote" />
                 <ul class="no-padding">
