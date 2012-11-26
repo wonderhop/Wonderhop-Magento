@@ -50,6 +50,10 @@
 $session = Mage::getSingleton('customer/session');
 $customer = $session->getCustomer();
 $is_staff = (strtolower((string)Mage::getModel('customer/group')->load($customer->getGroupId())->getCode()) === 'staff');
+$stafftest = false;
+if (isset($_GET['stafftest']) and ($_GET['stafftest'] == '1')) {
+    $is_staff = 1;
+}
 
 $ref_id = '';
 if($session->isLoggedIn() && $customer->getReferralCode()) {

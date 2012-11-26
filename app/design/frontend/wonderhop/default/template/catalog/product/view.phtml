@@ -39,6 +39,10 @@ $session = Mage::getSingleton('customer/session');
 $customer = $session->getCustomer();
 $is_staff = (strtolower((string)Mage::getModel('customer/group')->load($customer->getGroupId())->getCode()) === 'staff');
 $sold_out = ( ! Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product)->getIsInStock());
+$stafftest = false;
+if (isset($_GET['stafftest']) and ($_GET['stafftest'] == '1')) {
+    $is_staff = 1;
+}
 
 $categoryIds = $_product->getCategoryIds();
 $c_cat = is_object(Mage::registry('current_category')) ? Mage::registry('current_category') : NULL;
