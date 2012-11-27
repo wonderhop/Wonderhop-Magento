@@ -1,0 +1,34 @@
+<?php
+
+
+
+
+$outputHelper = $this->helper('catalog/output');
+$product = $this->getProduct();
+$category = $this->getCAtegory();
+$width  = 430;
+$height = 407;
+
+
+if ($product) {
+?>
+
+<div class="randprod-wrap">
+    <div class="randprod-nav-wrap">
+        <!--<a class="rendprod-next" href="#" onclick="history.go(-1);return false;">Previous</a> -->
+        <a class="randprod-prev" href="#" onclick="setLocation('<?php echo $this->helper('core/url')->getCurrentUrl(); ?>');return false;">View another product</a>
+    </div>
+    <a href="<?php echo $product->getProductUrl(); ?>" class="product-image">
+        <div class="randprod-image">
+            <?php
+            $_img = '<img src="'.$this->helper('catalog/image')->init($product, 'image')->resize($width).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+            echo $outputHelper->productAttribute($product, $_img, 'image');
+            ?>
+        </div>
+        <div class="rendprod-text">
+            <h1><?php echo $product->getName(); ?></h1>
+        </div>
+    </a>
+</div>
+<?php
+}
