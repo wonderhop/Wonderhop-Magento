@@ -157,7 +157,8 @@ ul#cat_sales li a {
 .sales-page .main .page_end_normal.page_end_sales_page1 { display:block; width:100%; }
 
 
-
+.sales-page .main { margin-top:23px; } 
+ 
 /*.cat_sales_left-opening .sale_end_description { text-align:right; }
 .cat_sales_right-opening .sale_end_description { text-align:left; }*/
 
