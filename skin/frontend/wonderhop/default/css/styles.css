@@ -2436,6 +2436,8 @@ p.no-orders { font-size: 14px; }
 
 .fshipping_banner { background: url("../images/fshipping_banner.png") no-repeat scroll 0 0 transparent;
     width: 593px; height: 96px; position: absolute; right: -90px; top: 70px; display: none; }
-.catalog-category-view .fshipping_banner { display: block; }
-    
+.catalog-category-view .fshipping_banner,
+.sales-page .fshipping_banner 
+{ display: block; }
+
 
