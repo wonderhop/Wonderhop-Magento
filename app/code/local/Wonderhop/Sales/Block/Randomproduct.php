@@ -84,7 +84,7 @@ class Wonderhop_Sales_Block_Randomproduct extends Mage_Core_Block_Template {
         $randomTrace = $this->_getRandomTrace();
         list($products, $categories) = $this->_getProductAndCategoriesIds();
         $random = mt_rand(0, count($products) -1);
-        $lastRandomProductId = reset( $randomTrace );
+        $lastRandomProductId = end( $randomTrace );
         if (count($products) > 1 and $lastRandomProductId and $lastRandomProductId == $products[$random]) {
             while($lastRandomProductId == $products[$random]) {
                 $random = mt_rand(0, count($products) -1);

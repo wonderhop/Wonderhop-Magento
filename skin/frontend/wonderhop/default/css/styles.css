@@ -2432,3 +2432,11 @@ p.no-orders { font-size: 14px; }
 #brand-shares-cta {  left: 465px; top: 55px; }
 #prod-shares-cta-ctn { display:block; width:200px; height:38px; position:relative;} 
 #prod-shares-cta {  left: 5px; top: 10px;  }
+
+
+
+.randprod { height: 430px; display: block; margin:0; text-decoration:none; }
+.randprod.single { margin:0 auto; text-align:center;}
+.randprod-image { display:inline-block; }
+.randprod-nav-wrap { display:block; min-height: 30px; overflow:hidden; }
+.randprod-next { display: inline-block; float:right; padding:10px;  }
