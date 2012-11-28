@@ -10,7 +10,7 @@
         $tc = $t.clone().html(wr).appendTo($c).css({display:'none', zIndex:1000}).addClass('clone'),
         $h = $('.dynamic_header').first(),
         $hc = $h.clone().appendTo($c).css({display:'none',zIndex:1010}).addClass('clone'),
-        _limit1 = $h.offset().top,
+        _limit1 = $h.offset().top + 30,
         _limit2 = $t.offset().top+$t.height() - $h.height();
     
     $hc.css({position:'fixed', left:'50%', marginLeft: '-'+($h.width()/2)+'px' , top:-7});
