@@ -2441,5 +2441,5 @@ p.no-orders { font-size: 14px; }
 .randprod-text h1 { font-size:23px; }
 .randprod-nav-wrap { display:block; min-height: 1px; overflow:visible; position:relative; margin-top:20px; }
 .randprod-next { display: inline-block; float:right; width: 70px; height:65px; 
-    background: url("../images/random_arrow.png"); position:absolute; top: 165px; right:15px; 
+    background: url("../images/random_arrow.png") no-repeat; position:absolute; top: 165px; right:15px; 
     text-indent: -8899px; overflow:hidden;  }
