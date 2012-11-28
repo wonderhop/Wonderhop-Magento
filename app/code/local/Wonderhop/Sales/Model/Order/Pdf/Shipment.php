@@ -11,8 +11,6 @@ class Wonderhop_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pd
         $headWspan = intval(strlen(str_replace($br, '', $messageHead)) *1.5) +5;
         list( $ident, $lHeight, $padding, $hIncrement) = array( 35 , 11 , 10 , 3);
         $wspan = intval($headWspan * ($lHeight/($lHeight+$hIncrement)));
-        error_log($headWspan);
-        error_log($wspan);
         // statistically , this works (the width of the gliph is lineHeight / 4)
         list( $top, $span) = array($this->y - $padding *5 , $headWspan * 4);
         $message = str_replace(array("\n","\r"),array($br,''), $message);
