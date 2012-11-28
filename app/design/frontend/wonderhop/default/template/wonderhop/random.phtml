@@ -8,7 +8,7 @@ $product = $this->getProduct();
 $category = $this->getCAtegory();
 $width  = 430;
 $height = 400;
-
+$price = '$'.number_format($product->getSpecialPrice() ? $product->getSpecialPrice() : $product->getPrice(), 0);
 
 if ($product) {
 ?>
@@ -20,7 +20,7 @@ if ($product) {
     </div>
     <a href="<?php echo $product->getProductUrl(); ?>" class="randprod single">
         <div class="rendprod-text">
-            <h1><?php echo $product->getName(); ?></h1>
+            <h1><?php echo $product->getName() . '&nbsp;&mdash;&nbsp;' . $price; ?></h1>
         </div>
         <div class="randprod-image">
             <?php
