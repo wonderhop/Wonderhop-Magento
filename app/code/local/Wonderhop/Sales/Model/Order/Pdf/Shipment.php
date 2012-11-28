@@ -3,14 +3,20 @@
 class Wonderhop_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pdf_Shipment {
     
     
-    public function addGiftMsg($page, $sender, $message)
+    public function addGiftMsg($page, $sender, $recipient, $message)
     {
         if(empty($message)) return;
-        list( $br, $ident, $lHeight, $wspan, $padding, $hIncrement) = array( '***BREAK***', 35 , 11 , 60, 10 , 3);
+        $br = '***BREAK***';
+        $messageHead = "A Gift Message From {$sender} To {$recipient} :{$br}  {$br}";
+        $headWspan = intval(strlen(str_replace($br, '', $messageHead)) *1.5) +5;
+        list( $ident, $lHeight, $padding, $hIncrement) = array( 35 , 11 , 10 , 3);
+        $wspan = intval($headWspan * ($lHeight/($lHeight+$hIncrement)));
+        error_log($headWspan);
+        error_log($wspan);
         // statistically , this works (the width of the gliph is lineHeight / 4)
-        list( $top, $span) = array($this->y - $padding *5 , $wspan * 4);
+        list( $top, $span) = array($this->y - $padding *5 , $headWspan * 4);
         $message = str_replace(array("\n","\r"),array($br,''), $message);
-        $text = "A Gift Message From {$sender} :{$br}  {$br}".wordwrap($message, $wspan, $br, true);
+        $text = $messageHead.wordwrap($message, $wspan, $br, true);
         $lines = explode($br, $text);
         $from = array_shift($lines);
         list($startY, $startX, $height, $width) = array($top, $ident, count($lines) * $lHeight, $span );
@@ -91,7 +97,7 @@ class Wonderhop_Sales_Model_Order_Pdf_Shipment extends Mage_Sales_Model_Order_Pd
                 //$this->y -= 20;
             }
             if ($giftMessage and $giftMessage->getId()) {
-                $this->addGiftMsg($page, $giftMessage->getSender(), $giftMessage->getMessage());
+                $this->addGiftMsg($page, $giftMessage->getSender(), $giftMessage->getRecipient(),$giftMessage->getMessage());
             }
         }
         $this->_afterGetPdf();
