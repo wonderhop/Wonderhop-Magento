@@ -19,7 +19,7 @@ if ($product) {
         <a class="randprod-next" href="#" onclick="setLocation('<?php echo $this->helper('core/url')->getCurrentUrl(); ?>');return false;">View another product</a>
     </div>
     <a href="<?php echo $product->getProductUrl(); ?>" class="randprod single">
-        <div class="rendprod-text">
+        <div class="randprod-text">
             <h1><?php echo $product->getName() . '&nbsp;&mdash;&nbsp;' . $price; ?></h1>
         </div>
         <div class="randprod-image">
