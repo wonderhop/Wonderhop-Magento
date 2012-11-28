@@ -2438,8 +2438,21 @@ p.no-orders { font-size: 14px; }
 .randprod { height: 430px; display: block; margin:0; text-decoration:none; }
 .randprod.single { margin:0 auto; text-align:center;}
 .randprod-image { display:inline-block; }
+
+.randprod-nav-wrap { display:block; min-height: 30px; overflow:hidden; }
+.randprod-next { display: inline-block; float:right; padding:10px;  }
+
+
 .randprod-text h1 { font-size:23px; }
 .randprod-nav-wrap { display:block; min-height: 1px; overflow:visible; position:relative; margin-top:20px; }
 .randprod-next { display: inline-block; float:right; width: 70px; height:65px; 
-    background: url("../images/random_arrow.png") no-repeat; position:absolute; top: 165px; right:15px; 
+    background: url("../images/random_arrow.png") no-repeat; position:absolute; top: 175px; right:105px; 
     text-indent: -8899px; overflow:hidden;  }
+
+.randprod-heading { background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;
+    clear: left; color: #FD706B; display: block;  font-family: "letter-gothic-std",monospace;
+    font-size: 19px; line-height: 1; margin-left: 20px;  padding-bottom: 14px;text-transform: uppercase; float:left;
+    padding-right:40px; }
+.randprod-heading-wrap { display:block; clear:both; overflow:hidden; margin-top:20px; }
+.randprod-heading h1 { font-size:21px; margin-bottom:-3px; color:#FD706B; }
+
