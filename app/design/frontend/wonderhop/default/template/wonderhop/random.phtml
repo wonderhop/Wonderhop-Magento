@@ -56,14 +56,15 @@ if ($product) {
                 $form.submit();
                 return false;
             });
-            $form.submit(function(ev){
+            $form.attr('method', 'post').attr('action' , '/checkout/cart/add/product/<?php echo $product->getId(); ?>');
+            /*$form.submit(function(ev){
                 ev.preventDefault();
                 var qty = parseInt($qty.val()) ? parseInt($qty.val()) : 1;
                 jQuery.post('/checkout/cart/add/product/<?php echo $product->getId(); ?>?qty='+qty,function(data){
                     setLocation('/checkout/cart');
                 });
                 return false;
-            });
+            });*/
             parseInt($qty.val()) || $qty.val(1);
         })(jQuery);
     </script>
