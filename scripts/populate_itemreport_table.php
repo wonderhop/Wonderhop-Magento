@@ -26,6 +26,8 @@ function addItemreportRecord($record)
     $table = new Zend_Db_Table(array('db' => $db, 'name' => 'itemreport'));
     $row = $table->createRow($record);
     $row->save();
+    global $insertcount;
+    $insertcount++;
 }
 
 $exOrders = getExistingOrderIds();
@@ -37,6 +39,10 @@ $testorders = array(
 //    '100000046', 
 //    '100000074'
 );
+
+global $insertcount;
+$insertcount = 0;
+
 foreach($orders as $order) {
     //var_dump($order->toArray());
     if( in_array($order->getId(), $exOrders)) continue;
@@ -100,3 +106,4 @@ foreach($orders as $order) {
     }
 }
 
+echo "inserted $insertcount rows\n";
