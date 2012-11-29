@@ -83,6 +83,7 @@ class Wonderhop_Sales_Block_Randomproduct extends Mage_Core_Block_Template {
     {
         $randomTrace = $this->_getRandomTrace();
         list($products, $categories) = $this->_getProductAndCategoriesIds();
+        $products = $this->_selectSaleableProductIds($products);
         $random = mt_rand(0, count($products) -1);
         $lastRandomProductId = end( $randomTrace );
         if (count($products) > 1 and $lastRandomProductId and $lastRandomProductId == $products[$random]) {
@@ -94,6 +95,16 @@ class Wonderhop_Sales_Block_Randomproduct extends Mage_Core_Block_Template {
         if ($trace) $this->_traceProduct($product);
         $category = $this->_getCategory($product);
         return array($product, $category);
+    }
+    
+    protected function _selectSaleableProductIds($productIds)
+    {
+        $selected = array();
+        foreach($productIds as $id) {
+            if ( ! Mage::getModel('catalog/product')->load($id)->isSaleable()) continue;
+            $selected[] = $id;
+        }
+        return $selected;
     }
     
     public function getRandomProduct()

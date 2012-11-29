@@ -2456,7 +2456,13 @@ p.no-orders { font-size: 14px; }
     padding-right:40px; }
 .randprod-heading-wrap { display:block; clear:both; overflow:hidden; margin-top:20px; }
 .randprod-heading h1 { font-size:21px; margin-bottom:-3px; color:#FD706B; }
-
+.randprod-under-wrap { display:block; clear:both; overflow:hidden; }
+.randprod-addtocart { display:block; text-align:center; margin-top:30px; }
+.randprod-addtocart .add-to-cart { display:inline-block; min-width:400px; }
+.randprod-addtocart .add-to-cart button.button { clear: none; float: left; margin: -5px 0 0 20px; }
+.randprod-addtocart .ggift-btn { display: none;  }
+.randprod-desc-wrap { display:block; text-align:center; margin-top:10px; }
+.randprod-desc { width:400px; display: inline-block; width:400px; text-align:left;  }
 
 .fshipping_banner { background: url("../images/fshipping_banner.png") no-repeat scroll 0 0 transparent;
     width: 593px; height: 96px; position: absolute; right: -90px; top: 70px; display: none; }

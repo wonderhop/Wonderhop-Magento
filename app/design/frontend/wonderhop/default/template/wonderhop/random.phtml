@@ -33,6 +33,40 @@ if ($product) {
             ?>
         </div>
     </a>
+    <form class="randprod-under-wrap" id="product_addtocart_form">
+        <div class="randprod-addtocart">
+        <?php
+            if ( ! Mage::registry('product')) Mage::register('product', $product);
+            $addtocart = $this->getLayout()->createBlock('catalog/product_view', 'r_addtocart', array(
+                    'template' => 'catalog/product/view/addtocart.phtml'));
+            echo $addtocart->toHtml();
+            ?>
+        </div>
+        <div class="randprod-desc-wrap">
+            <div class="randprod-desc">
+                <?php echo nl2br($product->getDescription()); ?>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        (function($){
+            var $form = $('#product_addtocart_form'), $button = $form.find('button'), $qty = $form.find('input[type="text"]');
+            $button.attr('onclick','').click(function(ev){ 
+                ev.preventDefault();
+                $form.submit();
+                return false;
+            });
+            $form.submit(function(ev){
+                ev.preventDefault();
+                var qty = parseInt($qty.val()) ? parseInt($qty.val()) : 1;
+                jQuery.post('/checkout/cart/add/product/<?php echo $product->getId(); ?>?qty='+qty,function(data){
+                    setLocation('/checkout/cart');
+                });
+                return false;
+            });
+            parseInt($qty.val()) || $qty.val(1);
+        })(jQuery);
+    </script>
 </div>
 <?php
 }
