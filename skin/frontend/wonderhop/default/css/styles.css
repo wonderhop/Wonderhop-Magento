@@ -2403,7 +2403,7 @@ p.no-orders { font-size: 14px; }
 .config-prod-fields .input-box { display:block; width: 260px;  }
 .config-prod-fields .input-box .customStyleWrap { width:135px !important; }
 .config-prod-fields .required em { display: none; }
-
+.product-view.type-configurable button.button.btn-cart { margin-top: 50px; }
 
 .checkout-cart-index .success-msg, 
 .checkout-cart-index .error-msg, 
