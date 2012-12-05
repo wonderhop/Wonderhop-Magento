@@ -1,11 +1,14 @@
 <?php 
     $is_register = ($this->trackEventExists('User registered') or $this->isRegister(false)) ? 'true' : 'false';
+    $is_devel = (((string)Mage::getConfig()->getNode('localconf/env')) == 'devel');
 ?>
 <script type="text/javascript">
     // registeredhead
     // configure mixpanel once loaded
     mixpanel.set_config({
+        <?php if ($is_devel) { ?>
         debug : true,
+        <?php } ?>
         loaded: function()
         {
             // identify the user with an unique_id
