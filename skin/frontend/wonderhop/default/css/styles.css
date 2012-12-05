@@ -1295,7 +1295,7 @@ margin-right: 4px;}
 .product-options p.note { margin:0; font-size:11px; }
 .product-options p.required { position:absolute; right:20px; top:20px; }
 
-.product-options-bottom { background-color:#fffada; padding:15px 20px; border:1px solid #e4e4e4; border-top:0; }
+.product-options-bottom {  }
 .product-options-bottom .product-pricing,
 .product-options-bottom .tier-prices { margin:0; padding:0 0 10px; border:0; background:0; color:#fd7773; }
 .product-options-bottom .tier-prices li { background:0; padding:2px 0; }
@@ -2222,6 +2222,7 @@ ul.social_share  li { float:left; margin-left: 10px; min-width: 30px; list-style
 
 /* brand page */
 .catalog-category-view .main { margin-top:330px; }
+.main { margin-top:30px;  }
 .catalog-category-view .col-main { margin-top:-300px; position:relative;padding-top:310px; }
 /* width:1248px; height:567px; */
 .tag_header { width:937px; height:256px; padding:16px 16px 23px 70px; position:absolute; top:-16px; left:-70px;
@@ -2249,9 +2250,9 @@ ul.social_share  li { float:left; margin-left: 10px; min-width: 30px; list-style
     position:absolute; top: -12px; left:0; width:100%; height: 29px; }
 
 
-.tag_header.giftshop .tag_header_wire { background-image:url("../images/giftshop/tag_back_wire_new.png"); 
+.tag_header .tag_header_wire, .tag_header.giftshop .tag_header_wire { background-image:url("../images/giftshop/tag_back_wire_new.png"); 
     width:165px; left:-165px; }
-.tag_header.giftshop  { background-image:url("../images/giftshop/tag_back_tag_new.png"); }
+.tag_header, .tag_header.giftshop  { background-image:url("../images/giftshop/tag_back_tag_new.png"); }
 .dynamic_header.giftshop { background-image:url("../images/giftshop/dynamic_header_back.png"); }
 .dynamic_header.giftshop .category-title { width:215px; }
 
@@ -2393,7 +2394,14 @@ select.customStyle { height:31px; }
 p.no-orders { font-size: 14px; }
 
 
-#product-options-wrapper { background:none; border:none;  }
+#product-options-wrapper { background:none; border:none;  padding:0; margin:0; max-width:260px; margin-bottom: 10px; 
+    margin-left:5px; }
+#product-options-wrapper label { color:#666; font-size:14px; }
+.product-options dd { clear: right; float: left; max-width: 230px;padding-left: 0; width:138px; }
+.product-options dt {float: left; font-weight: normal; min-width: 50px; padding: 10px 0 0;}
+.product-options dl {clear: both; display: block; left: -18px; overflow: hidden; position: relative; }
+
+.product-options-bottom .add-to-cart { float:none; }
 
 .config-prod-fields { display: inline-block; width: 290px; padding-left:20px; }
 .config-prod-fields dt { display:block; float: left;  }
@@ -2401,7 +2409,7 @@ p.no-orders { font-size: 14px; }
 .config-prod-fields .input-box { display:block; width: 260px;  }
 .config-prod-fields .input-box .customStyleWrap { width:135px !important; }
 .config-prod-fields .required em { display: none; }
-
+.product-view.type-configurable button.button.btn-cart { margin-top: 50px; }
 
 .checkout-cart-index .success-msg, 
 .checkout-cart-index .error-msg, 
@@ -2456,13 +2464,19 @@ p.no-orders { font-size: 14px; }
     padding-right:40px; }
 .randprod-heading-wrap { display:block; clear:both; overflow:hidden; margin-top:20px; }
 .randprod-heading h1 { font-size:21px; margin-bottom:-3px; color:#FD706B; }
-
+.randprod-under-wrap { display:block; clear:both; overflow:hidden; }
+.randprod-addtocart { display:block; text-align:center; margin-top:30px; }
+.randprod-addtocart .add-to-cart { display:inline-block; min-width:400px; }
+.randprod-addtocart .add-to-cart button.button { clear: none; float: left; margin: -5px 0 0 20px; }
+.randprod-addtocart .ggift-btn { display: none;  }
+.randprod-desc-wrap { display:block; text-align:center; margin-top:10px; }
+.randprod-desc { width:400px; display: inline-block; width:400px; text-align:left;  }
 
 .fshipping_banner { background: url("../images/fshipping_banner.png") no-repeat scroll 0 0 transparent;
-    width: 593px; height: 96px; position: absolute; right: -90px; top: 70px; display: none; }
-.catalog-category-view .fshipping_banner,
+    width: 593px; height: 96px; position: absolute; right: -90px; top: 70px; display: block; z-index:-1;}
+/*.catalog-category-view .fshipping_banner,
 .sales-page .fshipping_banner 
-{ display: block; }
+{ display: block; }*/
 
 
 
