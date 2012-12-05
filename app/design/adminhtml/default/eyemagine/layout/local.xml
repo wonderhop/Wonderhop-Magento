@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * EyeMagine - The leading Magento Solution Partner.
+ * 
+ * @author     EyeMagine <magento@eyemaginetech.com>
+ * @category   design
+ * @package    default_default
+ * @copyright  Copyright (c) 2003-2012 EYEMAGINE Technology, LLC (http://www.eyemaginetech.com)
+ * @license    http://www.gnu.org/licenses/gpl-3.0.html (GPL)
+*/
+
+	Adding sortable.js to category edit page for Merchandising module
+-->
+<layout>
+    <adminhtml_catalog_category_edit>
+        <reference name="head">
+			<action method="addItem"><type>skin_js</type><name>sortable.js</name></action>
+        </reference>
+    </adminhtml_catalog_category_edit>
+</layout>
