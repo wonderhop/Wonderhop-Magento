@@ -34,6 +34,16 @@
                 </observers>
             </checkout_type_onepage_save_order_after>
             <!-- -->
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <observe_order_placed_success>
+                        <type>singleton</type>
+                        <class>Wonderhop_Generic_Observer</class>
+                        <method>on_checkout_onepage_controller_success_action</method>
+                    </observe_order_placed_success>
+                </observers>
+            </checkout_onepage_controller_success_action>
+            <!-- -->
         </events>
     </global>
 </config>

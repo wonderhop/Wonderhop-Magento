@@ -1,57 +1,8 @@
-<?php if($this->displayBlock()): ?>
- <script type="text/javascript">
-    mixpanel.track("User Registered", {'ad' : '<?php echo $this->getAd(); ?>'});
- </script>
-<?php endif; ?>
-<?php $attr = array(); ?>
-<?php if($this->isLoggedIn()): ?>
-    <script type="text/javascript">
+<script type="text/javascript">
     
-         <?php if($this->checkIfCustomerLoggedIn()): ?>
-            mixpanel.track("Logged In");
-         <?php endif; ?>
-         <?php if(Mage::registry('current_product')): ?>
-             //mixpanel.track_links("a.pin-it-button", "Pinterest share");
-             //mixpanel.track_links("a#product-service-links-twitter", "Twitter product share");
-             //mixpanel.track_links("a#product-facebook-link-share", "Facebook product share");
-         <?php elseif(Mage::registry('current_category')): ?>
-             //mixpanel.track_links("a.pin-it-button", "Pinterest share");
-             //mixpanel.track_links("a#sale-service-links-twitter", "Twitter sale share");
-             //mixpanel.track_links("a#sale-facebook-link-share", "Facebook sale share");
-         <?php endif; ?>
-         mixpanel.people.set(<?php echo $this->getCustomerInformation() ?>);
-          mixpanel.identify("<?php echo $this->getCustomer()->getId(); ?>");
-         mixpanel.name_tag('<?php echo $this->getCustomer()->getEmail(); ?>');
-        
-    </script>
-<?php endif; ?>
-<?php $event = '';  ?>
-<?php if(!$this->isLoggedIn()): ?>
-    <?php $attr = array('visitor_id' => $this->getVisitorId()); ?>
-    <script type="text/javascript">
-        //mixpanel.track_links("form#register-form1", "Email signup submit");
-        mixpanel.track_links("a#login_link", "Click login link");
-    </script>
-<?php else: ?>
-    <?php $attr = $this->getCustomerInformation(False); ?>
-<?php endif; ?>
- 
-<?php if($this->isPage('home')): ?>
-   <?php $event = 'Home page visited'; ?>
-<?php elseif($this->isPage('shops')): ?>
-    <?php $event = 'Shops page visited'; ?>
-
-<?php elseif(Mage::registry('current_product')): ?>
-    <?php $event = 'Product page visited'; 
-          $attr['product'] = Mage::registry('current_product')->getName();
-    ?>
-<?php elseif(Mage::registry('current_category')): ?>
-    <?php $event = 'Sale page visited'; 
-          $attr['sale'] = Mage::registry('current_category')->getName();
-    ?>           
-<?php endif; ?>
-<?php if($event): ?>
-    <script type="text/javascript">
-        mixpanel.track("<?php echo $event; ?>", <?php echo Mage::helper('core')->jsonEncode($attr); ?> );
-    </script>
-<?php endif; ?>
+    <?php foreach($this->trackEventsQueue() as $event => $data) { 
+        $data = empty($data) ? NULL : Mage::helper('core')->jsonEncode($data); ?>
+        mixpanel.track("<?php echo $event; ?>"<?php echo $data ? (','.$data) : ''; ?> );
+    <?php } ?>
+    
+</script>

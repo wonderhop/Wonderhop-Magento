@@ -67,6 +67,11 @@ function getCookie(c_name)
       }
 }
 
+function deleteCookie(name)
+{
+    setCookie(name, '' , -1);
+}
+
 (function ($) {
 
     $.fn.getWidthInPercent = function () {
@@ -156,3 +161,4 @@ function customStyleEngage(inc,exc) {
 
 //doCustomStyle(false,'.limiter select');
 doCustomStyle();
+

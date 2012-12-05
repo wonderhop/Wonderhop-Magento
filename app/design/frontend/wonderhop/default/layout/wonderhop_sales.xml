@@ -3,6 +3,7 @@
     <default>
         <reference name="head">
             <action method="addItem"><type>skin_js</type><name>js/sales/sales.js</name></action>
+            <block type="wonderhop_sales/registered" name="wonderhop_registeredhead" template="wonderhop/registeredhead.phtml" />
         </reference>
         <reference name="footer">
             <block type="wonderhop_sales/registered" name="wonderhop_registered" template="wonderhop/registered.phtml" />

@@ -1,0 +1,43 @@
+<?php 
+    $is_register = ($this->trackEventExists('User registered') or $this->isRegister(false)) ? 'true' : 'false';
+?>
+<script type="text/javascript">
+    // registeredhead
+    // configure mixpanel once loaded
+    mixpanel.set_config({
+        debug : true,
+        loaded: function()
+        {
+            // identify the user with an unique_id
+            var aliasTrackId = mixpanel.get_property('distinct_id');
+            var customerTrackId = '<?php echo $this->getCustomerTrackId(); ?>';
+            var isRegister = <?php echo $is_register; ?>;
+            // if no unique id yet (customer not registered), use mixpanel's
+            if ( ! customerTrackId && ! isRegister) {
+                    customerTrackId = mixpanel.get_property('distinct_id');
+            }
+            // name identification for this unique id
+            var customerTrackName = '<?php echo $this->getCustomerTrackName(); ?>';
+            // additional data for this unique id
+            var customerTrackData = <?php echo json_encode($this->getCustomerTrackData()); ?>;
+            // otherwise it would mean error
+            if (customerTrackId) {
+                // fire mixpanel identification
+                // on register, the old id is in the alias as customer now has a customer_id
+                if (isRegister && aliasTrackId != customerTrackId) {
+                    // identify with the old id
+                    mixpanel.identify(aliasTrackId);
+                    // alias our new one
+                    mixpanel.alias(customerTrackId);
+                } else {
+                    // otherwise we alias with our customer_id
+                    mixpanel.identify(customerTrackId);
+                }
+                mixpanel.name_tag(customerTrackName);
+                mixpanel.people.set(customerTrackData);
+            } else {
+                // send post request to log this error somewhere
+            }
+        },
+    });
+</script>

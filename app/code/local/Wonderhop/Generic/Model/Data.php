@@ -36,6 +36,26 @@ class Wonderhop_Generic_Model_Data extends Mage_Core_Model_Abstract {
         if ( ! $customer->getAd() and ! $customer->getReferrerId()) {
             $this->addMarketingData($customer, true);
         }
+        //if ($distinctId = $this->getTrackingDistinctId()) {
+        //    $customer->setDistinctId($distinctId);
+        //    $customer->save();
+        //}
+    }
+    
+    public function getTrackingDistinctId()
+    {
+        $distinctId = NULL;
+        if ($mpkey = ((string)Mage::getConfig()->getNode('localconf/analytics/mixpanel/key'))) {
+            $mpSessName = "mp_{$mpkey}_mixpanel";
+            if (isset($_COOKIE[$mpSessName]) and $_COOKIE[$mpSessName]) {
+                $mp = NULL;
+                try { $mp = json_decode($_COOKIE[$mpSessName]); } catch(Exception $e) {};
+                if (is_object($mp) and isset($mp->distinct_id) and preg_match('/^[a-f0-9\-]{10,}$/i', $mp->distinct_id)) {
+                    $distinctId = $mp->distinct_id;
+                }
+            }
+        }
+        return $distinctId;
     }
     
     
@@ -72,5 +92,22 @@ class Wonderhop_Generic_Model_Data extends Mage_Core_Model_Abstract {
             $uid .= gen_uuid(22);
         return substr($uid, 0, $len);
     }
+    
+    
+    public function isJustRegisteredCustomer($clear = true)
+    {
+        $session = Mage::getSingleton('customer/session');
+        $core = Mage::getSingleton('core/session');
+        $registry = Mage::registry('is_just_registered_customer');
+        if ( ! is_null($registry)) {
+            if ($clear) $core->unsCustomerRegistered();
+            return $registry;
+        }
+        $is = (int)(bool)($session->isLoggedIn() and $core->getCustomerRegistered());
+        Mage::register('is_just_registered_customer', $is);
+        if ($clear) $core->unsCustomerRegistered();
+        return $is;
+    }
+    
     
 }

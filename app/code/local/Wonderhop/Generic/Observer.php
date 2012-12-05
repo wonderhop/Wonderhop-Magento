@@ -20,8 +20,15 @@ class Wonderhop_Generic_Observer {
         if (Mage::getSingleton('customer/session')->isLoggedIn()
           and Mage::registry('observing_customer_is_new')
         ) {
-            Wonderhop_Generic::oscRegisterCustomerData($customer, true);
+            Mage::getSingleton('generic/data')->oscRegisterCustomerData($customer, true);
             Mage::getSingleton('core/session')->setCustomerRegistered( 1 );
+        }
+    }
+    
+    public function on_checkout_onepage_controller_success_action($observer)
+    {
+        if ( ! Mage::registry('is_order_placed_success')) {
+            Mage::register('is_order_placed_success', 1);
         }
     }
     
