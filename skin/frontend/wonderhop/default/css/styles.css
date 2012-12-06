@@ -2221,8 +2221,8 @@ ul.social_share  li { float:left; margin-left: 10px; min-width: 30px; list-style
 .catalog-product-view .decorations-before-footer { display:none; }
 
 /* brand page */
-.catalog-category-view .main { margin-top:330px; }
-.main { margin-top:30px;  }
+.catalog-category-view .main { margin-top:300px; }
+/*.main { margin-top:30px;  }*/
 .catalog-category-view .col-main { margin-top:-300px; position:relative;padding-top:310px; }
 /* width:1248px; height:567px; */
 .tag_header { width:937px; height:256px; padding:16px 16px 23px 70px; position:absolute; top:-16px; left:-70px;
@@ -2473,7 +2473,7 @@ p.no-orders { font-size: 14px; }
 .randprod-desc { width:400px; display: inline-block; width:400px; text-align:left;  }
 
 .fshipping_banner { background: url("../images/fshipping_banner.png") no-repeat scroll 0 0 transparent;
-    width: 593px; height: 96px; position: absolute; right: -90px; top: 70px; display: block; z-index:-1;}
+    width: 593px; height: 96px; position: absolute; right: -90px; top: 70px; display: none; z-index:-1;}
 /*.catalog-category-view .fshipping_banner,
 .sales-page .fshipping_banner 
 { display: block; }*/
