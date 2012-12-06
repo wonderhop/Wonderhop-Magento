@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Eyemagine_Merchandising>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Eyemagine_Merchandising>
+    </modules>
+</config>
