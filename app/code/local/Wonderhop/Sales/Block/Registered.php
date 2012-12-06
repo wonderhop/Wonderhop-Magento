@@ -230,6 +230,8 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
             $pageEvent = 'Home page visited';
         } elseif($this->isPage('shops')) {
             $pageEvent = 'Shops page visited';
+        } elseif($this->isPage('gift-explorer')) {
+            $pageEvent = 'Gift Explorer visited'; 
         } elseif(Mage::registry('current_product')) {
             $pageEvent = 'Product page visited'; 
             $data['product'] = Mage::registry('current_product')->getName();
