@@ -89,6 +89,7 @@ class Wonderhop_Sales_Block_Randomproduct extends Mage_Core_Block_Template {
         if (count($products) > 1 and $lastRandomProductId and $lastRandomProductId == $products[$random]) {
             while($lastRandomProductId == $products[$random]) {
                 $random = mt_rand(0, count($products) -1);
+                error_log('random_iteration');
             }
         }
         $product = Mage::getSingleton('catalog/product')->load($products[$random]);
@@ -100,9 +101,20 @@ class Wonderhop_Sales_Block_Randomproduct extends Mage_Core_Block_Template {
     protected function _selectSaleableProductIds($productIds)
     {
         $selected = array();
+        $cache = Mage::getSingleton('core/cache');
+        $cached = ($cached = $cache->load("saleable_products")) ? explode(',',$cached) : array();
         foreach($productIds as $id) {
-            if ( ! Mage::getModel('catalog/product')->load($id)->isSaleable()) continue;
+            if ($cached) {
+                if ( ! in_array($id, $cached)) {
+                    continue;
+                }
+            } elseif ( ! Mage::getModel('catalog/product')->load($id)->isSaleable()) {
+                continue;
+            }
             $selected[] = $id;
+        }
+        if ( ! $cached) {
+            $cache->save(implode(',',$selected), "saleable_products" , array(), 600);
         }
         return $selected;
     }
