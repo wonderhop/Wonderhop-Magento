@@ -109,11 +109,11 @@ endif;
     'set_config','people.set','people.increment'];for(e=0;e<h.length;e++)d(g,h[e]);
     a._i.push([b,c,f])};a.__SV=1.2;})(document,window.mixpanel||[]);
     // end mixpanel lib
-<?php if ($key = (string)Mage::getConfig()->getNode('localconf/analytics/mixpanel/key')) { ?>
+<?php /* if ($key = (string)Mage::getConfig()->getNode('localconf/analytics/mixpanel/key')) { ?>
     mixpanel.init("<?php echo $key; ?>");
 <?php } else { ?>
     mixpanel = { init:function(){}, track:function(){}, track_links:function(){}, people:{set:function(){}, increment:function(){}}, name_tag:function(){}, identify:function(){},  };
-<?php } ?>
+<?php } */ ?>
 </script>
 <!-- end Mixpanel -->
 

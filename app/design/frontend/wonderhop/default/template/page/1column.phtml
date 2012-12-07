@@ -40,7 +40,11 @@
 <div class="wrapper<?php echo $is_home ? ' invisible' : ''; ?>">
 <?php if($is_home) {
             //and Mage::getSingleton('customer/session')->isLoggedIn())
-Mage::app()->getFrontController()->getResponse()->setRedirect(Mage::getUrl('shops'));
+$redirect_url = Mage::getUrl('shops');
+if ($_GET) {
+    $redirect_url .= '?'.http_build_query($_GET);
+}
+Mage::app()->getFrontController()->getResponse()->setRedirect($redirect_url);
     return;
 } ?> 
 

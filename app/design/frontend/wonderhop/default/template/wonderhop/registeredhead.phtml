@@ -5,7 +5,8 @@
 <script type="text/javascript">
     // registeredhead
     // configure mixpanel once loaded
-    mixpanel.set_config({
+    mp_debug = <?php echo $is_devel ? 'true' : 'false'; ?>;
+    mp_config = {
         <?php if ($is_devel) { ?>
         debug : true,
         <?php } ?>
@@ -24,6 +25,9 @@
             // additional data for this unique id
             var customerTrackData = <?php echo json_encode($this->getCustomerTrackData()); ?>;
             // otherwise it would mean error
+            if (mp_debug) {
+                REconsole.log(customerTrackId);
+            }
             if (customerTrackId) {
                 // fire mixpanel identification
                 // on register, the old id is in the alias as customer now has a customer_id
@@ -42,5 +46,13 @@
                 // send post request to log this error somewhere
             }
         },
-    });
+    };
+    
+    <?php if ($key = (string)Mage::getConfig()->getNode('localconf/analytics/mixpanel/key')) { ?>
+        mixpanel.init("<?php echo $key; ?>", mp_config);
+    <?php } else { ?>
+        mixpanel.disable();
+        //mixpanel = { init:function(){}, track:function(){}, track_links:function(){}, people:{set:function(){}, increment:function(){}}, $
+    <?php } ?>
+            
 </script>

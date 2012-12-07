@@ -144,7 +144,7 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
     {
         $session = $this->_getCustomerSession();
         $customer = $session->isLoggedIn() ? $session->getCustomer() : NULL;
-        $arg = array_search($key, $this->$_mkt_keys);
+        $arg = array_search($key, $this->_mkt_keys);
         $param = $arg ? Mage::app()->getFrontController()->getRequest()->getParam($arg) : NULL;
         return $customer ? $customer->getData($key) : ($param ? $param : $this->getCookieVal("{$this->_mkt_prefix}_{$arg}"));
     }
@@ -224,8 +224,8 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
         static $loaded = false;
         if ($loaded) return $this;
         $data = $this->getCustomerTrackData();
+        $pageData = $data;
         $pageEvent = '';
-        $eventData = $data;
         if($this->isPage('home')) {
             $pageEvent = 'Home page visited';
         } elseif($this->isPage('shops')) {
@@ -234,15 +234,15 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
             $pageEvent = 'Gift Explorer visited'; 
         } elseif(Mage::registry('current_product')) {
             $pageEvent = 'Product page visited'; 
-            $data['product'] = Mage::registry('current_product')->getName();
+            $pageData['product'] = Mage::registry('current_product')->getName();
         } elseif(Mage::registry('current_category')) {
             $pageEvent = 'Sale page visited'; 
-            $data['sale'] = Mage::registry('current_category')->getName();
+            $pageData['sale'] = Mage::registry('current_category')->getName();
         } elseif($this->isOrderPlaced()) {
-            $npageEvent = 'Order placed';
+            $pageEvent = 'Order placed';
         }
         if ($pageEvent) {
-            $this->trackEventsQueue($pageEvent, $eventData);
+            $this->trackEventsQueue($pageEvent, $pageData);
         }
         if ($this->isRegister()) {
             $this->trackEventsQueue('User registered', $data);
