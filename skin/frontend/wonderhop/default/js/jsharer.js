@@ -11,30 +11,30 @@ var jSharer = (function(){
             sharer      : '#',
             url         : '#',
             media       : '',
-            params      : {},
+            params      : {}
         },
         
         sharer_options : {
             'pinterest' : {
                 sharer : 'http://pinterest.com/pin/create/button/',
                 win_tx : 'Pin This !',
-                params : {'url':'url','media':'media','description':'text'},
+                params : {'url':'url','media':'media','description':'text'}
             },
             'twitter' : {
                 sharer : 'http://twitter.com/share/',
                 win_tx : 'Tweet This !',
-                params : {'url':'url','text':'text'},
+                params : {'url':'url','text':'text'}
             },
             'facebook' : {
                 sharer : 'http://www.facebook.com/sharer.php',
                 win_tx : 'Post on Wall',
-                params : {'u':'url','t':'text'},
-            },
+                params : {'u':'url','t':'text'}
+            }
         },
         
         config : {
             errors : window.console,
-            mu_attr : 'jshare_data',
+            mu_attr : 'jshare_data'
         },
         
         sharers : ['pinterest', 'twitter', 'facebook'],
@@ -231,7 +231,7 @@ var jSharer = (function(){
             $this.beforeBindAll = before;
             $this.afterBindAll = after;
             return $this.$front;
-        },
+        }
         
     }
     

@@ -4,12 +4,12 @@ function buildBlock(element) {
             // styles for the message when blocking; if you wish to disable 
             // these and use an external stylesheet then do this in your code: 
             // $.blockUI.defaults.css = {}; 
-            css: { 
+            /*css: { 
                 padding:        0, 
                 margin:         0, 
                 width:          '100%', 
                 height:         '100%',
-                position:       'fixed',
+                position:       'absolute',
                 top:            0,
                 bottom:         0,
                 right:          0,
@@ -19,16 +19,16 @@ function buildBlock(element) {
                 border:         'none', 
                 backgroundColor:'transparent',
                 cursor:         'auto',
-            }, 
+            }, */
             // styles for the overlay 
-            overlayCSS:  { 
+            /*overlayCSS:  { 
                 backgroundColor: '#000', 
                 opacity:         0.6 ,
                 cursor:         'auto' 
-            }, 
-            showOverlay: false,
+            },*/ 
+            showOverlay: false
         });
-        jQuery('html').css({height:'100%',overflow:'hidden'});
+        /*jQuery('html').css({height:'100%',overflow:'hidden'});*/
         
         setTimeout(function(){ jQuery(element).find('input[type="text"],input[type="email"]').blur(); },50);
 }

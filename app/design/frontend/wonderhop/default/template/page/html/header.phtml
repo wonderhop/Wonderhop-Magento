@@ -84,13 +84,13 @@ $customer_name = substr( strtoupper( $session->isLoggedIn() ? $session->getCusto
                 data : {
                     selectors : {
                         container : '#block-cart-header-wrap' ,
-                        toplink   : '#cart-toplink' ,
+                        toplink   : '#cart-toplink' 
                     },
                     salt : 'cart_',
                     timers : {},
                     over : false,
                     visible : true,
-                    stick : false,
+                    stick : false
                 },
                 
                 
@@ -191,7 +191,7 @@ $customer_name = substr( strtoupper( $session->isLoggedIn() ? $session->getCusto
                 {
                     if (self.data.timers[self.data.salt + id]) clearTimeout(self.data.timers[self.data.salt + id]);
                     return self;
-                },
+                }
                 
                 
             }).init(); }; return new HeaderCart(jQuery); })();
@@ -202,13 +202,13 @@ $customer_name = substr( strtoupper( $session->isLoggedIn() ? $session->getCusto
                 data : {
                     selectors : {
                         container : '#block-usermenu-header-wrap' ,
-                        toplink   : '.account-top-welcome' ,
+                        toplink   : '.account-top-welcome' 
                     },
                     salt : 'usermenu_',
                     timers : {},
                     over : false,
                     visible : true,
-                    stick : false,
+                    stick : false
                 },
                 
                 
@@ -307,7 +307,7 @@ $customer_name = substr( strtoupper( $session->isLoggedIn() ? $session->getCusto
                 {
                     if (self.data.timers[self.data.salt + id]) clearTimeout(self.data.timers[self.data.salt + id]);
                     return self;
-                },
+                }
                 
                 
             }).init(); }; return new UserMenu(jQuery); })();

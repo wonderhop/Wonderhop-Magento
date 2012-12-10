@@ -12,7 +12,7 @@ var GenShare = (function($){ function GenShare(){ var self = this; var _ ={}; re
             sharer      : '#',
             url         : '#',
             media       : '',
-            params      : {},
+            params      : {}
         };
         _.gen_window = function(el,opts)
         {
@@ -39,7 +39,7 @@ var GenShare = (function($){ function GenShare(){ var self = this; var _ ={}; re
         var mid_opts = $.extend({},_.def_opts,{
                 sharer : 'http://www.facebook.com/sharer.php',
                 win_tx : 'Post on Wall',
-                params : {'u':'url','t':'text'},
+                params : {'u':'url','t':'text'}
             }),
         opts = (typeof opts == 'object') ? $.extend({},mid_opts,opts) : $.extend({},mid_opts);
         return _.gen_window($(el),opts);
@@ -50,7 +50,7 @@ var GenShare = (function($){ function GenShare(){ var self = this; var _ ={}; re
         var mid_opts = $.extend({},_.def_opts,{
                 sharer : 'http://twitter.com/share/',
                 win_tx : 'Tweet This !',
-                params : {'url':'url','text':'text'},
+                params : {'url':'url','text':'text'}
             }),
         opts = (typeof opts == 'object') ? $.extend({},mid_opts,opts) : $.extend({},mid_opts);
         return _.gen_window($(el),opts);
@@ -61,11 +61,11 @@ var GenShare = (function($){ function GenShare(){ var self = this; var _ ={}; re
         var mid_opts = $.extend({},_.def_opts,{
                 sharer : 'http://pinterest.com/pin/create/button/',
                 win_tx : 'Pin This !',
-                params : {'url':'url','media':'media','description':'text'},
+                params : {'url':'url','media':'media','description':'text'}
             }),
         opts = (typeof opts == 'object') ? $.extend({},mid_opts,opts) : $.extend({},mid_opts);
         return _.gen_window($(el),opts);
-    },
+    }
     
 }).init();}; return new GenShare();})(jQuery);
 
