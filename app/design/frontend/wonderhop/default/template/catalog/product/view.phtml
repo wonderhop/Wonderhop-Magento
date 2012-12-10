@@ -104,13 +104,27 @@ $share_url = $c_url . $ref_id;
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
-<div class="product-view type-<?php echo $_product->getTypeId(); ?>">
+<div class="product-view type-<?php echo $_product->getTypeId(); ?><?php echo $_product->getIsGiftcard() ? ' giftcard':''; ?>">
     <div class="product-essential">
     <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
         <div class="no-display">
             <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
             <input type="hidden" name="related_product" id="related-products-field" value="" />
         </div>
+        
+        <?php ob_start(); ?>
+            <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html){ if ($alias == 'description') { ?>
+                <div class="<?php echo "box-{$alias}"?>"><?php echo $html; ?></div>
+            <?php }} ?>
+        <?php $_product_description = ob_get_clean(); ?>
+        
+        
+        <?php if ($_product->getIsGiftcard()) { ?>
+            <?php $gcblock = $this->getLayout()->createBlock('core/template' , 'gcprodview', array('template' => 'wonderhop/gcprodview.phtml')); ?>
+            <?php $gcblock->setExtractableData(compact('_product', '_helper', 'category', 'session','customer', 'is_staff', 'sold_out', '_product_description')); ?>
+            <?php $gcblock->setParentBlock($this); ?>
+            <?php echo $gcblock->toHtml(); ?>
+        <?php } else { ?>
         
         <div class="prod-flower"></div>
 
@@ -178,9 +192,7 @@ $share_url = $c_url . $ref_id;
             <?php echo $this->getChildHtml('configurable_product_fields'); ?>
             
 
-            <?php foreach ($this->getChildGroup('detailed_info', 'getChildHtml') as $alias => $html){ if ($alias == 'description') { ?>
-                <div class="<?php echo "box-{$alias}"?>"><?php echo $html; ?></div>
-            <?php }} ?>
+            <?php echo $_product->getIsGiftcard() ? '' : $_product_description; ?>
 
             
 
@@ -230,19 +242,19 @@ $share_url = $c_url . $ref_id;
                     </div>
                 </li>
                 <li id="prod-shares-cta-ctn">
-                    <span class="shares-cta" id="prod-shares-cta"/>GET CASH WHEN FRIENDS JOIN</span>
+                    <span class="shares-cta" id="prod-shares-cta">GET CASH WHEN FRIENDS JOIN</span>
                 </li>
             </ul>
               
-            <?php echo $this->getChildHtml('other');?>
+            <?php echo $this->getChildHtml('other'); ?>
 
-            <?php if ($_product->isSaleable() && $this->hasOptions()):?>
-                <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
-            <?php endif;?>
+            <?php if ($_product->isSaleable() && $this->hasOptions()) { ?>
+                <?php echo $this->getChildChildHtml('container1', '', true, true); ?>
+            <?php } ?>
             
             <div class="prod-bottom"></div>
 
-        </div>
+        </div><!-- .product-shop -->
         
 
         <div class="product-img-box">
@@ -250,8 +262,8 @@ $share_url = $c_url . $ref_id;
         </div>
 
         <div class="clearer"></div>
-        
-    </form>
+        <?php } // if getIsGiftCard ?>
+    </form><!-- #product_addtocart_form -->
     <script type="text/javascript">
     //<![CDATA[
         var productAddToCartForm = new VarienForm('product_addtocart_form');
@@ -303,7 +315,7 @@ $share_url = $c_url . $ref_id;
         }.bind(productAddToCartForm);
     //]]>
     </script>
-    </div>
+    </div><!-- .product-essential -->
 
 
     <!--<div class="product-collateral">

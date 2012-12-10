@@ -23,20 +23,27 @@
         echo $templateProcessed;
     }
     
-    public function savegmsgAction() {
+    public function savegmsgAction() 
+    {
+        if ( ! $this->_isAjaxPost()) { error_log('NOT is_ajax_post'); return; }
+        $this->_saveGiftmessageDataInSession($_POST);
+    }
+
+    
+    protected function _saveGiftmessageDataInSession($DATA)
+    {
         $session = Mage::getSingleton('customer/session');
         //if ( ! $session->isLoggedIn()) return;
         $customer = $session->isLoggedIn() ? $session->getCustomer() : NULL;
         $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : 'Guest';
-        if ( ! $this->_isAjaxPost()) { error_log('NOT is_ajax_post'); return; }
         foreach(array('to','from','message','is') as $_var) {
             $field = "gift_{$_var}_text";
             if ($_var == 'is') $field = 'gift_is_gift';
             $$field = '';
             if ($session->getData($field)) $$field = $session->getData($field);
-            if (isset($_POST[$field])) {
-                $session->setData($field, $_POST[$field]);
-                $$field = $_POST[$field];
+            if (isset($DATA[$field])) {
+                $session->setData($field, $DATA[$field]);
+                $$field = $DATA[$field];
             }
             if ($_var == 'from' and ! trim($$field)) {
                 $$field = $customer_name;
@@ -48,6 +55,50 @@
             }
         }
     }
+    
+    public function preparebuygiftcardAction()
+    {
+        error_log(__FUNCTION__);
+        $params = $this->getRequest()->getParams();
+        $session = Mage::getSingleton('customer/session');
+        $is_nlg = (isset($_COOKIE['curio_nlg']) and ($_COOKIE['curio_nlg'] == '1'));
+        $product = (isset($_GET['product']) and is_numeric($_GET['product'])) ? Mage::getModel('catalog/product')->load($_GET['product']) : null;
+        $email = (isset($_GET['gift_to_email']) and $_GET['gift_to_email']) ? $_GET['gift_to_email'] : '';
+        $email = preg_match('/^[^@]+@[a-z][a-z0-9\-]+\.[a-z]{2,4}$/i', $email) ? $email : '';
+        $checkout = Mage::getSingleton('checkout/session');
+        $cart = Mage::getSingleton('checkout/cart');
+        if (( ! $session->isLoggedIn() and ! $is_nlg) or ! $product or !$product->getId() or ! $email) {
+            header('Location: '.Mage::getBaseUrl());
+            exit;
+        }
+        foreach( $checkout->getQuote()->getItemsCollection() as $item ){
+            $cart->removeItem( $item->getId() )->save();
+        }
+        $checkout->clear();
+        $cart->addProduct($product , array_merge( $params, array('product'=> $product->getId(), 'qty' => 1)));
+        $cart->save();
+        $paramOpts = $params['options'];
+        $valueId = reset($paramOpts);
+        $optionId = key($paramOpts);
+        $options = $product->getOptions();
+        $option = $options[$optionId];
+        $values = $option->getValues();
+        $value  = $values[$valueId];
+        $ammount = intval($value->getPrice());
+        $checkout->setIsGiftcardCheckout(true);
+        $checkout->setRecipientEmail($email);
+        $session->setIsGiftcardCheckout(true);
+        $session->setRecipientEmail($email);
+        $session->setGiftcardId($product->getId());
+        $session->setGiftcardAmmount($ammount);
+        $session->setRecipientEmail($email);
+        $this->_saveGiftmessageDataInSession($_GET);
+        //Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+
+        header('Location: '.Mage::getBaseUrl().'onestepcheckout');
+        exit;
+    }
+
     
     protected function _isAjaxPost()
     {

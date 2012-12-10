@@ -1,0 +1,33 @@
+<?php
+
+$vars = $this->getExtractableData();
+
+?>
+
+
+<?php if ($vars) { extract($vars); ?>
+    <div class="prod-flower-gc"></div>
+    <div class="product-shop">
+        <div class="product-name">
+            <div class="product_title">
+                <h1>
+                    <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                </h1>
+            </div>
+        </div>
+        <div class="prod-undertitle" style="clear:both"></div>
+        <?php echo $_product_description; ?>
+
+        <?php $fields = $this->getLayout()->createBlock('core/template', 'gcfields',array('template'=>'wonderhop/gcform.phtml'));?>
+        <?php $fields->setProduct($_product); ?>
+        <?php echo $fields->toHtml(); ?>
+    </div>
+    <div class="product-img-box">
+        <?php echo $this->getParentBlock()->getChildHtml('media') ?>
+    </div>
+
+    <div class="clearer"></div>
+<?php } else { ?>
+    <!-- Nothing found. -->
+<?php } ?>
+

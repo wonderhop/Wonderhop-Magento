@@ -2,6 +2,8 @@
 
 $step_counter = 1;
 $helper = Mage::helper('onestepcheckout/checkout');
+$ckSession = Mage::getSingleton('checkout/session');
+
 ?>
 <?php if(!$this->canCheckout() || !$this->validateMinimumAmount()): ?>
     <?php /*if($this->settings['checkout_title']): ?>

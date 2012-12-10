@@ -109,5 +109,53 @@ class Wonderhop_Generic_Model_Data extends Mage_Core_Model_Abstract {
         return $is;
     }
     
+    public static function buyGiftcardSuccess()
+    {
+        $order_id = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+        $order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
+        $session = Mage::getSingleton('customer/session');
+        $ammount = intval($session->getGiftcardAmmount());
+        $generate = array(
+            'is_new' => 1 ,
+            'credit' => $ammount ,
+            'website_id' => Mage::app()->getWebsite()->getId() ,
+            'is_active' => 1,
+            'from_date' => NULL ,
+            'to_date' => NULL ,
+            'generate' => array(
+                'qty' => 1 ,
+                'code_length' => 16 ,
+                'group_length' => 4 ,
+                'group_separator' => '-',
+                'code_format' => 'alphanum',
+            ),
+        );
+        $codeModel = Mage::getModel('customercredit/code');
+        $codeModel->setData($generate);
+        $codeModel->generate();
+        $code = $codeModel->getCode();
+        $template_id = (string)Mage::getConfig()->getNode('localconf/giftcard_template_id');
+        if ( ! $template_id) { 
+            error_log('NO gidtcard template id to send code : '.$code.'  to '.$session->getRecipientEmail());
+            return;
+        }
+        $data = new Varien_Object;
+        $data->setData(array(
+            'code' => $code,
+        ));
+        $vars = array( 'data' => $data );
+        // Set sender/recipient information
+        $sender = array('name'  => 'Curio Road', 'email' => 'hello@curioroad.com');
+        $recipient_email = $session->getRecipientEmail();
+        $recipient_name = $session->getGiftToText();
+        // Get Store ID
+        $store_id = Mage::app()->getStore()->getId();
+        $translate  = Mage::getSingleton('core/translate');
+        // Send Transactional Email
+        $tr_email = Mage::getModel('core/email_template')
+            ->sendTransactional($template_id, $sender, $recipient_email, $recipient_name, $vars, $store_id);
+        $translate->setTranslateInline(true);
+    }
+    
     
 }

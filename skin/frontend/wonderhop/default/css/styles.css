@@ -1230,6 +1230,7 @@ margin-right: 4px;}
 
 .prod-undertitle { background: url("../images/prod/undertitle.png") no-repeat scroll left top transparent; 
     width:400px; height: 9px;  margin: 18px 0; }
+.prod-undertitle.giftcard { clear:both; }
 
 .prod-bottom { background: url("../images/prod/product_bottom.png") no-repeat scroll left top transparent; 
     width:400px; height: 6px;  margin:0; float:right; clear:both; }
@@ -1255,6 +1256,7 @@ margin-right: 4px;}
 .product-view .product-shop .availability { margin:10px 0; }
 .product-view .product-shop .short-description { margin:10px 0; background:url(../images/bkg_divider1.gif) 0 0 repeat-x; padding:10px 0 0; }
 .product-view .product-shop .price-box { margin:0 0 10px 0; }
+.product-view .product-shop .price-box.giftcard { display: none; }
 .product-view .product-shop .price-box .price { color:#5e595b; font-size:20px;}
 .product-view .product-shop .add-to-links { margin:0; }
 .product-view .product-shop .add-to-links { font-size:12px; text-align:right; }
@@ -2480,3 +2482,38 @@ p.no-orders { font-size: 14px; }
 
 
 
+
+
+#gift_message_form.giftcard {  }
+
+.product-view.giftcard .product-name { margin-top: 5px; }
+.product-view.giftcard .product-name, .product-view.giftcard .product-name h1 { font-size:26px; color:#aa8bb1; }
+.prod-flower-gc { background: url("../images/prod_flower_gc.png") no-repeat; width: 111px; height:144px; position:absolute; 
+    z-index:-1; top:-6px; right:-13px; }
+.giftcard .box-description { width: 340px; }
+.giftcard .li-inner { width: 230px; float:right;  margin-right:40px; } 
+
+.giftcard .li-inner .checkout-btn { float:right;  }
+#gift_message_form.giftcard .li-inner textarea { width:100%; height: 90px; }
+
+.giftcard .prod-bottom { position:relative; left:-10px;  }
+.giftcard .action .checkout-btn { height:42px; width:170px; position:relative; right:-5px; }
+.giftcard .action .checkout-btn span { font-size:22px; text-transform:uppercase; display: block; width: 155px; height:30px;
+    border-radius:15px; font-family:"letter-gothic-std",monospace; padding-top:12px; }
+.giftcard .action .checkout-btn span span { display:inline; }
+
+#gc-opt-special label { display: none; }
+#gc-opt-special dt { display: none;  }
+#gc-opt-special dd { width: auto;  }
+#gc-opt-special .product-options dl { left:-4px; }
+#gc-opt-special dd .input-box { width:150px;  }
+
+.giftcard .form-list li { position:relative; }
+.giftcard .gc-step { display:block; width: 120px; height: 80px; position:absolute; left:0; top:0; 
+    background:url("../images/gc_steps.png") no-repeat; }
+
+.giftcard .gc-step.gc-step-1 { top:-9px; }
+.giftcard .gc-step.gc-step-2 { background-position: left -90px; top:-9px; }
+.giftcard .gc-step.gc-step-3 { background-position: left -154px; top:-7px; }
+
+.onestepcheckout-giftmessages .group-select li .input-box.gc-email-input { width:300px; }

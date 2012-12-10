@@ -1,0 +1,118 @@
+<?php
+    
+    $session = Mage::getSingleton('customer/session');
+    $customer = $session->isLoggedIn() ? $session->getCustomer() : null;
+    $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : 'Guest';
+    $giftcard = $this->getProduct();
+?>
+<div id="gift_message_form" class="giftcard" method="post">
+    <ul class="form-list">
+        
+        <!--<li>
+            <div class="input-box">
+                <label for="giftcard_ammount">Giftcard Credit <small>(USD)</small><span class="required">*</span>:</label>
+                <input name="giftcard_ammount" class="input-text" value="<?php echo $session->getGiftcardAmmount() ? $session->getGiftcardAmmount() : 50; ?>" />
+            </div>
+        </li>-->
+        <li>
+            <div class="gc-step gc-step-1"></div>
+            <div class="li-inner">
+                <div class="input-box">
+                    <!--<label for="gift_to_email">Recipient Email <span class="required">*</span>:</label> -->
+                    <input name="gift_to_email" class="input-text" value="<?php echo $session->getGiftToEmail(); ?>" />
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="li-inner">
+                <!--<div class="input-box half left">
+                    <label for="gift_from_text">From <small>(your name)</small>:</label>
+                    <input name="gift_from_text" class="input-text" value="<?php echo $session->getGiftFromText() ? $session->getGiftFromText() : ${($session->setGiftFromText($customer_name) or 1)?'customer_name':1}; ?>" />
+                </div>
+                <div class="input-box half left tweak">
+                    <label for="gift_to_text">To <small>(your friend's name)</small>:</label>
+                    <input name="gift_to_text" class="input-text right" value="<?php echo $session->getGiftToText(); ?>" />
+                </div>-->
+                <div class="input-box">
+                    <!--<label for="gift_to_text">To <small>(your friend's name)</small>:</label>-->
+                    <input name="gift_to_text" class="input-text" value="<?php echo $session->getGiftToText(); ?>" />
+                </div>
+            </div>
+        </li>
+        <li id="gc-opt-special">
+            <div class="gc-step gc-step-2"></div>
+            <div class="li-inner">
+                <?php echo $this->getLayout()->getBlock('product.info.options.wrapper')->toHtml(); ?>
+            </div>
+        </li>
+        <li>
+            <div class="gc-step gc-step-3"></div>
+            <div class="li-inner">
+            <!--<label for="gift_message_text">Include a note <small>(optional)</small></label> -->
+                <textarea name="gift_message_text" class="input-text"><?php echo $session->getGiftMessageText(); ?></textarea>
+            </div>
+        </li>
+        <li>
+            <div class="prod-bottom"></div>
+        </li>
+        <li class="action">
+            <div class="li-inner">
+                <button class="button checkout-btn" onclick="buyGiftcard();"><span><span>Checkout</span></span></button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    (function($){
+
+        var $form = $('#gift_message_form').parents('form').first(), $fields = $form.find('.form-list');
+        var $buyGiftcard = function (){
+            var $email = $fields.find('[name="gift_to_email"]'), email = $email.val(), is_email = /^[a-z0-9\-\+_\.]{3,}@[a-z][a-z0-9\-]+\.[a-z]{2,4}$/i;
+            if ( ! is_email.test(email)) {
+                $email.addClass('validation-failed');
+                if ( ! $email.next().hasClass('validation-advice')) {
+                    $email.after('<span class="validation-advice">Please enter a valid email address!</span>');
+                }
+                return false;
+            } else {
+                $email.removeClass('validation-failed');
+                if ($email.next().hasClass('validation-advice')) {
+                    $email.next().fadeOut(function(){ $(this).remove(); });
+                }
+            }
+            var $amm = $fields.find('[name="giftcard_ammount"]'), amm = $amm.val(), is_amm = function(amm){ return /^[\d]+$/.test(amm) && parseInt(amm) >= 10 && parseInt(amm) <= 1000; };
+            var _amm = parseInt( $fields.find('select').children(':selected').first().text().replace(/[^\d]/g, '') ),
+                _amm = _amm ? _amm : 0;
+            /*if ( ! is_amm(amm)) {
+                $amm.addClass('validation-failed');
+                if ( ! $amm.next().hasClass('validation-advice')) {
+                    $amm.after('<span class="validation-advice">Please enter a number between 10 and 1000!</span>');
+                }
+                return false;
+            } else {
+                $email.removeClass('validation-failed');
+                if ( ! $amm.next().hasClass('validation-advice')) {
+                    $email.next().fadeOut(function(){ $(this).remove(); });
+                }
+            }*/
+            setLocation('/sales/index/preparebuygiftcard?'+$form.serialize());
+        };
+        var buyGiftcard = function(){
+            setTimeout($buyGiftcard, 500);
+        };
+        window.buyGiftcard = buyGiftcard;
+        
+        $(function(){
+            var $slct = $form.find('select').first(), slct = Element.extend( $slct[0] );
+            $slct.find('option').first().remove();
+            var o = <?php echo $session->getGiftcardAmmount() ? ('"$'.$session->getGiftcardAmmount().'"') : 'null' ?>,
+                $o = o ? $slct.find('option:contains("'+o+'")') : $slct.find('option').first();
+            $slct.find('option').attr('selected','');
+            $o.attr('selected', 'selected');
+            $slct.find('option').each(function(){ $(this).html( $(this).html().replace(/\+.*/,'') ); });
+            fireEvent(slct, 'change');
+        })
+        
+    })(jQuery);
+</script>
