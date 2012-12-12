@@ -179,11 +179,13 @@ if ( ! empty($sales_categories) and count($sales_categories)) {
 
 <?php $is_logged_in = Mage::getSingleton('customer/session')->isLoggedIn(); ?>
 <?php $pa_key = (string)Mage::getConfig()->getNode('localconf/marketing/perfectaudience/key'); ?>
-<?php if ($is_logged_in and $pa_key) { ?>
+<?php if ($pa_key) { ?>
     <script type="text/javascript">
       (function() {
         window._pa = window._pa || {};
-        _pa.orderId = '<?php echo $ce = Mage::getSingleton('customer/session')->getCustomer()->getEmail(); ?>' ; // OPTIONAL: include your user's email address or order ID
+        <?php if ($is_logged_in and ($ce = Mage::getSingleton('customer/session')->getCustomer()->getEmail())) { ?>
+        _pa.orderId = '<?php echo $ce; ?>' ; // OPTIONAL: include your user's email address or order ID
+        <?php } ?>
         _pa.onLoadEvent = "shops"; // OPTIONAL: name of segment/conversion to be fired on script load
         var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;
         pa.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + "//tag.perfectaudience.com/serve/<?php echo $pa_key; ?>.js";
