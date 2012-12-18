@@ -612,23 +612,8 @@ $ckSession = Mage::getSingleton('checkout/session');
                 <textarea id="id_comments" name="onestepcheckout_comments"><?php if(isset($_POST['onestepcheckout_comments'])) { echo $_POST['onestepcheckout_comments']; } ?></textarea>
             </div>
         <?php endif; ?>
-
-        <?php if($this->settings['enable_gift_messages']): ?>
-            <div id="onestepcheckout-giftmessages">
-            <div class="onestepcheckout-giftmessagecontainer">
-            <?php echo $this->helper('onestepcheckout/message')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
-            </div>
-            </div>
-        <?php endif; ?>
-
-        <?php $customerEmail = (($this->isCustomerLoggedIn())) ? $this->getQuote()->getCustomer()->getEmail() : false ;?>
-        <?php if($this->settings['enable_newsletter'] && !$this->isSubScribed($customerEmail)): ?>
-            <div class="onestepcheckout-enable-newsletter">
-                <input type="checkbox" id="id_subscribe_newsletter" name="subscribe_newsletter" value="1" <?php if($this->settings['newsletter_default_checked']): ?>checked="checked"<?php endif; ?> />
-                <label for="id_subscribe_newsletter"><?php echo $this->__('Subscribe to our newsletter'); ?></label>
-            </div>
-        <?php endif; ?>
-
+        
+        
         <?php $_extraProductsHelper = Mage::helper('onestepcheckout/extraproducts'); ?>
             <?php if($_extraProductsHelper->hasExtraProducts()): ?>
             <div class="onestepcheckout-extraproducts">
@@ -640,7 +625,7 @@ $ckSession = Mage::getSingleton('checkout/session');
                         name="extra_products_<?php echo $product->getId(); ?>"
                         id="id_extra_product_<?php echo $product->getId(); ?>" /> &nbsp;
                     <label for="id_extra_product_<?php echo $product->getId(); ?>"> <?php echo $product->getName(); ?>
-                    <span><?php echo Mage::helper('checkout')->formatPrice($product->getPrice()); ?></span>
+                    <span>+<?php echo Mage::helper('checkout')->formatPrice($product->getPrice()); ?></span>
                     </label></li>
                     <?php endforeach; ?>
                 </ul>
@@ -676,6 +661,25 @@ $ckSession = Mage::getSingleton('checkout/session');
             });
         </script>
         <?php endif; ?>
+        
+
+        <?php if($this->settings['enable_gift_messages']): ?>
+            <div id="onestepcheckout-giftmessages">
+            <div class="onestepcheckout-giftmessagecontainer">
+            <?php echo $this->helper('onestepcheckout/message')->getInline('onepage_checkout', $this->getQuote(), $this->getDontDisplayContainer()) ?>
+            </div>
+            </div>
+        <?php endif; ?>
+
+        <?php $customerEmail = (($this->isCustomerLoggedIn())) ? $this->getQuote()->getCustomer()->getEmail() : false ;?>
+        <?php if($this->settings['enable_newsletter'] && !$this->isSubScribed($customerEmail)): ?>
+            <div class="onestepcheckout-enable-newsletter">
+                <input type="checkbox" id="id_subscribe_newsletter" name="subscribe_newsletter" value="1" <?php if($this->settings['newsletter_default_checked']): ?>checked="checked"<?php endif; ?> />
+                <label for="id_subscribe_newsletter"><?php echo $this->__('Subscribe to our newsletter'); ?></label>
+            </div>
+        <?php endif; ?>
+
+        
 
         <?php
         /**
