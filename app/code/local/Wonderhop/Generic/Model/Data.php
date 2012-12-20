@@ -168,7 +168,7 @@ class Wonderhop_Generic_Model_Data extends Mage_Core_Model_Abstract {
         $giftcard = new Varien_Object(array(
             'amount' => $ammount,
             'code' => $code,
-            'redeemurl' => Mage::getBaseUrl() . 'shops',
+            'redeemurl' => Mage::getBaseUrl() . 'customercredit/?gc=' . base64_encode($code),
             'message' => $message,
         ));
         $sender = new Varien_Object(array(

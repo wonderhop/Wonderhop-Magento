@@ -71,25 +71,31 @@ $is_logged_in = Mage::getSingleton('customer/session')->isLoggedIn();
     if( Mage::app()->getFrontController()->getRequest()->getRouteName() == 'shops') {
         $is_sales = 1;
      }
+     
+    $is_gc_email = Mage::registry('gc_prefill');
            
  ?>
 <?php if(!$this->email && !$get_email) { ?>
 <div class="popup_register block_popup<?php echo $home_class; ?>" style="display:none;">
 <div class="block_popup_inner">
-        <h1 class="popup_title">Wonderful finds <br/>for an inspired life.</h1>
+        <?php
+        $popup_title = 'Wonderful finds <br/>for an inspired life.';
+        if (Mage::registry('gc_prefill')) $popup_title = 'Register to redeem <br/>your gift.';
+        ?>
+        <h1 class="popup_title"><?php echo $popup_title; ?></h1>
         <div class="control_link">
             <a href="#" id="login_link">LOGIN</a>
         </div>
         <div class="popup_content">
             <p class="pc_l pc_l1">Uniquely lovely jewelry, home decor</p> 
             <p class="pc_l pc_l2">and gifts. All at member-only prices.</p>
-            <form <?php if($is_sales): ?>onSubmit="return false;"<?php endif; ?> action="/shops" method="post" id="register-form1">
+            <form <?php if($is_sales or $is_gc_email): ?>onSubmit="return false;"<?php endif; ?> action="/shops" method="post" id="register-form1">
                 <input type="hidden" value="" name="url" class="document_url"/>
                 <div class="content">
                     <ul class="form-list">
                         <li>
                             <!--<label for="email"><?php echo $this->__('Your Email Address') ?> <span class="required">*</span></label> -->
-                            <input name="email" title="<?php echo $this->__('Your Email Address') ?>" id="email" type="email" class="input-text required-entry validate-duplicate validate-email" />
+                            <input name="email" title="<?php echo $this->__('Your Email Address') ?>" id="email" type="email" class="input-text required-entry validate-email validate-duplicate" />
                             <script type="text/javascript">(function($){$(function(){
                                 var popup_email = '.popup_register .form-list input#email', $e = $(popup_email),
                                     pt = 'Your email address';
@@ -113,6 +119,7 @@ $is_logged_in = Mage::getSingleton('customer/session')->isLoggedIn();
         var register1Form = new VarienForm('register-form1', true);
         Validation.add('validate-duplicate','Email has already registered',function(the_field_value){
             var validated = 0;
+            
             jQuery.ajax({
                     url: '/sales/index/mailchecker',
                     data: {'email' : jQuery('#email').val()},
@@ -130,16 +137,14 @@ $is_logged_in = Mage::getSingleton('customer/session')->isLoggedIn();
         
         
         register1Form.submit = function () {
-             if(register1Form.validator.validate()) {
                 jQuery('#registration_email').val(jQuery('#email').val());
-                <?php if($is_sales): ?>
+                <?php if($is_sales or $is_gc_email): ?>
                     buildBlock('.popup_register_2');
                 <?php else: ?>
                     return true; 
                 <?php endif; ?>
-             }
              return false; 
-        } 
+        }
     </script>
  
 </div>
@@ -164,7 +169,7 @@ if ($get_email) {
 <div class="block_popup_inner">
     <h1 class="popup_title">You're almost there!</h1>
     <div class="popup_content">
-        <form action="/customer/account/createpost" method="post" id="register-form">
+        <form action="/customer/account/createpost" method="post" id="register-form" onSubmit="return false;">
             <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?> 
             <?php if ($get_email): ?>  value="<?=$get_email?>" <?php endif; ?>  id="registration_email" />
             <input type="hidden" value="<?php if($this->url): ?><?=$this->url ?>" <?php endif; ?>  name="url"/>
@@ -224,6 +229,18 @@ if ($get_email) {
         var registerForm = new VarienForm('register-form', true);
         registerForm.submit = function () {
             jQuery('#passconf').val(jQuery('#pass').val());
+            <?php if ($is_gc_email) { ?>
+                if (this.validator.validate()) {
+                    jQuery.ajax({
+                        type: 'POST',
+                        async: false,
+                        url: '/customer/account/createpost/',
+                        data: jQuery(this.form).serialize(),
+                        success: function (data){ setLocation( window.location.href ); },
+                    });
+                }
+                return false;      
+            <?php } ?>
         }
     </script>
      

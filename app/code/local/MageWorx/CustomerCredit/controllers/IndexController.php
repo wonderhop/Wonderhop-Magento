@@ -33,9 +33,16 @@ class MageWorx_CustomerCredit_IndexController extends Mage_Core_Controller_Front
 
     public function preDispatch() {
         parent::preDispatch();
-
-        if (!Mage::getSingleton('customer/session')->authenticate($this)) {
-            $this->setFlag('', 'no-dispatch', true);
+        
+        if ($encGCCode = $this->getRequest()->getParam('gc')) {
+            $code = base64_decode($encGCCode);
+            if ( ! Mage::registry('gc_prefill')) {
+                Mage::register('gc_prefill', $code);
+            } 
+        } else {
+            if (!Mage::getSingleton('customer/session')->authenticate($this)) {
+                $this->setFlag('', 'no-dispatch', true);
+            }
         }
 
         if (!Mage::helper('customercredit')->isEnabled()) {

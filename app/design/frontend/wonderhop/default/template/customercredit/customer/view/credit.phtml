@@ -48,7 +48,7 @@
                     <ul class="form-list" >
                         <li>
                             <label><?php echo $this->__('Enter Your Gift Card Code Below')?></label><br />                            
-                            <input type="text" class="required-entry input-text" value="<?php echo $this->getCustomerCreditCode()?>" name="customercredit_code"/>
+                            <input type="text" class="required-entry input-text" value="<?php echo $this->getCustomerCreditCode() ? $this->getCustomerCreditCode() : (Mage::registry('gc_prefill') ? Mage::registry('gc_prefill') : ''); ?>" name="customercredit_code"/>
                             <button class="button" type="submit"><span><span><?php echo $this->__('Redeem')?></span></span></button>                            
                         </li>
                     </ul>
