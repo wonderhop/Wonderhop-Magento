@@ -73,3 +73,20 @@ $session->setGiftIsGift(0);
     <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
 </div>
 
+<?php $pa_key = (string)Mage::getConfig()->getNode('localconf/marketing/perfectaudience/key'); ?>
+<?php $order = $this->getOrderId() ? Mage::getModel('sales/order')->loadByIncrementId( $this->getOrderId() ) : NULL; ?>
+<?php $session = Mage::getSingleton('customer/session'); ?>
+<?php $customer = $session->isLoggedIn() ? $session->getCustomer() : NULL; ?>
+<?php $orderEmail = $customer ? $customer->getEmail() : ($order ? $order->getCustomerEmail() : NULL); ?>
+<?php if ($orderEmail and $pa_key) { ?>
+<script type="text/javascript">
+  (function() {
+    window._pa = window._pa || {};
+    _pa.orderId = "<?php echo $orderEmail; ?>"; // OPTIONAL: include your user's email address or order ID
+    _pa.onLoadEvent = "checkout success"; // OPTIONAL: name of segment/conversion to be fired on script load
+    var pa = document.createElement('script'); pa.type = 'text/javascript'; pa.async = true;
+    pa.src = ('https:' == document.location.protocol ? 'https:' : 'http:') + "//tag.perfectaudience.com/serve/<?php echo $pa_key; ?>.js";
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(pa, s);
+  })();
+</script>
+<?php } ?>

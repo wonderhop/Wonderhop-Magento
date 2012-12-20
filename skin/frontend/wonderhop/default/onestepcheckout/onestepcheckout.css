@@ -890,3 +890,5 @@ div.onestepcheckout-comments textarea {
 #onestepcheckout-form select.validation-failed + .validation-advice + .customStyleSelectBox + .customStyleSelectBoxInner {
     border:1px dashed red; background-color:#FAEBE7; }
 
+
+#onestepcheckout-form .onestepcheckout-extraproducts label { position:relative; left:-8px; letter-spacing: -0.4px; }
