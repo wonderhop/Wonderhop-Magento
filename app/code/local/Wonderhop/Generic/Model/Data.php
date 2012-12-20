@@ -139,21 +139,60 @@ class Wonderhop_Generic_Model_Data extends Mage_Core_Model_Abstract {
             error_log('NO gidtcard template id to send code : '.$code.'  to '.$session->getRecipientEmail());
             return;
         }
-        $data = new Varien_Object;
-        $data->setData(array(
-            'code' => $code,
-        ));
-        $vars = array( 'data' => $data );
-        // Set sender/recipient information
-        $sender = array('name'  => 'Curio Road', 'email' => 'hello@curioroad.com');
+        
+        // Set/get sender/recipient information
+        $email_sender = array('name'  => 'Curio Road', 'email' => 'hello@curioroad.com');
         $recipient_email = $session->getRecipientEmail();
         $recipient_name = $session->getGiftToText();
+        $message = $session->getGiftMessageText();
+        $customer_name = $session->getGiftFromText() ? $session->getGiftFromText() : null;
+        $customer_email = null;
+        if ($session->isLoggedIn()) {
+            $customer = $session->getCustomer();
+            $customer_email = $customer->getEmail();
+            if ( ! $customer_name or $customer_name == 'Guest') {
+                $customer_name = $customer->getFirstname();
+            }
+        } else {
+            $customer_email = $order->getCustomerEmail();
+            if ( ! $customer_name or $customer_name == 'Guest') {
+                if ($order->getCustomerFirstname()) $customer_name = $order->getCustomerFirstname();
+            }
+        }
+        
+        // prepare data abjects
+        $recipient = new Varien_Object(array(
+            'name' => $recipient_name,
+            'email' => $recipient_email,
+        ));
+        $giftcard = new Varien_Object(array(
+            'amount' => $ammount,
+            'code' => $code,
+            'redeemurl' => Mage::getBaseUrl() . 'shops',
+            'message' => $message,
+        ));
+        $sender = new Varien_Object(array(
+            'name' => $customer_name,
+            'email' => $customer_email,
+        ));
+        
+        // our data object
+        $data = new Varien_Object(array(
+            'recipient' => $recipient,
+            'giftcard' => $giftcard,
+            'sender' => $sender,
+        ));
+        
+        //vars to be passed to the template
+        $vars = array( 'data' => $data );
+        
         // Get Store ID
         $store_id = Mage::app()->getStore()->getId();
         $translate  = Mage::getSingleton('core/translate');
+        
         // Send Transactional Email
         $tr_email = Mage::getModel('core/email_template')
-            ->sendTransactional($template_id, $sender, $recipient_email, $recipient_name, $vars, $store_id);
+            ->sendTransactional($template_id, $email_sender, $recipient_email, $recipient_name, $vars, $store_id);
         $translate->setTranslateInline(true);
     }
     

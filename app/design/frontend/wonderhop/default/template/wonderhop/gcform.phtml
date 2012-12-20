@@ -4,6 +4,7 @@
     $customer = $session->isLoggedIn() ? $session->getCustomer() : null;
     $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : 'Guest';
     $giftcard = $this->getProduct();
+    $gift_text = $session->getGiftMessageText() ? $session->getGiftMessageText() : 'Happy holidays! You\'ll love the unique designs on Curio Road.';
 ?>
 <div id="gift_message_form" class="giftcard" method="post">
     <ul class="form-list">
@@ -14,7 +15,7 @@
                 <input name="giftcard_ammount" class="input-text" value="<?php echo $session->getGiftcardAmmount() ? $session->getGiftcardAmmount() : 50; ?>" />
             </div>
         </li>-->
-        <li>
+        <li class="step-top">
             <div class="gc-step gc-step-1"></div>
             <div class="li-inner">
                 <div class="input-box">
@@ -39,17 +40,17 @@
                 </div>
             </div>
         </li>
-        <li id="gc-opt-special">
+        <li id="gc-opt-special"  class="step-top">
             <div class="gc-step gc-step-2"></div>
             <div class="li-inner">
                 <?php echo $this->getLayout()->getBlock('product.info.options.wrapper')->toHtml(); ?>
             </div>
         </li>
-        <li>
+        <li  class="step-top">
             <div class="gc-step gc-step-3"></div>
             <div class="li-inner">
             <!--<label for="gift_message_text">Include a note <small>(optional)</small></label> -->
-                <textarea name="gift_message_text" class="input-text"><?php echo $session->getGiftMessageText(); ?></textarea>
+                <textarea name="gift_message_text" class="input-text"><?php echo $gift_text; ?></textarea>
             </div>
         </li>
         <li>
@@ -112,6 +113,47 @@
             $o.attr('selected', 'selected');
             $slct.find('option').each(function(){ $(this).html( $(this).html().replace(/\+.*/,'') ); });
             fireEvent(slct, 'change');
+            
+            var $name = $('input[name="gift_to_text"]', $form).first(),
+                $email = $('input[name="gift_to_email"]', $form).first();
+            
+            if ($name.length) {
+                
+                var $name_repl = $( $name.prop('outerHTML') );
+                $name_repl.attr('name', 'gift_to_text_repl').attr('value', 'Name')
+                    .val('Name').css('display','none').css('color','#ccc').insertBefore($name);
+                $name_repl.focus(function(ev){
+                    $(this).hide();
+                    $name.show().focus();
+                });
+                $name.blur(function(ev){
+                    if ($name.val() == '') {
+                        $(this).hide();
+                        $name_repl.show();
+                    }
+                });
+                $name.blur();
+            }
+            
+            
+            if ($email.length) {
+                
+                var $email_repl = $( $email.prop('outerHTML') );
+                $email_repl.attr('name', 'gift_to_email_repl').attr('value', 'Email')
+                    .val('Email').css('display','none').css('color','#ccc').insertBefore($email);
+                $email_repl.focus(function(ev){
+                    $(this).hide();
+                    $email.show().focus();
+                });
+                $email.blur(function(ev){
+                    if ($email.val() == '') {
+                        $(this).hide();
+                        $email_repl.show();
+                    }
+                });
+                $email.blur();
+            }
+            
         })
         
     })(jQuery);

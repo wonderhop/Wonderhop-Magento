@@ -2516,4 +2516,7 @@ p.no-orders { font-size: 14px; }
 .giftcard .gc-step.gc-step-2 { background-position: left -90px; top:-9px; }
 .giftcard .gc-step.gc-step-3 { background-position: left -154px; top:-7px; }
 
+.giftcard .step-top { margin-top:20px; }
+.giftcard .form-list { left: -8px; position: relative; }
+
 .onestepcheckout-giftmessages .group-select li .input-box.gc-email-input { width:300px; }
