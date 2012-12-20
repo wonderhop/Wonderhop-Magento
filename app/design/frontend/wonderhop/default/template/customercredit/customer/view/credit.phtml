@@ -40,15 +40,16 @@
             <label><?php echo $this->__('Your current credit balance is:')?></label>&nbsp;
             <strong><?php echo Mage::helper('core')->currency($this->getCredit()); ?></strong>
         </li>
+        <br/>
         <?php if ($this->isEnabledCodes()):?>
         <li>
             <form id="refill-credit-form" action="<?php echo $this->getFormAction()?>" method="post">
                 <fieldset>
                     <ul class="form-list" >
                         <li>
-                            <label><?php echo $this->__('Enter Recharge Code to Refill the Balance:')?></label><br />                            
+                            <label><?php echo $this->__('Enter Your Gift Card Code Below')?></label><br />                            
                             <input type="text" class="required-entry input-text" value="<?php echo $this->getCustomerCreditCode()?>" name="customercredit_code"/>
-                            <button class="button" type="submit"><span><span><?php echo $this->__('Submit Code')?></span></span></button>                            
+                            <button class="button" type="submit"><span><span><?php echo $this->__('Redeem')?></span></span></button>                            
                         </li>
                     </ul>
                 </fieldset>

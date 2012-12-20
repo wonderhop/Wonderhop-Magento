@@ -124,8 +124,8 @@ class Wonderhop_Generic_Model_Data extends Mage_Core_Model_Abstract {
             'to_date' => NULL ,
             'generate' => array(
                 'qty' => 1 ,
-                'code_length' => 16 ,
-                'group_length' => 4 ,
+                'code_length' => 8 ,
+                'group_length' => 8 ,
                 'group_separator' => '-',
                 'code_format' => 'alphanum',
             ),
