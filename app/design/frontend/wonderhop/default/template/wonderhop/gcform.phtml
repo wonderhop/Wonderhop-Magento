@@ -5,6 +5,11 @@
     $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : 'Guest';
     $giftcard = $this->getProduct();
     $gift_text = $session->getGiftMessageText() ? $session->getGiftMessageText() : 'Happy holidays! You\'ll love the unique designs on Curio Road.';
+
+    $baseSecureUrl = Mage::getStoreConfig( Mage_Core_Model_Url::XML_PATH_SECURE_URL );
+    $isSecure = Mage::app()->getStore()->isCurrentlySecure();
+    $canHttps = ($isSecure or ($baseSecureUrl and (Zend_Uri::factory($baseSecureUrl)->getScheme() == 'https')));
+    $redirectBaseUrl = ( ! $isSecure and $canHttps) ? str_replace('http://', 'https://', Mage::getBaseUrl()) : Mage::getBaseUrl();
 ?>
 <div id="gift_message_form" class="giftcard" method="post">
     <ul class="form-list">
@@ -97,7 +102,8 @@
                     $email.next().fadeOut(function(){ $(this).remove(); });
                 }
             }*/
-            setLocation('/sales/index/preparebuygiftcard?'+$form.serialize());
+            
+            setLocation('<?php echo $redirectBaseUrl; ?>sales/index/preparebuygiftcard?'+$form.serialize());
         };
         var buyGiftcard = function(){
             setTimeout($buyGiftcard, 500);
