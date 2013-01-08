@@ -43,6 +43,15 @@ $testorders = array(
 global $insertcount;
 $insertcount = 0;
 
+//Men's Gift Shop: 86
+//Holiday Attire: 93
+//Host & Hostess: 91
+//Kids Gift Shop: 85
+//Stocking Stuffers: 90
+
+$excludeCatIds = array(86, 93, 91, 85, 90);
+
+
 foreach($orders as $order) {
     //var_dump($order->toArray());
     if( in_array($order->getId(), $exOrders)) continue;
@@ -76,6 +85,7 @@ foreach($orders as $order) {
         foreach($catIds as $catId) {
             $cat = Mage::getModel('catalog/category')->load($catId);
             if($cat->getName() == 'Sales') continue;
+            if(in_array( (int) $cat->getId() , $excludeCatIds)) continue;
             if($gsId and $cat->getId() == $gsId) continue;
             $rCat = $cat->getName();
             $rCatId = $cat->getId();
