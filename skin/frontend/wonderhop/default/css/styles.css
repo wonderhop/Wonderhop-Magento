@@ -2252,9 +2252,9 @@ ul.social_share  li { float:left; margin-left: 10px; min-width: 30px; list-style
     position:absolute; top: -12px; left:0; width:100%; height: 29px; }
 
 
-.tag_header .tag_header_wire, .tag_header.giftshop .tag_header_wire { background-image:url("../images/giftshop/tag_back_wire_new.png"); 
+/*.tag_header .tag_header_wire,*/ .tag_header.giftshop .tag_header_wire { background-image:url("../images/giftshop/tag_back_wire_new.png"); 
     width:165px; left:-165px; }
-.tag_header, .tag_header.giftshop  { background-image:url("../images/giftshop/tag_back_tag_new.png"); }
+/*.tag_header, */.tag_header.giftshop  { background-image:url("../images/giftshop/tag_back_tag_new.png"); }
 .dynamic_header.giftshop { background-image:url("../images/giftshop/dynamic_header_back.png"); }
 .dynamic_header.giftshop .category-title { width:215px; }
 
