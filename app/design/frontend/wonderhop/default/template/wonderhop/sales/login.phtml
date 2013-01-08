@@ -169,7 +169,7 @@ if ($get_email) {
 <div class="block_popup_inner">
     <h1 class="popup_title">You're almost there!</h1>
     <div class="popup_content">
-        <form action="/customer/account/createpost" method="post" id="register-form">
+        <form action="/customer/account/createpost" method="post" id="register-form" <?php if($is_gc_email) { ?> onSubmit="return false;" <?php } ?> >
             <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?> 
             <?php if ($get_email): ?>  value="<?=$get_email?>" <?php endif; ?>  id="registration_email" />
             <input type="hidden" value="<?php if($this->url): ?><?=$this->url ?>" <?php endif; ?>  name="url"/>
@@ -231,6 +231,7 @@ if ($get_email) {
             jQuery('#passconf').val(jQuery('#pass').val());
             <?php if ($is_gc_email) { ?>
                 if (this.validator.validate()) {
+                    jQuery('#register2').attr('disabled','disabled');
                     jQuery.ajax({
                         type: 'POST',
                         async: false,
@@ -238,6 +239,7 @@ if ($get_email) {
                         data: jQuery(this.form).serialize(),
                         success: function (data){ setLocation( window.location.href ); },
                     });
+                    jQuery('#register2').attr('disabled',false);
                 }
                 return false;      
             <?php } ?>

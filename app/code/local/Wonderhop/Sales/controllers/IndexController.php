@@ -64,10 +64,14 @@
         $is_nlg = (isset($_COOKIE['curio_nlg']) and ($_COOKIE['curio_nlg'] == '1'));
         $product = (isset($_GET['product']) and is_numeric($_GET['product'])) ? Mage::getModel('catalog/product')->load($_GET['product']) : null;
         $email = (isset($_GET['gift_to_email']) and $_GET['gift_to_email']) ? $_GET['gift_to_email'] : '';
+        //error_log($email);
         $email = preg_match('/^[^@]+@[a-z][a-z0-9\-]+\.[a-z]{2,4}$/i', $email) ? $email : '';
+        //error_log($email);
         $checkout = Mage::getSingleton('checkout/session');
         $cart = Mage::getSingleton('checkout/cart');
+        //error_log($email);
         if (( ! $session->isLoggedIn() and ! $is_nlg) or ! $product or !$product->getId() or ! $email) {
+            error_log(__FUNCTION__.' : preparation failed');
             header('Location: '.Mage::getBaseUrl());
             exit;
         }
