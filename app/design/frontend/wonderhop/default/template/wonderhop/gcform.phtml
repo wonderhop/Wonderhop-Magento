@@ -8,8 +8,10 @@
 
     $baseSecureUrl = Mage::getStoreConfig( Mage_Core_Model_Url::XML_PATH_SECURE_URL );
     $isSecure = Mage::app()->getStore()->isCurrentlySecure();
+    //error_log((int)$isSecure);
     $canHttps = ($isSecure or ($baseSecureUrl and (Zend_Uri::factory($baseSecureUrl)->getScheme() == 'https')));
-    $redirectBaseUrl = ( ! $isSecure and $canHttps) ? str_replace('http://', 'https://', Mage::getBaseUrl()) : Mage::getBaseUrl();
+    //error_log((int)$canHttps);
+    $redirectBaseUrl = ( ! $isSecure and $canHttps) ? str_replace('http://', 'https://', Mage::getBaseUrl()) : ( $isSecure ? $baseSecureUrl : Mage::getBaseUrl());
 ?>
 <div id="gift_message_form" class="giftcard" method="post">
     <ul class="form-list">
