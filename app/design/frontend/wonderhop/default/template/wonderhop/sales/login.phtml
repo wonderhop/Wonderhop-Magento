@@ -169,7 +169,7 @@ if ($get_email) {
 <div class="block_popup_inner">
     <h1 class="popup_title">You're almost there!</h1>
     <div class="popup_content">
-        <form action="/customer/account/createpost" method="post" id="register-form" onSubmit="return false;">
+        <form action="/customer/account/createpost" method="post" id="register-form">
             <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?> 
             <?php if ($get_email): ?>  value="<?=$get_email?>" <?php endif; ?>  id="registration_email" />
             <input type="hidden" value="<?php if($this->url): ?><?=$this->url ?>" <?php endif; ?>  name="url"/>
