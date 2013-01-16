@@ -36,8 +36,11 @@
 </head>
 <body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
 <?php echo $this->getChildHtml('after_body_start') ?>
+<?php //ticket42448957 - no longer redirect to shops ?>
+<?php /*
 <?php $is_home = (Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' and Mage::getSingleton('cms/page')->getIdentifier() == 'home') ; ?>
 <div class="wrapper<?php echo $is_home ? ' invisible' : ''; ?>">
+
 <?php if($is_home) {
             //and Mage::getSingleton('customer/session')->isLoggedIn())
 $redirect_url = Mage::getUrl('shops');
@@ -47,7 +50,7 @@ if ($_GET) {
 Mage::app()->getFrontController()->getResponse()->setRedirect($redirect_url);
     return;
 } ?> 
-
+*/ ?>
     <?php echo $this->getChildHtml('global_notices') ?>
     <div class="page">
         <?php echo $this->getChildHtml('header') ?>

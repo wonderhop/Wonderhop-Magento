@@ -2520,3 +2520,5 @@ p.no-orders { font-size: 14px; }
 .giftcard .form-list { left: -8px; position: relative; }
 
 .onestepcheckout-giftmessages .group-select li .input-box.gc-email-input { width:300px; }
+
+.popup_register_2.block_popup.registration-queue .block_popup_inner .popup_content { background: #fff; width: 100%; }
