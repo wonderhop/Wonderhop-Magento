@@ -7,6 +7,24 @@
         $this->renderLayout();
     }
     
+    public function sendinvitesAction()
+    {
+        $nonce = Mage::getSingleton('customer/session')->getInviteNonce();
+        if ( ! $nonce or $this->getRequest()->getParam('nonce') !== $nonce) {
+            echo json_encode(array('status' => 'faliure'));
+            return;
+        }
+        echo json_encode(array('status' => 'success'));
+        
+        // @TODO
+        
+        // get emails
+        
+        
+        // send invites by transactional email
+        
+    }
+    
     public function sendAction() {
         if( ! Mage::getSingleton('customer/session' )->isLoggedIn()) die ('access denied');
         $post = $this->getRequest()->getPost();
