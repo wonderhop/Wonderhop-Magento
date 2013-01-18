@@ -1,5 +1,8 @@
 <?php
-
+if(Mage::helper('wonderhop_registerqueue')->isActive() && Mage::app()->getFrontController()->getRequest()->getRouteName() == 'invitations') {
+	$referral_code = Mage::getModel('core/cookie')->get('referral_code');
+	if($referral_code != '' && !is_null($referral_code)) return;
+}
 $is_home = (Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' and Mage::getSingleton('cms/page')->getIdentifier() == 'home');
 $home_class = $is_home ? ' home' : '';
 

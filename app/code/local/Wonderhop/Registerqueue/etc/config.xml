@@ -5,13 +5,18 @@
 			<general>
 				<registerqueue_active>1</registerqueue_active>
 				<registerqueue_queue>6</registerqueue_queue>
-				<registerqueue_email_template>9</registerqueue_email_template>
+				<registerqueue_invitations_needed>3</registerqueue_invitations_needed>
 			</general>
+			<email_template>
+				<in_queue></in_queue>
+				<queue_finished></queue_finished>
+				<queue_finished_by_invitations></queue_finished_by_invitations>
+			</email_template>
 		</Wonderhop_Registerqueue>
 	</default>
     <modules>
         <Wonderhop_Registerqueue>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Wonderhop_Registerqueue>
     </modules>
     <frontend>

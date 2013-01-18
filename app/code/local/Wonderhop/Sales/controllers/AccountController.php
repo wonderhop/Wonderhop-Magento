@@ -865,27 +865,31 @@ class Wonderhop_Sales_AccountController extends  Mage_Customer_AccountController
     
     
     protected function _setMarketingSources($customer) {
-        
-            if (isset($_COOKIE['wonderhop_r'])) {
-                  $customer->setData('referrer_id', $_COOKIE['wonderhop_r']);
-            }
-          
-	     if (isset($_COOKIE['wonderhop_a'])) {
-                  $customer->setData('ad', $_COOKIE['wonderhop_a']);
-            }
+		if(Mage::helper('wonderhop_registerqueue')->isActive()) {
+			$referrer_id = Mage::helper('wonderhop_registerqueue')->getReferrerId($customer->getEmail());
+			if($referrer_id != '' && !is_null($referrer_id)) $customer->setData('referrer_id', $referrer_id);
+		} else {
+			if (isset($_COOKIE['wonderhop_r'])) {
+				$customer->setData('referrer_id', $_COOKIE['wonderhop_r']);
+			}
+		}
+
+		if (isset($_COOKIE['wonderhop_a'])) {
+			$customer->setData('ad', $_COOKIE['wonderhop_a']);
+		}
       
     }
     
     protected function _setReferralCode($customer) {
-        
-        $code = $this->_generateReferralCode();
-        
-        while (count(Mage::getModel('customer/customer')->getCollection()->addAttributeToFilter('referral_code', $code)->load()) > 0) {
-            $code = $this->_generateReferralCode();  
-        }
-        
-        $customer->setReferralCode($code);
- 
+		if(Mage::helper('wonderhop_registerqueue')->isActive()) {
+			$code = Mage::helper('wonderhop_registerqueue')->getReferralCode($customer->getEmail());
+		} else {
+		    $code = $this->_generateReferralCode();
+		    while (count(Mage::getModel('customer/customer')->getCollection()->addAttributeToFilter('referral_code', $code)->load()) > 0) {
+		        $code = $this->_generateReferralCode();
+		    }
+		}
+		$customer->setReferralCode($code);
     }
     
     protected function _generateReferralCode($len = 6) {

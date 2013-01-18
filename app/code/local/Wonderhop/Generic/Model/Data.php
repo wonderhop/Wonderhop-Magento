@@ -65,18 +65,32 @@ class Wonderhop_Generic_Model_Data extends Mage_Core_Model_Abstract {
             error_log(__FUNCTION__ , ' :: W ::: Supplied $customer is not an object');
             return;
         }
-        $customer->setReferralCode($this->newReferralCode());
+		if(Mage::helper('wonderhop_registerqueue')->isActive()) {
+			$code = Mage::helper('wonderhop_registerqueue')->getReferralCode($customer->getEmail());
+		} else {
+			$code = $this->newReferralCode();
+		}
+        $customer->setReferralCode($code);
     }
     
     public function newReferralCode()
     {
-        $code = $this->generateReferralCode();
-        while ( count( Mage::getModel('customer/customer')->getCollection()
-                            ->addAttributeToFilter('referral_code', $code)->load()
-                        ) > 0
-        ) {
-            $code = $this->generateReferralCode();  
-        }
+		if(Mage::helper('wonderhop_registerqueue')->isActive()) {
+			$code = $this->generateReferralCode();
+		    while (
+				count(Mage::getModel('customer/customer')->getCollection()->addAttributeToFilter('referral_code', $code)->load()) > 0
+				&& count(Mage::getModel('registerqueue/registerqueue')->getCollection()->addFilter('registerqueue_referral_code', $code)->load()) > 0) {
+				$code = $this->generateReferralCode();  
+			}
+		} else {
+		    $code = $this->generateReferralCode();
+		    while ( count( Mage::getModel('customer/customer')->getCollection()
+		                        ->addAttributeToFilter('referral_code', $code)->load()
+		                    ) > 0
+		    ) {
+		        $code = $this->generateReferralCode();  
+		    }
+		}
         return $code;
     }
     
