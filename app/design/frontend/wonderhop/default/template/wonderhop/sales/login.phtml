@@ -192,23 +192,11 @@ if ($get_email) {
 		<?php if(!$can_register && $register_queue): ?>
 			<?php //email sucessfully queued ?>
 			<?php if($queued_email): ?>
-				Congratulations!<br/><br/>You are placed in queue. We will let you know when a free spot is available.
+				Congratulations!<br/><br/>You are placed in queue. We will let you know when a free spot is available.<br/>You can bypass queue by asking 3 friends to <a href="<?php echo Mage::getBaseUrl() ?>invite-friends">join us</a>.
 			<?php else: ?>
 			<?php //email is already queued ?>
-				Dear Customer,<br/><br/>You are already placed in queue. We will let you know when a free spot is available.
+				Dear Customer,<br/><br/>You are already placed in queue. We will let you know when a free spot is available.<br/>You can bypass queue by asking 3 friends to <a href="<?php echo Mage::getBaseUrl() ?>invite-friends">join us</a>.
 			<?php endif ?>
-
-			<div class="content">
-                <ul class="form-list">
-                    <li style="padding-top:15px;font-family:Georgia,serif;font-size:11px; color:#6F5F6D; width:478px;margin-top:18px;">
-                        <label style="width:auto;cursor:pointer;line-height:1;padding-top:7px; text-transform:none; font-weight:normal;" for="terms_agreement">Please read <a style="text-transform:none;" href="/terms-of-use" target="_blank">Terms of Use</a> and <a style="text-transform:none;" href="/privacy" target="_blank">Privacy Policy</a></label>
-                    </li>
-                </ul>          
-            </div>
-
-
-			<script type="text/javascript">(function($){$(function(){
-			});})(jQuery);</script>
 		<?php else: ?>
         <form action="/customer/account/createpost" method="post" id="register-form" <?php if($is_gc_email) { ?> onSubmit="return false;" <?php } ?> >
             <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?> 
