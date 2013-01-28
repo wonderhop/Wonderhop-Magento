@@ -12,21 +12,19 @@
 			echo json_encode(array('status' => 'You must login to use this feature.'));
 			return;
 		}
-
 		$post = $this->getRequest()->getPost();
 		if(!$post) {
-			echo json_encode(array('status' => 'failure'));
+			echo json_encode(array('status' => 'There was some error processing your request.'));
 			return;
 		}
         $nonce = Mage::getSingleton('customer/session')->getInviteNonce();
         if (!$nonce || $this->getRequest()->getParam('nonce') !== $nonce) {
-            echo json_encode(array('status' => Mage::helper('invitations')->__('There was some error processing your request.')));
+            echo json_encode(array('status' => Mage::helper('wonderhop_invitations')->__('There was some error processing your request.')));
             return;
         }
 		$session       = Mage::getSingleton('core/session');
 		$mail_string   = $post['emails'];
 		$mails         = explode(',', $mail_string);
-
 		//this code parse email in case it come in format : Cosmin Ardeleanu <cosmin.ardeleanu@sinapticode.ro>
 		//will return only the email part
         foreach ($mails as $key => $mail) {
@@ -39,11 +37,10 @@
                     }
                 }
             } else {
-                $final = $emails;
+                $final = $mail;
             }
             $mails[$key] = $final;
         }
-
 		$template_id   = Mage::getStoreConfig('Wonderhop_Sales/general/invite_friends_email_template', Mage::app()->getStore());    
 		$customer      = Mage::getSingleton('customer/session' )->getCustomer();
 		$customer_name = $customer->getFirstname() . " " . str_replace("-", '', $customer->getLastname());
@@ -71,7 +68,7 @@
 			echo json_encode(array('status' => 'success'));
 			return;
 		} catch (Exception $e) {
-			echo json_encode(array('status' => Mage::helper('invitations')->__('There was some error processing your request.')));
+			echo json_encode(array('status' => Mage::helper('wonderhop_invitations')->__('There was some error processing your request.')));
 			return;
 		}
     }
@@ -125,7 +122,7 @@
                 return;
             } catch (Exception $e) {
                  
-                $session->addError(Mage::helper('invitations')->__('There was some error processing your request.'));
+                $session->addError(Mage::helper('wonderhop_invitations')->__('There was some error processing your request.'));
                  
                 $this->_redirectReferer();
                 return;
