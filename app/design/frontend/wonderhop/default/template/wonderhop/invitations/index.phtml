@@ -128,8 +128,12 @@ $customer = $session->isLoggedIn() ? $session->getCustomer() : NULL;
 
                 <input type="hidden" id="key" value="" />
                 <input id="cloud_invite_input" class="invite-emails input-text required-entry" size="150" rel="1" type="text" name="emails" value="" />
-                <button id="cloud_invite_submit" type="submit" title="Send Invite" class="button"><span><span>Send</span></span></button>
-                <div id="invitations-sent" style="font-size:14px;color:#FF7268;position:absolute;left:0px;bottom:0px;display:none;">INVITATIONS SENT !</div>
+				<div class="ajax-submit-block">
+		            <button id="cloud_invite_submit" type="submit" title="Send Invite" class="button"><span><span>Send</span></span></button>
+		            <div id="invitations-sent">INVITATIONS SENT !</div>
+					<div id="invitations-ajax-error"></div>
+					<div id="invitations-ajax"><img width="16" height="16" src="<?php echo $this->getskinUrl() ?>images/opc-ajax-loader.gif" alt="" /></div>
+				</div>
                 
                 <?php $nonce = md5('curio'.mt_rand(1000, 25888).time()); Mage::getSingleton('customer/session')->setInviteNonce($nonce); ?>
                 <input type="hidden" name="nonce" value="<?php echo $nonce; ?>" />
@@ -153,6 +157,9 @@ $customer = $session->isLoggedIn() ? $session->getCustomer() : NULL;
                     $('#invitations-form').submit(function(ev,data){
                         $form = $(this);
                         if ( ! $('#cloud_invite_input').val()) return false;
+						$('#cloud_invite_submit').fadeOut(function(e) {
+							$('#invitations-ajax').fadeIn();
+						});
                         $.post($form.attr('action'),$form.serialize(),function(data){
                             resp = null;
                             try {
@@ -166,13 +173,29 @@ $customer = $session->isLoggedIn() ? $session->getCustomer() : NULL;
                                 }
                                 // mixpanel.track('Invitation send');
                                 if (resp.status == 'success') {
-                                    $('#invitations-sent').fadeIn('fast').delay(1000).fadeOut('slow');
+									$('#invitations-ajax').fadeOut(function(e) {
+										$('#cloud_invite_submit').fadeIn();
+										$('#invitations-sent').fadeIn('fast', function(e) {
+											$(this).delay(5000).fadeOut('slow');
+										});
+									});
                                     $('#cloud_invite_input').val('');
-                                }
-                            }
-                            if ( ! resp || ! resp.status || resp.status != 'success') {
-                                // @TODO show error message
-                            }
+                                } else {
+									$('#invitations-ajax').fadeOut(function(e) {
+										$('#cloud_invite_submit').fadeIn();
+										$('#invitations-ajax-error').text(resp.status).fadeIn('fast', function(e) {
+											$(this).delay(5000).fadeOut('slow');
+										});
+									});
+								}
+                            } else {
+								$('#invitations-ajax').fadeOut(function(e) {
+									$('#cloud_invite_submit').fadeIn();
+									$('#invitations-ajax-error').text('There was some error processing your request.').fadeIn('fast', function(e) {
+										$(this).delay(5000).fadeOut('slow');
+									});
+								});
+							}
                         });
                         ev.preventDefault();
                         return false;
