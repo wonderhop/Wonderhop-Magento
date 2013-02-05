@@ -1,0 +1,12 @@
+<div class="entry-edit">
+    <fieldset>
+        <ul class="note-list">
+            <table>
+            <?php foreach ($this->getReferrerData() as $data):?>
+                <tr><td width="25%"><?php echo $data['label']?></td><td><?php echo $data['data'] ?></td></tr>
+            <?php endforeach;?>
+                <tr><td width="25%"><?php echo $this->__('Sync Status')?></td><td><?php echo $this->getJirafeExportStatus()?></td></tr>
+            </table>
+        </ul>
+    </fieldset>
+</div>

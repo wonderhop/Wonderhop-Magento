@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <block type="foomanjirafe/js" name="foomanjirafe_js" as="foomanjirafe_js" />
+
+        </reference>
+        <reference name="before_body_end">
+            <block type="foomanjirafe/jsAlt" name="foomanjirafe_js_alt" as="foomanjirafe_js_alt" />
+        </reference>
+    </default>
+    <catalog_category_default>
+        <reference name="foomanjirafe_js">
+            <action method="setJirafePageType"><value>PAGE_CATEGORY</value></action>
+        </reference>
+    </catalog_category_default>
+    <catalog_category_layered>
+        <reference name="foomanjirafe_js">
+            <action method="setJirafePageType"><value>PAGE_CATEGORY</value></action>
+        </reference>
+    </catalog_category_layered>
+    <catalog_category_layered_nochildren>
+        <reference name="foomanjirafe_js">
+            <action method="setJirafePageType"><value>PAGE_CATEGORY</value></action>
+        </reference>
+    </catalog_category_layered_nochildren>
+    <catalog_product_view>
+        <reference name="foomanjirafe_js">
+            <action method="setJirafePageType"><value>PAGE_PRODUCT</value></action>
+        </reference>
+    </catalog_product_view>
+    <checkout_onepage_index>
+        <reference name="foomanjirafe_js">
+            <action method="setJirafePageType"><value>PAGE_CART</value></action>
+        </reference>
+    </checkout_onepage_index>
+    <checkout_onepage_success>
+        <reference name="foomanjirafe_js">
+            <action method="setJirafePageType"><value>PAGE_CONFIRM</value></action>
+        </reference>
+    </checkout_onepage_success>
+    <checkout_multishipping_success>
+        <reference name="foomanjirafe_js">
+            <action method="setJirafePageType"><value>PAGE_CONFIRM</value></action>
+        </reference>
+    </checkout_multishipping_success>
+</layout>

@@ -1,0 +1,94 @@
+<?php
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @package     Fooman_Jirafe
+ * @copyright   Copyright (c) 2010 Jirafe Inc (http://www.jirafe.com)
+ * @copyright   Copyright (c) 2010 Fooman Limited (http://www.fooman.co.nz)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+?>
+<?php $orderSyncStatus = $this->getOrderSyncStatus() ?>
+<?php if ($this->noSync() && $this->isConfig()): ?>
+    <ul class="messages">
+        <li class="error-msg">
+            <?php echo $this->__('We were unable to connect with the Jirafe service. We will try again later, or you can try <a href="%s">connecting yourself</a>',
+                    $this->getSyncUrl()); ?>
+        </li>
+    </ul>
+<?php endif; ?>
+<?php if ($this->isDebug() && $this->isConfig()): ?>
+<?php $statusCssClass = $this->isOk()?'success-msg':'error-msg' ?>
+<ul class="messages">
+    <li class="<?php echo $statusCssClass?>">
+<?php if($this->isConfigured()):?>
+     <?php //echo $this->__('Jirafe has been configured correctly.'); ?>
+<?php else:?>
+    <?php echo $this->__('Jirafe has reported errors. '); ?>
+<?php endif; ?>
+ <?php echo $this->__('Last Status'); ?>: <?php echo $this->getStatusMessage();?>
+        <?php if ($this->isDebug()) :?>
+            <span style="float:right;"><a href="<?php echo $this->getSyncUrl()?>"><?php echo $this->__('Synchronise Settings'); ?></a> |
+                <a href="<?php echo $this->getReportUrl()?>"><?php echo $this->__('Run Report'); ?></a> |
+                <a href="<?php echo $this->getResetUrl()?>"><?php echo $this->__('Jirafe Reset'); ?></a></span>
+        <?php endif;?>
+    </li>
+    <li>
+        <?php echo $this->__('Jirafe Version Information')?> <br/>
+        <table>
+            <tr>
+                <td>Magento</td><td><?php echo Mage::getVersion() ?></td>
+            </tr>
+            <tr>
+                <td>Jirafe Extension</td><td><?php echo $this->getJirafeInstalledVersion() ?></td>
+            </tr>
+        </table>
+    </li>
+    <li>
+        <?php echo $this->__('Jirafe Debug Information')?> <br/>
+        <table>
+            <tr>
+                <th>Scope</th>
+                <th>ID</th>
+                <th>Path</th>
+                <th>Value</th>
+            </tr>
+        <?php foreach($this->getJirafeConfigData() as $row):?>
+            <tr>
+                <td><?php echo $row['scope'] ?></td>
+                <td><?php echo $row['scope_id'] ?></td>
+                <td><?php echo $row['path'] ?></td>
+                <?php if(strpos($row['path'],'app_token')) :?>
+                <td><?php echo substr($row['value'], 0, 5) ?></td>
+                <?php else: ?>
+                <td><?php echo $row['value'] ?></td>
+                <?php endif; ?>
+            </tr>
+        <?php endforeach;?>
+        </table>
+    </li>
+    <li>
+        <?php echo $this->__('Jirafe Order Sync Status')?> <br/>
+        <?php if($orderSyncStatus): ?>
+            <table>
+            <?php foreach ($this->getOrderSyncStatus() as $siteId=>$status): ?>
+                <tr>
+                    <td><?php echo $this->__('Site Id') ?>: <?php echo $siteId ?></td><td><?php echo $status['ok']? $this->__('OK'):$this->__('Not okay') ?></td>
+                </tr>
+                <?php if(!($status['ok']==1)) :?>
+                    <tr><td>&nbsp;</td><td><?php echo $this->__('Errors') ?> <?php echo $status['errors'] ?></td></tr>
+                    <tr><td>&nbsp;</td><td><?php echo $this->__('Last Version') ?> <?php echo $status['version'] ?></td></tr>
+                <?php endif;?>
+            <?php endforeach;?>
+        </table>
+        <?php else:?>
+            <?php echo $this->__('No status yet.') ?>
+        <?php endif;?>
+    </li>
+</ul>
+<?php endif;?>

@@ -1,0 +1,188 @@
+<!--@subject {{var date_formatted}} results for {{var store_name}} from Jirafe @-->
+<!--@vars
+{"var first":"First Email",
+"var detail_report":"Detail Report",
+"var store_id":"Store Id",
+"var date":"Date of Report",
+"var date_formatted":"Date of Report formatted with store locale",
+"var store_name":"Store Name",
+"var time_zone":"Time Zone",
+"var currency":"Base currency code",
+"var base_url":"URL of store",
+"var jirafe_settings_url":"URL to Jirafe settings",
+"var customer_num":"Number of customers",
+"var visitor_num":"Number of visitors",
+"var refunds_discounts":"Refunds Discounts",
+"var refunds_discounts_formatted":"Refunds discounts formatted",
+"var refunds_grand_total":"Refunds grand total",
+"var refunds_grand_total_formatted":"Refunds grand total formatted",
+"var refunds_taxes":"Refunds taxes",
+"var refunds_taxes_formatted":"Refunds taxes formatted",
+"var refunds_shipping":"Refunds shipping",
+"var refunds_shipping_formatted":"Refunds shipping formatted",
+"var refunds_subtotal":"Refunds subtotal",
+"var refunds_subtotal_formatted":"Refunds subtotal formatted",
+"var sales_discounts":"Sales discounts",
+"var sales_discounts_formatted":"Refunds discounts formatted",
+"var sales_grand_total":"Sales grand total",
+"var sales_grand_total_formatted":"Sales grand total formatted",
+"var sales_gross":"Sales gross",
+"var sales_gross_formatted":"Sales gross",
+"var sales_net":"Sales net",
+"var sales_net_formatted":"Sales net formatted",
+"var sales_shipping":"Sales shipping",
+"var sales_shipping_formatted":"Sales shipping formatted",
+"var sales_subtotal":"Sales subtotal",
+"var sales_subtotal_formatted":"Sales subtotal formatted",
+"var sales_taxes":"Sales taxes",
+"var sales_taxes_formatted":"Sales taxes formatted",
+"var abandoned_cart_num":"Number of Abandoned Carts",
+"var abandoned_cart_grand_total":"Grand total of revenue left in abandoned carts",
+"var abandoned_cart_grand_total_formatted":"Grand total of revenue left in abandoned carts formatted",
+"var order_num":"Number of orders",
+"var order_max":"Biggest order",
+"var order_max_formatted":"Biggest order formatted",
+"var order_min":"Smallest order",
+"var order_min_formatted":"Smallest order formatted",
+"var visitor_conversion_rate":"Percentage of unique visitors that bought",
+"var visitor_conversion_rate_formatted":"Percentage of unique visitors that bought formatted",
+"var sales_per_visitor":"Sales per visitor",
+"var sales_per_visitor_formatted":"Sales per visitor formatted",
+"var sales_per_customer":"Sales per customer",
+"var sales_per_customer_formatted":"Sales per customer formatted",
+"var sales_per_order":"Sales per order",
+"var sales_per_order_formatted":"Sales per order formatted"}
+@-->
+<body bgcolor="#ffffff" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" style="-webkit-font-smoothing:antialiased;width:100% !important;background-color:#ffffff;background-image:none;background-repeat:repeat;background-position:top left;">
+<!-- wrap all -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E4DD">
+    <tr>
+        <td bgcolor="#E7E4DD" width="100%">
+            <!-- begin topbar -->
+            <!-- topbar is removed for now -->
+            <!-- end topbar -->
+            <table width="600" cellpadding="0" cellspacing="0" border="0" align="center">
+                <tr>
+                    <td width="600">
+                        <table width="600" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td width="250" bgcolor="#E7E4DD" style="font-size: 17px; line-height: 21px;">
+                                    <br />
+                                    <br />
+                                    <img src="http://jirafe.com/dashboard/img/email/logo_jirafe.gif" width="88" height="32" alt="Jirafe" /><br />
+                                    <br/>
+                                </td>
+                                <td align="right" valign="top" width="350" bgcolor="#E7E4DD" style="color:#858683;font-size:12px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;text-shadow:0 1px 0 #ffffff;">
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <strong>{{var date_formatted}}</strong><br />
+                                </td>
+                            </tr>
+                        </table>
+                        <table width="100%" cellpadding="40" cellspacing="0" border="0" style="-moz-box-shadow: 2px 2px 4px #bbb;-webkit-box-shadow: 0px 0px 10px #bbb;box-shadow: 2px 2px 4px #bbb;">
+                            <tr>
+                                <td bgcolor="#ffffff" style="border-top: 10px solid #58C3C5;">
+                                    <table cellspacing="0" cellpadding="0" width="100%" style="color:#494A45;font-size:24px;line-height:30px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:0;font-weight:normal;">
+                                        <!-- welcome -->
+                                        {{if first}}
+                                        <!-- welcome message -->
+                                        <tr><td style="color:#494A45;font-size:14px;line-height:18px;" colspan="2"><strong>Welcome to Jirafe analytics reporting for Magento!</strong></td></tr>
+                                        <tr><td style="color:#494A45;font-size:14px;line-height:18px;" colspan="2">You will receive this email daily, with results of yesterday's revenue, orders, and visitors.  To modify who sees this email, navigate to <em>System > Configuration > Jirafe Analytics</em> in your Magento admin console.</td></tr>
+                                        {{/if}}
+                                        <tr><td style="color:#494A45;font-size:14px;line-height:18px;padding-top:10px;" colspan="2">{{var date_formatted}} results for {{var store_name}}:</td></tr>
+                                        <!-- visitors -->
+                                        <tr><td colspan="2" style="padding-top:15px;padding-bottom:5px;"><b>Visitors</b></td></tr>
+                                        <tr><td>Total visitors</td><td align="right">{{var visitor_num}}</td></tr>
+                                        <tr><td>Conversion rate</td><td align="right">{{var visitor_conversion_rate_formatted}}%</td></tr>
+                                        <!-- orders -->
+                                        <tr><td colspan="2" style="padding-top:15px;padding-bottom:5px;"><b>Orders</b></td></tr>
+                                        <tr><td>Total orders</td><td align="right">{{var order_num}}</td></tr>
+                                        <tr><td>Average order value</td><td align="right">{{var sales_grand_total_per_order_formatted}}</td></tr>
+                                        {{if detail_report}}
+                                        <tr><td>Largest order</td><td align="right">{{var order_max_formatted}}</td></tr>
+                                        <tr><td>Smallest order</td><td align="right">{{var order_min_formatted}}</td></tr>
+                                        {{/if}}
+                                        <!-- sales -->
+                                        <tr><td colspan="2" style="padding-top:15px;padding-bottom:5px;"><b>Sales</b></td></tr>
+                                        <tr><td>Total customers</td><td align="right">{{var customer_num}}</td></tr>
+                                        <tr><td>Grand total</td><td align="right">{{var sales_grand_total_formatted}}</td></tr>
+                                        <tr><td style="padding-left:15px;">per visitor</td><td align="right">{{var sales_grand_total_per_visitor_formatted}}</td></tr>
+                                        <tr><td style="padding-left:15px;">per customer</td><td align="right">{{var sales_grand_total_per_customer_formatted}}</td></tr>
+                                        {{if detail_report}}
+                                        <!-- sales detail-->
+                                        <tr><td colspan="2" style="padding-top:15px;padding-bottom:5px;"><b>Sales Detail</b></td></tr>
+                                        <tr><td>Gross Sales</td><td align="right">{{var sales_gross_formatted}}</td></tr>
+                                        <tr><td style="padding-left:15px;">discounts</td><td align="right">{{var sales_discounts_formatted}}</td></tr>
+                                        <tr><td>Grand Total</td><td align="right" style="border-top:solid;border-top-width:2px">{{var sales_grand_total_formatted}}</td></tr>
+                                        <tr><td style="padding-left:15px;">taxes</td><td align="right">({{var sales_taxes_formatted}})</td></tr>
+                                        <tr><td style="padding-left:15px;">shipping</td><td align="right">({{var sales_shipping_formatted}})</td></tr>
+                                        <tr><td>Subtotal</td><td align="right" style="border-top:solid;border-top-width:2px">{{var sales_subtotal_formatted}}</td></tr>
+                                        <tr><td style="padding-left:15px;">refunds (subtotal)</td><td align="right">({{var refunds_subtotal_formatted}})</td></tr>
+                                        <tr><td>Net Sales</td><td align="right" style="border-top:solid;border-top-width:2px">{{var sales_net_formatted}}</td></tr>
+                                        <tr><td style="padding-left:15px;">per visitor</td><td align="right">{{var sales_net_per_visitor_formatted}}</td></tr>
+                                        <tr><td style="padding-left:15px;">per customer</td><td align="right">{{var sales_net_per_customer_formatted}}</td></tr>
+                                        {{/if}}
+                                        <tr><td width="100%">&nbsp;</td><td></td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <br />
+                    </td>
+                </tr>
+            </table>
+
+            <!-- begin footer -->
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#5D5E5A">
+                <tr>
+                    <td>
+                        <br />
+                        <br />
+                        <table width="600" cellpadding="0" cellspacing="0" border="0" align="center">
+                            <tr>
+                                <td width="600" nowrap bgcolor="#5D5E5A">
+                                    <table width="600" cellpadding="0" cellspacing="0" border="0">
+                                        <tr>
+                                            <td width="380" valign="top" bgcolor="#5D5E5A">
+                                                <br />
+                                                <p style="color:#C2C3C1;font-size:12px;line-height:18px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;margin-top:0;margin-bottom:15px;padding-top:0;padding-bottom:0;" >
+                                                    Would you rather not see these emails? <br />
+                                                    <a href="{{var jirafe_settings_url}}" style="color:#C2C3C1;text-decoration:underline;"><span style="color:#C2C3C1;">Unsubscribe</span></a>.</p>
+
+                                            </td>
+                                            <td align="right" width="220"  valign="top" bgcolor="#5D5E5A" style="color:#C2C3C1;font-size:12px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;" >
+                                                <table cellpadding="0" cellspacing="0" border="0">
+                                                    <tr>
+                                                        <td bgcolor="#5D5E5A"><a href="http://twitter.com/jirafeinc"><img border="0" src="http://jirafe.com/dashboard/img/email/foot_but_twit.gif" width="34" height="34" alt="Follow us on Twitter" style="display:block;" /></a></td>
+                                                        <td bgcolor="#5D5E5A"><img border="0" src="http://jirafe.com/dashboard/img/email/spacer.gif" width="6" height="1" style="display:block;" /></td>
+                                                        <td bgcolor="#5D5E5A"><a href="http://facebook.com/jirafeinc"><img border="0" src="http://jirafe.com/dashboard/img/email/foot_but_face.gif" width="34" height="34" alt="Visit us on Facebook" style="display:block;" /></a></td>
+                                                        <td bgcolor="#5D5E5A"><img border="0" src="http://jirafe.com/dashboard/img/email/spacer.gif" width="6" height="1" style="display:block;" /></td>
+                                                        <td bgcolor="#5D5E5A"><a href="http://www.linkedin.com/company/jirafe-inc"><img border="0" src="http://jirafe.com/dashboard/img/email/foot_but_linkedin.gif" width="34" height="34" alt="Visit us on LinkedIn" style="display:block;" /></a></td>
+                                                    </tr>
+                                                </table>
+                                                <br />
+                                                <p style="color:#C2C3C1;font-size:12px;line-height:18px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;margin-top:0;margin-bottom:0;padding-top:0;padding-bottom:0;" >&copy; 2010-2012 Jirafe.inc -<br />Ecommerce Analytics Software</p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <br />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<style>
+    body {font-size: 12px; line-height: 17px;}
+    a:hover {
+        color: #58C3C5;
+        text-decoration: underline !important;
+    }
+</style>
+</body>
