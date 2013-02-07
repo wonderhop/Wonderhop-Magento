@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @package     Fooman_Jirafe
+ * @copyright   Copyright (c) 2010 Jirafe Inc (http://www.jirafe.com)
+ * @copyright   Copyright (c) 2010 Fooman Limited (http://www.fooman.co.nz)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+ 
+<config>
+    <sections>
+        <foomanjirafe>
+            <label>Jirafe Analytics</label>
+            <tab>general</tab>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <sort_order>700</sort_order>
+            <groups>
+                <settings translate="label">
+                    <label>Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>11</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <isActive translate="label">
+                            <label>Enable Jirafe</label>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>Be sure to select 'Yes' in order to use Jirafe Analytics</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </isActive>
+                        <isEmailActive translate="label">
+                            <label>Enable Email Reporting</label>
+                            <comment></comment>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment><![CDATA[
+                            Email Reporting gives you a daily sales snapshot of each store.  Please ensure you have configured a cronjob for Magento - <a target="_blank" href="http://www.magentocommerce.com/wiki/1_-_installation_and_configuration/how_to_setup_a_cron_job">read more.</a>
+                            ]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </isEmailActive>
+                        <also_send_emails_to translate="label">
+                            <label>Also Email Reports to</label>
+                            <comment>One email address per line</comment>
+                            <backend_model>foomanjirafe/adminhtml_system_config_backend_jirafeExtraEmails</backend_model>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </also_send_emails_to>
+                        <report_type translate="label">
+                            <label>Default Report Type</label>
+                            <comment>Detail adds gross sales, refunds, discounts to the report</comment>
+                            <source_model>foomanjirafe/system_config_source_reportType</source_model>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </report_type>                        
+                        <is_debug translate="label">
+                            <label>Enable Debug</label>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>1000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </is_debug>
+                    </fields>
+                </settings>
+            </groups>
+        </foomanjirafe>
+    </sections>
+</config>
