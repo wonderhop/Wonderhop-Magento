@@ -53,4 +53,65 @@ class Idev_OneStepCheckout_CartController extends Mage_Checkout_CartController
         return $this;
     }
 
+    /**
+     * Initialize coupon
+     */
+    public function couponPostAction()
+    {
+        /**
+         * No reason continue with empty shopping cart
+         */
+        if (!$this->_getCart()->getQuote()->getItemsCount()) {
+            $this->_goBack();
+            return;
+        }
+
+        $couponCode = (string) $this->getRequest()->getParam('coupon_code');
+        if ($this->getRequest()->getParam('remove') == 1) {
+            $couponCode = '';
+        }
+        $oldCouponCode = $this->_getQuote()->getCouponCode();
+
+        if (!strlen($couponCode) && !strlen($oldCouponCode)) {
+            $this->_goBack();
+            return;
+        }
+		if (Mage::helper('customer')->isLoggedIn() && $couponCode == 'ahDZw2' && (int)Mage::helper('customer')->getCustomer()->getData('can_use_share_coupon') != 1) {
+			$this->_getSession()->addError(
+                $this->__('You are not allowed to use "%s" coupon.', Mage::helper('core')->htmlEscape($couponCode))
+            );
+			$this->_goBack();
+			return;
+		}
+        try {
+            $this->_getQuote()->getShippingAddress()->setCollectShippingRates(true);
+            $this->_getQuote()->setCouponCode(strlen($couponCode) ? $couponCode : '')
+                ->collectTotals()
+                ->save();
+
+            if (strlen($couponCode)) {
+                if ($couponCode == $this->_getQuote()->getCouponCode()) {
+                    $this->_getSession()->addSuccess(
+                        $this->__('Coupon code "%s" was applied.', Mage::helper('core')->htmlEscape($couponCode))
+                    );
+                }
+                else {
+                    $this->_getSession()->addError(
+                        $this->__('Coupon code "%s" is not valid.', Mage::helper('core')->htmlEscape($couponCode))
+                    );
+                }
+            } else {
+                $this->_getSession()->addSuccess($this->__('Coupon code was canceled.'));
+            }
+
+        } catch (Mage_Core_Exception $e) {
+            $this->_getSession()->addError($e->getMessage());
+        } catch (Exception $e) {
+            $this->_getSession()->addError($this->__('Cannot apply the coupon code.'));
+            Mage::logException($e);
+        }
+
+        $this->_goBack();
+    }
+
 }

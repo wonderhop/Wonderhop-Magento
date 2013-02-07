@@ -97,8 +97,8 @@ $customer = $session->isLoggedIn() ? $session->getCustomer() : NULL;
         <h2 class="social_share-text">SHARE</h2>
         <ul class="social_share">
             <li>
-                <div onclick="return GenShare.post_on_wall(this);" class="fb-share">
-                    <a id="product-facebook-link-share" href="<?php echo $this->getPersonalLink(); ?>" name="fb_share" type="icon_link" share_url="<?php echo $this->getPersonalLink(); ?>"></a>
+                <div class="fb-share">
+                    <a class="facebook-share-class" href="#" share_url="<?php echo $this->getPersonalLink() ?>"></a>
                 </div>
             </li>
             <li>
@@ -484,3 +484,29 @@ function getContactsList(emails)
 
 
 
+<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
+<script>
+FB.init({
+	appId:'<?php echo Mage::getStoreConfig('productshare/general/facebook_app_id') ?>',
+	cookie:true,
+	status:true,
+	xfbml:true
+});
+jQuery('.facebook-share-class').bind('click', function(e) {
+	share_url = jQuery(this).attr('share_url');
+	e.preventDefault();
+	FB.ui({
+		display:'popup',/*iframe*/
+		method: 'stream.publish',
+		caption: share_url,
+		name: share_url,
+		link: share_url
+	}, function (response) {
+		if (response && response.post_id) {
+			<?php if(Mage::helper('customer')->isLoggedIn() && (int)Mage::helper('customer')->getCustomer()->getData('can_use_share_coupon') != 1): ?>
+			jQuery.post('<?php echo Mage::getUrl('productshare') ?>', { post_id: response.post_id } );
+			<?php endif ?>
+		}
+	});
+});
+</script>
