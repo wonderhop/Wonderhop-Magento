@@ -228,7 +228,8 @@ $share_url = $c_url . $ref_id;
             <ul class="social_share">
                 <li>
                     <div class="fb-share">
-                        <a class="jshare jshare-facebook" href="<?php echo $share_url ?>" mp_event="Facebook product share"></a>
+                        <!--<a class="jshare jshare-facebook" href="<?php echo $share_url ?>" mp_event="Facebook product share"></a>-->
+						<a class="facebook-share-class" href="#" mp_event="Facebook product share"></a>
                     </div>
                 </li>
                 <li>
@@ -332,3 +333,30 @@ $share_url = $c_url . $ref_id;
     </div>-->
 </div>
 <div class="clear"></div>
+
+<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
+<script>
+FB.init({
+	appId:'<?php echo Mage::getStoreConfig('productshare/general/facebook_app_id') ?>',
+	cookie:true,
+	status:true,
+	xfbml:true
+});
+jQuery('.facebook-share-class').bind('click', function(e) {
+	e.preventDefault();
+	FB.ui({
+		display:'popup',/*iframe*/
+		method: 'stream.publish',
+		caption: '<?php echo $share_url ?>',
+		name: '<?php echo $this->__('Curio Road') . ' - ' . trim($_product->getName()) ?>',
+		link: '<?php echo $share_url ?>',
+		picture: '<?php echo Mage::helper('catalog/image')->init($_product, 'image')->resize(200,200) ?>'
+	}, function (response) {
+		if (response && response.post_id) {
+			<?php if(Mage::helper('customer')->isLoggedIn() && (int)Mage::helper('customer')->getCustomer()->getData('can_use_share_coupon') != 1): ?>
+			jQuery.post('<?php echo Mage::getUrl('productshare') ?>', { post_id: response.post_id } );
+			<?php endif ?>
+		}
+	});
+});
+</script>

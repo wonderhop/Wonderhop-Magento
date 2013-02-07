@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<config>
+	<default>
+		<productshare>
+			<general>
+				<facebook_app_id>234070303348167</facebook_app_id><!-- devel: 432195933517952 -->
+				<mail_template>12</mail_template><!-- devel : 6 -->
+			</general>
+		</productshare>
+	</default>
+    <modules>
+        <Wonderhop_Productshare>
+            <version>0.1.0</version>
+        </Wonderhop_Productshare>
+    </modules>
+	<frontend>
+        <routers>
+            <productshare>
+                <use>standard</use>
+                <args>
+                    <module>Wonderhop_Productshare</module>
+                    <frontName>productshare</frontName>
+                </args>
+            </productshare>
+        </routers>
+	</frontend>
+	<global>
+		<resources>
+			<productshare_setup>
+				<setup>
+					<module>Wonderhop_Productshare</module>
+					<class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</productshare_setup>
+			<productshare_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</productshare_write>
+			<productshare_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</productshare_read>
+		</resources>
+	</global>
+</config>
+ 
