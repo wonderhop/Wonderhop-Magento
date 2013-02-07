@@ -110,7 +110,7 @@
         <div class="cat-sharebox">
             <span class="shares-cta" id="brand-shares-cta"/>GET CASH WHEN FRIENDS JOIN</span>
             <?php $_pin_text = urlencode($_category->getName().' -- '.preg_replace('/\s+/',' ',strip_tags($this->getCurrentCategory()->getSaleDescription()))); ?>
-            <a class="cat-share-item cat-share-fb facebook-share-class" href="#" share_url="<?php echo $share_url ?>" share_text="Just discovered this amazing brand on CurioRoad" mp_event="Facebook sale share"></a>
+            <a class="cat-share-item cat-share-fb jshare jshare-facebook" href="#" share_url="<?php echo $share_url ?>" share_text="Just discovered this amazing brand on CurioRoad" mp_event="Facebook sale share"></a>
             <a class="cat-share-item cat-share-tweet jshare jshare-twitter" href="<?php echo $share_url; ?>" jshare_data="text=<?php echo urlencode("Just discovered this amazing brand on @CurioRoad \n"); ?>" mp_event="Twitter sale share"></a>
             <a class="cat-share-item cat-share-pin jshare jshare-pinterest" href="<?php echo $share_url;?>" jshare_data="text=<?php echo $_pin_text; ?>,media=<?php echo urldecode($_mainImgUrl); ?>" mp_event="Pinterest share"></a>
         </div>
@@ -172,34 +172,3 @@
     <h2><?php echo  Wonderhop_Sales_Helper_Data::getCountDown($_category); ?></h2>
 </div>
 -->
-
-
-
-
-<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
-<script>
-FB.init({
-	appId:'<?php echo Mage::getStoreConfig('productshare/general/facebook_app_id') ?>',
-	cookie:true,
-	status:true,
-	xfbml:true
-});
-jQuery('.facebook-share-class').bind('click', function(e) {
-	share_url = jQuery(this).attr('share_url');
-	share_text = jQuery(this).attr('share_text');
-	e.preventDefault();
-	FB.ui({
-		display:'popup',/*iframe*/
-		method: 'stream.publish',
-		caption: share_url,
-		name: share_text,
-		link: share_url
-	}, function (response) {
-		if (response && response.post_id) {
-			<?php if(Mage::helper('customer')->isLoggedIn() && (int)Mage::helper('customer')->getCustomer()->getData('can_use_share_coupon') != 1): ?>
-			jQuery.post('<?php echo Mage::getUrl('productshare') ?>', { post_id: response.post_id } );
-			<?php endif ?>
-		}
-	});
-});
-</script>
