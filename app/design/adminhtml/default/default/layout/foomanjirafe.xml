@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_dashboard_index>
+        <reference name="head">
+            <block type="foomanjirafe/adminhtml_dashboard_js" name="foomanjirafe_dashboard_head" as="foomanjirafe_dashboard_head" />
+        </reference>
+        <reference name="dashboard">
+            <block type="foomanjirafe/adminhtml_status" name="foomanjirafe_status" as="foomanjirafe_status" />
+            <block type="foomanjirafe/adminhtml_dashboard_toggle" name="foomanjirafe_dashboard_toggle" as="foomanjirafe_dashboard_toggle" />
+        </reference>
+        <reference name="before_body_end">
+            <block type="foomanjirafe/adminhtml_dashboard_jsBodyEnd" template="fooman/jirafe/dashboard/jsbodyend.phtml" name="foomanjirafe_dashboard_jsbodyend" as="foomanjirafe_dashboard_jsbodyend" />
+        </reference>        
+    </adminhtml_dashboard_index>
+    <adminhtml_system_config_edit>
+        <reference name="content">
+            <block type="foomanjirafe/adminhtml_status" name="foomanjirafe_status" as="foomanjirafe_status" />
+        </reference>
+    </adminhtml_system_config_edit>
+    <!--Magento 1.4+-->
+    <adminhtml_sales_order_view>
+        <reference name="sales_order_tabs">
+            <action method="addTab"><name>jirafe</name><block>foomanjirafe/adminhtml_sales_order_view_tab_jirafe</block></action>
+        </reference>
+    </adminhtml_sales_order_view>
+</layout>

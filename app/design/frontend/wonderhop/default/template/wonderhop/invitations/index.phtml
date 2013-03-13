@@ -120,6 +120,99 @@ $can_see_page = false;
         </li>
          */ ?>
         </ul>
+        
+        
+        
+        
+            <form action="/invite-friends/index/sendinvites" method="post" id="invitations-form" style="display:block;overflow:hidden; float:left; clear:left;">
+                <div id="invite-links-container">
+                    <a id="cloudsponge_gmail" onclick="cloudsponge.launch('gmail');return false;" href="#" class="csicon cloudsponge_gmail invite-import-gmail">Gmail</a>  
+                    <a id="cloudsponge_yahoo" onclick="cloudsponge.launch('yahoo');return false;" href="#" class="csicon cloudsponge_yahoo invite-import-yahoo">Yahoo</a>
+                    <a id="cloudsponge_msn" onclick="cloudsponge.launch('msn');return false;" href="#" class="csicon cloudsponge_msn invite-import-hotmail">Hotmail</a>
+                    <a onclick="return cloudsponge.launch('aol');return false;" href="#" class="csicon invite-import-aol">Aol</a> 
+                </div>
+
+                <input type="hidden" id="key" value="" />
+                <input id="cloud_invite_input" class="invite-emails input-text required-entry" size="150" rel="1" type="text" name="emails" value="" />
+				<div class="ajax-submit-block">
+		            <button id="cloud_invite_submit" type="submit" title="Send Invite" class="button"><span><span>Send</span></span></button>
+		            <div id="invitations-sent">INVITATIONS SENT !</div>
+					<div id="invitations-ajax-error"></div>
+					<div id="invitations-ajax"><img width="16" height="16" src="<?php echo $this->getskinUrl() ?>images/opc-ajax-loader.gif" alt="" /></div>
+				</div>
+                
+                <?php $nonce = md5('curio'.mt_rand(1000, 25888).time()); Mage::getSingleton('customer/session')->setInviteNonce($nonce); ?>
+                <input type="hidden" name="nonce" value="<?php echo $nonce; ?>" />
+                
+            </form>
+        
+        
+            <!-- inite page -->
+            <!-- Include these scripts to import address books with CloudSponge -->
+            <script type="text/javascript" src="https://api.cloudsponge.com/address_books.js"></script>
+            <script type="text/javascript" charset="utf-8">
+                var csPageOptions = {
+                    domain_key:"<?php echo (string)Mage::getConfig()->getNode('localconf/cloudsponge/key'); ?>",
+                    textarea_id:"cloud_invite_input"
+                };
+                
+                (function($){$(function(){
+                    $('#cloud_invite_input, .csicon, .elements_container').click(function(ev){
+                        ev.stopPropagation();
+                    });
+                    $('#invitations-form').submit(function(ev,data){
+                        $form = $(this);
+                        if ( ! $('#cloud_invite_input').val()) return false;
+						$('#cloud_invite_submit').fadeOut(function(e) {
+							$('#invitations-ajax').fadeIn();
+						});
+                        $.post($form.attr('action'),$form.serialize(),function(data){
+                            resp = null;
+                            try {
+                                resp = JSON.parse(data);
+                            } catch(e) {
+                            }
+                            if (resp) {
+                                if (resp.redirect) {
+                                    window.location.href = resp.redirect;
+                                    return false;
+                                }
+                                // mixpanel.track('Invitation send');
+                                if (resp.status == 'success') {
+									$('#invitations-ajax').fadeOut(function(e) {
+										$('#cloud_invite_submit').fadeIn();
+										$('#invitations-sent').fadeIn('fast', function(e) {
+											$(this).delay(5000).fadeOut('slow');
+										});
+									});
+                                    $('#cloud_invite_input').val('');
+                                } else {
+									$('#invitations-ajax').fadeOut(function(e) {
+										$('#cloud_invite_submit').fadeIn();
+										$('#invitations-ajax-error').text(resp.status).fadeIn('fast', function(e) {
+											$(this).delay(5000).fadeOut('slow');
+										});
+									});
+								}
+                            } else {
+								$('#invitations-ajax').fadeOut(function(e) {
+									$('#cloud_invite_submit').fadeIn();
+									$('#invitations-ajax-error').text('There was some error processing your request.').fadeIn('fast', function(e) {
+										$(this).delay(5000).fadeOut('slow');
+									});
+								});
+							}
+                        });
+                        ev.preventDefault();
+                        return false;
+                    });
+                    
+                    
+                    
+                });})(jQuery);
+            </script>
+        
+        
         <?php } else { ?>
             
             <h2 style="color:red; font-weight:bold; font-family:Georgia,serif; font-size: 13px; ">You need to be logged in <br/>to access your persoal link!</h2>
