@@ -17,6 +17,10 @@
 		return (int)Mage::getStoreConfig('Wonderhop_Registerqueue/email_template/in_queue');
 	}
 
+	function getTemplateId_Invited() {
+		return (int)Mage::getStoreConfig('Wonderhop_Registerqueue/email_template/person_invited_email');
+	}
+
 	function getTemplateId_QueueFinished() {
 		return (int)Mage::getStoreConfig('Wonderhop_Registerqueue/email_template/queue_finished');
 	}
@@ -47,10 +51,11 @@
 
 			//send email, explaining that he is placed in queue
 			$template_id = $this->getTemplateId_InQueue();
-			Mage::helper('mails')->sendTransactionalEmail($template_id, $email, null, null, array('email' => rawurlencode($email)));
+			Mage::helper('mails')->sendTransactionalEmail($template_id, $email, null, null, array('invite_friend_url' => 'r='.$registerqueue_referral_code, 'email' => rawurlencode($email)));
 
 			//set cookie with referral_code, allowing customer to access invite-friends page
 			Mage::getModel('core/cookie')->set('referral_code', $registerqueue_referral_code, 604800); //7 days
+			Mage::getModel('core/cookie')->set('referral_email', $email, 604800); //7 days
 			return true;
 		} catch (Exception $e) {
 			return false; //something unexpected happened
