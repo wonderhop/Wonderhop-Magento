@@ -8,9 +8,10 @@
 				<registerqueue_invitations_needed>3</registerqueue_invitations_needed>
 			</general>
 			<email_template>
-				<in_queue></in_queue>
-				<queue_finished></queue_finished>
-				<queue_finished_by_invitations></queue_finished_by_invitations>
+				<in_queue>13</in_queue>
+				<person_invited_email>14</person_invited_email>
+				<queue_finished>15</queue_finished>
+				<queue_finished_by_invitations>15</queue_finished_by_invitations>
 			</email_template>
 		</Wonderhop_Registerqueue>
 	</default>

@@ -8,9 +8,16 @@
     }
     
 	public function sendinvitesAction() {
+		$use_cookie_data = false;
 		if(!Mage::getSingleton('customer/session' )->isLoggedIn()) {
-			echo json_encode(array('status' => 'You must login to use this feature.'));
-			return;
+			$customer_email = Mage::getModel('core/cookie')->get('referral_email');
+			$referral_code = Mage::getModel('core/cookie')->get('referral_code');
+			if($customer_email && $referral_code) {
+				$use_cookie_data = true;
+			} else {
+				echo json_encode(array('status' => 'You must login to use this feature.'));
+				return;
+			}
 		}
 		$post = $this->getRequest()->getPost();
 		if(!$post) {
@@ -41,10 +48,18 @@
             }
             $mails[$key] = $final;
         }
-		$template_id   = Mage::getStoreConfig('Wonderhop_Sales/general/invite_friends_email_template', Mage::app()->getStore());    
-		$customer      = Mage::getSingleton('customer/session' )->getCustomer();
-		$customer_name = $customer->getFirstname() . " " . str_replace("-", '', $customer->getLastname());
-		$extra_vars    = array('customer_name' => $customer_name, 'url' => Mage::getBaseUrl() . '?confirmation='.md5($customer->getId()).'&r=' . $customer->getReferralCode());
+		$template_id   = Mage::getStoreConfig('Wonderhop_Sales/general/invite_friends_email_template', Mage::app()->getStore());
+		if($use_cookie_data) {
+			$url           = Mage::getBaseUrl() . '?r=' . $referral_code;
+			$accept_invite_url = 'r=' . $referral_code;
+			$extra_vars    = array('inviter_email' => $customer_email, 'customer_name' => $customer_email, 'url' => $url, 'accept_invite_url' => $accept_invite_url);
+		} else {
+			$customer      = Mage::getSingleton('customer/session' )->getCustomer();
+			$customer_name = $customer->getFirstname() . " " . str_replace("-", '', $customer->getLastname());
+			$url           = Mage::getBaseUrl() . '?confirmation='.md5($customer->getId()).'&r=' . $customer->getReferralCode();
+			$accept_invite_url = 'confirmation='.md5($customer->getId()).'&r=' . $customer->getReferralCode();
+			$extra_vars    = array('inviter_email' => $customer->getEmail(), 'customer_name' => $customer_name, 'url' => $url, 'accept_invite_url' => $accept_invite_url);
+		}
 		try {
 			foreach($mails as $mail) {
 				$mail = trim($mail);
@@ -54,16 +69,20 @@
 				$customers->load();
 				#if customer already here do not send email
 				if (!$customers->count()) {
+					$extra_vars['invited_email'] = $mail;
 					Mage::helper('mails')->sendTransactionalEmail($template_id, $mail, null, null, $extra_vars);
+					unset($extra_vars['invited_email']);
 				}
-				$data = array(
-					'customer_fk'          => $customer->getId(), 
-					'template_id'          => $template_id, 
-					'invitation_send_date' => gmdate("Y-m-d H:i:s"),
-					'sent_to'              => $mail
-				);
-				$model = Mage::getModel('invitations/invitations')->setData($data);
-				$model->save();
+				if(!$use_cookie_data) {
+					$data = array(
+						'customer_fk'          => $customer->getId(), 
+						'template_id'          => $template_id, 
+						'invitation_send_date' => gmdate("Y-m-d H:i:s"),
+						'sent_to'              => $mail
+					);
+					$model = Mage::getModel('invitations/invitations')->setData($data);
+					$model->save();
+				}
 			}    
 			echo json_encode(array('status' => 'success'));
 			return;
