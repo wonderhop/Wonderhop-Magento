@@ -2,7 +2,7 @@
 
 $session = Mage::getSingleton('customer/session');
 $customer = $session->isLoggedIn() ? $session->getCustomer() : NULL;
-
+$can_see_page = false;
 
 ?>
 
@@ -92,18 +92,24 @@ $customer = $session->isLoggedIn() ? $session->getCustomer() : NULL;
     
     <div class="personal-invite-container">
         <h2>SHARE YOUR PERSONAL INVITE</h2>
-        <?php if ($customer) { ?>
-        <input id="personal_link" type="text" readonly="readonly" class="input-text" size="50" value="<?php echo $this->getPersonalLink() ?>" />
+		<?php if(Mage::helper('wonderhop_registerqueue')->isActive()): ?>
+			<?php $referral_code = Mage::getModel('core/cookie')->get('referral_code') ?>
+			<?php if($referral_code != '' && !is_null($referral_code)) $can_see_page = true ?>
+		<?php endif ?>
+
+        <?php if (Mage::helper('customer')->isLoggedIn() || $can_see_page) { ?>
+			<?php $personal_link = Mage::helper('customer')->isLoggedIn() ? $this->getPersonalLink() : $this->getPersonalLink() . $referral_code ?>
+        <input id="personal_link" type="text" readonly="readonly" class="input-text" size="50" value="<?php echo $personal_link ?>" />
         <h2 class="social_share-text">SHARE</h2>
         <ul class="social_share">
             <li>
-                <div class="fb-share">
-                    <a class="facebook-share-class" href="#" share_url="<?php echo $this->getPersonalLink() ?>"></a>
+                <div onclick="return GenShare.post_on_wall(this);" class="fb-share">
+                    <a id="product-facebook-link-share" href="<?php echo $personal_link ?>" name="fb_share" type="icon_link" share_url="<?php echo $personal_link ?>"></a>
                 </div>
             </li>
             <li>
                 <div class="twitter-share" onclick="return GenShare.tweet_it(this,{'text':' '});">
-                    <a href="<?php echo $this->getPersonalLink(); ?>" title="Share this on Twitter" id="product-service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
+                    <a href="<?php echo $personal_link ?>" title="Share this on Twitter" id="product-service-links-twitter" class="service-links-twitter" rel="nofollow" target="_blank"></a>
                 </div>
             </li>
         <?php /*

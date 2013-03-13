@@ -1,5 +1,8 @@
 <?php
-
+if(Mage::helper('wonderhop_registerqueue')->isActive() && Mage::app()->getFrontController()->getRequest()->getRouteName() == 'invitations') {
+	$referral_code = Mage::getModel('core/cookie')->get('referral_code');
+	if($referral_code != '' && !is_null($referral_code)) return;
+}
 $is_home = (Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' and Mage::getSingleton('cms/page')->getIdentifier() == 'home');
 $home_class = $is_home ? ' home' : '';
 
@@ -165,17 +168,43 @@ if ($get_email) {
 ?>
 
 <?php if ( ! $prefill_email) { ?>
-<div class="popup_register_2 block_popup<?php echo $home_class; ?>"  style="display:none;">
+<?php $input_email = '' ?>
+<?php if($this->email): ?>
+	<?php $input_email = $this->email ?>
+<?php endif ?>
+<?php if($get_email): ?>
+	<?php $input_email = $get_email ?>
+<?php endif ?>
+<?php $register_queue = false ?>
+<?php if(Mage::helper('wonderhop_registerqueue')->isActive() && $input_email != ''): ?>
+	<?php $register_queue = true ?>
+	<?php $queued_email = false ?>
+	<?php $can_register = Mage::helper('wonderhop_registerqueue')->canCompleteRegistration($input_email) ?>
+	<?php if(!$can_register): ?>
+		<?php $queued_email = Mage::helper('wonderhop_registerqueue')->addEmailToQueue($input_email) ?>
+	<?php endif ?>
+<?php endif ?>
+
+<div class="popup_register_2 block_popup<?php echo $home_class; ?><?php if(!$can_register && $register_queue): ?> registration-queue<?php endif ?>"  style="display:none;">
 <div class="block_popup_inner">
     <h1 class="popup_title">You're almost there!</h1>
     <div class="popup_content">
+		<?php if(!$can_register && $register_queue): ?>
+			<?php //email sucessfully queued ?>
+			<?php if($queued_email): ?>
+				Congratulations!<br/><br/>You are placed in queue. We will let you know when a free spot is available.<br/>You can bypass queue by asking 3 friends to <a href="<?php echo Mage::getBaseUrl() ?>invite-friends">join us</a>.
+			<?php else: ?>
+			<?php //email is already queued ?>
+				Dear Customer,<br/><br/>You are already placed in queue. We will let you know when a free spot is available.<br/>You can bypass queue by asking 3 friends to <a href="<?php echo Mage::getBaseUrl() ?>invite-friends">join us</a>.
+			<?php endif ?>
+		<?php else: ?>
         <form action="/customer/account/createpost" method="post" id="register-form" <?php if($is_gc_email) { ?> onSubmit="return false;" <?php } ?> >
             <input name="email" type="hidden" <?php if($this->email): ?> value="<?=$this->email?>" <?php endif; ?> 
             <?php if ($get_email): ?>  value="<?=$get_email?>" <?php endif; ?>  id="registration_email" />
             <input type="hidden" value="<?php if($this->url): ?><?=$this->url ?>" <?php endif; ?>  name="url"/>
             <input name="lastname" type="hidden" value="-"/>    
             <input name="confirmation" type="hidden" id="passconf" value=""/>
-            <div class="content">   
+            <div class="content">
                 <ul class="form-list">
                     <li>
                         <input name="firstname" value="" title="<?php echo $this->__('First Name') ?>" id="first_name" type="text" class="input-text required-entry" />
@@ -224,6 +253,7 @@ if ($get_email) {
                 <button class="button" onclick="registerForm.submit()" type="submit" name="register" id="register2"><span><?php echo $this->__('Enter the site') ?></span></button>
             </div>
         </form>
+		<?php endif ?>
     </div>
     <script type="text/javascript">
         var registerForm = new VarienForm('register-form', true);
