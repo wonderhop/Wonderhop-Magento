@@ -75,6 +75,22 @@
     
     $share_url = $share_url . $ref_id;
     
+    $colls_cat_id = (int)(string)Mage::getConfig()->getNode('localconf/modules/catalog/category/collections_cat_id');
+    $__cat = $_category;
+    while($__cat->getLevel() > 2)
+    {
+        $__cat = Mage::getModel('catalog/category')->load( $__cat->getParentId() );
+    }
+    $_main_parent_category = $__cat; unset($__cat);
+
+    if ($colls_cat_id and $_main_parent_category->getId() == $colls_cat_id)
+    {
+        // different layout
+        include(__DIR__ . '/alternate.view.phtml');
+        // end this file
+        return;
+    }
+    
 ?>
 
 <?php // WE RENDER THe PRODUCTS FIRST ?>

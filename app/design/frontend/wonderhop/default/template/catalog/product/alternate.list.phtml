@@ -43,10 +43,6 @@
 ?>
 <?php if(!$_productCollection->count()): ?>
 <p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
-
-<?php elseif(Mage::registry('is_collection')): ?>
-    <?php include __DIR__ . '/alternate.list.phtml'; ?>
-<?php elseif($current_category->getEndDate() < date("Y-m-d H:i:s", Mage::getModel('core/date')->timestamp(time()))): ?>
 <?php else:
 
 $session = Mage::getSingleton('customer/session');
@@ -62,7 +58,7 @@ if($session->isLoggedIn() && $customer->getReferralCode()) {
     $ref_id = '?r=' .$customer->getReferralCode();
 } 
 $_collectionSize = $_productCollection->count(); 
-$_columnCount = $this->getColumnCount(); 
+$_columnCount = 3;
 $_cols = array();
 for($ci = 0; $ci < $_columnCount; $ci++) { $_cols[$ci] = ''; };
 $current = &$_cols[0];
@@ -109,7 +105,7 @@ $allPrices = array();
                     <?php if (( ! $is_future_sale or $is_staff) and ! $sold_out): ?>
                         <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
                     <?php endif; ?>    
-                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(283); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(230); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
                     <?php if (( ! $is_future_sale or $is_staff) and ! $sold_out): ?>    
                         </a>
 

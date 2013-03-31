@@ -1,0 +1,161 @@
+<script type="text/javascript">
+(function($){$(function()
+{
+   $('body').addClass('catalog-category-view-collections');
+    
+});})(jQuery);
+</script>
+<?php
+
+//$this->getLayout()->unsetBlock('wonderhop.login');
+//var_dump(is_object($this->getLayout()->getBlock('footer')->unsetChild('wonderhop.login')));
+
+if ( ! Mage::registry('is_collection'))
+{
+    Mage::register('is_collection', true);
+}
+// get product collection from product list block
+$productListBlock = $this->getLayout()->getBlock('product_list');
+$productCollection = $productListBlock->getLoadedProductCollection();
+// create a pager plock
+$pager = $this->getLayout()->createBlock('page/html_pager');
+
+// hardcoded values
+    $pageSize = 6;
+// --
+
+// add a hook in generic model to override magento's configured settings
+$generic = Mage::getSingleton('generic/data');
+$generic->addEventCallback('catalog_block_product_list_collection', 
+            function($observer = NULL) use($pageSize, $pager, $productCollection)
+            {
+                $pager->setShowPerPage(false)
+                    ->setLimit($pageSize)
+                    ->setCollection($productCollection);
+            });
+
+
+//$productCollection->setPageSize($pageSize);
+?>
+<div class="collections">
+
+<div class="heading clearfix">
+    <?php
+    // this makes the whole filtering initialization, and we don't have to render it
+    $this->getLayout()->createBlock('catalog/layer_view')->setTemplate('catalog/layer/view.phtml')->toHtml();
+    ?>
+    <div class="filters">
+        <div class="filters-text">Filters: </div>
+        <div class="filter-wrap">
+            <div class="label"><span>Price </span><img src="<?php echo $this->getSkinUrl('images/collections/down.png'); ?>" alt=""/></div>
+            <ul class="select collections_filter" id="price_filter" data-value="-">
+                <li data-value="-"><span>All</span></li>
+                <li data-value="0-20.01"><span>$0-$20</span></li>
+                <li data-value="20-30.01"><span>$20-$30</span></li>
+                <li data-value="30-45.01"><span>$30-$45</span></li>
+                <li data-value="45-60.01"><span>$45-$60</span></li>
+                <li data-value="60.01-"><span>$60+</span></li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+    (function($){$(function(){
+        var loc = window.location.href, 
+            cur = (loc.indexOf('?') > -1) ? loc.replace(/^.*?\?/,'').split('&') : [],
+            base = (loc.indexOf('?') > -1) ? loc.replace(/\?.*$/,'') : loc,
+            $pricefilter = $('#price_filter');
+        
+        // set elements to current value
+        $.each(cur, function(i,f)
+        {
+            if (f.indexOf('price=') === 0)
+            {
+                var $opt = $pricefilter.find('li[data-value="'+f.split('=').pop()+'"]');
+                    val = $opt.attr('data-value'), name = $opt.find('span').html();
+                if(val !== '-') // All prices
+                {
+                    $pricefilter.attr('data-value', val)
+                    .parent().find('.label').find('span').html(name);
+                }
+            }
+        });
+        
+        $('.filters .label').each(function()
+        {
+            $(this).click(function()
+            {
+                $(this).not('.open').addClass('open');
+                $(this).parent().find('.select').show();
+            });
+            
+            $(this).mouseenter(function()
+            {
+                $(this).addClass('over');
+            });
+            $(this).mouseleave(function()
+            {
+                $(this).removeClass('over');
+            });
+            $(this).parent().find('.select li').click(function()
+            {
+                var val = $(this).attr('data-value'), name = $(this).find('span').html();
+                $(this).parent().attr('data-value', val)
+                    .parent().find('.label').find('span').html(name)
+                    .parents('.label').first().parent().find('.select')
+                    .trigger('change');
+            });
+        });
+        
+        $('html').click(function()
+        {
+            $('.filters .label.open').not('.over').each(function()
+            {
+                $(this).removeClass('open');
+                $(this).parent().find('.select').hide();
+            });
+        });
+        
+        
+        $pricefilter.change(function()
+        {
+            var _price = $pricefilter.attr('data-value'), _filters = [], done=false;
+            
+            $.each(cur, function(i,f)
+            {
+                if (f.indexOf('price=') === 0)
+                {
+                    _filters.push('price=' + _price) && (done = true);
+                }
+                else if(f.indexOf('p=') === 0)
+                {
+                    // nothing, reset the paging
+                }
+                else
+                {
+                    _filters.push(f);
+                }
+            });
+            
+            done || _filters.push('price=' + _price);
+            
+            setLocation( base + '?' + _filters.join('&'));
+        });
+        
+    });})(jQuery);
+    </script>
+    <div class="clearfix"></div>
+</div>
+
+<div class="sidebar left">
+    <?php include( __DIR__ . '/alternate.sidebar.php'); ?>
+</div>
+
+<div class="content right">
+    <?php echo $this->getProductListHtml() ?>
+    <div class="clearfix"></div>
+    <div class="pager-container">
+    <?php echo $pager->toHtml();?>
+    </div>
+</div>
+
+</div>

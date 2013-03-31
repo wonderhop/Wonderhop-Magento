@@ -30,6 +30,13 @@
  *
  * @see Mage_Page_Block_Html_Pager
  */
+ 
+if (Mage::registry('is_collection'))
+{
+    include __DIR__ .'/alternate.pager.phtml';
+    return;
+}
+
 ?>
 <?php if($this->getCollection()->getSize()): ?>
 

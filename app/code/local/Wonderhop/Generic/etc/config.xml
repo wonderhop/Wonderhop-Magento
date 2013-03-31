@@ -44,6 +44,15 @@
                 </observers>
             </checkout_onepage_controller_success_action>
             <!-- -->
+            <catalog_block_product_list_collection>
+                <observers>
+                    <observe_hardcode_collection_page_size>
+                        <type>singleton</type>
+                        <class>Wonderhop_Generic_Observer</class>
+                        <method>on_catalog_block_product_list_collection</method>
+                    </observe_hardcode_collection_page_size>
+                </observers>
+            </catalog_block_product_list_collection>
         </events>
     </global>
 </config>

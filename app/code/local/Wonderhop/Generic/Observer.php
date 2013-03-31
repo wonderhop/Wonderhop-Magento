@@ -32,4 +32,30 @@ class Wonderhop_Generic_Observer {
         }
     }
     
+    public function on_catalog_block_product_list_collection($observer)
+    {
+        if (Mage::registry('is_collection'))
+        {
+            $collection = $observer->getCollection();
+            
+            $collection->setPageSize(5);
+        }
+        
+        $generic = Mage::getSingleton('generic/data');
+        
+        $hooks = $generic->getEventCallbacks('catalog_block_product_list_collection');
+        
+        foreach($hooks as $hook)
+        {
+            if (is_callable($hook))
+            {
+                $hook($observer);
+            }
+            else
+            {
+                error_log('catalog_block_product_list_collection hook is not callable');
+            }
+        }
+    }
+    
 }

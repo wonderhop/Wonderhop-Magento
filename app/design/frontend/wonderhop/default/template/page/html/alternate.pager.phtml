@@ -1,0 +1,44 @@
+<?php if($this->getCollection()->getSize()): ?>
+<div class="pager">
+    
+    <div class="pages">
+    
+    <?php if($this->getLastPageNum()>1): ?>
+        
+        <?php if (!$this->isFirstPage()): ?>
+            <a class="previous<?php if(!$this->getAnchorTextForPrevious()): ?> i-previous<?php endif;?>" href="<?php echo $this->getPreviousPageUrl() ?>" title="<?php echo $this->__('Previous') ?>">
+                <?php if(!$this->getAnchorTextForPrevious()): ?>
+                    <img src="<?php echo $this->getSkinUrl('images/collections/left.png') ?>" alt="<?php echo $this->__('Previous') ?>" class="v-middle" />
+                <?php else: ?>
+                    <?php echo $this->getAnchorTextForPrevious() ?>
+                <?php endif;?>
+            </a>
+        <?php endif;?>
+    <?php endif; ?>
+    
+    <div class="items-text">
+        <?php if($this->getLastPageNum()>1): ?>
+            <?php echo $this->__('%s &mdash; %s of %s items', $this->getFirstNum(), $this->getLastNum(), $this->getTotalNum()) ?>
+        <?php else: ?>
+            <?php echo $this->__('%s item(s)', $this->getTotalNum()) ?>
+        <?php endif; ?>
+    </div>
+
+    <?php if($this->getLastPageNum()>1): ?>
+        <?php if (!$this->isLastPage()): ?>
+            <a class="next<?php if(!$this->getAnchorTextForNext()): ?> i-next<?php endif; ?>" href="<?php echo $this->getNextPageUrl() ?>" title="<?php echo $this->__('Next') ?>">
+                <?php if(!$this->getAnchorTextForNext()): ?>
+                    <img src="<?php echo $this->getSkinUrl('images/collections/right.png') ?>" alt="<?php echo $this->__('Next') ?>" class="v-middle" />
+                <?php else: ?>
+                    <?php echo $this->getAnchorTextForNext() ?>
+                <?php endif;?>
+            </a>
+        <?php endif;?>
+        
+
+    <?php endif; ?>
+    
+    </div>
+    
+</div>
+<?php endif ?>

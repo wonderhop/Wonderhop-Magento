@@ -197,4 +197,34 @@ class Wonderhop_Generic_Model_Data extends Mage_Core_Model_Abstract {
     }
     
     
+    protected $_callbacks = array();
+    
+    public function addEventCallback($event, $callback)
+    {
+        if ( ! isset($this->_callbacks[$event]) or ! is_array($this->_callbacks[$event]))
+        {
+            $this->_callbacks[$event] = array();
+        }
+        
+        if ( ! is_callable($callback))
+        {
+            error_log('callback for event '.$event.' is not callable');
+            return $this;
+        }
+        
+        $this->_callbacks[$event][] = $callback;
+        
+        return $this;
+    }
+    
+    public function getEventCallbacks($event)
+    {
+        if ( ! isset($this->_callbacks[$event]) or ! is_array($this->_callbacks[$event]))
+        {
+            $this->_callbacks[$event] = array();
+        }
+        
+        return $this->_callbacks[$event];
+    }
+    
 }

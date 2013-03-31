@@ -84,4 +84,11 @@
             <!--<action method="addItem"><type>skin_js</type><name>js/pinterest.js</name></action>-->
         </reference>
     </catalog_product_view>
+    <!--
+    <CATEGORY_40>
+        <reference name="footer">
+              <remove name="wonderhop.login" />
+        </reference>
+    </CATEGORY_40>
+    -->
 </layout>
