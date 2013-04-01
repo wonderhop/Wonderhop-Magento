@@ -25,7 +25,7 @@ $menu = array(
 foreach($sections as $section_id)
 {
     $section = Mage::getModel('catalog/category')->load((int)$section_id);
-    if ($section->getName() == 'Type' )
+    if ($section->getName() == 'Category' )
     {
         $sec_menu = &$menu['type'];
     }
