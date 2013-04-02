@@ -2537,18 +2537,19 @@ p.no-orders { font-size: 14px; }
 .collections .heading { padding:10px; height: 120px; width: 100%; 
     background: url("../images/collections/collections_deco.png") no-repeat scroll left top;
     position:relative; top: -27px; margin-bottom:-30px; z-index:51; zoom:1;}
-.collections .sidebar { width: 160px; min-height:10px; }
+.collections .sidebar { width: 150px; min-height:10px; }
 .collections .content { min-height:10px; min-width: 710px; }
 .collections .pager-container { overflow:hidden;clear:both; display:block; position:relative; }
 
 
 .sidebar-nav.level0 .sidebar-nav-heading h4 { color: #FD706B; font-family: "letter-gothic-std",monospace; 
-    font-size: 19px; line-height: 1;text-transform: uppercase; padding:25px 0 15px; }
+    font-size: 19px; line-height: 1;text-transform: uppercase; padding:25px 0 15px; 
+    background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent; }
 
 .sidebar-nav.level1, .sidebar-nav.level2 { font-family:Georgia,serif; color:#6f5f6e; }
 .sidebar-nav.level2 { margin-left:10px; }
 .sidebar-nav.level1 a { font-family:Georgia,serif; text-transform:none; color:#6f5f6e; letter-spacing:auto;
-    font-weight: bold; text-decoration:none; font-size:11px; }
+    font-weight: bold; text-decoration:none; font-size:12px; }
 .sidebar-nav.level2 a { font-weight: normal; }
 
 
@@ -2568,7 +2569,7 @@ p.no-orders { font-size: 14px; }
     color:#6f5f6e; }
 
 .collections .filters { display:inline-block; margin-top: 42px; float:right; 
-    height: 40px; margin-right:56px; position:relative;
+    height: 40px; margin-right:8px; position:relative;
     background:url("../images/collections/filters_deco.png") no-repeat right bottom; }
 .collections .filters-text { top:0;font-family:Georgia,serif; 
     color:#6f5f6e; font-weight: bold; font-size:12px; display:inline-block; float:left}
@@ -2590,3 +2591,6 @@ p.no-orders { font-size: 14px; }
 .collections .filter-wrap .select li:first-child { background-image:none; }
 .collections .filter-wrap .select li:hover,
 .collections .filter-wrap .select li:hover span { background-color:#F7EEEB;  }
+
+
+.catalog-category-view-collections .sold-out-badge { background-position: -54px 0; }

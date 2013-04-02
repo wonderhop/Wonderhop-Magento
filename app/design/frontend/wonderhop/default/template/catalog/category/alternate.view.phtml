@@ -84,8 +84,16 @@ $generic->addEventCallback('catalog_block_product_list_collection',
         {
             $(this).click(function()
             {
-                $(this).not('.open').addClass('open');
-                $(this).parent().find('.select').show();
+                if ($(this).hasClass('open'))
+                {
+                    $(this).removeClass('open');
+                    $(this).parent().find('.select').hide();
+                }
+                else
+                {
+                    $(this).addClass('open');
+                    $(this).parent().find('.select').show();
+                }
             });
             
             $(this).mouseenter(function()

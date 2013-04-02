@@ -25,6 +25,10 @@ if ($nlg->is) {
     return;
 }
 
+if (Mage::registry('is_collection'))
+{
+    return;
+}
 
 $get_email = '';
 
