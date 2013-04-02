@@ -53,14 +53,34 @@ $is_collection = false;
 $coll_cat = Mage::getModel('catalog/category')->load($col_cat_id);
 if ($col_cat_id and in_array($col_cat_id, $categoryIds))
 {
-    if ( ! Mage::registry('is_collection'))
-    {
-        Mage::register('is_collection', true);
-    }
     $is_collection = true;
 }
 
-if ( ! $category) $category = $coll_cat;
+if($_product->getProductUrl())
+{
+    $_arrr = explode( '/', trim( str_replace(Mage::getBaseUrl(),'', $_product->getProductUrl()) , '/'));
+    @list($_base_url_part) = $_arrr;
+    if ($coll_cat_url_path = $coll_cat->getUrlPath())
+    {
+        
+        if ($_base_url_part == trim($coll_cat_url_path, '/'))
+        {
+            $is_collection = true;
+        }
+        else
+        {
+            $is_collection = false;
+        }
+    }
+}
+
+if ($is_collection and ! Mage::registry('is_collection'))
+{
+    Mage::register('is_collection', true);
+}
+
+if ( ! $category and $is_collection) $category = $coll_cat;
+
 
 //$category = NULL;
 if ( ! $category) {
@@ -144,9 +164,11 @@ $share_url = $c_url . $ref_id;
         <div class="prod-flower"></div>
 
         <div class="product-shop">
+            <?php if ( ! $is_collection) { ?>
             <div class="prod-cat-countdown">
                 <span><?php echo  Wonderhop_Sales_Helper_Data::getShortCountDown($category); ?></span>
             </div>
+            <?php } ?>
             <div class="product-name">
                 <div class="product_title">
                     <h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
