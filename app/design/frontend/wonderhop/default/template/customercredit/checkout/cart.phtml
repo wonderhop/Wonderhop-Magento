@@ -36,10 +36,11 @@
     $customer_name = $customer ? preg_replace( '/\s\-/',' ',$customer->getFirstname().' '.$customer->getLastname()) : 'Guest';
     $quote = Mage::getSingleton('checkout/session')->getQuote();
     
-    
 ?>
 <script type="text/javascript">
     mixpanel.track('Cart visited');
+    
+    window.isCart = true;
 </script>
 <div class="cart">
     <div class="page-title title-buttons">

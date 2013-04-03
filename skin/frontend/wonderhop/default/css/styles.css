@@ -2594,3 +2594,8 @@ p.no-orders { font-size: 14px; }
 
 
 .catalog-category-view-collections .sold-out-badge { background-position: -54px 0; }
+
+
+.unblockui { display: block;position: absolute;right: 21px;top: 21px; overflow:hidden;
+    width:22px; height:21px; text-indent:-8888px; 
+    background: url("../images/collections/x_out_graphic.png") no-repeat; }

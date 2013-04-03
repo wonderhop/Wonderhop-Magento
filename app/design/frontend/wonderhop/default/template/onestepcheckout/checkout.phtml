@@ -4,6 +4,7 @@ $step_counter = 1;
 $helper = Mage::helper('onestepcheckout/checkout');
 $ckSession = Mage::getSingleton('checkout/session');
 
+
 ?>
 <?php if(!$this->canCheckout() || !$this->validateMinimumAmount()): ?>
     <?php /*if($this->settings['checkout_title']): ?>
@@ -20,6 +21,8 @@ $ckSession = Mage::getSingleton('checkout/session');
 <?php else: ?>
 <script type="text/javascript">
     mixpanel.track("Onestepcheckout page");
+    
+    window.isCheckout = true;
 </script>
 <form id="onestepcheckout-form" method="post" action="<?php echo $this->getUrl('onestepcheckout', array('_secure'=>true)); ?>">
 <fieldset class="group-select" style="margin: 0;">

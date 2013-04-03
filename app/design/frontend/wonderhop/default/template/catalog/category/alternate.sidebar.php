@@ -61,11 +61,13 @@ foreach($sections as $section_id)
                     'children' => array(),
                 );
             
-                $item['children'][] = $sub_item;
+                $item['children'][$sub->getPosition()] = $sub_item;
             }
+            ksort($item['children']);
         }
         
-        $sec_menu['children'][] = $item;
+        $sec_menu['children'][$type->getPosition()] = $item;
+        ksort($sec_menu['children']);
     }
 
 }

@@ -27,7 +27,7 @@ if ($nlg->is) {
 
 if (Mage::registry('is_collection'))
 {
-    return;
+    ?><script type="text/javascript">window.isCollection = true;</script><?php
 }
 
 $get_email = '';
@@ -52,7 +52,7 @@ $is_logged_in = Mage::getSingleton('customer/session')->isLoggedIn();
 ?>
 
 
-<div class="login_overlay">
+<div class="login_overlay" style="display:none;">
 <?php if ($is_home) { ?>
     <script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.backstretch.min.js'); ?>"></script>
     <script type="text/javascript">

@@ -94,6 +94,7 @@ endif;
     
     <script type="text/javascript">
         var REconsole = window.console;
+        window.isLoggedIn = <?php echo Mage::getSingleton('customer/session')->isLoggedIn() ? 'true' : 'false'; ?>;
     </script>
 
 <!-- start Mixpanel -->
