@@ -83,7 +83,7 @@ $is_logged_in = Mage::getSingleton('customer/session')->isLoggedIn();
 <div class="popup_register block_popup<?php echo $home_class; ?>" style="display:none;">
 <div class="block_popup_inner">
         <?php
-        $popup_title = 'Discover Beautiful<br/>Jewelry & Accessories.';
+        $popup_title = 'Wonderful finds <br/>for an inspired life.';
         if (Mage::registry('gc_prefill')) $popup_title = 'Register to redeem <br/>your gift.';
         ?>
         <h1 class="popup_title"><?php echo $popup_title; ?></h1>
@@ -91,8 +91,8 @@ $is_logged_in = Mage::getSingleton('customer/session')->isLoggedIn();
             <a href="#" id="login_link">LOGIN</a>
         </div>
         <div class="popup_content">
-            <p class="pc_l pc_l1">Members-only deals on the most beautiful</p> 
-            <p class="pc_l pc_l2">handmade jewelry & accessories in the world.</p>
+            <p class="pc_l pc_l1">Uniquely lovely jewelry, home decor</p> 
+            <p class="pc_l pc_l2">and gifts. All at member-only prices.</p>
             <form <?php if($is_sales or $is_gc_email): ?>onSubmit="return false;"<?php endif; ?> action="/shops" method="post" id="register-form1">
                 <input type="hidden" value="" name="url" class="document_url"/>
                 <div class="content">
