@@ -2549,7 +2549,7 @@ p.no-orders { font-size: 14px; }
 .sidebar-nav.level1, .sidebar-nav.level2 { font-family:Georgia,serif; color:#6f5f6e; }
 .sidebar-nav.level2 { margin-left:10px; }
 .sidebar-nav.level1 a { font-family:Georgia,serif; text-transform:none; color:#6f5f6e; letter-spacing:auto;
-    font-weight: bold; text-decoration:none; font-size:12px; }
+    font-weight: bold; text-decoration:none; font-size:13px; }
 .sidebar-nav.level2 a { font-weight: normal; }
 
 
@@ -2599,3 +2599,6 @@ p.no-orders { font-size: 14px; }
 .unblockui { display: block;position: absolute;right: 21px;top: 21px; overflow:hidden;
     width:22px; height:21px; text-indent:-8888px; 
     background: url("../images/collections/x_out_graphic.png") no-repeat; }
+
+
+p.onestepcheckout-numbers-3 { padding-top:10px; }

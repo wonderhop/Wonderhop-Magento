@@ -41,12 +41,10 @@ var doAjaxAndRedirect = function (ajax, redirect, timeout)
     
     if( ! timeout)
     {
-        console.log('withOut timeout');
         setLocation(redirect);
     }
     else
     {
-        console.log('with timeout');
         setTimeout(function(){ setLocation(redirect); }, timeout);
     }
 }

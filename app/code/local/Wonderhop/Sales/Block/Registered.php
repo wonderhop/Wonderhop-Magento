@@ -195,16 +195,28 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
     {
         static $queue = array();
         if ($name === true) return $queue;
-        if ($name === NULL) {
+        
+        if ($name === NULL)
+        {
             $queue = array();
             return $this;
         }
+        
         if ( ! (is_string($name) and $name)) return $this;
-        if (isset($queue[$name])) {
+        
+        if ($data === false)
+        {
+            unset($queue[$name]);
+        }
+        elseif (isset($queue[$name]))
+        {
             $queue[$name] = array_merge($queue[$name], $data);
-        } else {
+        }
+        else
+        {
             $queue[$name] = is_array($data) ? $data : array();
         }
+        
         return $this;
     }
     
@@ -223,6 +235,7 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
     {
         static $loaded = false;
         if ($loaded) return $this;
+        
         $data = $this->getCustomerTrackData();
         $pageData = $data;
         $pageEvent = '';
@@ -235,9 +248,26 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
         } elseif(Mage::registry('current_product')) {
             $pageEvent = 'Product page visited'; 
             $pageData['product'] = Mage::registry('current_product')->getName();
+            if (Mage::registry('is_collection') and Mage::registry('current_category'))
+            {
+                $pageData['in_collection'] = Mage::registry('current_category')->getName();
+            }
         } elseif(Mage::registry('current_category')) {
-            $pageEvent = 'Sale page visited'; 
-            $pageData['sale'] = Mage::registry('current_category')->getName();
+            $collection = 'Collection page visited';
+            $sale = 'Sale page visited';
+            $category = Mage::registry('current_category')->getName();
+            if (Mage::registry('is_collection'))
+            {
+                $pageEvent = $collection; 
+                $pageData['collection'] = $category;
+                $remove = $sale;
+            }
+            else
+            {
+                $pageEvent = $sale; 
+                $pageData['sale'] = $category;
+                $remove = $collection;
+            }
         } elseif($this->isOrderPlaced()) {
             $pageEvent = 'Order placed';
         }
@@ -250,6 +280,14 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
         if ($this->checkIfCustomerLoggedIn()) {
             $this->trackEventsQueue('Logged in', $data);
         }
+        
+        if (isset($remove))
+        {
+            $this->trackEventsQueue($remove, false);
+        }
+        
+        //$loaded = true;
+        
         return $this;
     }
     

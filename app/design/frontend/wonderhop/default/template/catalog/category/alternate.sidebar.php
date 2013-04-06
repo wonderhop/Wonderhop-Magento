@@ -12,13 +12,18 @@ $sections = explode(',', (string)$colls_cat->getChildren());
 
 $menu = array(
     'type' => array(
-        'title' => 'Shop by category',
+        'title' => 'Shop by<br/>category',
+        'children' => array(),
+    ),
+    'style' => array(
+        'title' => 'Shop by<br/>style',
         'children' => array(),
     ),
     'brand' => array(
-        'title' => 'Shop by collection',
+        'title' => 'Shop by<br/>brand',
         'children' => array(),
     ),
+    
 );
 
 
@@ -32,6 +37,10 @@ foreach($sections as $section_id)
     elseif ($section->getName() == 'Brand')
     {
         $sec_menu = &$menu['brand'];
+    }
+    elseif ($section->getName() == 'Style')
+    {
+        $sec_menu = &$menu['style'];
     }
     
     $children = (string)$section->getChildren();

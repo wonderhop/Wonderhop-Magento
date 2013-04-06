@@ -250,7 +250,6 @@ $billingFields['country_id'] = '
 $osc_email_field = ( ! empty($billingFields['email'])) ? $billingFields['email'] : NULL;
 $osc_password_field = ( ! empty($billingFields['password'])) ? $billingFields['password'] : NULL;
 $osc_create_account = ( ! empty($billingFields['create_account'])) ? $billingFields['create_account'] : NULL;
-error_log(json_encode($osc_password_field));
 Mage::unregister('osc_email_field');
 Mage::unregister('osc_password_field');
 Mage::unregister('osc_create_account');
