@@ -35,11 +35,11 @@ $ckSession = Mage::getSingleton('checkout/session');
     <p class="onestepcheckout-description"><?php echo $this->settings['checkout_description']; ?></p>
 <?php endif;*/ ?>
 
-<?php if(!$this->isCustomerLoggedIn() && $helper->showLoginLink()): ?>
+<?php /*if(!$this->isCustomerLoggedIn() && $helper->showLoginLink()):  ?>
     <p class="onestepcheckout-login-link">
         <a id="onestepcheckout-login-link" href="javascript:void(0);"><?php echo $this->__('Already registered? Click here to login.'); ?></a>
     </p>
-<?php endif; ?>
+<?php endif;*/ ?>
 
 <?php if(isset($this->formErrors['unknown_source_error'])): ?>
 <div class="onestepcheckout-error">
@@ -54,22 +54,8 @@ $ckSession = Mage::getSingleton('checkout/session');
 
             </script>
             <ul>
-                <li>
-                    <p class="onestepcheckout-numbers onestepcheckout-numbers-<?php echo $step_counter++; ?>"><?php echo $this->__('Billing address'); ?></p>
-                        <?php if(isset($this->formErrors['billing_error']) && count($this->formErrors['billing_errors']) > 0): ?>
-                        <div class="onestepcheckout-error">
-                            <?php echo $this->__('Please check red fields below and try again.'); ?>
-                        </div>
-                        <?php endif; ?>
-                </li>
-                <?php if ($this->customerHasAddresses()): ?>
-                <li>
-                    <label for="billing-address-select"><?php echo $this->__('Select a billing address from your address book or enter a new address.') ?></label>
-                    <div class="input-box billing-select">
-                        <?php echo $this->getAddressesHtmlSelect('billing') ?>
-                    </div>
-                </li>
-                <?php endif; ?>
+                
+                <?php ob_start(); // render billing address first to get the login fields ?>
                 <li>
                     <div>
                         <ul id="billing_address_list" <?php echo (($this->customerHasAddresses() && !$this->getNewAddressSelectValueOnError('billing')) ? 'style = "display:none"' : false ); ?>>
@@ -89,6 +75,43 @@ $ckSession = Mage::getSingleton('checkout/session');
                         </ul>
                     </div>
                 </li>
+                <?php $billingAddressListBlock = ob_get_clean(); ?>
+                
+                <?php if ( ! $this->isCustomerLoggedIn()) { ?>
+                <li>
+                    <p class="onestepcheckout-numbers onestepcheckout-numbers-<?php echo $step_counter++; ?>"><?php echo $this->__('Create An Account'); ?></p>
+                </li>
+                <li>
+                    <div>
+                        <?php echo Mage::registry('osc_email_field'); ?>
+                    </div>
+                </li>
+                <?php echo Mage::registry('osc_password_field'); ?>
+                <li>
+                    <?php echo Mage::registry('osc_create_account'); ?>
+                </li>
+                <li>
+                    <p><i>Your account will be used to help you track your order and earn free credit.
+                    Already a member ? <a href="javascript:void(0);" onclick="jQuery('.login_overlay').show();buildBlock('.popup_login');">Log In</a></i></p>
+                </li>
+                <?php } ?>
+                <li>
+                    <p class="onestepcheckout-numbers onestepcheckout-numbers-<?php echo $step_counter++; ?>"><?php echo $this->__('Billing address'); ?></p>
+                        <?php if(isset($this->formErrors['billing_error']) && count($this->formErrors['billing_errors']) > 0): ?>
+                        <div class="onestepcheckout-error">
+                            <?php echo $this->__('Please check red fields below and try again.'); ?>
+                        </div>
+                        <?php endif; ?>
+                </li>
+                <?php if ($this->customerHasAddresses()): ?>
+                <li>
+                    <label for="billing-address-select"><?php echo $this->__('Select a billing address from your address book or enter a new address.') ?></label>
+                    <div class="input-box billing-select">
+                        <?php echo $this->getAddressesHtmlSelect('billing') ?>
+                    </div>
+                </li>
+                <?php endif; ?>
+                <?php echo $billingAddressListBlock; ?>
                 <li>
                     <?php $uncheck = (!empty($_POST['billing']) && empty($_POST['billing']['use_for_shipping']));?>
                     <?php if($this->differentShippingAvailable()): ?>
@@ -859,7 +882,7 @@ $('billing:email').observe('blur', function(e)    {
                     $('onestepcheckout-li-password').hide();
                     <?php else: ?>
 
-                    $('onestepcheckout-email-error-message').update('<?php echo $this->__('Email address already registered. Please <a href="javascript:void(0);" onclick="login_popup.show(); return false;">login now</a> or use a different email address.'); ?>');
+                    $('onestepcheckout-email-error-message').update('<?php echo $this->__('Email address already registered. Please <a href="javascript:void(0);" onclick="showLoginPopup(); /*login_popup.show();*/ return false;">login now</a> or use a different email address.'); ?>');
                     $('onestepcheckout-email-error').show();
                     // Ask the user to login or change email address
                     //login_popup.show();
@@ -893,7 +916,7 @@ Validation.add('validate-email', '<?php echo $this->__('This is a required field
                     <?php if($this->settings['registration_order_without_password']): ?>
                     $('onestepcheckout-li-password').hide();
                     <?php else: ?>
-                    $('onestepcheckout-email-error-message').update('<?php echo $this->__('Email address already registered. Please <a href="javascript:void(0);" onclick="login_popup.show(); return false;">login now</a> or use a different email address.'); ?>');
+                    $('onestepcheckout-email-error-message').update('<?php echo $this->__('Email address already registered. Please <a href="javascript:void(0);" onclick="showLoginPopup();/*login_popup.show();*/ return false;">login now</a> or use a different email address.'); ?>');
                     $('onestepcheckout-email-error').show();
                     $('id_onestepcheckout_username').value = email;
                     value =  false;

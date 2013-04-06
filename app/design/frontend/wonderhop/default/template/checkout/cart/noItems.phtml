@@ -31,7 +31,9 @@
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <?php echo $this->getChildHtml('checkout_cart_empty_widget'); ?>
     <p><?php echo $this->__('You have no items in your shopping cart.') ?></p>
-    <p><?php echo $this->__('Click <a href="%s">here</a> to continue shopping.', $this->getContinueShoppingUrl()) ?></p>
+    <?php //$continueShopping = $this->getContinueShoppingUrl(); ?>
+    <?php $continueShopping = "/collection"; ?>
+    <p><?php echo $this->__('Click <a href="javascript:void(0);" onclick="setLocation(\'%s\');">here</a> to continue shopping.', $continueShopping) ?></p>
     <?php echo $this->getChildHtml('shopping.cart.table.after'); ?>
 </div>
 <script type="text/javascript">window.isCart = true;</script>

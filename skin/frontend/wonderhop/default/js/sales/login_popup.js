@@ -1,9 +1,19 @@
 function buildBlock(element) {
     if ( window.canClosePopup && ! jQuery(element).find('.unblockui').length)
     {
-        var style = '';//'color: white;display: block;font-family: Arial,Helvetica,sans-serif;font-size: 41px;'
-                    //+'font-weight: bold;position: absolute;right: -10px;text-decoration: none;top: -30px;';
-        jQuery(element).append('<a class="unblockui" href="#" style="'+style+'">X</a>');
+        jQuery(element).append('<a class="unblockui" href="#">X</a>');
+        if ( ! jQuery('body').data('bound_close_login_popup_on_exit'))
+        {
+            jQuery('body').data('bound_close_login_popup_on_exit', true);
+            jQuery('body').keyup(function(ev)
+            {
+                var ESC = 27, key = ev.which || ev.keyCode;
+                if (key == ESC)
+                {
+                    hideLoginPopup();
+                }
+            });
+        }
     }
     jQuery.blockUI({ 
             message: jQuery(element), 
@@ -38,8 +48,7 @@ function buildBlock(element) {
         jQuery('.unblockui').not('.bound').addClass('bound').click(function(ev)
         {
             ev.preventDefault();
-            jQuery.unblockUI();
-            jQuery('.login_overlay').hide();
+            hideLoginPopup();
         });
         setTimeout(function(){ jQuery(element).find('input[type="text"],input[type="email"]').blur(); },50);
 }
@@ -66,8 +75,7 @@ jQuery(document).ready(function() {
             jQuery('.welcome-box').html('LOGIN').click(function(ev)
             {
                 ev.preventDefault();
-                jQuery('.login_overlay').show();
-                buildBlock('.popup_login');
+                showLoginPopup();
             });
             jQuery('#back_to_register').length && jQuery('#back_to_register').html('Sign Up').css({width:105});
         }
@@ -92,3 +100,16 @@ jQuery(document).ready(function() {
          return false;
      });
 }); 
+
+
+var showLoginPopup = function()
+{
+    jQuery('.login_overlay').show();
+    buildBlock('.popup_login');
+}
+
+var hideLoginPopup = function()
+{
+    jQuery.unblockUI();
+    jQuery('.login_overlay').hide();
+}

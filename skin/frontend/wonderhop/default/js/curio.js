@@ -28,3 +28,25 @@ function hcontact(el)
 }
 
 if(typeof Validation != 'undefined') Validation.get('validate-email').error = 'Please enter a valid email address.';
+
+
+
+var doAjaxAndRedirect = function (ajax, redirect, timeout)
+{
+    if (doAjaxAndRedirect.redirecting) return false;
+    
+    doAjaxAndRedirect.redirecting = true;
+    
+    jQuery.ajax(ajax);
+    
+    if( ! timeout)
+    {
+        console.log('withOut timeout');
+        setLocation(redirect);
+    }
+    else
+    {
+        console.log('with timeout');
+        setTimeout(function(){ setLocation(redirect); }, timeout);
+    }
+}

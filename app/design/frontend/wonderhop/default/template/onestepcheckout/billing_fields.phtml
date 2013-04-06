@@ -22,16 +22,16 @@ $dataHelper = Mage::helper('onestepcheckout');
     <?php $billingFields['email'] = '
         <div class="clearfix" id="onestepcheckout-email-error" '.((!in_array('email_registered', $formErrors)) ? 'style="display: none"' : '').'>
             <div id="onestepcheckout-email-error-message" class="onestepcheckout-error">'.
-                ((in_array('email_registered', $formErrors)) ? $this->__('Email address already registered. Please <a href="#" onclick="login_popup.show(); return false;">login now</a> or use a different email address.') : $this->__('Invalid email address.'))
+                ((in_array('email_registered', $formErrors)) ? $this->__('Email address already registered. Please <a href="#" onclick="showLoginPopup(); /*login_popup.show();*/ return false;">login now</a> or use a different email address.') : $this->__('Invalid email address.'))
             .'</div>
         </div>';
     ?>
 <?php endif; ?>
 <?php if(!$this->isCustomerLoggedIn()): ?>
     <?php $billingFields['email'] = $billingFields['email'].'
-        <div class="input-box input-email'.((in_array('email', $formErrors)) ? ' input-error' : '').'">
+        <div class="input-box input-email'.((in_array('email', $formErrors)) ? ' input-error' : '').'" style="width:100%;">
             <label for="billing:email">'.$this->__('Email Address').' <span class="required">*</span></label><br />
-            <input type="text" name="billing[email]" id="billing:email" value="'.$this->htmlEscape($dataHelper->clearDash($this->getQuote()->getBillingAddress()->getEmail())).'" title="'.$this->__('Email Address') .'" class="validate-email required-entry input-text" />
+            <input type="text" name="billing[email]" id="billing:email" value="'.$this->htmlEscape($dataHelper->clearDash($this->getQuote()->getBillingAddress()->getEmail())).'" title="'.$this->__('Email Address') .'" class="validate-email required-entry input-text" style="width:283px;"/>
         </div>';
     ?>
 <?php endif; ?>
@@ -187,8 +187,9 @@ $billingFields['country_id'] = '
     ?>
 <?php endif ?>
 <?php if(!$this->isCustomerLoggedIn() && $helper->showCreateAccount()): ?>
+    <?php $_POST['create_account'] = 1; ?>
     <?php $billingFields['create_account'] = '
-        <div class="input-box">
+        <div class="input-box" style="display:none;">
             <input id="id_create_account" type="checkbox" name="create_account" value="1" '.((isset($_POST['create_account']) && $_POST['create_account'] == '1') ? ' checked="checked"' : '').' />
             <label for="id_create_account">'.$this->__('Create an account to access future sales').'</label>
         </div>
@@ -204,17 +205,13 @@ $billingFields['country_id'] = '
                     $("onestepcheckout-li-password").hide();
                 }
             });
-            '
-            .($nlg->is
-                ? '
                     if ( ! $("id_create_account").checked) {
                         console.log("fire"); 
                         $("id_create_account").checked = true;
                         $("onestepcheckout-li-password").show();
+                        $("id_create_account").parentNode.hide();
                     }
-                  '
-                : '')
-            .'
+            
         });
         </script>';
     ?>
@@ -248,6 +245,21 @@ $billingFields['country_id'] = '
     ?>
 <?php endif; ?>
 
+<?php
+
+$osc_email_field = ( ! empty($billingFields['email'])) ? $billingFields['email'] : NULL;
+$osc_password_field = ( ! empty($billingFields['password'])) ? $billingFields['password'] : NULL;
+$osc_create_account = ( ! empty($billingFields['create_account'])) ? $billingFields['create_account'] : NULL;
+error_log(json_encode($osc_password_field));
+Mage::unregister('osc_email_field');
+Mage::unregister('osc_password_field');
+Mage::unregister('osc_create_account');
+Mage::register('osc_email_field', $osc_email_field);
+Mage::register('osc_password_field', $osc_password_field);
+Mage::register('osc_create_account', $osc_create_account);
+unset($billingFields['email'], $billingFields['password'], $billingFields['create_account']);
+
+?>
 <?php $billingFields = $this->getBillingFieldsOrder($billingFields);?>
 <?php foreach($billingFields as $key => $value):?>
     <?php if(!empty($value['has_li'])):?>

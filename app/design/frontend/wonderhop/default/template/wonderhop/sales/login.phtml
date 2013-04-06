@@ -348,7 +348,7 @@ if ($get_email) {
                     async: false,
                     success: function(data, text, request) {
                         if (data != 'ERR') {
-                           window.location = data;
+                           window.location = window.location.href;//data;
                            validated = 1;
                            url = data;
                            
