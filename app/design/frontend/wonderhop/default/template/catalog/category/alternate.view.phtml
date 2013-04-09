@@ -21,7 +21,7 @@ $productCollection = $productListBlock->getLoadedProductCollection();
 $pager = $this->getLayout()->createBlock('page/html_pager');
 
 // hardcoded values
-    $pageSize = 18;
+    $pageSize = 36;
 // --
 
 // add a hook in generic model to override magento's configured settings
@@ -155,10 +155,13 @@ $generic->addEventCallback('catalog_block_product_list_collection',
 </div>
 
 <div class="sidebar left">
-    <?php include( __DIR__ . '/alternate.sidebar.php'); ?>
+    <?php include( __DIR__ . '/alternate.sidebar.phtml'); ?>
 </div>
 
 <div class="content right">
+    <div class="content-header">
+        <?php include( __DIR__ . '/alternate.category_header.phtml'); ?>
+    </div>
     <?php echo $this->getProductListHtml() ?>
     <div class="clearfix"></div>
     <div class="pager-container">

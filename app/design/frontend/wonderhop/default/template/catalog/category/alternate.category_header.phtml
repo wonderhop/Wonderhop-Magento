@@ -1,0 +1,19 @@
+<?php
+
+if ( ! empty($_secondary_parent_category) and $_secondary_parent_category->getName() == 'Brand')
+{
+    
+    ?>
+    
+    <?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+        <div class="small_description">
+            <b><?php echo $this->getCurrentCategory()->getSaleDescription(); ?></b>
+        </div>
+        <div class="category-description std">
+            <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
+        </div>
+    <?php endif; ?>
+    
+    <?php
+    
+}

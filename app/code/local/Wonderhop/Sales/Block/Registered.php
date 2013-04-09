@@ -261,6 +261,7 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
                 $pageEvent = $collection; 
                 $pageData['collection'] = $category;
                 $remove = $sale;
+                $pageData['ad_code'] = isset($data['ad_code']) ? $data['ad_code'] : NULL;
             }
             else
             {

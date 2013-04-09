@@ -72,7 +72,7 @@ jQuery(document).ready(function() {
         {
             jQuery('.login_overlay').hide();
             window.canClosePopup = true;
-            jQuery('.welcome-box').html('LOGIN').click(function(ev)
+            jQuery('.welcome-box').html('LOGIN').addClass('popup-trigger').click(function(ev)
             {
                 ev.preventDefault();
                 showLoginPopup();

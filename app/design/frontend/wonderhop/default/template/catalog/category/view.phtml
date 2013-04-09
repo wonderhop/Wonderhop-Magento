@@ -79,9 +79,13 @@
     $__cat = $_category;
     while($__cat->getLevel() > 2)
     {
+        $__lastcat = $__cat;
         $__cat = Mage::getModel('catalog/category')->load( $__cat->getParentId() );
     }
-    $_main_parent_category = $__cat; unset($__cat);
+    $_main_parent_category = $__cat;
+    $_secondary_parent_category = $__lastcat;
+    
+    unset($__cat, $__lastcat);
 
     if ($colls_cat_id and $_main_parent_category->getId() == $colls_cat_id)
     {

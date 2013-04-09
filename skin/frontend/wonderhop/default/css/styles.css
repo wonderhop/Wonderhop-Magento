@@ -2538,7 +2538,24 @@ p.no-orders { font-size: 14px; }
     background: url("../images/collections/collections_deco.png") no-repeat scroll left top;
     position:relative; top: -27px; margin-bottom:-30px; z-index:51; zoom:1;}
 .collections .sidebar { width: 150px; min-height:10px; }
-.collections .content { min-height:10px; min-width: 710px; }
+.collections .content { min-height:10px; width: 732px; }
+.collections .content-header {  }
+
+.collections .content-header .small_description { /*background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;*/
+    clear: left; color: #FD706B; display: inline-block; float: left; font-family: "letter-gothic-std",monospace;
+    font-size: 19px; line-height: 1; padding-bottom: 14px; text-align: right;
+    text-transform: uppercase; margin-top:23px; }
+.collections .content-header .category-description { background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;
+    clear: left; color: #6F5F6D; display: inline-block; float: right; font-family: Georgia,serif;
+    font-size: 14px; line-height: 18px; margin-bottom: 20px; margin-top: 3px; padding-bottom: 10px;
+    text-align: left; width: 710px; }
+.collections .content-header .category-image { display:block; position:absolute; text-align:center; width: 290px; right:0; top: 95px; right:18px;
+    margin: 0; padding:0; overflow:visible; }
+.collections .content-header .category-image img { width: auto; display:inline; margin:0; padding:0; }
+.collections .content-header .category-image .cat_image_adhesive { background: url("../images/brand/adhesive.png") no-repeat scroll left top; 
+    position:absolute; top: -12px; left:0; width:100%; height: 29px; }
+
+
 .collections .pager-container { overflow:hidden;clear:both; display:block; position:relative; }
 
 
@@ -2569,7 +2586,7 @@ p.no-orders { font-size: 14px; }
     color:#6f5f6e; }
 
 .collections .filters { display:inline-block; margin-top: 42px; float:right; 
-    height: 40px; margin-right:8px; position:relative;
+    height: 40px; margin-right:14px; position:relative;
     background:url("../images/collections/filters_deco.png") no-repeat right bottom; }
 .collections .filters-text { top:0;font-family:Georgia,serif; 
     color:#6f5f6e; font-weight: bold; font-size:12px; display:inline-block; float:left}
@@ -2602,3 +2619,5 @@ p.no-orders { font-size: 14px; }
 
 
 p.onestepcheckout-numbers-3 { padding-top:10px; }
+
+.welcome-box.popup-trigger { display: block; width: 100px; padding-right: 5px; }
