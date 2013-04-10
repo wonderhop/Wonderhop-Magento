@@ -2543,12 +2543,12 @@ p.no-orders { font-size: 14px; }
 
 .collections .content-header .small_description { /*background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;*/
     clear: left; color: #FD706B; display: inline-block; float: left; font-family: "letter-gothic-std",monospace;
-    font-size: 19px; line-height: 1; padding-bottom: 14px; text-align: right;
-    text-transform: uppercase; margin-top:23px; }
+    font-size: 19px; line-height: 1; padding-bottom: 7px; text-align: right;
+    text-transform: uppercase; margin-top:24px; }
 .collections .content-header .category-description { background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;
     clear: left; color: #6F5F6D; display: inline-block; float: right; font-family: Georgia,serif;
     font-size: 14px; line-height: 18px; margin-bottom: 20px; margin-top: 3px; padding-bottom: 10px;
-    text-align: left; width: 710px; }
+    text-align: left; width: 732px; }
 .collections .content-header .category-image { display:block; position:absolute; text-align:center; width: 290px; right:0; top: 95px; right:18px;
     margin: 0; padding:0; overflow:visible; }
 .collections .content-header .category-image img { width: auto; display:inline; margin:0; padding:0; }
