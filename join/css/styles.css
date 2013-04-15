@@ -1,0 +1,479 @@
+@font-face
+{
+font-family: "letter-gothic-std";
+src: url(css/LetterGothicStd.otf);
+}
+/* Headings perhaps change back to color 6f5f6d */
+h1,h2,h3,
+h4,h5,h6      { margin:0 0 5px; line-height:1.35; font-family:"georgia", monospace; }
+h1            { font-size: 26px; color: #a46e89; font-weight:bold; padding-bottom:20px; }
+h2            { font-size:20px; color: #82677f; font-weight:normal;}
+h3            { font-size:24px; color: #82677f; font-weight:bold; }
+h4            { font-size:14px; color: #82677f; font-weight:bold; }
+h5            { font-size:12px; color: #82677f; font-weight:bold; }
+h6            { font-size:11px; color: #82677f; font-weight:bold; }
+
+/* Decorations */
+b {
+    font-weight: bold;
+    color: #6f5f6d;
+}
+
+brush {
+    font-family: "Alex Brush", "letter-gothic-std", monospace;
+    font-size: 50px;
+    word-spacing: -20%;
+    text-transform: none;
+    color: #fd706b;
+    font-weight: normal;
+}
+a {
+    color: #6f5f6d;
+    text-decoration:none;
+}
+
+a:hover {
+    color: #6f5f6d;
+    text-decoration:none;
+}
+html {
+    min-height:100%;
+}
+body {
+    background-image: url(../images/jewelrylp_bg.jpg);
+    background-repeat: repeat-x;
+    width:100%;
+}
+#container {
+    width: 940px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #FFF;
+}
+#header {
+    height: 120px;
+    width: 940px;
+    margin-top:-8px;
+}
+#logo {
+    float: left;
+    height: 120px;
+    width: 300px;
+    margin: 5px;
+}
+#menu {
+    background-image: url(../images/navigationbg.png);
+    background-repeat: no-repeat;
+    float: right;
+    height: 120px;
+    width: 620px;
+    padding-right: 0px;
+}
+#navleft {
+    float: left;
+    width: 430px;
+    height: 120px;
+}
+#navbar {
+    height: 35px;
+    width: 380px;
+    margin-top: 45px;
+    list-style-type: none;
+    list-style-image: none;
+    margin-left: 20px;
+    display: block;
+}
+#navbar li {
+    font-family: "letter-gothic-std", monospace;
+    text-transform: uppercase;
+    padding: 10px;
+    float: left;
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 10px;
+    margin-right: 40px;
+    font-size: 17px;
+}
+#navbar li a:link {
+    color: #fff;
+    text-decoration: none;
+}
+#navbar li a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+#navbar li a:visited {
+    color: #fff;
+    text-decoration: none;
+}
+#navright {
+    width: 190px;
+    float: right;
+    height: 160px;
+    z-index: 1000;
+    position: relative;
+}
+.social {
+    float: right;
+    width: 120px;
+    list-style-image: none;
+    list-style-type: none;
+    display: block;
+    margin-top: 25px;
+    margin-right: 20px;
+}
+.social li {
+    list-style-image: none;
+    list-style-type: none;
+    float: left;
+    padding-top: 0px;
+    padding-right: 2px;
+    padding-bottom: 0px;
+    padding-left: 2px;
+}
+#blog {
+    height: 87px;
+    width: 87px;
+    float: right;
+    margin-top: 0px;
+}
+#dotted {
+    background-image: url(../images/maindivider.png);
+    height: 6px;
+    width: 940px;
+    background-repeat: no-repeat;
+    background-position: center;
+    clear: both;
+    margin-bottom: 5px;
+}
+#content {
+    background:#fff;
+    padding: 25px;
+}
+#content p {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 15px;
+    color: #6f5f6d;
+    line-height: 21px;
+}
+.maintitle {
+    font-family: "letter-gothic-std", monospace;
+    text-transform: uppercase;
+    font-size: 23px;
+    color: #aa8bb1;
+    margin-right: auto;
+    margin-left: auto;
+    height: 50px;
+    text-align: center;
+    margin-top:-20px;
+}
+.pagedivider {
+    background-image: url(../images/titledivider.png);
+    height: 10px;
+    width: 710px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 30px;
+}
+#mainleft {
+    float:left;
+    width: 468px;
+    margin-left: 15px;
+}
+#mainleft p {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 16px;
+    color: #6f5f6d;
+    margin-left: 12px;
+}
+
+#mainleft h3 {
+    font-size:22px;
+}
+
+#mainright {
+    float:right;
+    width: 380px;
+}
+#mainright p {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 15px;
+    color: #6f5f6d;
+    display: block;
+    line-height: 21px;
+    margin-left:10px;
+    margin-top:-2px;
+}
+.textdivider {
+    background-image: url(../images/textdivider.png);
+    background-repeat: no-repeat;
+    height: 4px;
+    margin-top: -5px;
+    margin-bottom: 8px;
+}
+.getstarted, .getstarted a:link, .getstarted a:hover, .getstarted a:visited {
+    height: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    background-image: url(../images/gettingstartedbtn.png);
+    background-repeat: no-repeat;
+    font-family: "letter-gothic-std", monospace;
+    font-size: 22px;
+    text-transform: uppercase;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 22px;
+    background-position: center;
+}
+    
+.howitworks, .howitworks a:link, .howitworks a:hover, .howitworks a:visited  {
+    font-family: "letter-gothic-std", monospace;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #6f5f6d;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px;
+}
+.steps {
+    width: 255px;
+    float: left;
+    text-align: justify;
+    margin-right: 20px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+.section {
+    width:890px;
+    margin-bottom: 20px;
+}
+
+.steps h2 {
+    font-size:24px;
+    text-align: center;
+}
+
+.steps p {
+    text-align: center;
+}
+.sectiontitle {
+    background-image: url(../images/sectiontitle.png);
+    background-repeat: no-repeat;
+    height: 38px;
+    position: relative;
+    left: -25px;
+    font-family: "letter-gothic-std", monospace;
+    font-size: 22px;
+    color: #5e595b;
+    text-decoration: none;
+    padding-top: 15px;
+    padding-left: 45px;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.sectiontitle-b {
+    background-image: url(../images/sectiontitle_longer.png);
+    background-repeat: no-repeat;
+    height: 38px;
+    position: relative;
+    left: -25px;
+    font-family: "letter-gothic-std", monospace;
+    font-size: 22px;
+    color: #5e595b;
+    text-decoration: none;
+    padding-top: 15px;
+    padding-left: 45px;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.customersdivider {
+    background-image: url(../images/pagedivider.png);
+    height: 8px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#bottomtext {
+    width: 560px;
+    margin-left: 20px;
+    float: left;
+}
+#heart-img {
+    margin-right: 50px;
+    float: right;
+}
+.clear {
+    clear: both;
+    height: 5px;
+}
+#footer {
+    clear: both;
+    height: 122px;
+    width: 940px;
+    margin-right: auto;
+    margin-left: auto;
+    background-image: url(../images/footer.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: 10px;
+}
+#footernavleft {
+    float:left;
+    width:680px;
+    height: 122px;
+}
+#footernav {
+    height: 35px;
+    width: 650px;
+    margin-top: 25px;
+    list-style-type: none;
+    list-style-image: none;
+    display: block;
+}
+#footernav li {
+    font-family: "letter-gothic-std", monospace;
+    text-transform: uppercase;
+    padding: 10px;
+    float: left;
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: 18px;
+}
+#footernav li a:link {
+    color: #fff;
+    text-decoration: none;
+}
+#footernav li a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+#footernav li a:visited {
+    color: #fff;
+    text-decoration: none;
+}
+.about , .contact {
+    margin-top:-2px;
+    margin-left:25px !important;
+}
+.privacy {
+    margin-top:-12px;
+    margin-left:12px !important;
+}
+.jobs {
+    margin-top:5px;
+    margin-left:40px !important;
+}
+.feedback {
+    margin-top:-5px;
+    margin-left:38px !important;
+    padding-right:0px !important;
+}
+#footernavright {
+    float:right;
+    width:240px;
+    height: 122px;
+}
+#blogfooter {
+    width:112px;
+    height:110px;
+    position:relative;
+    top: -20px;
+    left: 40px;
+}
+.footersocial {
+    float: right;
+    width: 105px;
+    list-style-image: none;
+    list-style-type: none;
+    display: block;
+    position:relative;
+    z-index: 1000;
+    bottom: 55px;
+    left: 10px;
+}
+.footersocial li {
+    list-style-image: none;
+    list-style-type: none;
+    float: left;
+    padding-top: 0px;
+    padding-right: 2px;
+    padding-bottom: 0px;
+    padding-left: 2px;
+}
+.tag {
+    background-image: url(../images/benefitstag.png);
+    background-repeat: no-repeat;
+    background-position: center top;
+    height: 314px;
+    width: 194px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:-15px;
+    padding-top: 40px;
+    padding-right: 25px;
+    padding-left: 25px;
+    text-align: center;
+}
+.tag p {
+    font-size:14px;
+    line-height: 18px !important;
+}
+
+.tag h3 {   
+    font-size: 19px;
+    line-height: 20px !important;
+}
+.item {
+    text-align: right;
+    padding-right: 10px;
+    width: 280px;
+    float: left;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 14px;
+    color: #6f5f6d;
+    line-height: 8px;
+    padding-left: 10px;
+    display: block;
+}
+.pricing {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 14px;
+    color: #6f5f6d;
+    line-height: 8px;
+    display: block;
+    text-align: left;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: 75px;
+    float: right;
+}
+.pricing li ,.item li  {
+    list-style-image: none;
+    list-style-type: none;
+    padding-bottom: 15px;
+}
+
+.checkout {
+    height: 40px;
+    background-image: url(../images/gettingstartedbtn.png);
+    background-repeat: no-repeat;
+    float:right;
+    width:270px;
+    text-align:center;
+    padding-top: 22px;
+    margin-right:25px;
+    background-position: center;
+}
+.checkout a:link, .checkout a:hover, .checkout a:visited {
+    font-family: "letter-gothic-std", monospace;
+    font-size: 22px;
+    text-transform: uppercase;
+    color: #FFF;
+    text-decoration: none;
+}
