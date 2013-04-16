@@ -1,8 +1,11 @@
+/*
 @font-face
 {
 font-family: "letter-gothic-std";
 src: url(css/LetterGothicStd.otf);
 }
+*/
+
 /* Headings perhaps change back to color 6f5f6d */
 h1,h2,h3,
 h4,h5,h6      { margin:0 0 5px; line-height:1.35; font-family:"georgia", monospace; }
@@ -40,8 +43,11 @@ html {
     min-height:100%;
 }
 body {
+    /*
     background-image: url(../images/jewelrylp_bg.jpg);
     background-repeat: repeat-x;
+    */
+    background: url(../images/bg3.jpg);
     width:100%;
 }
 #container {

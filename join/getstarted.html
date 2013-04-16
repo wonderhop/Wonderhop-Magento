@@ -9,23 +9,25 @@
 <link href='http://fonts.googleapis.com/css?family=Alex+Brush' rel='stylesheet' type='text/css'>
 <link href="/join/css/serve.css.php" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript">
-    function hcontact(el)
-    {
-        var $ = jQuery;
-        if ( ! $ || ! $(el)) return false;
-        var href = $(el).attr('href');
-        if ( ! href || (href.indexOf('contacting:') != 0)) return false;
-        new_href = href.replace('contacting:','mailto:').replace('#','@').replace('/','.');
-        $(el).attr('href', new_href);
-        setTimeout(function(){ $(el).attr('href', href); }, 500);
-    }
-    </script>
+    <script type="text/javascript" src="js/local.js.php"></script>
+    <script type="text/javascript" src="js/join.js"></script>
     
     <!-- start Typekit -->
     <script type="text/javascript" src="//use.typekit.net/zku7zin.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     <!-- end Typekit -->
+    
+    <script type="text/javascript">
+        (function($, T){
+            
+            $(function()
+            {
+                mixpanel.track('Get Started page visited', $.extend({}, T.page));
+            });
+        
+        
+        })(window.jQuery || function(){}, window.Track || {});
+    </script>
     
 </head>
 <body>
@@ -33,7 +35,7 @@
 <div id="container">
   <!-- ----- Header Section ----- -->
   <div id="header">
-    <div id="logo"><a href="http://www.curioroad.com"><img src="images/logo.png" /></a></div>
+    <div id="logo"><a href="http://www.curioroad.com/join"><img src="images/logo.png" /></a></div>
     <div id="menu">
       <div id="navleft">
         <ul id="navbar">
@@ -43,9 +45,9 @@
       </div>
       <div id="navright">
         <ul class="social">
-          <li><a href="https://www.facebook.com/curioroad"><img src="images/fb_link.png" /></a></li>
-          <li><a href="https://twitter.com/curioroad"><img src="images/tw_link.png" /></a></li>
-          <li><a href="http://pinterest.com/sonalicurioroad/"><img src="images/pin_link.png" /></a></li>
+          <li><a href="https://www.facebook.com/curioroad" target="_blank"><img src="images/fb_link.png" /></a></li>
+          <li><a href="https://twitter.com/curioroad" target="_blank"><img src="images/tw_link.png" /></a></li>
+          <li><a href="http://pinterest.com/sonalicurioroad/" target="_blank"><img src="images/pin_link.png" /></a></li>
         </ul>
         <div id="blog"><a href="http://blog.curioroad.com"><img src="images/blog_btn.png" alt="blog" /></a></div>
       </div>
@@ -156,9 +158,9 @@
   <div id="footernavright">
     <div id="blogfooter"><a href="http://blog.curioroad.com"><img src="images/blogfooter_btn.png" alt="blog" /></a></div>
     <ul class="footersocial">
-      <li><a href="https://www.facebook.com/curioroad"><img src="images/fb_link.png" /></a></li>
-      <li><a href="https://twitter.com/curioroad"><img src="images/tw_link.png" /></a></li>
-      <li><a href="http://pinterest.com/sonalicurioroad/"><img src="images/pin_link.png" /></a></li>
+      <li><a href="https://www.facebook.com/curioroad"  target="_blank"><img src="images/fb_link.png" /></a></li>
+      <li><a href="https://twitter.com/curioroad" target="_blank"><img src="images/tw_link.png" /></a></li>
+      <li><a href="http://pinterest.com/sonalicurioroad/" target="_blank"><img src="images/pin_link.png" /></a></li>
     </ul>
   </div>
 </div>
