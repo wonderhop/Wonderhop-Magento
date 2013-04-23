@@ -486,3 +486,9 @@ body {
 
 .br-link { text-decoration:underline; }
 .br-link:hover , .br-link:active { text-decoration:underline; color:#AE81A0; }
+
+
+.details { font-family: Georgia, "Times New Roman", Times, serif; font-size: 13px;
+    color: #6f5f6d; line-height: 16pt; padding-bottom:22px; margin-left:12px;
+    margin-top:-5px; }
+
