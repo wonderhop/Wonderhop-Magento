@@ -483,3 +483,6 @@ body {
     color: #FFF;
     text-decoration: none;
 }
+
+.br-link { text-decoration:underline; }
+.br-link:hover , .br-link:active { text-decoration:underline; color:#AE81A0; }
