@@ -15,6 +15,12 @@ $menu = array(
         'title' => 'Shop by<br/>category',
         'children' => array(),
     ),
+    
+    'wedding' => array(
+        'title' => 'Shop<br/>Wedding',
+        'children' => array(),
+    ),
+    
     'style' => array(
         'title' => 'Shop by<br/>style',
         'children' => array(),
@@ -42,40 +48,44 @@ foreach($sections as $section_id)
     {
         $sec_menu = &$menu['style'];
     }
+    elseif ($section->getName() == 'Wedding')
+    {
+        $sec_menu = &$menu['wedding'];
+    }
     
     $children = (string)$section->getChildren();
     if ( ! $children) continue;
     
-    $types = explode( ',' , $children);
-    foreach($types as $type_id)
+    $prims = explode( ',' , $children);
+    foreach($prims as $prim_id)
     {
-        $type = Mage::getModel('catalog/category')->load((int)$type_id);
+        $prim = Mage::getModel('catalog/category')->load((int)$prim_id);
         
-        $item = array(
-            'title' => $type->getName(),
-            'url' => Mage::getBaseUrl() . $type->getUrlPath(),
+        $menu_item = array(
+            'title' => $prim->getName(),
+            'url' => Mage::getBaseUrl() . $prim->getUrlPath(),
             'children' => array(),
         );
         
-        $children = (string)$type->getChildren();
-        if ($children)
+        $prim_children = (string)$prim->getChildren();
+        if ($prim_children)
         {
-            $subs = explode( ',' , $children);
-            foreach($subs as $sub_id)
+            $secs = explode( ',' , $prim_children);
+            foreach($secs as $sec_id)
             {
-                $sub = Mage::getModel('catalog/category')->load((int)$sub_id);
-                $sub_item = array(
-                    'title' => $sub->getName(),
-                    'url' => Mage::getBaseUrl() . $sub->getUrlPath(),
+                $sec = Mage::getModel('catalog/category')->load((int)$sec_id);
+                $sec_item = array(
+                    'title' => $sec->getName(),
+                    'url' => Mage::getBaseUrl() . $sec->getUrlPath(),
                     'children' => array(),
                 );
             
-                $item['children'][$sub->getPosition()] = $sub_item;
+                $menu_item['children'][$sec->getPosition()] = $sec_item;
             }
-            ksort($item['children']);
+            ksort($menu_item['children']);
         }
         
-        $sec_menu['children'][$type->getPosition()] = $item;
+        $sec_menu['children'][$prim->getPosition()] = $menu_item;
         ksort($sec_menu['children']);
     }
 
