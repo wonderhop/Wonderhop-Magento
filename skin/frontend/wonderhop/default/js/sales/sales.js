@@ -17,6 +17,7 @@ for (i=0; i <  variables_to_set.length; i++) {
 function setParamCookie(cookie_name) {
 
     if (getCookie('wonderhop_' + cookie_name)) {
+        window.hadMarketingCookies = true;
         return;
     }
     

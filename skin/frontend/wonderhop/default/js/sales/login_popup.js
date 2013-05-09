@@ -15,6 +15,7 @@ function buildBlock(element) {
             });
         }
     }
+    
     jQuery.blockUI({ 
             message: jQuery(element), 
             // styles for the message when blocking; if you wish to disable 
@@ -52,13 +53,15 @@ function buildBlock(element) {
         });
         setTimeout(function(){ jQuery(element).find('input[type="text"],input[type="email"]').blur(); },50);
 }
-jQuery(document).ready(function() {
+
+jQuery(document).ready(function()
+{
     if ( ! window.isCollection && ! window.isCart && ! window.isCheckout)
     {
         jQuery('.login_overlay').show();
         
         if (jQuery('.popup_register').length) {
-            buildBlock('.popup_register'); 
+            buildBlock('.popup_register');
         } else if(jQuery('.popup_register_2').length) {
             buildBlock('.popup_register_2');
         } else if(jQuery('.popup_login').length) {
@@ -78,6 +81,9 @@ jQuery(document).ready(function() {
                 showLoginPopup();
             });
             jQuery('#back_to_register').length && jQuery('#back_to_register').html('Sign Up').css({width:105});
+            
+            if (canShowNewVisitorPopup())
+                showNewVisitorPopup();
         }
     }
     
@@ -112,4 +118,29 @@ var hideLoginPopup = function()
 {
     jQuery.unblockUI();
     jQuery('.login_overlay').hide();
+}
+
+
+var showNewVisitorPopup = function()
+{
+    var $ = jQuery, $popup = $('.popup_register');
+    if ($popup.length)
+    {
+        // modify the popup with new text
+        $popup.find('.pc_l1').text('Sign up to get free shipping on your first');
+        $popup.find('.pc_l2').text('order + other exclusive deals & offers!');
+        $popup.find('.control_link').hide();
+        // show popup
+        jQuery('.login_overlay').show();
+        buildBlock('.popup_register');
+        // cookie the visitor
+        setCookie('curio_showed_new_visitor_popup', 1, 2000);
+        // track the event in mixpanel
+        mixpanel && mixpanel.track && mixpanel.track('Showed New Visitor Popup');
+    }
+}
+
+var canShowNewVisitorPopup = function()
+{
+    return ( ! getCookie('curio_showed_new_visitor_popup')) && (window.isNewVisitor || ( ! window.hadMarketingCookies));
 }
