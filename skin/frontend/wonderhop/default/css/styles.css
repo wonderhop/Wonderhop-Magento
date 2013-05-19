@@ -2539,7 +2539,7 @@ p.no-orders { font-size: 14px; }
     position:relative; top: -27px; margin-bottom:-30px; z-index:51; zoom:1;}
 .collections .sidebar { width: 150px; min-height:10px; }
 .collections .content { min-height:10px; width: 732px; }
-.collections .content-header {  }
+.collections .content-header { overflow:hidden;  }
 
 .collections .content-header .small_description { /*background: url("../images/brand/h_underline_pat.png") repeat-x scroll left bottom transparent;*/
     clear: left; color: #FD706B; display: inline-block; float: left; font-family: "letter-gothic-std",monospace;

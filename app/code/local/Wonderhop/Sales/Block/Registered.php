@@ -181,7 +181,28 @@ class Wonderhop_Sales_Block_Registered extends Mage_Core_Block_Template {
                 'utm_content'   => $this->getMarketingData('utm_content'),
             );
         }
+        $data['source_type'] = $this->getProductSourceTypeForCurrentUser();
         return $data;
+    }
+    
+    
+    public function getProductSourceTypeForCurrentUser()
+    {
+        // hardcoded attribute values to check, mapped with GET/COOKIE params
+        $source_values_params = array('artisan' => 'a', 'wholesale' => 'w');
+        // get source from GET param
+        $supplied_source = (isset($_GET['ss']) 
+                    and in_array($supplied_source = $_GET['ss'], $source_values_params, true)) 
+                ? $supplied_source 
+                : NULL;
+        // get source from cookie
+        $supplied_source = $supplied_source
+                        ? $supplied_source 
+                        : ((isset($_COOKIE['curio_source_sep']) 
+                                and in_array($supplied_source = $_COOKIE['curio_source_sep'], $source_values_params, true)) 
+                            ? $supplied_source 
+                            : NULL);
+        return array_search($supplied_source, $source_values_params);
     }
     
     

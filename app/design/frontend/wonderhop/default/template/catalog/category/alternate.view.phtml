@@ -24,26 +24,38 @@ $pager = $this->getLayout()->createBlock('page/html_pager');
     $pageSize = 3;
 // --
 
-$sw_cat_id = intval(Mage::getConfig()->getNode('localconf/modules/catalog/category/wholesale_cat_id'));
-$sa_cat_id = intval(Mage::getConfig()->getNode('localconf/modules/catalog/category/artisan_cat_id'));
-
-$wholesale_cat = $sw_cat_id ? Mage::getModel('catalog/category')->load($sw_cat_id) : NULL;
-$artisan_cat = $sa_cat_id ? Mage::getModel('catalog/category')->load($sa_cat_id) : NULL;
-error_log($artisan_cat->getId());
-$sss = array('artisan' => 'a', 'wholesale' => 'w');
-$ss = (isset($_GET['ss']) and in_array($ss = $_GET['ss'], $sss, true)) ? $ss : NULL;
-error_log($_GET['ss']);
-error_log($ss);
-$ss = $ss ? $ss : ((isset($_COOKIE['curio_source_sep']) and in_array($ss = $_COOKIE['curio_source_sep'], $sss, true)) ? $ss : NULL);
-error_log($ss);
-if ($ss)
+// hardcoded attribute values to check, mapped with GET/COOKIE params
+$source_values_params = array('artisan' => 'a', 'wholesale' => 'w');
+// get source from GET param
+$supplied_source = (isset($_GET['ss']) 
+                    and in_array($supplied_source = $_GET['ss'], $source_values_params, true)) 
+                ? $supplied_source 
+                : NULL;
+// get source from cookie
+$supplied_source = $supplied_source
+                ? $supplied_source 
+                : ((isset($_COOKIE['curio_source_sep']) 
+                        and in_array($supplied_source = $_COOKIE['curio_source_sep'], $source_values_params, true)) 
+                    ? $supplied_source 
+                    : NULL);
+// source attr code
+$source_attr_code = 'source_type';
+// load attribute
+$source_attr = Mage::getResourceModel('catalog/product')->getAttribute($source_attr_code);
+// add source attribute filter if we have a suppied source
+if ($supplied_source and $source_attr and $source_attr->getId() and $source_attr->getSource())
 {
-    $source_cat_name = array_search($ss, $sss) . '_cat';
-    $source_cat = $$source_cat_name;
-    if ($source_cat->getId())
-    {
-        $productCollection->addCategoryFilter($source_cat);
-    }
+    $source = array_search($supplied_source, $source_values_params);
+    // get real option value (option id)
+    $option_value = $source_attr->getSource()->getOptionId($source);
+    // add filter to product collection with option id
+    $productCollection->addFieldToFilter($source_attr_code, array('eq' => intval($option_value)));
+    // add cookie to preserve currend source type
+    ?>
+    <script type="text/javascript">
+        jQuery(function(){ ( ! getCookie('curio_source_sep')) && setCookie('curio_source_sep', '<?php echo $supplied_source; ?>', 4000); });
+    </script>
+    <?php
 }
 
 // add a hook in generic model to override magento's configured settings
