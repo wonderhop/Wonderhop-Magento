@@ -40,6 +40,8 @@ $supplied_source = $supplied_source
                     : NULL);
 // source attr code
 $source_attr_code = 'source_type';
+// value to filter by
+$source_value = NULL;
 // load attribute
 $source_attr = Mage::getResourceModel('catalog/product')->getAttribute($source_attr_code);
 // add source attribute filter if we have a suppied source
@@ -47,9 +49,14 @@ if ($supplied_source and $source_attr and $source_attr->getId() and $source_attr
 {
     $source = array_search($supplied_source, $source_values_params);
     // get real option value (option id)
-    $option_value = $source_attr->getSource()->getOptionId($source);
+    $source_value = $source_attr->getSource()->getOptionId($source);
+}
+
+
+if ($source_value)
+{
     // add filter to product collection with option id
-    $productCollection->addFieldToFilter($source_attr_code, array('eq' => intval($option_value)));
+    $productCollection->addFieldToFilter($source_attr_code, array('eq' => intval($source_value)));
     // add cookie to preserve currend source type
     ?>
     <script type="text/javascript">
@@ -57,6 +64,7 @@ if ($supplied_source and $source_attr and $source_attr->getId() and $source_attr
     </script>
     <?php
 }
+
 
 // add a hook in generic model to override magento's configured settings
 $generic = Mage::getSingleton('generic/data');

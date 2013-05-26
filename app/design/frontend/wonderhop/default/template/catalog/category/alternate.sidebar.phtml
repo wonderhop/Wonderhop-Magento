@@ -6,28 +6,37 @@ $colls_cat = Mage::getModel('catalog/category')->load($colls_cat_id);
 $sections = explode(',', (string)$colls_cat->getChildren());
 
 
-// we have two sections in the menu
+// we have these sections in the menu
 //  - by type
 //  - by brand
+//  - wedding
+//  - by style
+
 
 $menu = array(
+
     'type' => array(
         'title' => 'Shop by<br/>category',
         'children' => array(),
+        'count' => 0,
     ),
     
     'wedding' => array(
         'title' => 'Shop<br/>Wedding',
         'children' => array(),
+        'count' => 0,
     ),
     
     'style' => array(
         'title' => 'Shop by<br/>style',
         'children' => array(),
+        'count' => 0,
     ),
+    
     'brand' => array(
         'title' => 'Shop by<br/>brand',
         'children' => array(),
+        'count' => 0,
     ),
     
 );
@@ -36,6 +45,7 @@ $menu = array(
 foreach($sections as $section_id)
 {
     $section = Mage::getModel('catalog/category')->load((int)$section_id);
+    //$s_count = &$menu['count'];
     if ($section->getName() == 'Category' )
     {
         $sec_menu = &$menu['type'];
@@ -53,6 +63,13 @@ foreach($sections as $section_id)
         $sec_menu = &$menu['wedding'];
     }
     
+    $sec_menu['count'] = (int)$section->getProductCount();
+    
+    IF ($source_value)
+    {
+        $sec_menu['count'] = $section->getProductCollection()->addFieldToFilter($source_attr_code, array('eq' => intval($source_value)))->count();
+    }
+    
     $children = (string)$section->getChildren();
     if ( ! $children) continue;
     
@@ -65,7 +82,14 @@ foreach($sections as $section_id)
             'title' => $prim->getName(),
             'url' => Mage::getBaseUrl() . $prim->getUrlPath(),
             'children' => array(),
+            'count' => (int)$prim->getProductCount(),
         );
+        
+        if ($source_value)
+        {
+            $menu_item['count'] = $prim->getProductCollection()->addFieldToFilter($source_attr_code, array('eq' => intval($source_value)))->count();
+        }
+        
         
         $prim_children = (string)$prim->getChildren();
         if ($prim_children)
@@ -78,7 +102,13 @@ foreach($sections as $section_id)
                     'title' => $sec->getName(),
                     'url' => Mage::getBaseUrl() . $sec->getUrlPath(),
                     'children' => array(),
+                    'count' => (int)$sec->getProductCount(),
                 );
+                
+                if ($source_value)
+                {
+                    $sec_item['count'] = $sec->getProductCollection()->addFieldToFilter($source_attr_code, array('eq' => intval($source_value)))->count();
+                }
             
                 $menu_item['children'][$sec->getPosition()] = $sec_item;
             }
@@ -97,7 +127,8 @@ foreach($sections as $section_id)
 ?>
 <ul id ="sidebar_nav" class="sidebar-nav level0">
 <?php foreach($menu as $top) { ?>
-        
+    
+    <?php if ( ! $top['count']) continue; ?> 
     <li class="sidebar-nav-heading"><h4><?php echo $top['title']; ?></h4></li>
     <?php if ($top['children']) { ?>
 
@@ -105,12 +136,14 @@ foreach($sections as $section_id)
         <ul class="sidebar-nav level1">
         <?php foreach($top['children'] as $child) { ?>
             
+            <?php if ( ! $child['count']) continue; ?> 
             <li class="sidebar-nav-heading"><a href="<?php echo $child['url']; ?>"><?php echo $child['title']; ?></a></li>
             <?php if ($child['children']) { ?>
-                
                 <li class="sidebar-nav-children">
                     <ul class="sidebar-nav level2">
                     <?php foreach($child['children'] as $sub) { ?>
+                        
+                        <?php if ( ! $sub['count']) continue; ?> 
                         <li class="sidebar-nav-heding"><a href="<?php echo $sub['url']; ?>"><?php echo $sub['title']; ?></a></li>
                     <?php } ?>
                     </ul>
