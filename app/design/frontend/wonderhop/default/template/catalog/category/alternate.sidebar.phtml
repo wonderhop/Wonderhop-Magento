@@ -128,7 +128,7 @@ foreach($sections as $section_id)
 <ul id ="sidebar_nav" class="sidebar-nav level0">
 <?php foreach($menu as $top) { ?>
     
-    <?php if ( ! $top['count']) continue; ?> 
+    <?php //if ( ! $top['count']) continue; ?> 
     <li class="sidebar-nav-heading"><h4><?php echo $top['title']; ?></h4></li>
     <?php if ($top['children']) { ?>
 
@@ -136,14 +136,14 @@ foreach($sections as $section_id)
         <ul class="sidebar-nav level1">
         <?php foreach($top['children'] as $child) { ?>
             
-            <?php if ( ! $child['count']) continue; ?> 
+            <?php //if ( ! $child['count']) continue; ?> 
             <li class="sidebar-nav-heading"><a href="<?php echo $child['url']; ?>"><?php echo $child['title']; ?></a></li>
             <?php if ($child['children']) { ?>
                 <li class="sidebar-nav-children">
                     <ul class="sidebar-nav level2">
                     <?php foreach($child['children'] as $sub) { ?>
                         
-                        <?php if ( ! $sub['count']) continue; ?> 
+                        <?php //if ( ! $sub['count']) continue; ?> 
                         <li class="sidebar-nav-heding"><a href="<?php echo $sub['url']; ?>"><?php echo $sub['title']; ?></a></li>
                     <?php } ?>
                     </ul>
