@@ -70,6 +70,8 @@ foreach($sections as $section_id)
         $sec_menu['count'] = $section->getProductCollection()->addFieldToFilter($source_attr_code, array('eq' => intval($source_value)))->count();
     }
     
+    $sm_count = 0;
+    
     $children = (string)$section->getChildren();
     if ( ! $children) continue;
     
@@ -83,6 +85,7 @@ foreach($sections as $section_id)
             'url' => Mage::getBaseUrl() . $prim->getUrlPath(),
             'children' => array(),
             'count' => (int)$prim->getProductCount(),
+            'active' => intval($_category->getId()) === intval($prim_id),
         );
         
         if ($source_value)
@@ -90,6 +93,7 @@ foreach($sections as $section_id)
             $menu_item['count'] = $prim->getProductCollection()->addFieldToFilter($source_attr_code, array('eq' => intval($source_value)))->count();
         }
         
+        $pm_count = 0;
         
         $prim_children = (string)$prim->getChildren();
         if ($prim_children)
@@ -103,21 +107,38 @@ foreach($sections as $section_id)
                     'url' => Mage::getBaseUrl() . $sec->getUrlPath(),
                     'children' => array(),
                     'count' => (int)$sec->getProductCount(),
+                    'active' => intval($_category->getId()) === intval($sec_id),
                 );
                 
                 if ($source_value)
                 {
                     $sec_item['count'] = $sec->getProductCollection()->addFieldToFilter($source_attr_code, array('eq' => intval($source_value)))->count();
                 }
-            
+                
+                $pm_count += $sec_item['count'];
+                
                 $menu_item['children'][$sec->getPosition()] = $sec_item;
             }
             ksort($menu_item['children']);
         }
         
+        if ( ! $menu_item['count'] and $pm_count)
+        {
+            $menu_item['count'] = $pm_count;
+        }
+        $pm_count = 0;
+        
+        $sm_count += $menu_item['count'];
+        
         $sec_menu['children'][$prim->getPosition()] = $menu_item;
         ksort($sec_menu['children']);
     }
+    
+    if ( ! $sec_menu['count'] and $sm_count)
+    {
+        $sec_menu['count'] = $sm_count;
+    }
+    $sm_count = 0;
 
 }
 
@@ -128,7 +149,7 @@ foreach($sections as $section_id)
 <ul id ="sidebar_nav" class="sidebar-nav level0">
 <?php foreach($menu as $top) { ?>
     
-    <?php //if ( ! $top['count']) continue; ?> 
+    <?php if ( ! $top['count']) continue; ?> 
     <li class="sidebar-nav-heading"><h4><?php echo $top['title']; ?></h4></li>
     <?php if ($top['children']) { ?>
 
@@ -136,15 +157,18 @@ foreach($sections as $section_id)
         <ul class="sidebar-nav level1">
         <?php foreach($top['children'] as $child) { ?>
             
-            <?php //if ( ! $child['count']) continue; ?> 
-            <li class="sidebar-nav-heading"><a href="<?php echo $child['url']; ?>"><?php echo $child['title']; ?></a></li>
+            <?php if ( ! $child['count']) continue; ?> 
+            <li class="sidebar-nav-heading">
+                <a href="<?php echo $child['url']; ?>" class="<?php echo $child['active'] ? ' active' : ''; ?>"><?php echo $child['title']; ?></a></li>
             <?php if ($child['children']) { ?>
                 <li class="sidebar-nav-children">
                     <ul class="sidebar-nav level2">
                     <?php foreach($child['children'] as $sub) { ?>
                         
-                        <?php //if ( ! $sub['count']) continue; ?> 
-                        <li class="sidebar-nav-heding"><a href="<?php echo $sub['url']; ?>"><?php echo $sub['title']; ?></a></li>
+                        <?php if ( ! $sub['count']) continue; ?> 
+                        <li class="sidebar-nav-heading">
+                            <a class="<?php echo $sub['active'] ? ' active' : ''; ?>" href="<?php echo $sub['url']; ?>"><?php echo $sub['title']; ?></a>
+                        </li>
                     <?php } ?>
                     </ul>
                 </li>

@@ -2568,6 +2568,7 @@ p.no-orders { font-size: 14px; }
 .sidebar-nav.level1 a { font-family:Georgia,serif; text-transform:none; color:#6f5f6e; letter-spacing:auto;
     font-weight: bold; text-decoration:none; font-size:13px; }
 .sidebar-nav.level2 a { font-weight: normal; }
+.sidebar-nav-children ul li.sidebar-nav-heading a.active { color:#E0534E; }
 
 
 .collections .prod-col { width: 230px; }
