@@ -1,3 +1,10 @@
+<?php 
+// redirect to collection
+Mage::app()->getFrontController()->getResponse()->setRedirect(Mage::getBaseUrl());
+return;
+
+?>
+
 <?php if ($this->getCustomer()->getEmailConfirmation()): ?>
     <div class="message error">To get your reward credits please confirm your email.</div>
 <?php endif; ?>
