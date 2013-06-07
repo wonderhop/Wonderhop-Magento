@@ -1,31 +1,36 @@
 <?php
+
 /**
- * Product in category grid
+ * EYEMAGINE - The leading Magento Solution Partner
  *
- * EyeMagine - The leading Magento Solution Partner.
- * 
- * @author     EyeMagine <magento@eyemaginetech.com>
- * @category   Eyemagine
- * @package    Eyemagine_Merchandise
- * @copyright  Copyright (c) 2003-2012 EYEMAGINE Technology, LLC (http://www.eyemaginetech.com)
- * @license    http://www.gnu.org/licenses/gpl-3.0.html (GPL)
+ * Merchandising Made Easy
+ *
+ * @package Eyemagine_Merchandising
+ * @author EYEMAGINE <support@eyemaginetech.com>
+ * @category Eyemagine
+ * @copyright Copyright (c) 2013 EYEMAGINE Technology, LLC (http://www.eyemaginetech.com)
+ * @license http://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ *
  */
+
 class Eyemagine_Merchandising_Block_Catalog_Category_Tab_Merchandising extends Mage_Adminhtml_Block_Widget_Grid
 {
 	protected $_pagerVisibility = false;
-	
+
     public function __construct()
     {
         parent::__construct();
-        $this->setId('catalog_category_merchandising');
-        $this->setDefaultSort('entity_id');
-        $this->setUseAjax(true);
-		$this->setPagerVisibility(false);
-		$this->setFilterVisibility(false);
-		$this->setDefaultLimit(9999);
-		if ($this->getRequest()->getParam('id', 0)) {
-			$this->setSortableRows(true);
-		}    
+	        $this->setId('catalog_category_merchandising');
+	        $this->setDefaultSort('position');
+	        $this->setDefaultDir('ASC');
+	        $this->setUseAjax(true);
+			$this->setPagerVisibility(false);
+			$this->setFilterVisibility(false);
+			$this->setDefaultLimit(9999);
+					
+			if ($this->getRequest()->getParam('id', 0)) {
+				$this->setSortableRows(true);
+			}
 	}
 
     public function getCategory()
@@ -59,10 +64,12 @@ class Eyemagine_Merchandising_Block_Catalog_Category_Tab_Merchandising extends M
         if ($this->getCategory()->getId()) {
             $this->setDefaultFilter(array('in_category'=>1));
         }
+
         $collection = Mage::getModel('catalog/product')->getCollection()
             ->addAttributeToSelect('name')
             ->addAttributeToSelect('sku')
             ->addAttributeToSelect('price')
+            ->addAttributeToFilter('visibility', array(Mage_Catalog_Model_Product_Visibility::VISIBILITY_IN_CATALOG,Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH))
             ->addStoreFilter($this->getRequest()->getParam('store'))
             ->joinField('position',
                 'catalog/category_product',
@@ -76,16 +83,17 @@ class Eyemagine_Merchandising_Block_Catalog_Category_Tab_Merchandising extends M
                 'product_id=entity_id',
                 '{{table}}.stock_id=1',
                 'left');
-		$collection->getSelect()->order("position asc");
+		
+		//$collection->getSelect()->order("position asc");
 		$collection->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner');
 		$collection->addAttributeToSelect('image');
         $this->setCollection($collection);
-		
+
 		if (!$this->getCategory()->getId()) {
 			$this->getCollection()->addFieldToFilter('entity_id', array('in'=>array()));
 			$this->setEmptyText("You can use product sorting option after creating category and then doing edit.");
 		}
-		
+
         if ($this->getCategory()->getProductsReadonly()) {
             $productIds = $this->_getSelectedProducts();
             if (empty($productIds)) {
@@ -99,22 +107,11 @@ class Eyemagine_Merchandising_Block_Catalog_Category_Tab_Merchandising extends M
 
     protected function _prepareColumns()
     {
-/*      if (!$this->getCategory()->getProductsReadonly()) {
-            $this->addColumn('in_category', array(
-                'header_css_class' => 'a-center',
-                'type'      => 'checkbox',
-                'name'      => 'in_category',
-                'values'    => $this->_getSelectedProducts(),
-                'align'     => 'center',
-                'index'     => 'entity_id',
-				'sortable'  => false
-            ));
-        }*/
-        $this->addColumn('entity_id', array(
+		$this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
-            'sortable'  => false,
             'width'     => '60',
-            'index'     => 'entity_id'
+            'index'     => 'entity_id',
+            'sortable'  => false
         ));
         $this->addColumn('thumbnail', array(
 			'header'=> Mage::helper('catalog')->__('Thumbnail'),
@@ -160,7 +157,7 @@ class Eyemagine_Merchandising_Block_Catalog_Category_Tab_Merchandising extends M
 			'options' => Mage::getSingleton('catalog/product_status')->getOptionArray(),
 			'sortable'  => false
 		));
-		
+
 		if ($this->getCategory()->getId()) {
 			$this->addColumn('position', array(
 				'header'    => Mage::helper('catalog')->__('Position'),
@@ -172,7 +169,7 @@ class Eyemagine_Merchandising_Block_Catalog_Category_Tab_Merchandising extends M
 				'renderer'  => 'adminhtml/widget_grid_column_renderer_dragable'
 			));
 		}
-		
+
         return parent::_prepareColumns();
     }
 
@@ -190,6 +187,4 @@ class Eyemagine_Merchandising_Block_Catalog_Category_Tab_Merchandising extends M
         }
         return $products;
     }
-
 }
-

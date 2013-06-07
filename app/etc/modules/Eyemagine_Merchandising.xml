@@ -1,4 +1,20 @@
 <?xml version="1.0"?>
+
+<!-- 
+/**
+ * EYEMAGINE - The leading Magento Solution Partner
+ *
+ * Merchandising Made Easy
+ *
+ * @package Eyemagine_Merchandising
+ * @author EYEMAGINE <support@eyemaginetech.com>
+ * @category Eyemagine
+ * @copyright Copyright (c) 2013 EYEMAGINE Technology, LLC (http://www.eyemaginetech.com)
+ * @license http://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ *
+ */
+ -->
+ 
 <config>
     <modules>
         <Eyemagine_Merchandising>

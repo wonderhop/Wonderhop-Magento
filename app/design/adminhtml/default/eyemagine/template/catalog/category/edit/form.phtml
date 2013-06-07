@@ -1,13 +1,18 @@
 <?php
+
 /**
- * EyeMagine - The leading Magento Solution Partner.
- * 
- * @author     EyeMagine <magento@eyemaginetech.com>
- * @category   design
- * @package    default_default
- * @copyright  Copyright (c) 2003-2012 EYEMAGINE Technology, LLC (http://www.eyemaginetech.com)
- * @license    http://www.gnu.org/licenses/gpl-3.0.html (GPL)
+ * EYEMAGINE - The leading Magento Solution Partner
+ *
+ * Merchandising Made Easy
+ *
+ * @package Eyemagine_Merchandising
+ * @author EYEMAGINE <support@eyemaginetech.com>
+ * @category Eyemagine
+ * @copyright Copyright (c) 2013 EYEMAGINE Technology, LLC (http://www.eyemaginetech.com)
+ * @license http://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ *
  */
+
 ?>
 <div class="content-header">
         <h3 class="icon-head head-categories"><?php echo $this->htmlEscape($this->getHeader()) . ($this->getCategoryId() ? ' (' . Mage::helper('catalog')->__('ID: %s', $this->getCategoryId()) . ')' : '') ?></h3>
@@ -159,6 +164,7 @@
             tree.currentNodeId = tree.root.id;
             tree.addNodeTo = tree.currentNodeId;
         }
+
         categoryForm.submit();
     }
 

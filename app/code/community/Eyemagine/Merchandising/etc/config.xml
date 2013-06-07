@@ -1,29 +1,30 @@
 <?xml version="1.0"?>
+
+<!-- 
+/**
+ * EYEMAGINE - The leading Magento Solution Partner
+ *
+ * Merchandising Made Easy
+ *
+ * @package Eyemagine_Merchandising
+ * @author EYEMAGINE <support@eyemaginetech.com>
+ * @category Eyemagine
+ * @copyright Copyright (c) 2013 EYEMAGINE Technology, LLC (http://www.eyemaginetech.com)
+ * @license http://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ *
+ */
+ -->
+ 
 <config>
     <modules>
         <Eyemagine_Merchandising>
-            <version>1.0.5</version>
+            <version>1.0.5.2</version>
         </Eyemagine_Merchandising>
     </modules>
 	<global>
 		<!-- Controller rewrite -->
         <rewrite>
-			<eyemagine_merchandising_catalog_category_save>
-                <from><![CDATA[#^/admin/catalog_category/save/#]]></from>
-                <to>/eyemagine/catalog_category/save/</to>
-            </eyemagine_merchandising_catalog_category_save>
-
-			<eyemagine_merchandising_catalog_category_updateProductPositions>
-                <from><![CDATA[#^/admin/catalog_category/updateProductPositions/#]]></from>
-                <to>/eyemagine/catalog_category/updateProductPositions/</to>
-            </eyemagine_merchandising_catalog_category_updateProductPositions>
-
-			<eyemagine_merchandising_catalog_category_refreshProductTab>
-                <from><![CDATA[#^/admin/catalog_category/refreshProductTab/#]]></from>
-                <to>/eyemagine/catalog_category/refreshProductTab/</to>
-            </eyemagine_merchandising_catalog_category_refreshProductTab>
-
-            <eyemagine_merchandising_catalog_category_merchandising>
+			<eyemagine_merchandising_catalog_category_merchandising>
                 <from><![CDATA[#^/admin/catalog_category/merchandising/#]]></from>
                 <to>/eyemagine/catalog_category/merchandising/</to>
             </eyemagine_merchandising_catalog_category_merchandising>
@@ -69,14 +70,14 @@
 		<events>
             <adminhtml_catalog_category_tabs>
                 <observers>
-                    <merchandising_observer> 
+                    <merchandising_observer>
                         <type>model</type>
-                        <class>eyemagine_merchandising_model_observer</class>
+                        <class>Eyemagine_Merchandising_Model_Observer</class>
                         <method>addMerchandisingTab</method>
                     </merchandising_observer>
 				</observers>
             </adminhtml_catalog_category_tabs>
-		</events>		
+        </events>
 	</global>
     <admin>
         <routers>
@@ -90,7 +91,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                      <Eyemagine_Merchandising before="Mage_Adminhtml_Catalog">Eyemagine_Merchandising</Eyemagine_Merchandising>
+                   	<Eyemagine_Merchandising before="Mage_Adminhtml_Catalog">Eyemagine_Merchandising</Eyemagine_Merchandising>
                    </modules>
                 </args>
             </adminhtml>

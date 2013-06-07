@@ -1,14 +1,16 @@
 <?php
+
 /**
- * Date Helper
+ * EYEMAGINE - The leading Magento Solution Partner
  *
- * EyeMagine - The leading Magento Solution Partner.
- * 
- * @author     EyeMagine <magento@eyemaginetech.com>
- * @category   Eyemagine
- * @package    Eyemagine_Merchandise
- * @copyright  Copyright (c) 2003-2012 EYEMAGINE Technology, LLC (http://www.eyemaginetech.com)
- * @license    http://www.gnu.org/licenses/gpl-3.0.html (GPL)
+ * Merchandising Made Easy
+ *
+ * @package Eyemagine_Merchandising
+ * @author EYEMAGINE <support@eyemaginetech.com>
+ * @category Eyemagine
+ * @copyright Copyright (c) 2013 EYEMAGINE Technology, LLC (http://www.eyemaginetech.com)
+ * @license http://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ *
  */
 
 class Eyemagine_Merchandising_Helper_Data extends Mage_Core_Helper_Abstract
