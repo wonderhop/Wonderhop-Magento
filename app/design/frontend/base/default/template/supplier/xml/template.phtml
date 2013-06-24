@@ -1,0 +1,26 @@
+{{var xml_header}}
+{{var xml_open}}
+<orderInfo id="{{var order.increment_id}}">
+    <orderId>{{var order.increment_id}}</orderId>
+    <orderDate>{{var order.getCreatedAtFormated('short')}}</orderDate>
+    <dropshipDate>{{var dropship_date}}</dropshipDate>
+    <orderTimestamp>{{var order.getCreatedAtFormated('long')}}</orderTimestamp>
+    <shippingAddress>
+    	<Name>{{var shipping_firstname}} {{var shipping_lastname}}</Name>
+        <Street>{{var shipping_street}}</Street>
+        <Postalcode>{{var shipping_postcode}}</Postalcode>
+        <City>{{var shipping_city}}</City>
+        <IsoCountry>{{var shipping_country_id}}</IsoCountry>
+    </shippingAddress>
+    <billingAddress>
+    	<Name>{{var billing_firstname}} {{var billing_lastname}}</Name>
+        <Street>{{var billing_street}}</Street>
+        <Postalcode>{{var billing_postcode}}</Postalcode>
+        <City>{{var billing_city}}</City>
+        <IsoCountry>{{var billing_country_id}}</IsoCountry>
+    </billingAddress>
+    <productList>
+    {{var xml_items}}
+    </productList>
+</orderInfo>
+{{var xml_close}}

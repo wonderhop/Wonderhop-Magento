@@ -1,0 +1,110 @@
+<style>
+
+#supplier-products a{ cursor: pointer; background-color: #999999; display: inline-block; padding: 3px 10px 3px 10px; }
+#supplier-products tr.highlight { background-color: #6C9; }
+.supplier-loader { display: inline-block; margin-left: 5px; } 
+#supplier-products input.qty { padding: 3px; }
+p.note { margin-left: 10px; }
+
+</style>
+
+
+<?php 
+
+$collection = $this->getCollection(); 
+
+?>
+
+<p class="note"><?php echo $this->__('Setting the Stock to Zero will set the product offline') ?></p>
+
+<div id="message"></div>
+
+
+<table id="supplier-products">
+
+<tr class="menu_font_style">
+	<th><?php echo $this->__('Product Name') ?></th>
+    <th><?php echo $this->__('SKU') ?></th>
+    <th><?php echo $this->__('QTY') ?></th>
+    <th><?php echo $this->__('Action') ?></th>
+</tr>
+
+<?php foreach($collection as $_product): ?>
+
+
+
+<?php 
+
+$stock = Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product);
+$manageStock = $stock->getManageStock();
+$qty = $stock->getQty();
+$qty = round($qty);
+$i = 0;
+?>
+ 
+    <?php $i++; ?>
+
+    <tr id="row-<?php echo $_product->getId(); ?>" class="<?php if(($i%2) == 0){?>even<?php } else{?>odd<?php } ?>">
+        <td width="50%"><?php echo $_product->getName(); ?></td>
+        <td width="20%"><?php echo $_product->getSku(); ?></td>
+        <td width="5%"><?php if($manageStock): ?><input type="text" name="qty-<?php echo $_product->getId(); ?>" value="<?php echo $qty; ?>" style="width: 24px" class="qty"/><?php endif; ?></td>
+        <td width="15%"><?php if($manageStock): ?><a class="save" id="<?php echo $_product->getId(); ?>"><?php echo $this->__('Save') ?></a><div class="supplier-loader" style="display: none;">Saving...</div><?php endif; ?></td>
+    
+    </tr>
+    
+<?php  endforeach; ?> 
+
+
+</table>
+
+<script>
+jQuery(document).ready(function(){
+	
+								       
+	   			jQuery('#supplier-products a.save').click(function() {
+					
+					jQuery(this).next().text(' Saving...')
+					
+					jQuery(this).next().show(); // View loader
+					
+					var intRegex = /[0-9 -()+]+$/; 	
+					var id = jQuery(this).attr('id');
+					var qty = jQuery(this).parent().parent().find('.qty').val();
+					var test = qty.match(intRegex);
+					
+					if(test){
+									
+					jQuery.post('/supplier/product/save', {id: id, qty: qty}, function(data) {
+						
+						
+						//jQuery("#message").show();
+						jQuery("#message").html(data);
+						//jQuery('#message').delay(4000).fadeOut('slow');
+																		
+						jQuery('#row-' + id ).addClass("highlight").delay(3000).queue(function(next){
+							jQuery(this).removeClass("highlight");
+							next();
+						});
+						
+						jQuery('#row-' + id + ' .supplier-loader').html(' Saved!').delay(3000).queue(function(next){
+							jQuery(this).hide();
+							next();
+						});
+						
+					});
+						
+					return false;
+				
+					} else {
+						
+						jQuery('#row-' + id + ' .supplier-loader').html(' Only numbers').delay(3000).queue(function(next){
+							jQuery(this).hide();
+							next();
+						});
+						
+					}
+				
+				})
+			
+});
+</script>

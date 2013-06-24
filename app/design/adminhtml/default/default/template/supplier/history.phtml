@@ -1,0 +1,28 @@
+<div id="order_history_block">
+        <div id="history_form" class="order-history-form">
+        <div class="divider"></div>
+        <div><h3>Supplier History</h3></div>
+        <span class="field-row">
+            <label class="normal" for="history_comment">Notitie</label>
+            <textarea name="history[comment]" rows="3" cols="5" style="height:6em; width:99%;" id="history_comment"></textarea>
+        </span>
+        <div class="f-left">
+                            <input type="checkbox" value="1" id="history_notify" name="history[is_customer_notified]"><label for="history_notify" class="normal"> Notify Supplier by Email</label><br>
+                    
+                            
+        </div>
+        <div class="f-right">
+            <button id="id_b1b5699bf01bf0875ae2500f5f14daed" type="button" class="scalable save" onclick="submitAndReloadArea($('order_history_block').parentNode, 'http://dropship.magextended.com/index.php/admin/sales_order/addComment/order_id/260/key/9c678b23c6b7555f8c2bf84d141c4570/')" style=""><span>Notitie opslaan</span></button>        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="divider"></div>
+        <ul class="note-list">
+            <li><strong>24 aug. 2012</strong>
+            12:09:59
+                            <br>Message to supplier                  </li>
+            
+        </ul>
+    <script type="text/javascript">
+    if($('order_status'))$('order_status').update('Dropshipped');
+    </script>
+</div>

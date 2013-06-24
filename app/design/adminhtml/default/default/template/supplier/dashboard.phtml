@@ -1,0 +1,21 @@
+<style>
+	#dashboard td{ text-align: left; font-size: 14px; font-weight: normal; padding: 5px;}
+</style>
+<div class="entry-edit" style="width: 300px">
+    <div class="entry-edit-head"><h4><?php echo $this->__('Dashboard (Estimated)'); ?></h4></div>
+    <fieldset class="a-center bold">
+    <table id="dashboard">
+		<tr><td><?php echo $this->__('Sales'); ?></td><td><?php echo $this->getSales(null); ?></td></tr>
+		<tr><td><?php echo $this->__('Costs'); ?></td><td><?php echo $this->getCosts(null); ?></td></tr>
+		<tr><td><?php echo $this->__('Profit'); ?></td><td><?php echo $this->getProfit(); ?></td></tr>
+		<tr><td><?php echo $this->__('Total Ordered Items'); ?></td><td><?php echo $this->getCount(); ?></td></tr>
+		<tr><td><?php echo $this->__('Canceled Items'); ?></td><td><?php echo $this->getCanceled(); ?></td></tr>
+		<tr><td><?php echo $this->__('Refunded Items'); ?></td><td><?php echo $this->getRefunded(); ?></td></tr>
+		<tr><td><?php echo $this->__('Pending Items'); ?></td><td><?php echo $this->getPending(); ?></td></tr>
+		<tr><td><?php echo $this->__('Completed Items'); ?></td><td><?php echo $this->getCompleted(); ?></td></tr>
+    </table>
+    </fieldset>     
+</div>
+
+
+

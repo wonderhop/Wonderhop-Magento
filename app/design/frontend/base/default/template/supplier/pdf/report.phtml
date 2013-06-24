@@ -1,0 +1,62 @@
+<head>
+<style type = "text/css">
+body{ font-size: 24px; }
+h1 { font-size: 32px; }
+h2 { font-size: 28px; }
+td { margin: 0; padding: 0; }
+</style>
+</head>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    	<td colspan="2">{{var logo_pdf}}</td>
+    </tr>
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr>
+    	<td>
+        	<table width="100%" border = "1" cellspacing="0" cellpadding="4">
+				<tr bgcolor="#CCCCCC">
+                	<td><h2><?php echo Mage::helper('adminhtml')->__('Supplier address')?></h2></td>
+                </tr>
+                <tr>    
+                	<td>{{var supplier_name}}</td>
+                </tr>
+			</table>	
+		</td>
+        <td>
+        	<table width="100%" border = "1" cellspacing="0" cellpadding="4">
+				<tr bgcolor="#CCCCCC">
+                	<td><h2><?php echo Mage::helper('adminhtml')->__('Store address')?></h2></td>
+                </tr>
+                <tr>    
+                	<td>store address</td>
+                </tr>
+			</table>
+        </td>
+	</tr>
+    <tr>
+    	<table>
+            <tr>
+            	<td>
+                	<br/><br/><h2><?php echo Mage::helper('adminhtml')->__('Ordered items')?></h2><br/>
+                </td> 
+            </tr>
+        </table>
+    </tr>  
+    <tr>
+    	<td colspan="2">
+        	<table width="100%" border = "1" cellspacing="0" cellpadding="4">
+                <tr bgcolor="#CCCCCC">
+                	<td width="75"><?php echo Mage::helper('adminhtml')->__('Orderid')?></td>
+                    <td width="250"><?php echo Mage::helper('adminhtml')->__('Product Name')?></td>
+                    <td><?php echo Mage::helper('adminhtml')->__('Details')?></td>
+                    <td width="60"><?php echo Mage::helper('adminhtml')->__('SKU')?></td>
+                    <td width="50"><?php echo Mage::helper('adminhtml')->__('Quantity')?></td>
+                </tr>
+                {{var pdf_items}}
+            </table>
+        </td>
+    </tr>
+    
+</table> 
+</body>   

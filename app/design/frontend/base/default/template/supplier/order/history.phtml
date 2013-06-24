@@ -1,0 +1,82 @@
+<div class="supplier_view_left">
+    <ul>
+    	<li><a href="/supplier/order/view/order_id/<?php echo $this->getOrderId(); ?>"><?php echo $this->__('Order'); ?></a></li>
+        <li><a href="/supplier/shipping/grid/order_id/<?php echo $this->getOrderId(); ?>"><?php echo $this->__('Shipments'); ?></a></li>
+        <li class="active"><?php echo $this->__('History'); ?></li>
+    </ul>
+</div>
+
+<div class="supplier_view_main">
+	<div id="order_history_block" class="supplier_history_block">
+	
+	    <?php if (/*$this->canAddComment()*/1):?>
+	    <div id="history_form" class="order-history-form">
+	        <div class="title_style"><?php echo Mage::helper('sales')->__('Add Order Comments') ?></div>
+	        <div style="padding:6px;">
+	        <span class="field-row">
+	            <label class="normal" for="history_comment"><?php echo Mage::helper('sales')->__('Comment') ?></label>
+	            <textarea name="history[comment]" rows="3" cols="5" style="height:6em; width:98%;" id="history_comment"></textarea>
+	        </span>
+	        <div class="f-left">
+	            <?php if ($this->canSendCommentEmail()): ?>
+	                <input name="history[is_customer_notified]" type="checkbox" id="history_notify" value="1" /><label class="normal" for="history_notify"> <?php echo Mage::helper('sales')->__('Notify Customer by Email') ?></label><br />
+	            <?php endif; ?>
+	        </div>
+	        <div class="f-right">
+	            <input  style="padding: 5px;margin: 5px;" id="addcomment" type="button" name="addcomment" value="<?php echo $this->__('Submit comment'); ?>"/>
+	        </div>
+	        <div class="clear"></div>
+	
+	    <div class="divider"></div>
+	    <?php endif;?>
+	    <ul class="note-list">
+	    <?php foreach ($this->getOrder()->getStatusHistoryCollection(true) as $_item): ?>
+	        <li>
+	            <strong><?php echo $this->helper('core')->formatDate($_item->getCreatedAtDate(), 'medium') ?></strong>
+	            <?php echo $this->helper('core')->formatTime($_item->getCreatedAtDate(), 'medium') ?><span class="separator">|</span><strong><?php echo $_item->getStatusLabel() ?></strong><br/><small><?php echo $this->helper('sales')->__('Customer') ?>
+	            <strong class="subdue">
+	                <?php if ($this->isCustomerNotificationNotApplicable($_item)): ?>
+	                <?php echo $this->helper('sales')->__('Notification Not Applicable') ?>
+	                <?php elseif ($_item->getIsCustomerNotified()): ?>
+	                <?php echo $this->helper('sales')->__('Notified') ?>
+	                <img src="<?php echo $this->getSkinUrl('images/ico_success.gif') ?>" width="16" height="16" alt="" />
+	                <?php else: ?>
+	                <?php echo $this->helper('sales')->__('Not Notified') ?>
+	                <?php endif; ?>
+	            </strong></small>
+	            <?php if ($_item->getComment()): ?>
+	                <br/><?php echo $this->escapeHtml($_item->getComment(), array('b','br','strong','i','u')) ?>
+	            <?php endif; ?>
+	        </li>
+	    <?php endforeach; ?>
+	    </ul>
+	
+	</div>
+	 </div>
+	</div>
+</div>
+
+<script>
+    jQuery(document).ready(function(){
+
+        jQuery('#addcomment').click(function(Element) {
+            <?php $orderId = $this->getRequest()->getParam('order_id'); ?>
+            var reloadurl = '<?php echo $this->getUrl('supplier/order/addcomment/order_id/' . $orderId) ?>';
+            var toNotify = '0';
+            if (jQuery('#history_notify').is(':checked')) {toNotify = '1';}
+            var sendData = 'orderid=1&notify=2';
+            sendData = 'order_id=<?php echo $orderId; ?>';
+            sendData += '&notify=' + toNotify;
+            sendData += '&comment=' + jQuery('#history_comment').val();
+            sendData += '&status=' + jQuery('#history_status').val();
+            jQuery.ajax({
+                type: "POST",
+                url: reloadurl,
+                data: sendData,
+                success: function(msg){
+                    jQuery('#order_history_block').replaceWith( msg );
+                }
+            });
+        });
+    });
+</script>

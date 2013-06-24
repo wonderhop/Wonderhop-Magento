@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <supplier translate="label" module="supplier">
+            <label>Magextended</label>
+            <sort_order>306</sort_order>
+        </supplier>
+    </tabs>
+    <sections>
+        <supplier translate="label" module="supplier">
+            <label>Supplier</label>
+            <tab>supplier</tab>
+            <sort_order>140</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+
+            <groups>
+                <suppconfig translate="label">
+                    <label>Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <method translate="label comment">
+                            <label>Dropship orders</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>supplier/invoiceshipment</source_model>
+                            <comment>Select when the order should be dropped at the supplier(s).</comment>
+                        </method>
+						<multiple translate="label comment">
+                            <label>Dropship multiple times per order</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment>Allow order to be dropshipped multiple times or only once! Advised to use for testing purposes only!</comment>
+                        </multiple>
+						<shipping translate="label comment">
+                            <label>Auto Shipping</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment>Create a shipment automatically</comment>
+                        </shipping>
+						<invoice translate="label comment">
+                            <label>Auto Invoice</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment>Creat invoice if possible (Only for manual dropshipment)</comment>
+                        </invoice>
+						<complete translate="label comment">
+                            <label>Auto Complete</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment>Complete the order if invoice, shipment and dropshipment are all finished</comment>
+                        </complete>
+                        <orderstate translate="label comment">
+                            <label>Dropship order state</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+			    			<source_model>adminhtml/system_config_source_order_status_processing</source_model>
+                            <!--<source_model>adminhtml/system_config_source_order_status</source_model>-->
+                            <comment></comment>
+                        </orderstate>
+						<!--<number translate="label comment">
+                            <label>Dropship Number</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<validate>validate-number validate-one-required</validate>
+                            <comment>Only fill in once at startup. Be careful to change this</comment>
+                        </number>-->
+                    </fields>
+                </suppconfig>
+                
+                <emailoptions translate="label">
+                    <label>Email options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>8</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>                        
+                        <email_subject translate="label comment">
+                            <label>Email Subject</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </email_subject>
+
+                        <message_header translate="label comment">
+                            <label>Message Header</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+
+                            <comment></comment>
+                        </message_header>
+
+                        <message_for_supplier translate="label comment">
+                            <label>Message For Supplier</label>
+                            <frontend_type>Textarea</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+<!--                            <validate></validate>-->
+                            <comment></comment>
+                        </message_for_supplier>
+
+                        <email_sender_name translate="label comment">
+                            <label>Email Sender Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </email_sender_name>
+						<email_sender_email translate="label comment">
+                            <label>Email Sender Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </email_sender_email>
+                         <filename translate="label">
+                            <label>Email Logo</label>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">supplier</upload_dir>
+                            <base_url type="media" scope_info="1">supplier</base_url>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </filename>
+                        <bcc_address_email translate="label comment">
+                            <label>BCC address for email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-email</validate>
+                            <comment></comment>
+                        </bcc_address_email>
+						<!--<showattributes translate="label comment">
+                            <label>Attributes to show</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>98</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Commaseperated the ADMIN LABELS of the attributes. Example Supplier,Status</comment>
+                        </showattributes>-->
+			<!--<email_product_image translate="label comment">
+                            <label>Show product image in email</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>99</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment>Beta Functionality</comment>
+                        </email_product_image>-->
+                        <!--<smtp_enabled translate="label comment">
+                            <label>SMTP Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment></comment>
+                        </smtp_enabled>
+                        <smtp_server translate="label comment">
+                            <label>SMTP Server</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </smtp_server>
+                        <smtp_username translate="label comment">
+                            <label>SMTP Username</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </smtp_username>
+                        <smtp_password translate="label comment">
+                            <label>SMTP Password</label>
+                            <frontend_type>password</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </smtp_password> 
+                        <smtp_port translate="label comment">
+                            <label>SMTP Port</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Default 25</comment>
+                        </smtp_port>
+                        <smtp_ssl translate="label comment">
+                            <label>SMTP SSL (TSL)</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment></comment>
+                        </smtp_ssl>-->
+                        <email_image_size translate="label comment">
+                            <label>Product Image Size</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>99</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </email_image_size>
+                    </fields>
+                </emailoptions>
+				
+				<pdfoptions translate="label">
+                    <label>PDF options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+		    	<pdffilename translate="label">
+                            <label>PDF Logo</label>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">supplier</upload_dir>
+                            <base_url type="media" scope_info="1">supplier</base_url>
+                            <comment>Only JPG supported</comment>
+							<sort_order>91</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </pdffilename>
+						 <pdf_header translate="label comment">
+                            <label>PDF header</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+							<sort_order>101</sort_order>
+                        </pdf_header>
+                        <pdf_for_supplier translate="label comment">
+                            <label>PDF message</label>
+                            <frontend_type>Textarea</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+							<sort_order>102</sort_order>
+                        </pdf_for_supplier>
+						<pdf_image_size translate="label comment">
+                            <label>Product Image Size</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>99</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </pdf_image_size>
+					</fields>
+                </pdfoptions>	
+
+                <ftpoptions translate="label">
+                    <label>FTP options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>12</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+		    	<ftp_mail_enabled translate="label comment">
+                            <label>Enabled Error Email</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment>Sends a email when upload of a file fails</comment>
+                        </ftp_mail_enabled>
+                        <ftp_error_email translate="label comment">
+                            <label>Error To</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-email</validate>
+                            <comment></comment>
+                        </ftp_error_email>
+			<ftp_error_email_name translate="label comment">
+                            <label>Error Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ftp_error_email_name>
+                    </fields>
+                </ftpoptions>
+				
+				<logging translate="label">
+                    <label>Logging</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>99</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <logging translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment>Make sure magento logging is enabled</comment>
+                        </logging>
+					</fields>
+                </logging>		
+				
+				<interfaceoptions translate="label">
+                    <label>Supplier Interface</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>12</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <interface_enabled translate="label comment">
+                            <label>Supplier Interface</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment></comment>
+                        </interface_enabled>
+						<interface_stock translate="label comment">
+                            <label>Stock Management</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment></comment>
+                        </interface_stock>
+						<interface_shipping translate="label comment">
+                            <label>Order Management</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <comment></comment>
+                        </interface_shipping>
+                    </fields>
+                </interfaceoptions>
+            </groups>
+        </supplier>
+		
+		<carriers>
+			<groups>
+
+				<suppliershipping translate="label" module="supplier">
+
+					<label>Supplier</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>11</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+
+					<fields>
+					
+						<active translate="label">
+							<label>Enabled</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</active>
+						
+						<cost_calculation translate="label comment">
+                            <label>Calculate shippingprice based on</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>32</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>supplier/calculateoptions</source_model>
+                            <comment></comment>
+                        </cost_calculation>
+
+						<title translate="label">
+							<label>Title</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</title>
+
+						<!--<default_shipping_rate translate="label">
+							<label>Default Shipping Rate</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-number</validate>
+						</default_shipping_rate>-->
+						
+						<default_shipping_rate_no_supplier translate="label">
+							<label>Shippingcosts No Supplier</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>41</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-number</validate>
+						</default_shipping_rate_no_supplier>
+						
+						<default_order_amount_free translate="label">
+							<label>Free Shipping Amount No Supplier</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>42</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>validate-number</validate>
+						</default_order_amount_free>
+
+						<specificerrmsg translate="label">
+							<label>Displayed Error Message</label>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</specificerrmsg>
+
+						<sallowspecific translate="label">
+							<label>Ship to applicable countries</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>90</sort_order>
+							<frontend_class>shipping-applicable-country</frontend_class>
+							<source_model>adminhtml/system_config_source_shipping_allspecificcountries</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</sallowspecific>
+
+						<specificcountry translate="label">
+							<label>Ship to Specific countries</label>
+							<frontend_type>multiselect</frontend_type>
+							<sort_order>91</sort_order>
+							<source_model>adminhtml/system_config_source_country</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+							<can_be_empty>1</can_be_empty>
+						</specificcountry>
+
+						<showmethod translate="label">
+							<label>Show method if not applicable</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>92</sort_order>
+							<frontend_class>shipping-skip-hide</frontend_class>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</showmethod>
+
+						<sort_order translate="label">
+							<label>Sort order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</sort_order>
+
+					</fields>
+
+				</suppliershipping>
+
+			</groups>
+		</carriers>
+		
+    </sections>
+</config>

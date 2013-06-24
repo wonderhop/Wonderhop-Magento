@@ -1,0 +1,12 @@
+<form id="add-track" method="post" action="<?php echo Mage::getUrl('supplier/shipping/addtrack') ?>">
+<select name="carrier" id="carrier" class="select carrier">
+    <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
+    <option value="<?php echo $_code ?>"><?php echo $_name ?></option>
+    <?php endforeach; ?>
+</select>
+<input type="hidden" value="<?php echo $this->getOrderId(); ?>" name="order_id"/>
+<input type="hidden" value="<?php echo $this->getShippingId(); ?>" name="shipping_id"/>
+<input class="input-text required-entry" type="text" name="title" placeholder="<?php echo $this->__('Title') ?>" id="title" value="" />
+<input class="input-text required-entry" type="text" name="number" placeholder="<?php echo $this->__('Number') ?>" id="number" value="" />
+<input type="submit" value="<?php echo $this->__('Add Tracking Code'); ?>"/>
+</form>

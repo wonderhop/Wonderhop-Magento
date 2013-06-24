@@ -1,0 +1,20 @@
+<?php if($this->isLoggedIn()): ?>
+<div class="supplier-menu">
+<ul>
+	<?php if(Mage::getStoreConfig('supplier/interfaceoptions/interface_shipping')!='0'): ?>
+	<li><a href="<?php echo Mage::getUrl('supplier/order/'); ?>"><?php echo $this->__('My Orders') ?></a></li>
+	<?php endif; ?>
+	<?php if(Mage::getStoreConfig('supplier/interfaceoptions/interface_stock')!='0'): ?>
+	<li><a href="<?php echo Mage::getUrl('supplier/product/'); ?>"><?php echo $this->__('My Products') ?></a></li>
+	<?php endif; ?>
+</ul>
+<a href="<?php echo Mage::getUrl( 'supplier/index/logout' );  ?>" class="supplier-logout"><?php echo $this->__('Log out') ?></a>
+<div class="clear"></div>
+</div>
+<?php endif; ?>
+
+<div class="supplier_content">
+	
+
+
+

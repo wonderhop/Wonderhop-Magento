@@ -1,0 +1,143 @@
+<div class="supplier_view_left">
+    <ul>
+    	<li class="active"><?php echo $this->__('Order'); ?></li>
+        <li><a href="/supplier/shipping/grid/order_id/<?php echo $this->getOrderIdByShippingId(); ?>"><?php echo $this->__('Shipments'); ?></a></li>
+    </ul>
+</div>
+
+<div class="supplier_view_main">
+
+<?php echo "<span style='color:red;'>" . Mage::getSingleton('core/session')->getData('qty_error') . "</span>";(Mage::getSingleton('core/session')->setData('qty_error',NULL))?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml();?>
+
+<form name="order_data" action="<?php echo Mage::getUrl('supplier/order/addshipment') ?>" method="POST"/>
+
+<div id="loadingmask" style="display: none;">
+    <div class="loader" id="loading-mask-loader"><img src="<?php echo str_replace("index.php/","",$this->getUrl()) ?>skin/adminhtml/default/default/images/ajax-loader-tr.gif" alt="<?php echo $this->__('Loading...') ?>"/><?php echo $this->__('Loading...') ?></div>
+    <div id="loading-mask"></div>
+</div>
+    
+    <?php $order_array = $this->getOrderData($this->getOrderIdByShippingId());?>
+    
+    <input type="hidden" name="order_id" value="<?php echo $order_array['order_info']['id'];?>"/>
+    <input type="hidden" name="order_num" value="<?php echo $order_array['order_info']['order_num'];?>"/>
+
+    <div class="supplier_order_info supplier_small_block">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Contact'); ?></span></div>
+        <table>
+            <tr>
+                <td class="supplier_customer_title">Order</td>
+                <td class="supplier_customer_value">Info</td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="supplier_customer_info supplier_small_block">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Contact'); ?></span></div>
+        <table>
+            <?php foreach ($order_array['customer_info'] as $k=>$v) { ?>
+            <tr>
+                <td class="supplier_customer_title"><?php echo $k; ?>: </td>
+                <td class="supplier_customer_value"><?php echo $v; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+    </div>
+    
+    <div class="supplier_shipping_info supplier_small_block" style="display:inline-block;">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Shipping address'); ?></span><br/></div>
+        
+        <table>
+            <?php foreach ($order_array['shipping_address'] as $k=>$v) { ?>
+            <tr>
+                <td class="supplier_shipping_value"><?php echo $v; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+    </div>
+
+  
+	<div class="supplier_billing_info supplier_small_block">
+             <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Billing address'); ?></span></div>
+                 <table>
+            <?php foreach ($order_array['billing_address'] as $k=>$v) { ?>
+            <tr>
+                <td class="supplier_shipping_value"><?php echo $v; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+    </div>
+
+
+    <?php echo $this->getLayout()->createBlock('supplier/tracking')->setTemplate('supplier/order/tracking.phtml')->toHtml(); ?>
+    
+    
+    <div class="supplier_products">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Products'); ?></span></div>
+        <table style="width:100%">
+            <tr style="background-color:#b3b3b3;color:#fff; ">
+                <th class="tbl"><?php echo $this->__('Ordernummer') ?></th>
+                <th class="tbl"><?php echo $this->__('Order Date') ?></th>
+                <th class="tbl"><?php echo $this->__('Name') ?></th>
+                <th class="tbl"><?php echo $this->__('Options') ?></th>
+                <th class="tbl"><?php echo $this->__('SKU') ?></th>
+                <th class="tbl"><?php echo $this->__('Aantal') ?></th>
+                <th class="tbl"><?php echo $this->__('Qty to ship') ?></th>
+            </tr>
+            <?php foreach ($order_array['products'] as $k=>$v) { ?>
+            <tr>
+                <td class="supplier_product_value tbl"><?php echo $order_array['order_info']['order_num']; ?></td>
+                <td class="supplier_product_value tbl"><?php echo date('Y-m-d h:i a', strtotime($order_array['order_info']['create_date'])); ?></td>
+                <td class="supplier_product_value tbl"><?php echo $v['name']; ?></td>
+                <td class="supplier_product_value tbl">
+                    <?php if(is_array($v['options'])) {
+                        echo '<dl class="item-options">';
+                            foreach ($v['options'] as $_option) {
+                                echo '<dt>'.$_option['label'].'</dt>';
+                                echo '<dd>'.$_option['value'].'</dd>';
+                            }
+                        echo '</dl>';
+                    };
+                    ?>
+                </td>
+                <td class="supplier_product_value tbl"><?php echo $v['sku']; ?></td>
+                <td class="supplier_product_value tbl">
+                    <table class="qty-table ">
+                    <?php
+                    $enableShippingButton = false;
+                    ?>
+                    <?php if ($v['qty']['ship'] != "0") {?>
+                        <?php
+                        $enableShippingButton = true;
+                        if ($v['qty']['ordered']) {
+                            echo '<tr><td>'. $this->__("Ordered") . '</td><td><strong>'. $v['qty']['ordered'] * 1 . '</strong></td></tr>';
+                        } ?>
+                        <?php 
+                            $qty_shipped = $v['qty']['ordered'] - $v['qty']['ship'];
+                            echo '<tr><td>'. $this->__("Shipped") . '</td><td><strong>'. $qty_shipped . '</strong></td></tr>';
+                        ?>
+                    <?php } else {?>
+                        <tr><td><strong><?php echo $this->__("Send"); ?></strong></td></tr>
+                    <?php }?>
+                    </table>
+                </td>
+                <td style="width: 66px;" class="supplier_product_value tbl"><input type="text" style="width: 62%;margin-left: 11px" name="ship_qty[<?php echo $k; ?>]" <?php echo ($v['qty']['ship'] == 0)?'disabled="disabled"':''; ?> /></td>
+            </tr>
+            <?php } ?>
+            <td class="tbl"></td>
+            <td class="tbl"></td>
+            <td class="tbl"></td>
+            <td class="tbl"></td>
+            <td class="tbl"></td>
+            <td class="tbl"></td>
+         <td class="tbl"><input id="doaction" type="submit" value="<?php echo $this->__("Ship")?>" name="doaction" class="fr scalable" <?php if (!$enableShippingButton) {?>disabled="disabled"<?php }?>/></td>
+        </table>
+        
+    </div>
+
+    <div class="clear"></div>
+	<script src="<?php echo $this->getJsUrl() ?>mage/adminhtml/loader.js" type="text/javascript"></script>
+	</form>
+
+</div>
+

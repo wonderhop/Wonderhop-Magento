@@ -1,0 +1,65 @@
+<div class="supplier_view_left">
+    <ul>
+    	<li><a href="/supplier/order/view/order_id/<?php echo $this->getOrderId(); ?>"><?php echo $this->__('Order'); ?></a></li>
+        <li class="active"><a href="/supplier/shipping/grid/order_id/<?php echo $this->getOrderId(); ?>"><?php echo $this->__('Shipments'); ?></a></li>
+        <li><a href="/supplier/order/history/order_id/<?php echo $this->getOrderId(); ?>"><?php echo $this->__('History'); ?></a></li>
+    </ul>
+</div>
+
+<?php $order = $this->getOrder(); $items = $this->getOrderItemsToShip(false); ?>
+
+<div class="supplier_view_main">
+<h1 class="supplier_page_title"><?php echo $this->__('New Shipment for Order #'); ?><?php echo $order->getRealOrderId(); ?></h1>
+<?php echo "<span style='color:red;'>" . Mage::getSingleton('core/session')->getData('qty_error') . "</span>";(Mage::getSingleton('core/session')->setData('qty_error',NULL))?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml();?>
+    <div class="supplier_order_info supplier_small_block">
+       <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Order info'); ?></span></div>
+       <div class="inner"><?php echo $this->__('Orderdate:'); ?> <?php echo Mage::helper('core')->formatDate($order->getCreatedAt(), 'medium', $showTime=true); ?></div>
+    </div>  
+    <div class="supplier_customer_info supplier_small_block">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Contact'); ?></span></div>
+        <div class="inner">
+        <?php echo $order->getCustomerName(); ?><br />
+        <?php echo $order->getCustomerEmail(); ?>
+        </div> 
+    </div>
+    <div class="supplier_shipping_info supplier_small_block" style="display:inline-block;">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Billing address'); ?></span><br/></div>
+        <div class="inner"><?php echo $order->getBillingAddress()->getFormated(true); ?></div>
+    </div>
+	<div class="supplier_billing_info supplier_small_block">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Shipping address'); ?></span></div>
+		<div class="inner"><?php echo $order->getShippingAddress()->getFormated(true); ?></div>
+    </div> 
+    <form name="addshipment" action="<?php echo Mage::getUrl('supplier/shipping/addshipment') ?>" method="POST"/>
+    	<input type="hidden" name="order_id" value="<?php echo $this->getOrderId(); ?>"/>
+	    <div class="supplier_products supplier_list">
+	        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Products'); ?></span></div>
+	        <table style="width:100%">
+	            <tr style="background-color:#b3b3b3;color:#fff; ">
+	                <th class="tbl"><?php echo $this->__('Name') ?></th>
+	                <th class="tbl"><?php echo $this->__('SKU') ?></th>
+	                <th class="tbl"><?php echo $this->__('QTY') ?></th>
+	                <th class="tbl">&nbsp</th> 
+	            </tr>
+	            <?php foreach ($items as $item): ?>
+	            <tr>
+	                <td class="supplier_product_value tbl"><?php echo $item->getName(); echo $item->getQtyToShip();?><br/>
+	                	<?php echo Mage::getModel('supplier/attributes')->getCustomOptions($item); ?>	
+	                </td>
+	                <td class="supplier_product_value tbl"><?php echo $item->getSku(); ?></td>
+	                <td class="supplier_product_value tbl"><?php echo round($item->getQtyOrdered()-$item->getQtyRefunded()); ?></td>
+	                <td class="supplier_product_value tbl"><input type="text" class="ship-qty" name="ship_qty[<?php echo $item->getProductId(); ?>]" value="<?php echo $item->getQtyToShip(); ?>"/></td>
+	            </tr>
+	            <?php endforeach; ?>
+	        </table>        
+	    </div>
+	    <?php echo $this->getLayout()->createBlock('supplier/tracking')->setTemplate('supplier/order/tracking.phtml')->toHtml(); ?>
+	    <div class="supplier_button supplier_ship_button">
+	    	<!--<input type="submit" value="<?php echo $this->__('Ship Now') ?>"/>-->
+	    	<button class="button" type="submit"><span><span><?php echo $this->__('Ship Now') ?></span></span></button>
+	    </div>
+    </form>
+    <div class="clear"></div>
+</div>
+

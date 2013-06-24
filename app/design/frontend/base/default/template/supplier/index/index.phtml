@@ -1,0 +1,36 @@
+<div class="account-login">
+    <div class="page-title">
+        <h2><?php echo $this->__('Login as Supplier') ?></h2>
+    </div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <form action="<?php echo Mage::getUrl('supplier/index/login') ?>" method="post" id="login-form">
+        <fieldset>
+            <legend><?php echo $this->__('Login or Create an Account') ?></legend>
+            <div class="col2-set">
+                <div class="col-2 registered-users">
+                    <h3><?php echo $this->__('Supplier Login') ?></h3>
+                    <p><?php echo $this->__('Supplier Login long text') ?></p>
+                    <ul class="form-list">
+                        <li>
+                            <label for="username"><?php echo $this->__('Email') ?> <span class="required">*</span></label><br />
+                            <input class="required-entry input-text" type="text" id="username" name="username" />
+                        </li>
+                        <li>
+                            <label for="password"><?php echo $this->__('Password') ?> <span class="required">*</span></label><br />
+                            <input class="required-entry input-text" type="password" id="password" name="password" />
+                        </li>
+                    </ul>
+                    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+                </div>
+            </div>
+            <div class="col2-set">
+                <div class="col-2">
+                    <div class="buttons-set">
+                       <a class="f-left" href = "<?php echo Mage::getUrl('supplier/index/forgot')?>"><?php echo $this->__('Forgot seller password') ?></a>
+                        <button id="send2" name="send" title="Login" class="button" type="submit"><span><?php echo $this->__('Supplier Login') ?></span></button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>

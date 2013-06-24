@@ -1,0 +1,13 @@
+ALTER TABLE  `mage_supplier_users` ADD  `address1` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `custom1` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `custom2` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `custom3` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `custom4` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `address2` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `city` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `postalcode` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `country` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `state` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `phone` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `contact` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD  `company` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL

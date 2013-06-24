@@ -1,0 +1,24 @@
+<?php	$orders = $this->getOrders(); echo $this->getChildHtml("order_list_toolbar"); ?>
+<div class="supllier_admin_content  supplier_admin_order_list">
+	<table class="supplier_order_list st" style="width:100%" >
+	    <tr class="menu_font_style " id="padd">
+	        <th><?php echo $this->__('Ordernumber') ?></th>
+	        <th><?php echo $this->__('Naam') ?></th>
+	        <th><?php echo $this->__('OrderDate') ?></th>
+	        <th><?php echo $this->__('Status') ?></th>
+	        <th><?php echo $this->__('Action') ?></th>
+	    </tr>
+	    <?php $i = 0; foreach($orders as $order) : $i++; ?>
+	    <tr class="position  <?php if(($i%2) == 0){?>even<?}else{?>odd<?php } ?>"> 
+	        <td><?php echo $order->getRealOrderId(); ?></td>
+	        <td><?php echo $order->getCustomerName(); ?></td>
+	        <td><?php echo Mage::helper('core')->formatDate($order->getCreatedAt(), 'short', $showTime=true); ?></td>
+	        <td><?php if($this->canShip($order->getEntityId())): //echo $order['state'] ?><?php echo $this->__('Waiting') ?><?php else: ?><?php echo $this->__('Shipped') ?><?php endif; ?></td>
+	        <td>
+	            <a href="<?php echo Mage::getUrl('supplier/order/view/' ) . 'order_id/' . $order->getEntityId(); ?>"><?php echo $this->__('View') ?></a>
+	            <?php if($this->canShip($order->getEntityId())): ?><a href="<?php echo Mage::getUrl('supplier/shipping/ship/' ) . 'order_id/' . $order->getEntityId()  ?>"><?php echo $this->__('Ship') ?></a><?php endif; ?>
+	        </td>
+	    </tr>
+	    <?php endforeach; ?>
+	</table>
+</div>

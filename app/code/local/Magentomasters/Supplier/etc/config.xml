@@ -1,0 +1,342 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+		<Magentomasters_Supplier>
+			<version>3.0.0</version>
+		</Magentomasters_Supplier>
+	</modules>
+    <frontend>
+        <routers>
+            <supplier>
+                <use>standard</use>
+                <args>
+                    <module>Magentomasters_Supplier</module>
+                    <frontName>supplier</frontName>
+                </args>
+            </supplier>
+        </routers>
+        <layout>
+            <updates>
+                <supplier>
+                    <file>supplier.xml</file>
+                </supplier>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <supplier>
+                <use>admin</use>
+                <args>
+                    <module>Magentomasters_Supplier</module>
+                    <frontName>supplier</frontName>
+                </args>
+            </supplier>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <supplier module="supplier">
+                <title>Suppliers</title>
+                <sort_order>85</sort_order>
+                <children>
+                    <item1 module="supplier">
+                        <title>Manage Suppliers</title>
+                        <sort_order>0</sort_order>
+                        <action>supplier/adminhtml_web</action>
+                    </item1>
+		    <item2 module="supplier">
+                        <title>Settings</title>
+                        <sort_order>2</sort_order>
+                        <action>adminhtml/system_config/edit/section/supplier/</action>
+                    </item2>
+		    <item3 module="supplier">
+		    	<title>Templates</title>
+			<sort_order>0</sort_order>
+			<action>supplier/adminhtml_templates</action>
+		     </item3>
+                </children>
+            </supplier>
+			<sales>
+                <children>
+                    <dropshipments module="supplier">
+                        <title>Dropshipments</title>
+                        <sort_order>50</sort_order>
+                        <action>supplier/adminhtml_dropshipments</action>
+                    </dropshipments>
+                </children>
+            </sales>
+        </menu>
+
+        <layout>
+            <updates>
+                <supplier>
+                    <file>supplier.xml</file>
+                </supplier>
+            </updates>
+        </layout>
+
+        <acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<supplier>
+							<title>Supplier Module</title>
+							<sort_order>10</sort_order>
+							<children>
+								<item1>
+									<title>Manage Suppliers</title>
+									<sort_order>0</sort_order>
+								</item1>
+								<item2 module="supplier">
+						                        <title>Settings</title>
+						                        <sort_order>2</sort_order>
+						                </item2>
+								<item3 module="supplier">
+						                        <title>Templates</title>
+						                        <sort_order>2</sort_order>
+						                </item3>
+							</children>
+						</supplier>
+						<system>
+							<children>
+								<config>
+									<children>
+										<supplier>
+											<title>Supplier Configurations</title>
+										</supplier>
+									</children>
+								</config>
+							</children>
+                   		</system>
+						<sales>
+			                <children>
+			                    <dropshipments module="supplier">
+			                        <title>Dropshipments</title>
+			                        <sort_order>50</sort_order>
+			                    </dropshipments>
+			                </children>
+		            	</sales>
+					</children>
+				</admin>
+			</resources>
+        </acl>
+    </adminhtml>
+
+    <global>
+        <models>
+            <models>
+                <supplier>
+                    <class>Magentomasters_Supplier_Model</class>
+                </supplier>
+            </models>
+            <supplier>
+                <class>Magentomasters_Supplier_Model</class>
+                <resourceModel>supplier_mysql4</resourceModel>
+            </supplier>
+            <supplier_mysql4>
+                <class>Magentomasters_Supplier_Model_Mysql4</class>
+                <entities>
+                    <supplier>
+                        <table>supplier_users</table>
+                    </supplier>
+		    <dropshipitems>
+                        <table>supplier_dropship_items</table>
+                    </dropshipitems>
+		    <templates>
+		    	<table>supplier_templates</table>
+		    </templates>
+                </entities>
+            </supplier_mysql4>
+        </models>
+		
+		<sales>
+			<supplier>
+				<carriers>
+					<suppliershipping>
+						<class>Magextended_Supplier_Model_Shipping_CarrierSuppliershipping</class>
+					</suppliershipping>
+				</carriers>
+            </supplier>
+		</sales>
+
+        <resources>
+            <supplier_setup>
+                <setup>
+                    <module>Magentomasters_Supplier</module>
+                    <class>Magentomasters_Supplier_Model_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </supplier_setup>
+            <supplier_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </supplier_write>
+            <supplier_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </supplier_read>
+        </resources>
+        <blocks>
+            <supplier>
+                <class>Magentomasters_Supplier_Block</class>
+            </supplier>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_view>Magentomasters_Supplier_Block_Adminhtml_Sales_Order_View</sales_order_view>
+                    <catalog_product>Magentomasters_Supplier_Block_Adminhtml_Catalog_Product</catalog_product>
+                </rewrite>
+            </adminhtml>
+
+        </blocks>
+        <helpers>
+            <supplier>
+                <class>Magentomasters_Supplier_Helper</class>
+            </supplier>
+        </helpers>
+
+        <events>
+			<core_block_abstract_prepare_layout_before>
+                <observers>
+                    <addDropshipoption>
+                        <type>model</type>
+                        <class>supplier/observer</class>
+                        <method>addDropshipoption</method>
+                    </addDropshipoption>
+					<addOrderoptions>
+                        <type>model</type>
+                        <class>supplier/observer</class>
+                        <method>addOrderoptions</method>
+                    </addOrderoptions>
+                </observers>
+            </core_block_abstract_prepare_layout_before>
+            <!--<sales_order_invoice_save_after>
+                <observers>
+                    <supplier>
+                        <type>singleton</type>
+                        <class>supplier/observer</class>
+                        <method>invoice</method>
+                    </supplier>
+                </observers>
+            </sales_order_invoice_save_after>-->
+            <sales_order_invoice_pay>
+                <observers>
+                    <supplier>
+                        <type>singleton</type>
+                        <class>supplier/observer</class>
+                        <method>invoice</method>
+                    </supplier>
+                </observers>
+            </sales_order_invoice_pay>
+			<sales_order_place_after>
+                <observers>
+                    <dropship_ordercreate>
+                        <type>singleton</type>
+                        <class>supplier/observer</class>
+                        <method>ordercreate</method>
+                    </dropship_ordercreate>
+                </observers>
+       		</sales_order_place_after>
+         	<!--<sales_order_save_after>
+                <observers>
+                    <dropship_ordercreate>
+                        <class>supplier/observer</class>
+                        <method>ordercreate</method>
+                    </dropship_ordercreate>
+                </observers>
+            </sales_order_save_after>-->
+            <sales_order_item_cancel>
+                <observers>
+                    <dropship_ordercancel>
+                        <type>singleton</type>
+                        <class>supplier/observer</class>
+                        <method>ordercancel</method>
+                    </dropship_ordercancel>
+                </observers>
+            </sales_order_item_cancel>
+            <sales_order_creditmemo_refund>
+                <observers>
+                    <dropship_orderrefund>
+                        <type>singleton</type>
+                        <class>supplier/observer</class>
+                        <method>ordercredit</method>
+                    </dropship_orderrefund>
+                </observers>
+            </sales_order_creditmemo_refund>
+            <sales_order_creditmemo_cancel>
+                <observers>
+                    <dropship_ordercancel>
+                        <type>singleton</type>
+                        <class>supplier/observer</class>
+                        <method>ordercredit</method>
+                    </dropship_ordercancel>
+                </observers>
+            </sales_order_creditmemo_cancel>
+            <sales_order_shipment_save_after>
+            	<observers>
+                    <shipment_save>
+                        <type>singleton</type>
+                        <class>supplier/observer</class>
+                        <method>saveshipment</method>
+                    </shipment_save>
+                </observers>
+            </sales_order_shipment_save_after>
+        </events>
+		
+		<template>
+            <!--<email>
+                <supplier_email_email_template translate="label" module="supplier">
+                    <label>Supplier Email</label>
+                    <file>supplier_email.html</file>
+                    <type>text</type>
+                </supplier_email_email_template>
+                <supplier_csv_csv_template translate="label" module="supplier">
+                    <label>Supplier Csv</label>
+                    <file>supplier_csv.html</file>
+                    <type>text</type>
+                </supplier_csv_csv_template>
+                <supplier_xml_xml_template translate="label" module="supplier">
+                    <label>Supplier Xml</label>
+                    <file>supplier_xml.html</file>
+                    <type>text</type>
+                </supplier_xml_xml_template>
+         </email>-->
+        </template>
+
+    </global>
+	
+	<default>
+		<carriers>
+			<suppliershipping>
+				<active>0</active>
+				<sallowspecific>0</sallowspecific>
+				<allowed_methods>FREIGHT</allowed_methods>
+				<model>supplier/shipping_carrier_suppliershipping</model>
+				<title>Shipping Total</title>
+				<product_attribute_code>shipping_rate</product_attribute_code>
+				<default_shipping_rate>3.99</default_shipping_rate>
+				<specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+				<mode_xml>1</mode_xml>
+			</suppliershipping>
+		</carriers>
+    </default>
+    <crontab>
+        <jobs>
+			<supplier_cron>
+				<schedule><cron_expr>*/5 * * * *</cron_expr></schedule> 
+				<run><model>supplier/schedule::dropship</model></run>
+			</supplier_cron>
+			<import_stock_cron>
+				<schedule><cron_expr>*/5 * * * *</cron_expr></schedule> 
+				<run><model>supplier/schedule::importStockScheduled</model></run>
+			</import_stock_cron>
+        </jobs>
+	</crontab>
+</config>

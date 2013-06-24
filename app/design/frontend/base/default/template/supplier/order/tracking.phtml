@@ -1,0 +1,106 @@
+<?php
+/**
+ * @see Mage_Adminhtml_Block_Sales_Order_Shipment_Create_Tracking
+ */
+?>
+<script type="text/javascript">
+
+var trackingControl = {};
+
+trackingControl = {
+    index : 0,
+    add : function () {
+        this.index++;
+        var data = {index:this.index};
+        Element.insert($('track_row_container'), {bottom: this.template.evaluate(data)});
+        $('trackingC' + this.index).disabled = false;
+        $('trackingT' + this.index).disabled = false;
+        $('trackingN' + this.index).disabled = false;
+        this.bindCurrierOnchange();
+    },
+    deleteRow : function(event) {
+        var row = Event.findElement(event, 'tr');
+        if (row) {
+            row.parentNode.removeChild(row)
+        }
+    },
+    bindCurrierOnchange : function() {
+        var elems = $('tracking_numbers_table').select('.select');
+        elems.each(function (elem) {
+            if (!elem.onchangeBound) {
+                elem.onchangeBound = true;
+                elem.valueInput = $(elem.parentNode.parentNode).select('.number-title')[0];
+                elem.observe('change', this.currierOnchange);
+            }
+        }.bind(this));
+    },
+    currierOnchange : function(event) {
+        var elem = Event.element(event);
+        var option = elem.options[elem.selectedIndex];
+        if (option.value && option.value != 'custom') {
+            elem.valueInput.value = option.text;
+        }
+        else {
+            elem.valueInput.value = '';
+        }
+    }
+}
+</script>
+
+
+<?php $orderid = $this->getRequest()->getParam('order_id'); $trackings = $this->getTrackings($orderid); //print_r($trackings); ?>
+
+
+<div class="grid supplier_tracking">
+    <div class="title_style"><span class="supplier_tracking_title"><?php echo $this->__('Shipping and Tracking Information
+'); ?></span></div>
+<table cellspacing="0" class="data" id="tracking_numbers_table" style="width:100%">
+    <col width="100" />
+    <col />
+    <col />
+    <col width="80" />
+    <thead>
+        <tr class="headings ">
+            <th class=" tbl ttle"><?php echo Mage::helper('sales')->__('Carrier') ?></th>
+            <th class="tbl ttle"><?php echo Mage::helper('sales')->__('Title') ?> <span class="required">*</span></th>
+            <th class="tbl ttle"><?php echo Mage::helper('sales')->__('Number') ?> <span class="required">*</span></th>
+            <th class="last tbl ttle "><?php echo Mage::helper('sales')->__('Action') ?></th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="a-right last tbl" style="padding:5.5px;">
+                <button style="" onclick="trackingControl.add()" class="scalable " type="button" id="id_md5hash">
+                    <span><?php echo $this->__('Add Tracking Number'); ?></span>
+                </button>
+            </td>
+        </tr>
+    </tfoot>
+
+        <tbody id="track_row_container">
+        <tr id="track_row_template" class="template no-display">
+            <td class="tbl">
+                <select name="tracking[__index__][carrier_code]" id="trackingC__index__" class="select carrier" style="width:68px;" disabled="disabled">
+                    <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
+                    <option value="<?php echo $_code ?>"><?php echo $_name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+            <td class="tbl"><input class="input-text required-entry inp_text" type="text" name="tracking[__index__][title]" id="trackingT__index__" value="" /></td>
+            <td class="tbl"><input class="input-text required-entry inp_text" type="text" name="tracking[__index__][number]" id="trackingN__index__" value="" /></td>
+            <td class="last tbl inp_text" style="color: #656363 ">
+                <a href="#" onclick="trackingControl.deleteRow(event);return false"><?php echo $this->__('Delete') ?></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+trackingControl.template = new Template('<tr>' + $('track_row_template').innerHTML.replace(/__index__/g, '#{index}') + '<\/tr>');
+var saveTracking = function(event) {
+    console.log(event);
+}
+//]]>
+</script>

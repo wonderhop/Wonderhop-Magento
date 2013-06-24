@@ -1,0 +1,66 @@
+<div class="supplier_view_left">
+    <ul>
+    	<li class="active"><?php echo $this->__('Order'); ?></li>
+        <li><a href="/supplier/shipping/grid/order_id/<?php echo $this->getOrderId(); ?>"><?php echo $this->__('Shipments'); ?></a></li>
+        <li><a href="/supplier/order/history/order_id/<?php echo $this->getOrderId(); ?>"><?php echo $this->__('History'); ?></a></li>
+    </ul>
+</div>
+
+<?php $order = $this->getOrder(null); $items = $this->getCartItems($order); ?>
+
+<div class="supplier_view_main">
+
+<div class="supplier_buttons">
+	<?php if($this->canShip($order->getEntityId())): ?><a href="<?php echo Mage::getUrl('supplier/shipping/ship/' ) . 'order_id/' . $order->getEntityId()  ?>"><?php echo $this->__('Ship') ?></a><?php endif; ?>
+	<a href="<?php echo Mage::getUrl('supplier/order/print/' ) . 'order_id/' . $order->getEntityId()  ?>" target="_blank">Print</a>
+</div>	
+
+<h1 class="supplier_page_title"><?php echo $this->__('Order #'); ?><?php echo $order->getRealOrderId(); ?></h1>
+
+<?php echo "<span style='color:red;'>" . Mage::getSingleton('core/session')->getData('qty_error') . "</span>";(Mage::getSingleton('core/session')->setData('qty_error',NULL))?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml();?>
+    <div class="supplier_order_info supplier_small_block">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Order info'); ?></span></div>
+       	<div class="inner">
+       	<?php echo $this->__('Orderdate:'); ?> <?php echo Mage::helper('core')->formatDate($order->getCreatedAt(), 'medium', $showTime=true); ?>
+    	</div>
+    </div>  
+    <div class="supplier_customer_info supplier_small_block">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Contact'); ?></span></div>
+        <div class="inner">
+        <?php echo $order->getCustomerName(); ?><br />
+        <?php echo $order->getCustomerEmail(); ?>
+        </div> 
+    </div>
+    <div class="supplier_shipping_info supplier_small_block" style="display:inline-block;">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Billing address'); ?></span><br/></div>
+        <div class="inner"><?php echo $order->getBillingAddress()->getFormated(true); ?></div>
+    </div>
+	<div class="supplier_billing_info supplier_small_block">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Shipping address'); ?></span></div>
+		<div class="inner"><?php if($order->getIsVirtual()!=1) { echo $order->getShippingAddress()->getFormated(true); } ?></div>
+    </div> 
+    <div class="supplier_products supplier_list">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Products'); ?></span></div>
+        <table style="width:100%">
+            <tr style="background-color:#b3b3b3;color:#fff; ">
+                <th class="tbl"><?php echo $this->__('Name') ?></th>
+                <th class="tbl"><?php echo $this->__('SKU') ?></th>
+                <th class="tbl"><?php echo $this->__('Shipped QTY') ?></th>
+                <th class="tbl"><?php echo $this->__('Ordererd QTY') ?></th>
+            </tr>
+            <?php foreach ($items as $item): //print_r($item); ?>
+            <tr>
+                <td class="supplier_product_value tbl"><?php echo $item->getName(); ?><br/>	
+                	<?php echo Mage::getModel('supplier/attributes')->getCustomOptions($item); ?>	
+                </td>
+                <td class="supplier_product_value tbl"><?php echo $item->getSku(); ?></td>
+                <td class="supplier_product_value tbl"><?php echo round($item->getQtyShipped()); ?></td>
+                <td class="supplier_product_value tbl"><?php echo round($item->getQtyOrdered()-$item->getQtyRefunded()); ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>        
+    </div>
+    <div class="clear"></div>
+</div>
+

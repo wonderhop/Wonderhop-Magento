@@ -1,0 +1,100 @@
+<h3>Order level</h3>
+
+Every Supplier Field.<br/>
+<br/>
+Examples (Most Common)<br/>
+{{var supplier_name}}<br>
+{{var supplier_surname}}<br>
+{{var supplier_email1}}<br>
+{{var supplier_email1}}<br>
+{{var supplier_address1}}<br>
+{{var supplier_address1}}<br>
+{{var supplier_custom1}}<br>
+{{var supplier_custom2}}<br>
+{{var supplier_custom3}}<br>
+{{var supplier_custom4}}<br>
+{{var supplier_city}}<br>
+{{var supplier_postalcode}}<br>
+{{var supplier_company}}<br>
+{{var email_header}}<br>
+{{var email_message}}<br>
+<br>
+<br>
+All Shipping and Billing address rules<br/>
+<br/>
+Examples<br/>
+{{var shipping_firstname}}<br/>
+{{var shipping_city}}<br>
+{{var billing_city}}<br>
+{{var billing_lastname}}<br>
+<br/>
+Complete Addresses<br/>
+{{var order.getBillingAddress().format('html')}}<br/>
+{{var order.getShippingAddress().format('html')}}<br/>
+<br/><br/>
+Giftmessage<br/>
+{{var order_giftmessage_sender}}<br/>
+{{var order_giftmessage_recipient}}<br/>
+{{var order_giftmessage_message}}<br/>
+<br><br>
+Customer Field. (Can only be used if there was no guest checkout)<br/>
+{{var customer_phone}}<br>
+{{var customer_email}}<br>
+<br><br>
+For Basic Customer info for Guest checkout use.<br>
+<br>
+Examples<br/>
+{{htmlescape var=$order.getBillingAddress().getName()}}
+<br/>
+<br/>
+Config info<br/>
+{{config path='trans_email/ident_support/email'}}<br/>
+<br>
+<br>
+{{var payment_html}}<br/>
+{{var logo_pdf}}<br/>
+{{var logo_email}}<br/>
+{{var dropship_date}}<br/>
+{{var billing_address}}<br/>
+{{var shipping_address}}<br/>
+{{var email_header}}<br/>
+{{var email_message}}<br/>
+{{var email_items}}<br/>
+{{var pdf_header}}<br/>
+{{var pdf_message}}<br/>
+{{var pdf_items}}<br/>
+{{var thumbnail}}<br/>
+{{var product_image_pdf}} // Must be jpg<br/>
+{{var product_image}}
+<br/>
+<hr>
+
+<h3>Item level</h3>
+
+All Product Attributes.<br/>
+<br/>
+Examples<br/>
+{{var attribute_color}}<br/>
+{{var attribute_cost}}<br/>
+{{var attribute_supplier}}<br/>
+<br/>
+<br/>
+{{var sku}}<br/>
+{{var product_name}}<br/>
+{{var qty}}<br/>
+{{var options}}<br/>
+{{var xml_options}} For XML output of choosen product options<br/> 
+{{var finalprice}}<br/>
+<br/>
+Giftmessage<br/>
+{{var item_giftmessage_sender}}<br/>
+{{var item_giftmessage_recipient}}<br/>
+{{var item_giftmessage_message}}<br/>
+<h1>If need any customisation please contact us for a quote on support@magextended.com</h1>
+
+<!--<br/>
+All Order Item Fields<br/>
+<br/>
+Examples
+<br/>
+<br/>-->

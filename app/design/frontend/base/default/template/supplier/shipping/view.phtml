@@ -1,0 +1,66 @@
+<div class="supplier_view_left">
+    <ul>
+    	<li><a href="/supplier/order/view/order_id/<?php echo $this->getOrderIdByShippingId(null); ?>"><?php echo $this->__('Order'); ?></a></li>
+        <li class="active"><a href="/supplier/shipping/grid/order_id/<?php echo $this->getOrderIdByShippingId(null); ?>"><?php echo $this->__('Shipments'); ?></a></li>
+        <li><a href="/supplier/order/history/order_id/<?php echo $this->getOrderIdByShippingId(null); ?>"><?php echo $this->__('History'); ?></a></li>
+    </ul>
+</div>
+
+<?php $order = $this->getOrder($this->getOrderIdByShippingId(null)); $items = $this->getShipmentitems($this->getShippingId()); $shipment = $this->getShipment($this->getShippingId()); ?>
+
+<div class="supplier_view_main">
+<h1 class="supplier_page_title"><?php echo $this->__('Shipment #'); ?><?php echo $shipment['increment_id']; ?> <?php echo $this->__('Order #'); ?><?php echo $order->getRealOrderId(); ?></h1>
+<?php echo "<span style='color:red;'>" . Mage::getSingleton('core/session')->getData('qty_error') . "</span>";(Mage::getSingleton('core/session')->setData('qty_error',NULL))?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml();?>
+    <div class="supplier_order_info supplier_small_block">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Order info'); ?></span></div>
+        <div class="inner">
+       <?php echo $this->__('Orderdate:'); ?> <?php echo Mage::helper('core')->formatDate($order->getCreatedAt(), 'medium', $showTime=true); ?><br />
+       <?php echo $this->__('Shippingdate:'); ?> <?php echo Mage::helper('core')->formatDate($shipment['created_at'], 'medium', $showTime=true); ?>
+    	</div>
+    </div>  
+    <div class="supplier_customer_info supplier_small_block">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Contact'); ?></span></div>
+        <div class="inner">
+        <?php echo $order->getCustomerName(); ?><br />
+        <?php echo $order->getCustomerEmail(); ?> 
+    	</div>
+    </div>
+    <div class="supplier_shipping_info supplier_small_block" style="display:inline-block;">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Billing address'); ?></span><br/></div>
+        <div class="inner"><?php echo $order->getBillingAddress()->getFormated(true); ?></div>
+    </div>
+	<div class="supplier_billing_info supplier_small_block">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Shipping address'); ?></span></div>
+		<div class="inner"><?php echo $order->getShippingAddress()->getFormated(true); ?></div>
+    </div> 
+    <div class="supplier_products supplier_list">
+        <div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Products'); ?></span></div>
+        <table style="width:100%">
+            <tr style="background-color:#b3b3b3;color:#fff; ">
+                <th class="tbl"><?php echo $this->__('Name') ?></th>
+                <th class="tbl"><?php echo $this->__('SKU') ?></th>
+                <th class="tbl"><?php echo $this->__('Aantal') ?></th>
+            </tr>
+            <?php foreach ($items as $item):?>
+            <tr>
+                <td class="supplier_product_value tbl"><?php echo $item['name']; ?></td>
+                <td class="supplier_product_value tbl"><?php echo $item['sku']; ?></td>
+                <td class="supplier_product_value tbl"><?php echo round($item['qty']); ?></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>        
+    </div>
+    <div class="clear"></div>
+    <?php $trackings = $this->getTrackings($shipment['entity_id']); ?>
+    <?php if ($trackings):?>
+    <div class="supplier_small_block tracking_info" style="margin-top: 10px;">
+    	<div class="title_style"><span class="supplier_block_title"><?php echo $this->__('Tracking Info'); ?></span></div>
+    	<div class="inner">
+		<?php foreach($trackings as $tracking): ?>
+			<?php echo $tracking['title']; ?> <?php echo $tracking['track_number']; ?><br/>
+		<?php endforeach; ?>
+		</div>   
+    </div>
+    <?php endif; ?>
+</div>

@@ -1,0 +1,33 @@
+<?php 
+
+foreach($this->attributes as $attribute) {
+		
+	//echo $attribute['is_supplier'];
+	
+	if(isset($this->data['product'][$attribute['attribute_code']])) {
+		$value = $this->data['product'][$attribute['attribute_code']];
+	}
+	else {
+		$functionNameArray = explode("_", $attribute['attribute_code']);
+			
+		$function = "get";
+		
+		foreach($functionNameArray as $part) {
+			$function .= ucfirst($part);
+			
+			//echo $function;
+		}
+		
+		$value = $this->product->$function();
+	}
+	
+	//echo $attribute['attribute_code'] . "<br/>";
+	//echo $attribute['frontend_label'] . "<br/>";
+	//echo $attribute['backend_type'] . "<br/>";
+	
+	if($attribute['backend_type']!='static'){
+	echo $this->getAttributeHtml($attribute['attribute_code'] , $attribute['frontend_input'] , $attribute['frontend_label'] , $attribute['backend_type'] , $attribute['attribute_id'] , $attribute['is_required'] , $value,$showPrice , $attribute['frontend_class']);
+	}
+}
+
+?>

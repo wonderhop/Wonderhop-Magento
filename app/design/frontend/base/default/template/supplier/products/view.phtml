@@ -1,0 +1,32 @@
+<?php 
+
+
+$productId = 9;
+$product = Mage::getModel('catalog/product' )->load($productId);
+$productData = $product->getData();
+$attributes = $product->getTypeInstance()->getSetAttributes();
+
+$countries = Mage::getModel('directory/country_api')->items();
+
+//if (isset($attributes['media_gallery'])) {
+//            $gallery = $attributes['media_gallery'];
+//            $galleryData = $product->getMediaGallery();
+//
+//}
+//print_r($galleryData);
+
+	    $block =  $this->getLayout()->createBlock('Magentomasters_Supplier_Block_Attribute')->setTemplate("supplier/products/edit.phtml");
+        //$block->setData( 'theproductinfo', $productInfo );
+        //$block->setData( 'select_array', $productSelectInformation );
+        //$block->setData( 'product_images', $images );
+        $block->setData( 'attributes', $attributes );
+        $block->setData( 'product', $product );
+        $block->setData( 'data', $productData );
+        $block->setData( 'countries', $countries );
+        //$block->setData( 'image_settings', $settings );
+        //$block->setData( 'vendor', $vendor );
+        //$block->setData( 'settings', $settings);
+        
+		echo $block->toHtml();
+
+?>

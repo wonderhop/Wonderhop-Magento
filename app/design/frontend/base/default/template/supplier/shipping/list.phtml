@@ -1,0 +1,55 @@
+<div class="supplier_view_left">
+    <ul>
+    	<li><a href="/supplier/order/view/order_id/<?php echo $this->getOrderId(); ?>"><?php echo $this->__('Order'); ?></a></li>
+        <li class="active"><?php echo $this->__('Shipments'); ?></li>
+        <li><a href="/supplier/order/history/order_id/<?php echo $this->getOrderId(); ?>"><?php echo $this->__('History'); ?></a></li>
+    </ul>
+</div>
+<div class="supplier_view_main">
+	<h1 class="supplier_page_title"><?php echo $this->__('Shipments'); ?></h1>
+	<?php $shipments  = $this->getShipments($this->getOrderId()); ?>
+	<?php if($shipments):?>
+	<div class="supplier_list">
+	    	<table id="shipments" style="width: 100%;" class="supplier_order_list st">
+	            <tr>
+	                <th><?php echo $this->__('Shipping Number'); ?></th>
+	                <th><?php echo $this->__('Date'); ?></th>
+	                <th><?php echo $this->__('Tracking'); ?></th>
+	                <th><?php echo $this->__('Action'); ?></th>
+	            </tr>
+		<?php $i = 0; foreach ($shipments as $shipment): $i++; ?>
+	            <tr class="position  <?php if(($i%2) == 0){?>even<?}else{?>odd<?php } ?>">
+	                <td><?php echo $shipment['increment_id']; ?></td>
+	                <td><?php echo $shipment['created_at']; ?></td>
+	                <td><a href="" class="tracking"><?php echo $this->__('Add Tracking Number'); ?></a></td>
+	                <td><a href="/supplier/shipping/view/shipping_id/<?php echo $shipment['entity_id']; ?>">View</a></td>
+	                <td><a href="/supplier/shipping/email/shipment_id/<?php echo $shipment['entity_id']; ?>">Email</a></td>
+	            </tr>
+	            <tr class="position  <?php if(($i%2) == 0){?>even<?}else{?>odd<?php } ?>" style="display: none;">
+	            	<td colspan="5">
+	            		<?php echo $this->getLayout()->createBlock('supplier/tracking')->setTemplate('supplier/shipping/track.phtml')->setData('shipping_id',$shipment['entity_id'])->setData('order_id',$this->getOrderId())->toHtml(); ?><br/><br/>
+	            		<?php $trackings = $this->getTrackings($shipment['entity_id']); ?>
+	            		<?php if($trackings[0]['track_number']): ?>
+	            			<?php echo $this->__('Tracking Numbers'); ?><br />
+							<?php foreach($trackings as $tracking): ?>
+								<?php echo $tracking['title']; ?> <?php echo $tracking['track_number']; ?><br/>
+							<?php endforeach; ?>
+						<?php endif;?>   
+	            	</td>
+	            </tr>
+	    <?php endforeach; ?>
+		</table>
+	</div>
+	<?php else: ?>
+	<?php echo $this->__('No Shipments'); ?>
+	<?php endif; ?>
+</div>
+
+<script>
+jQuery(document).ready(function(){						       
+	jQuery('tr td .tracking').click(function() {
+		jQuery(this).parent().parent().next().show();
+		return false;
+	});
+});
+</script>

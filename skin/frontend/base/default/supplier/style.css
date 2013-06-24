@@ -1,0 +1,207 @@
+/* Main */
+.supplier_page_title { border-bottom: 1px solid #CCCCCC; margin: 0 0 25px; overflow: hidden; width: 100%;}
+.supplier_page_title h1 { font-size: 20px; font-weight: normal;}
+
+.clear { clear: both; float: none; }
+.supplier_wrapper { width: 960px;  margin: 0px auto; border: 1px solid #c0c0c0; }
+.supplier_content { padding: 10px; }
+.supplier_view_left { width: 140px; float: left;} 
+.supplier_view_main { width: 789px; float: left; margin: 0 0 0 10px; position: relative; } 
+.supplier_wrapper .messages li.success-msg, .supplier_wrapper .messages li.error-msg{ margin: 10px !important; }
+
+/* Menu */
+
+.supplier-menu { background-color:#999999; position: relative; margin: 0 0 12px 0; }
+.supplier-menu li { float: left; }
+.supplier-menu li a { color: #fff; padding: 0 12px 0 12px; line-height: 30px; display: inline-block; height: 30px;  }
+.supplier-menu li.active a, .supplier-menu li a:hover{ background-color: #CCC; }
+.supplier-menu .supplier-logout { position: absolute; right: 12px; top: 6px; }
+
+/* Toolbar */
+
+.toolbar .pager{ background: none; background:#e8e8e8; border: none; padding: 10px;}
+.toolbar .pager a { }
+
+/* Left */
+
+.supplier_view_left { border-right: 1px solid #C0C0C0; height: 500px; }
+.supplier_view_left ul { border-top: 1px solid #C0C0C0;}
+.supplier_view_left li { display: block; border: 1px solid #C0C0C0; border-right: 1px solid #C0C0C0; border-top: none; padding: 5px; margin-right: -1px; background-color: #e8e8e8;}
+.supplier_view_left li.active{ border-right: 1px solid #fff; background-color: #ffffff;}
+.supplier_view_left a { display: block; text-decoration: none; } 
+
+
+.scalable {
+	padding:5px;
+	margin-right: 13px;
+}
+.col2-right-layout .col-main {
+	border: solid #A0A1A1 1px;
+}
+
+.supplier_order_back {
+	background-color: #6b6b6b;
+	font-weight: bold;
+	color:#fff;
+	padding:5px 0px 5px 5px
+}
+.supplier_order_logout {
+	background-color: #6b6b6b;
+	font-weight: bold;
+	color:#fff;
+	padding:0px 10px 5px 0px
+}
+a {
+	color:#000;
+	text-decoration: underline;
+}
+.supplier_history_block {
+	border-color: #000000;
+	border-width: 1px;
+	display:inline-block;
+}
+caption, th, td {
+	font-weight: normal;
+	padding-left: 9px;
+	padding-right: 9px;
+	text-align: left;
+	vertical-align: middle;
+	padding-top: 4px;
+	padding-bottom: 3px;
+}
+.inp_text a {
+	color: #656363 !important;
+}
+.supplier_products th {
+}
+
+
+/* Supplier Order View */
+
+.supplier_small_block{
+	background-color: #E7E7E7;
+    border: 1px solid #A7A7A7;
+}
+
+.supplier_small_block .inner {
+	margin: 5px;
+}
+
+.supplier_shipping_info {
+	display: inline-block;
+	width: 387px;
+	float: left;
+	margin: 10px 10px 0 0;
+	min-height: 200px;
+}
+
+.supplier_billing_info {
+	display: inline-block;
+	width: 387px;
+	float: left;
+	margin: 10px 0 0 0;
+	min-height: 200px;
+}
+
+.supplier_customer_info {
+	display: inline-block;
+	width: 387px;
+	float: left;
+	min-height: 150px;
+}
+
+.supplier_order_info {
+	display: inline-block;
+	width: 387px;
+	float: left;
+	margin: 0 10px 0 0;
+	min-height: 150px;
+}
+
+.supplier_products {
+	width: 786px;
+	float: left;
+	margin: 10px 0 0 0;
+}
+
+.inp_text, .inp_text a {
+	margin-left: 11px !important;
+	width: 103px !important;
+}
+.tbl {
+	border-bottom: 1px dotted #a2a0a0;
+	border-right: 1px dotted #a2a0a0;
+	border-left: 1px dotted #a2a0a0;
+}
+.ttle {
+	background-color:#B3B3B3;
+	color:#fff
+}
+
+#history_form {
+	float: right;
+	width: 255px;
+}
+
+#order_history_block {
+	border: 1px solid #c0c0c0;
+}
+
+.supplier_tracking {
+	display: inline-block;
+	margin-bottom: 38px;
+	width: 406px;
+}
+.headings {
+}
+.select {
+	margin:3px!important;
+}
+.select carrier {
+	width:58px;
+}
+
+#track_row_container td {
+	padding-left: 0.4px;
+}
+.select carrier {
+	width: 74px;
+}
+.st {
+	width: 685px;
+	margin-top: 50px;
+	background-color: #DDDDDD;
+}
+.position td {
+	padding:10px;
+	vertical-align:middle;
+}
+.even {
+	background-color: #f7f7f7;
+}
+.odd {
+	background-color: #e8e8e8;
+}
+#order_history_block #history_form {
+	width: 416px;
+}
+.menu_font_style th {
+	font-weight: bolder !important;
+	color:#fff;
+	background-color:#999999;
+	padding-right: 49px;
+}
+.title_style {
+	background-color: #7F7E7E;
+	padding: 3px;
+	color:#fff;
+	font-weight: bold;
+}
+.supplier_order_page {
+	color: #1E7EC8;
+}
+
+.supplier_buttons{ position: absolute; right: 0px; top: 0px;}
+.ship-qty{ border: 1px solid #c0c0c0; padding: 5px; }
+.supplier_tracking{ margin: 10px 0 0 0;}
+.supplier_button { margin: 10px 0 0 0;}

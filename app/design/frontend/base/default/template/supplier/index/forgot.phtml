@@ -1,0 +1,37 @@
+<div class="account-login">
+    <div class="page-title">
+        <h2><?php echo $this->__('Password Recovery') ?></h2>
+    </div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <form action="<?php echo Mage::getUrl('supplier/index/forgot') ?>" method="post" id="login-form">
+   
+        <fieldset>
+            <legend><?php echo $this->__('Login or Create an Account') ?></legend>
+            <div class="col2-set">
+                <div class="col-2 registered-users">
+                 
+                    <h3><?php echo $this->__('Password Recovery') ?></h3>
+                    <p><?php echo $this->__('Write your email address...') ?></p>
+                    <h4 class='error'><?php $sesson = Mage::getSingleton('core/session'); echo  $sesson->getData( 'forgotError'); $sesson->setData('forgotError','')?></h4>
+                     <h4 class='error'><?php $sesson = Mage::getSingleton('core/session'); echo  $sesson->getData( 'forgotNotif'); $sesson->setData('forgotNotif','')?></h4> 
+                    <ul class="form-list">
+                        <li>
+                            <label for="email"><?php echo $this->__('Email') ?> <span class="required">*</span></label><br />
+                            <input class="required-entry input-text" type="text" id="email" name="email" />
+                        </li>
+                    </ul>
+                    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+                </div>
+            </div>
+            
+            <div class="col2-set">
+                <div class="col-2">
+                    <div class="buttons-set">
+                        <button id="send2" name="send" title="Login" class="button" type="submit"><span><?php echo $this->__('Send Password') ?></span></button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        
+    </form>
+</div>
