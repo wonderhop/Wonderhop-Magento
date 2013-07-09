@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <supplier_index_index>
+    	<reference name="head">
+            <action method="addCss"><name>supplier/style.css</name></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>supplier/template/template.phtml</template></action>
+        </reference>
+        <reference name="content">
+        	<block type="supplier/header" name="supplier.header" template="supplier/order/header.phtml"/>
+            <block type="core/template" name="sub_content" template="supplier/index/index.phtml"/>
+            <block type="core/template" name="supplier.footer" template="supplier/order/footer.phtml"/>
+        </reference>
+                <reference name="footer">
+            <remove name="wonderhop.login" />
+        </reference>
+    </supplier_index_index>
+	
+	<supplier_index_forgot>
+		<reference name="head">
+            <action method="addCss"><name>supplier/style.css</name></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>supplier/template/template.phtml</template></action>
+        </reference>
+        <reference name="content">
+        	<block type="supplier/header" name="supplier.header" template="supplier/order/header.phtml"/>
+            <block type="core/template" name="sub_content" template="supplier/index/forgot.phtml"/>
+            <block type="core/template" name="supplier.footer" template="supplier/order/footer.phtml"/>
+        </reference>
+                <reference name="footer">
+            <remove name="wonderhop.login" />
+        </reference>
+   </supplier_index_forgot> 
+    
+    <supplier_order_index>
+        <reference name="head">
+            <action method="addCss"><name>supplier/style.css</name></action>
+        </reference>
+        <reference name="root">
+        	<remove name="right"/>
+            <action method="setTemplate"><template>supplier/template/template.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="supplier/header" name="supplier.header" template="supplier/order/header.phtml"/>
+            <block type="supplier/order"  name="orderlist" template="supplier/order/list.phtml">
+                <block type="supplier/order" name="order_list_toolbar" template="supplier/order/toolbar_list.phtml"/>
+            </block>
+			<block type="core/template" name="supplier.footer" template="supplier/order/footer.phtml"/>
+        </reference>
+                <reference name="footer">
+            <remove name="wonderhop.login" />
+        </reference>
+    </supplier_order_index>
+
+    <supplier_order_view>
+        <reference name="head">
+            <action method="addJs"><name>supplier/jquery.js</name></action>
+            <action method="addCss"><name>supplier/style.css</name></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>supplier/template/template.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="supplier/header" name="supplier.header" template="supplier/order/header.phtml"/>
+            <block type="supplier/view"  name="orderitem" template="supplier/order/view.phtml"/>
+			<block type="core/template" name="supplier.footer" template="supplier/order/footer.phtml"/>
+        </reference>
+                <reference name="footer">
+            <remove name="wonderhop.login" />
+        </reference>
+    </supplier_order_view>
+    
+    <supplier_order_history>
+        <reference name="head">
+            <action method="addJs"><name>supplier/jquery.js</name></action>
+            <action method="addCss"><name>supplier/style.css</name></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>supplier/template/template.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="supplier/header" name="supplier.header" template="supplier/order/header.phtml"/>
+            <block type="supplier/history" name="order_item" template="supplier/order/history.phtml"/>
+			<block type="core/template" name="supplier.footer" template="supplier/order/footer.phtml"/>
+        </reference>
+                <reference name="footer">
+            <remove name="wonderhop.login" />
+        </reference>
+    </supplier_order_history>
+	
+    <supplier_shipping_grid>
+        <reference name="head">
+            <action method="addJs"><name>supplier/jquery.js</name></action>
+            <action method="addCss"><name>supplier/style.css</name></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>supplier/template/template.phtml</template></action>
+        </reference>
+        <reference name="content">
+			<block type="supplier/header" name="supplier.header" template="supplier/order/header.phtml"/>
+            <block type="supplier/shipping"  name="shipping.grid" template="supplier/shipping/list.phtml"/>
+			<block type="core/template" name="supplier.footer" template="supplier/order/footer.phtml"/>
+        </reference>
+                <reference name="footer">
+            <remove name="wonderhop.login" />
+        </reference>
+    </supplier_shipping_grid>
+	
+	<supplier_shipping_view>
+        <reference name="head">
+            <action method="addJs"><name>supplier/jquery.js</name></action>
+            <action method="addCss"><name>supplier/style.css</name></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>supplier/template/template.phtml</template></action>
+        </reference>
+        <reference name="content">
+			<block type="supplier/header" name="supplier.header" template="supplier/order/header.phtml"/>
+            <block type="supplier/shipping"  name="shipping.grid" template="supplier/shipping/view.phtml"/>
+			<block type="core/template" name="supplier.footer" template="supplier/order/footer.phtml"/>
+        </reference>
+                <reference name="footer">
+            <remove name="wonderhop.login" />
+        </reference>
+    </supplier_shipping_view>
+    
+    <supplier_shipping_ship>
+        <reference name="head">
+            <action method="addJs"><name>supplier/jquery.js</name></action>
+            <action method="addCss"><name>supplier/style.css</name></action>
+        </reference>
+        <reference name="root">
+            <action method="setTemplate"><template>supplier/template/template.phtml</template></action>
+        </reference>
+        <reference name="content">
+			<block type="supplier/header" name="supplier.header" template="supplier/order/header.phtml"/>
+            <block type="supplier/shipping"  name="shipping.grid" template="supplier/shipping/ship.phtml"/>
+			<block type="core/template" name="supplier.footer" template="supplier/order/footer.phtml"/>
+        </reference>
+                <reference name="footer">
+            <remove name="wonderhop.login" />
+        </reference>
+    </supplier_shipping_ship>
+    <supplier_order_addcomment>
+        <block type="adminhtml/sales_order_view_history" name="root" template="supplier/order/history.phtml" output="toHtml"/>
+                <reference name="footer">
+            <remove name="wonderhop.login" />
+        </reference>
+    </supplier_order_addcomment>
+ 	<supplier_product_index>
+        <reference name="head">
+            <action method="addJs"><name>supplier/jquery.js</name></action>
+            <action method="addCss"><name>supplier/style.css</name></action>
+        </reference>
+
+        <reference name="root">
+            <action method="setTemplate"><template>supplier/template/template.phtml</template></action>
+        </reference>
+
+        <reference name="content">
+            <block type="supplier/header" name="supplier.header" template="supplier/order/header.phtml"/>
+            <block type="supplier/product"  name="orderitem" template="supplier/products/list.phtml"/>
+			<block type="core/template" name="supplier.footer" template="supplier/order/footer.phtml"/>
+        </reference>
+        
+                <reference name="footer">
+            <remove name="wonderhop.login" />
+        </reference>
+    </supplier_product_index>
+	<supplier_product_view>
+        <reference name="head">
+            <action method="addJs"><name>supplier/jquery.js</name></action>
+            <action method="addCss"><name>supplier/style.css</name></action>
+        </reference>
+
+        <reference name="root">
+            <action method="setTemplate"><template>supplier/template/template.phtml</template></action>
+        </reference>
+
+        <reference name="content">
+            <block type="supplier/header" name="supplier.header" template="supplier/order/header.phtml"/>
+            <block type="supplier/product"  name="orderitem" template="supplier/products/view.phtml"/>
+			<block type="core/template" name="supplier.footer" template="supplier/order/footer.phtml"/>
+        </reference>
+        
+        <reference name="footer">
+            <remove name="wonderhop.login" />
+        </reference>
+    </supplier_product_view>
+        
+    <!--<checkout_cart_index translate="label">
+        <reference name="content">
+    		<block type="checkout/cart" name="checkout.cart.supplier" as="supplier" template="supplier/shipping/summary.phtml"/>
+     	</reference>
+ </checkout_cart_index>-->
+
+</layout>
